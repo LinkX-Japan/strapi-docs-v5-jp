@@ -1,134 +1,136 @@
 ---
-title: Introduction to the Content Manager
+title: コンテンツマネージャーの概要
 sidebar_position: 1
 displayed_sidebar: userDocsSidebar
 slug: /user-docs/content-manager
-description: Introduction to the Content Manager which allows to write content for collection types and single types.
+description: コレクションタイプとシングルタイプに対してコンテンツを作成できるコンテンツマネージャーの概要。
 pagination_next: user-docs/content-manager/configuring-view-of-content-type
 tags:
-- Content Manager
-- Content-type Builder
-- collection type
-- single type
-- introduction
+- コンテンツマネージャー
+- コンテンツタイプビルダー
+- コレクションタイプ
+- シングルタイプ
+- 概要
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# Introduction to the Content Manager
+# コンテンツマネージャーの概要
 
-The Content Manager is a core feature of Strapi. It is always enabled by default and cannot be disabled. It is accessible both when the application is in a development and production environment.
+コンテンツマネージャーはStrapiのコア機能です。デフォルトで常に有効であり、無効にすることはできません。開発環境と本番環境の両方でアクセス可能です。
 
-The Content Manager is accessible from ![Content icon](/img/assets/icons/v5/Feather.svg) *Content Manager* in the main navigation, which opens a sub navigation displaying 2 categories: _Collection types_ and _Single types_. Each category contains the available collection and single content-types which were created beforehand using the [Content-type Builder](/user-docs/content-type-builder/introduction-to-content-types-builder.md). From these 2 categories, administrators can create, manage, and publish content.
+コンテンツマネージャーはメインナビゲーションの![Content icon](/img/assets/icons/v5/Feather.svg) *Content Manager*からアクセスでき、サブナビゲーションに「_コレクションタイプ_」と「_シングルタイプ_」の2つのカテゴリが表示されます。各カテゴリには、事前に[コンテンツタイプビルダー](/user-docs/content-type-builder/introduction-to-content-types-builder.md)を使用して作成されたコレクションおよびシングルコンテンツタイプが含まれています。この2つのカテゴリから、管理者はコンテンツを作成、管理、公開できます。
 
 :::tip
-Click the search icon ![Search icon](/img/assets/icons/v5/Search.svg) in the sub navigation to use a text search and find one of your content-types more quickly!
+サブナビゲーションの検索アイコン ![Search icon](/img/assets/icons/v5/Search.svg) をクリックして、コンテンツタイプを素早く検索できます。
 :::
 
-## Collection types
+## コレクションタイプ
 
-The _Collection types_ category of the Content Manager displays the list of available collection types which are accessible from the ![Content icon](/img/assets/icons/v5/Feather.svg) Content Manager sub navigation.
+コンテンツマネージャーの「_コレクションタイプ_」カテゴリには、利用可能なコレクションタイプのリストが表示されます。これらはサブナビゲーションの![Content icon](/img/assets/icons/v5/Feather.svg) *Content Manager*からアクセスできます。
 
-For each available collection type multiple entries can be created which is why each collection type is divided into 2 interfaces: the list view and the edit view (see [Writing content](writing-content.md)).
+各コレクションタイプには複数のエントリを作成できるため、コレクションタイプは「リストビュー」と「編集ビュー」の2つのインターフェースに分かれています（[コンテンツの作成](writing-content.md)を参照）。
 
-The list view of a collection type displays all entries created for that collection type.
+コレクションタイプのリストビューには、そのコレクションタイプで作成されたすべてのエントリが表示されます。
 
 <ThemedImage
-  alt="List view of a collection type in the Content Manager"
+  alt="コンテンツマネージャー内のコレクションタイプのリストビュー"
   sources={{
     light: '/img/assets/content-manager/content-manager_list-view.png',
     dark: '/img/assets/content-manager/content-manager_list-view_DARK.png',
   }}
 />
 
-From the list view, it is possible to:
+リストビューでは以下の操作が可能です:
 
-- create a new entry <ScreenshotNumberReference number="1" />,
-- make a textual search <ScreenshotNumberReference number="2" /> or set filters <ScreenshotNumberReference number="3" /> to find specific entries,
-- if [Internationalization (i18n)](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled, filter by locale to display only the entries [translated](/user-docs/content-manager/translating-content) in a chosen locale <ScreenshotNumberReference number="4" />,
-- configure the fields displayed in the table of the list view <ScreenshotNumberReference number="5" />,
-- if [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) is enabled, see the status of each entry <ScreenshotNumberReference number="6" />,
-- perform actions on a specific entry by clicking on ![More icon](/img/assets/icons/v5/More.svg) <ScreenshotNumberReference number="7" /> at the end of the row:
-  - edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) (see [Writing content](/user-docs/content-manager/writing-content.md)), duplicate ![Duplicate icon](/img/assets/icons/v5/Duplicate.svg), or delete ![Delete icon](/img/assets/icons/v5/Trash.svg) (see [Deleting content](/user-docs/content-manager/saving-and-publishing-content.md#deleting-content)) the entry,
-  - if [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) is enabled, ![Unpublish icon](/img/assets/icons/v5/CrossCircle.svg) unpublish the entry, ![Unpublish icon](/img/assets/icons/v5/CrossCircle.svg) or discard its changes,
-  - if [Internationalization (i18n)](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled, ![Delete locale icon](/img/assets/icons/v5/delete-locale.svg) delete a given locale,
-- select multiple entries to simultaneously [publish, unpublish](/user-docs/content-manager/saving-and-publishing-content#bulk-publish-and-unpublish-), or [delete](/user-docs/content-manager/saving-and-publishing-content.md#deleting-content).
+- 新しいエントリを作成する <ScreenshotNumberReference number="1" />,
+- テキスト検索 <ScreenshotNumberReference number="2" /> やフィルター設定 <ScreenshotNumberReference number="3" /> を使用して特定のエントリを検索する,
+- [国際化 (i18n)](/user-docs/plugins/strapi-plugins#-internationalization-plugin) が有効な場合、選択したロケールで[翻訳された](/user-docs/content-manager/translating-content)エントリのみを表示するためにロケールでフィルターする <ScreenshotNumberReference number="4" />,
+- リストビューのテーブルに表示されるフィールドを設定する <ScreenshotNumberReference number="5" />,
+- [ドラフト & 公開](/user-docs/content-manager/saving-and-publishing-content) が有効な場合、各エントリのステータスを確認する <ScreenshotNumberReference number="6" />,
+- 行の最後にある![More icon](/img/assets/icons/v5/More.svg)をクリックして特定のエントリに対してアクションを実行する <ScreenshotNumberReference number="7" />:
+  - 編集 ![Edit icon](/img/assets/icons/v5/Pencil.svg)（[コンテンツの作成](writing-content.md)を参照）、複製 ![Duplicate icon](/img/assets/icons/v5/Duplicate.svg)、または削除 ![Delete icon](/img/assets/icons/v5/Trash.svg)（[コンテンツの削除](saving-and-publishing-content.md#deleting-content)を参照）、
+  - [ドラフト & 公開](/user-docs/content-manager/saving-and-publishing-content) が有効な場合、エントリを![Unpublish icon](/img/assets/icons/v5/CrossCircle.svg)非公開にする、または変更を破棄する,
+  - [国際化 (i18n)](/user-docs/plugins/strapi-plugins#-internationalization-plugin) が有効な場合、指定したロケールを![Delete locale icon](/img/assets/icons/v5/delete-locale.svg)削除する,
+- 複数のエントリを同時に選択して[公開、非公開](/user-docs/content-manager/saving-and-publishing-content#bulk-publish-and-unpublish-)、または[削除](/user-docs/content-manager/saving-and-publishing-content.md#deleting-content)を行う。
 
 :::tip
-Sorting can be enabled for most fields displayed in the list view table (see [Configuring the views of a content-type](../content-manager/configuring-view-of-content-type.md)). Click on a field name, in the header of the table, to sort on that field.
+リストビューのテーブルに表示されているほとんどのフィールドでは、ソートを有効にできます（[コンテンツタイプのビュー構成](../content-manager/configuring-view-of-content-type.md)を参照）。フィールド名をクリックすると、そのフィールドでソートできます。
 :::
 
-### Filtering entries
+### エントリのフィルタリング
 
-Right above the list view table, on the left side of the interface, a ![Filters icon](/img/assets/icons/v5/Filter.svg) **Filters** button is displayed. It allows to set one or more condition-based filters, which add to one another (i.e. if you set several conditions, only the entries that match all the conditions will be displayed).
+リストビューテーブルの上部、インターフェースの左側には、![Filters icon](/img/assets/icons/v5/Filter.svg) **フィルター**ボタンがあります。これにより、1つまたは複数の条件ベースのフィルターを設定でき、複数の条件を設定した場合は、それらすべての条件に一致するエントリのみが表示されます。
 
 <ThemedImage
-  alt="Filters in the Content Manager"
+  alt="コンテンツマネージャー内のフィルター"
   sources={{
     light: '/img/assets/content-manager/content-manager_filters2.png',
     dark: '/img/assets/content-manager/content-manager_filters2_DARK.png',
   }}
 />
 
-To set a new filter:
+新しいフィルターを設定するには:
 
-1. Click on the ![Filters icon](/img/assets/icons/v5/Filter.svg) **Filters** button.
-2. Click on the 1st drop-down list to choose the field on which the condition will be applied.
-3. Click on the 2nd drop-down list to choose the type of condition to apply.
-4. Enter the value(s) of the condition in the remaining textbox.
-5. Click on the **Add filter** button.
-
-:::note
-When active, filters are displayed next to the ![Filters icon](/img/assets/icons/v5/Filter.svg) **Filters** button. They can be removed by clicking on the delete icon ![Clear icon](/img/assets/icons/v5/Cross.svg).
-:::
-
-### Creating a new entry
-
-On the top right side of the list view interface, an **Create new entry** button is displayed. It allows to create a new entry for your collection type.
-
-Clicking on the new entry button will redirect you to the edit view, where you will be able to write the content of the new entry (see [Writing content](writing-content.md)).
+1. ![Filters icon](/img/assets/icons/v5/Filter.svg) **フィルター**ボタンをクリックします。
+2. 1つ目のドロップダウンリストから条件を適用するフィールドを選択します。
+3. 2つ目のドロップダウンリストから適用する条件の種類を選択します。
+4. 残りのテキストボックスに条件の値を入力します。
+5. **フィルターを追加**ボタンをクリックします。
 
 :::note
-New entries are only considered created once some of their content has been written and saved once. Only then will the new entry be listed in the list view.
+フィルターが有効になると、![Filters icon](/img/assets/icons/v5/Filter.svg) **フィルター**ボタンの横に表示されます。フィルターは削除アイコン ![Clear icon](/img/assets/icons/v5/Cross.svg) をクリックすることで削除できます。
 :::
 
-### Configuring the table fields
+### 新しいエントリの作成
 
-Above the list view table, on the right, a settings button ![Cog icon](/img/assets/icons/v5/Cog.svg) is displayed. It allows to temporarily choose which fields to display in the table or to access permanent view settings.
+リストビューインターフェースの右上には、**新しいエントリを作成**ボタンがあります。これにより、コレクションタイプの新しいエントリを作成できます。
+
+新しいエントリボタンをクリックすると編集ビューにリダイレクトされ、新しいエントリのコンテンツを作成できます（[コンテンツの作成](writing-content.md)を参照）。
 
 :::note
-Configuring the displayed field of the table in the way detailed below is only temporary: the configurations will be reset as soon as the page is refreshed or when navigating outside the Content Manager. For permanent configurations, go to the list view configuration interface by clicking on the settings button ![Cog icon](/img/assets/icons/v5/Cog.svg) and clicking on the ![List + icon](/img/assets/icons/v5/ListPlus.svg) **Configure the view** button (see [Configuring the views of a content-type](../content-manager/configuring-view-of-content-type.md)).
+新しいエントリは、コンテンツが作成されて一度保存されるまで、正式に作成されたとはみなされません。その後初めて、リストビューにエントリが表示されます。
 :::
 
-<ThemedImage
-  alt="Displayed fields in the settings of a list view in the Content Manager"
+### テーブルフィールドの設定
+
+リストビューテーブルの右上には、設定ボタン ![Cog icon](/img/assets/icons/v5/Cog.svg) があります。これにより、表示するフィールドを一時的に選択したり、永続的なビュー設定にアクセスしたりできます。
+
+:::note
+以下で説明する方法でリストビューテーブルに表示するフィールドを設定するのは一時的です。設定はページが更新されるか、コンテンツマネージャーの外に移動するとリセットされます。永続的な設定については、設定ボタン ![Cog icon](/img/assets/icons/v5/Cog.svg) をクリックし、![List + icon](/img/assets/icons/v5/ListPlus.svg) **ビューを構成**ボタンをクリックしてリストビュー構成インターフェースにアクセスしてください（[コンテンツタイプのビュー構成](../content-manager/configuring-view-of-content-type.md)を参照）。
+:::
+
+<
+
+ThemedImage
+  alt="コンテンツマネージャーのリストビュー設定で表示されるフィールド"
   sources={{
     light: '/img/assets/content-manager/content-manager_displayed-fields.png',
     dark: '/img/assets/content-manager/content-manager_displayed-fields_DARK.png',
   }}
 />
 
-To temporarily configure the fields displayed in the table:
+テーブルに表示されるフィールドを一時的に設定するには:
 
-1. Click on the settings button ![Cog icon](/img/assets/icons/v5/Cog.svg).
-2. Tick the boxes associated with the field you want to be displayed in the table.
-3. Untick the boxes associated with the fields you do not want to be displayed in the table.
+1. 設定ボタン ![Cog icon](/img/assets/icons/v5/Cog.svg) をクリックします。
+2. テーブルに表示したいフィールドに対応するチェックボックスにチェックを入れます。
+3. 表示したくないフィールドのチェックボックスのチェックを外します。
 
 :::tip
-Relational fields can also be displayed in the list view. Please refer to [Configuring the views of a content-type](../content-manager/configuring-view-of-content-type.md) for more information on their specificities.
+リレーショナルフィールドもリストビューに表示できます。特有の設定については、[コンテンツタイプのビュー構成](../content-manager/configuring-view-of-content-type.md)を参照してください。
 :::
 
-## Single types
+## シングルタイプ
 
-The _Single types_ category of the Content Manager displays the list of available single types, which are accessible from the ![Content icon](/img/assets/icons/v5/Feather.svg) Content Manager sub navigation.
+コンテンツマネージャーの「_シングルタイプ_」カテゴリには、利用可能なシングルタイプのリストが表示されます。これらはサブナビゲーションの![Content icon](/img/assets/icons/v5/Feather.svg) *Content Manager*からアクセスできます。
 
-Unlike collection types which have multiple entries, single types are not created for multiple uses. In other words, there can only be one default entry per available single type. There is therefore no list view in the Single types category.
+コレクションタイプとは異なり、シングルタイプは複数のエントリを作成するものではありません。つまり、利用可能なシングルタイプごとにデフォルトエントリは1つだけです。そのため、シングルタイプカテゴリにはリストビューがありません。
 
-Clicking on a single type will directly redirect you to the edit view, where you will be able to write the content of your single type (see [Writing content](writing-content.md)).
+シングルタイプをクリックすると、直接編集ビューにリダイレクトされ、そのシングルタイプのコンテンツを作成できます（[コンテンツの作成](writing-content.md)を参照）。
 
 <ThemedImage
-  alt="Single type in the Content Manager"
+  alt="コンテンツマネージャー内のシングルタイプ"
   sources={{
     light: '/img/assets/content-manager/content-manager_single-type.png',
     dark: '/img/assets/content-manager/content-manager_single-type_DARK.png',

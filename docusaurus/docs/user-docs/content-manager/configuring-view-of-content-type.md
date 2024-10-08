@@ -1,128 +1,127 @@
 ---
-title: Configuring views of a content-type
-description: Instructions to configure the edit view and list view of a content-type in a Strapi application.
+title: コンテンツタイプのビューの設定
+description: Strapiアプリケーションでコンテンツタイプの編集ビューとリストビューを設定する手順。
 sidebar_position: 2
 tags:
-- Content Manager
-- Content-type 
-- Content-type views
-- Content-type list view
-- Content-type edit view
+- コンテンツマネージャー
+- コンテンツタイプ
+- コンテンツタイプビュー
+- コンテンツタイプリストビュー
+- コンテンツタイプ編集ビュー
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring the views of a content-type
+# コンテンツタイプのビューの設定
 
-Depending on their type, content-types can be divided into 2 interfaces: the list view and the edit view. Both interfaces can be configured.
+コンテンツタイプは、そのタイプに応じて、リストビューと編集ビューの2つのインターフェースに分かれます。どちらのインターフェースも設定可能です。
 
-## Configuring the list view
+## リストビューの設定
 
-On the right side of the list view interface, right above the table, a settings button ![Cog icon](/img/assets/icons/v5/Cog.svg) is displayed. It allows to access the configurations that can be set for the list view of your collection type, and to choose which fields to display in the table.
+リストビューインターフェースの右側、テーブルの上に設定ボタン ![歯車アイコン](/img/assets/icons/v5/Cog.svg) が表示されます。これにより、コレクションタイプのリストビューに対して設定を行い、テーブルに表示するフィールドを選択できます。
 
 :::note
-The configurations only apply to the list view of the collection type from which the settings are accessed (i.e. disabling the filters or search options for a collection type will not automatically also disable these same options for all other collection types).
-<br />
+設定は、設定をアクセスしたコレクションタイプのリストビューにのみ適用されます（つまり、フィルタや検索オプションを無効にしても、他のコレクションタイプに対して自動的に同じオプションが無効になるわけではありません）。<br/>
 
-Note also that the explanations below explain how to permanently configure which fields are displayed in the table of the list view of your collection type. It is also possible to configure the displayed fields temporarily (see [Introduction to Content Manager](/user-docs/content-manager)).
+また、以下の説明は、コレクションタイプのリストビューのテーブルに表示されるフィールドを永久に設定する方法を説明しています。表示フィールドを一時的に設定することも可能です（詳細は[コンテンツマネージャーの紹介](/user-docs/content-manager)をご覧ください）。
 :::
 
 <ThemedImage
-  alt="Settings of a list view in the Content Manager"
+  alt="コンテンツマネージャーのリストビュー設定"
   sources={{
     light: '/img/assets/content-manager/content-manager_settings-list-view.png',
     dark: '/img/assets/content-manager/content-manager_settings-list-view_DARK.png',
   }}
 />
 
-### List view settings
+### リストビューの設定
 
-1. In the list view of your collection type, click on the settings button ![Cog icon](/img/assets/icons/v5/Cog.svg) then ![List + icon](/img/assets/icons/v5/ListPlus.svg) **Configure the view** to be redirected to the list view configuration interface.
-2. In the Settings area, define your chosen new settings:
+1. コレクションタイプのリストビューで、設定ボタン ![歯車アイコン](/img/assets/icons/v5/Cog.svg) をクリックし、![リスト追加アイコン](/img/assets/icons/v5/ListPlus.svg) **ビューを設定** をクリックしてリストビュー設定インターフェースに移動します。
+2. 設定エリアで、新しい設定を定義します：
 
-| Setting name           | Instructions                                                                                       |
-| ---------------------- | -------------------------------------------------------------------------------------------------- |
-| Enable search          | Click on **TRUE** or **FALSE** to able or disable the search.                                          |
-| Enable filters         | Click on **TRUE** or **FALSE** to able or disable filters.                                             |
-| Enable bulk actions    | Click on **TRUE** or **FALSE** to able or disable the multiple selection boxes in the list view table. |
-| Entries per page       | Choose among the drop-down list the number of entries per page.                                    |
-| Default sort attribute | Choose the sorting field that will be used by default.                                             |
-| Default sort order     | Choose the sorting type that will be applied by default.                                           |
+| 設定名                     | 手順                                                                                       |
+| -------------------------- | ------------------------------------------------------------------------------------------ |
+| 検索を有効化               | **TRUE** または **FALSE** をクリックして、検索を有効または無効にします。                        |
+| フィルタを有効化            | **TRUE** または **FALSE** をクリックして、フィルタを有効または無効にします。                   |
+| 一括アクションを有効化      | **TRUE** または **FALSE** をクリックして、リストビューのテーブルで複数選択ボックスを有効または無効にします。 |
+| 1ページあたりのエントリ数  | ドロップダウンリストから、1ページあたりのエントリ数を選択します。                           |
+| デフォルトのソート属性     | デフォルトで使用されるソートフィールドを選択します。                                        |
+| デフォルトのソート順       | デフォルトで適用されるソートの種類を選択します。                                           |
 
-3. Click on the **Save** button.
+3. **保存** ボタンをクリックします。
 
-### List view display
+### リストビューの表示設定
 
-1. In the list view of your collection type, click on the settings button ![Cog icon](/img/assets/icons/v5/Cog.svg) then ![List + icon](/img/assets/icons/v5/ListPlus.svg) **Configure the view** to be redirected to the list view configuration interface.
-2. In the View area, define what fields to display in the list view table, and in what order:
-   - Click the add button ![Add icon](/img/assets/icons/v5/Plus.svg) to add a new field.
-   - Click the delete button ![Clear icon](/img/assets/icons/v5/Cross.svg) to remove a field.
-   - Click the reorder button ![Drag icon](/img/assets/icons/v5/Drag.svg) and drag and drop it to the place you want it to be displayed among the other fields.
-3. Click the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) to access its available own settings:
+1. コレクションタイプのリストビューで、設定ボタン ![歯車アイコン](/img/assets/icons/v5/Cog.svg) をクリックし、![リスト追加アイコン](/img/assets/icons/v5/ListPlus.svg) **ビューを設定** をクリックしてリストビュー設定インターフェースに移動します。
+2. 表示エリアで、リストビューのテーブルに表示するフィールドとその順序を定義します：
+   - 新しいフィールドを追加するには、追加ボタン ![追加アイコン](/img/assets/icons/v5/Plus.svg) をクリックします。
+   - フィールドを削除するには、削除ボタン ![クリアアイコン](/img/assets/icons/v5/Cross.svg) をクリックします。
+   - 並べ替えボタン ![ドラッグアイコン](/img/assets/icons/v5/Drag.svg) をクリックして、フィールドをドラッグアンドドロップで他のフィールド間に表示したい場所に配置します。
+3. 編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックして、フィールドに対する個別の設定にアクセスします：
 
-| Setting name              | Instructions                                                              |
-| ------------------------- | ------------------------------------------------------------------------- |
-| Label                     | Write the label to be used for the field in the list view table.          |
-| Enable sort on this field | Click on **TRUE** or **FALSE** to able or disable the sort on the field.  |
+| 設定名                      | 手順                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------ |
+| ラベル                      | リストビューテーブルでフィールドに使用するラベルを入力します。                             |
+| このフィールドのソートを有効化 | **TRUE** または **FALSE** をクリックして、フィールドのソートを有効または無効にします。          |
 
-4. Click on the **Save** button.
+4. **保存** ボタンをクリックします。
 
 :::note
-Relational fields can also be displayed in the list view. There are however some specificities to keep in mind:
+リレーショナルフィールドもリストビューに表示できますが、特定の制限があります：
 
-- Only one field can be displayed per relational field.
-- Only first-level fields can be displayed (i.e. fields from the relation of a relation can't be displayed).
-- If the displayed field contains more than one value, not all its values will be displayed, but a counter indicating the number of values. You can hover this counter to see a tooltip indicating the first 10 values of the relational field.
+- リレーショナルフィールドごとに1つのフィールドのみ表示可能です。
+- 最上位のフィールドのみ表示できます（つまり、リレーションのリレーションからのフィールドは表示できません）。
+- 表示されるフィールドに複数の値が含まれている場合、そのすべての値が表示されるわけではなく、値の数を示すカウンターが表示されます。このカウンターにマウスを合わせると、リレーショナルフィールドの最初の10個の値がツールチップに表示されます。
 
-Note also that relational fields cannot be set as default sort.
+また、リレーショナルフィールドはデフォルトのソートには設定できません。
 
 :::
 
-## Configuring the edit view
+## 編集ビューの設定
 
-In the edit view of a content-type, a ![More icon](/img/assets/icons/v5/More.svg) button is displayed, which leads to the ![List + icon](/img/assets/icons/v5/ListPlus.svg) **Configure the view** button. It allows to access the configurations that can be set for the edit view of the content-type, such as the entry title, and the display of the fields of the content-type, including the relational ones.
+コンテンツタイプの編集ビューでは、![その他アイコン](/img/assets/icons/v5/More.svg) ボタンが表示され、そこから ![リスト追加アイコン](/img/assets/icons/v5/ListPlus.svg) **ビューを設定** ボタンにアクセスできます。これにより、エントリタイトルやコンテンツタイプのフィールド（リレーショナルフィールドを含む）の表示設定を行うことができます。
 
 <ThemedImage
-  alt="Configuring the edit view of the Content Manager"
+  alt="コンテンツマネージャーの編集ビュー設定"
   sources={{
     light: '/img/assets/content-manager/edit-view-config2.png',
     dark: '/img/assets/content-manager/edit-view-config2_DARK.png',
   }}
 />
 
-### Edit view settings
+### 編集ビューの設定手順
 
-1. In the edit view of your content-type, click on the ![More icon](/img/assets/icons/v5/More.svg) button then ![List + icon](/img/assets/icons/v5/ListPlus.svg) **Configure the view**.
-2. In the Settings area, define your chosen new settings:
+1. コンテンツタイプの編集ビューで、![その他アイコン](/img/assets/icons/v5/More.svg) をクリックし、次に ![リスト追加アイコン](/img/assets/icons/v5/ListPlus.svg) **ビューを設定** をクリックします。
+2. 設定エリアで、新しい設定を定義します：
 
-| Setting name    | Instructions                                                                          |
-| --------------- | ------------------------------------------------------------------------------------- |
-| Entry title     | Choose among the drop-down list the field that should be used as title for the entry. |
+| 設定名        | 手順                                                                               |
+| ------------- | ---------------------------------------------------------------------------------- |
+| エントリタイトル | ドロップダウンリストから、エントリのタイトルとして使用するフィールドを選択します。 |
 
-3. Click on the **Save** button.
+3. **保存** ボタンをクリックします。
 
-### Edit view display
+### 編集ビューの表示
 
-1. In the edit view of your content-type, click on the ![More icon](/img/assets/icons/v5/More.svg) button then ![List + icon](/img/assets/icons/v5/ListPlus.svg) **Configure the view**.
-2. In the View area, define what fields (including relational fields) to display in the list view table, in what order and what size:
-   - Click the ![Add icon](/img/assets/icons/v5/Plus.svg) **Insert another field** button to add a new field.
-   - Click the delete button ![Clear icon](/img/assets/icons/v5/Cross.svg) to remove a field.
-   - Click the reorder button ![Drag icon](/img/assets/icons/v5/Drag.svg) and drag and drop it to the place you want it to be displayed among the other fields.
-3. Click the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) of a field to access its available settings:
+1. コンテンツタイプの編集ビューで、![More icon](/img/assets/icons/v5/More.svg) ボタンをクリックし、次に ![List + icon](/img/assets/icons/v5/ListPlus.svg) **ビューを構成**を選択します。
+2. ビューエリアで、リストビューのテーブルに表示するフィールド（リレーショナルフィールドを含む）、表示順序、サイズを定義します:
+   - ![Add icon](/img/assets/icons/v5/Plus.svg) **別のフィールドを挿入**ボタンをクリックして新しいフィールドを追加します。
+   - フィールドを削除するには、削除ボタン ![Clear icon](/img/assets/icons/v5/Cross.svg) をクリックします。
+   - 再配置ボタン ![Drag icon](/img/assets/icons/v5/Drag.svg) をクリックし、他のフィールド間で表示したい位置にドラッグアンドドロップします。
+3. フィールドの編集ボタン ![Edit icon](/img/assets/icons/v5/Pencil.svg) をクリックして、そのフィールドの利用可能な設定にアクセスします:
 
-| Setting name    | Instructions                                                                              |
-| --------------- | ----------------------------------------------------------------------------------------- |
-| Label           | Write the label that should be used for the field.                                        |
-| Description     | Write a description for the field, to help other administrators fill it properly.         |
-| Placeholder     | Write the placeholder that should be displayed by default in the field.                   |
-| Editable field  | Click on **TRUE** or **FALSE** to able or disable the edition of the field by administrators. |
-| Size            | Select the size in which the field should be displayed in the Content Manager. Note that this setting is neither available for JSON and Rich Text fields, nor dynamic zones and components. |
-| Entry title     | *(relational fields only)* Write the entry title that should be used for the relational field. It is recommended to choose well the entry title of relational fields as the more comprehensive it is, the easier it will be for administrators to manage the content of relational fields from the edit view. |
+| 設定名           | 説明                                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| ラベル           | フィールドに使用するラベルを入力します。                                                       |
+| 説明             | 他の管理者が適切に入力できるよう、フィールドの説明を書きます。                                 |
+| プレースホルダー | デフォルトでフィールドに表示するプレースホルダーを記入します。                                 |
+| 編集可能フィールド | 管理者がフィールドを編集できるようにするには、**TRUE** または **FALSE** をクリックして有効または無効にします。 |
+| サイズ           | コンテンツマネージャーに表示するフィールドのサイズを選択します。この設定は、JSONフィールド、リッチテキストフィールド、動的ゾーンやコンポーネントには適用されません。 |
+| エントリータイトル | *(リレーショナルフィールドのみ)* リレーショナルフィールドに使用するエントリータイトルを記入します。リレーショナルフィールドのエントリータイトルは、管理者がリレーショナルフィールドのコンテンツを編集ビューでより簡単に管理できるように、わかりやすいものを選択することをお勧めします。 |
 
-4. Click on the **Save** button.
+4. **保存**ボタンをクリックします。
 
-:::caution
-The settings and display of a component's fields cannot be managed and reordered through the entry's edit view configuration page. Click on the **Set the component's layout** button of a component to access the component's own configuration page. You will find the exact same settings and display options as for the entry, but that will specifically apply to your component.
+:::注意
+コンポーネントのフィールドの設定や表示は、エントリーの編集ビュー構成ページから管理および並べ替えることはできません。コンポーネントの**レイアウトを設定**ボタンをクリックして、コンポーネントの独自の構成ページにアクセスします。エントリーと同様の設定や表示オプションが見つかりますが、これらはコンポーネント専用に適用されます。
 
-Note also that the settings are defined for the component itself, which means that the settings will automatically be applied for every other content-type where the component is used.
+また、設定はコンポーネント自体に対して定義されるため、そのコンポーネントが使用される他のすべてのコンテンツタイプにも自動的に適用されます。
 :::
