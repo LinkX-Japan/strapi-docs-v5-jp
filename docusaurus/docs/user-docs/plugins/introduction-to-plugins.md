@@ -14,45 +14,45 @@ pagination_next: user-docs/plugins/installing-plugins-via-marketplace
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Introduction to plugins
+# プラグインの概要
 
-Strapi is built around different types of plugins. Every default Strapi application comes with the following pre-installed plugins:
+Strapiは、さまざまなタイプのプラグインを基盤としています。すべてのStrapiアプリケーションには、次のプラグインが事前にインストールされています。
 
-* Content Manager (see [Introduction to the Content Manager](/user-docs/content-manager))
-* Content Type Builder (see [Introduction to the Content-type Builder](/user-docs/content-type-builder/))
-* Email
-* Media Library (implemented via the [Upload plugin](/dev-docs/plugins/upload/))
-* Internationalization
-* Roles and Permissions
+- Content Manager（[コンテンツマネージャーの概要](/user-docs/content-manager)を参照）
+- Content Type Builder（[コンテンツタイプビルダーの概要](/user-docs/content-type-builder/)を参照）
+- Email
+- メディアライブラリ（[アップロードプラグイン](/dev-docs/plugins/upload/)を介して実装）
+- Internationalization（多言語対応）
+- Roles and Permissions（ロールと権限管理）
 
-These plugins are essential for your Strapi application to function and cannot be uninstalled.
+これらのプラグインは、Strapiアプリケーションの動作に不可欠であり、アンインストールすることはできません。
 
-Additional plugins that you can use to extend and customize your Strapi applications are available in the [Marketplace](../plugins/installing-plugins-via-marketplace.md). This section focuses on how to install and manage these additional plugins.
+追加のプラグインは、Strapiアプリケーションを拡張およびカスタマイズするために[マーケットプレイス](../plugins/installing-plugins-via-marketplace.md)から利用可能です。このセクションでは、これらの追加プラグインのインストール方法と管理方法に焦点を当てています。
 
-From the admin panel, administrators are allowed to:
+管理者は、管理パネルから以下の操作が可能です。
 
-- discover additional plugins and [providers](#providers) in the ![Marketplace icon](/img/assets/icons/v5/ShoppingCart.svg) _Marketplace_ (see [Managing Marketplace plugins](./installing-plugins-via-marketplace.md))
-- review the currently installed plugins and [providers](#providers) in ![Cog icon](/img/assets/icons/v5/Cog.svg) _Settings > Plugins_
+- ![Marketplace icon](/img/assets/icons/v5/ShoppingCart.svg) _Marketplace_ で追加プラグインや[プロバイダー](#providers)を検索（[マーケットプレイスプラグインの管理](./installing-plugins-via-marketplace.md)を参照）
+- ![Cog icon](/img/assets/icons/v5/Cog.svg) _Settings > Plugins_ で現在インストールされているプラグインや[プロバイダー](#providers)を確認
 
 <ThemedImage
-  alt="Plugins in Settings section"
+  alt="設定セクションでのプラグイン"
   sources={{
     light: '/img/assets/plugins/plugins-settings.png',
     dark: '/img/assets/plugins/plugins-settings_DARK.png',
   }}
 />
 
-## Providers
+## プロバイダー
 
-Some plugins can be further extended through the configuration of _providers_, packages designed to be used on top of an existing plugin and add a specific integration to it. For example, you can use the AWS S3 provider to extend the Media Library plugin and store files in your S3 bucket rather than locally on your server.
+一部のプラグインは、_プロバイダー_ の設定を通じてさらに拡張できます。プロバイダーは、既存のプラグインに特定の機能を追加するためのパッケージです。たとえば、AWS S3プロバイダーを使用してメディアライブラリプラグインを拡張し、ファイルをサーバーのローカルではなく、S3バケットに保存することができます。
 
-Currently, the only plugins designed to work with providers are the:
+現在、プロバイダーが機能するように設計されているプラグインは次のとおりです:
 
-* [Email plugin](/dev-docs/plugins/email/), and
-* Media Library plugin (implemented via the [Upload plugin](/dev-docs/plugins/upload/)).
+- [Emailプラグイン](/dev-docs/plugins/email/)
+- メディアライブラリプラグイン（[アップロードプラグイン](/dev-docs/plugins/upload/)を介して実装）
 
-## Custom fields
+## カスタムフィールド
 
-Some plugins can add custom fields to Strapi (for additional information about creating custom fields plugins, see [Developer Docs](/dev-docs/custom-fields)). Custom fields are a way to extend Strapi’s capabilities by adding new types of fields to content-types or components.
+一部のプラグインは、Strapiにカスタムフィールドを追加することができます（カスタムフィールドプラグインの作成については、[開発者ドキュメント](/dev-docs/custom-fields)を参照）。カスタムフィールドは、コンテンツタイプやコンポーネントに新しい種類のフィールドを追加することで、Strapiの機能を拡張する方法です。
 
-Once added to Strapi (see [Marketplace](./installing-plugins-via-marketplace.md)), custom fields can be created in the [Content-type Builder](/user-docs/content-type-builder/configuring-fields-content-type#custom-fields) and used in the [Content Manager](/user-docs/content-manager/writing-content/).
+カスタムフィールドがStrapiに追加されると（[マーケットプレイス](./installing-plugins-via-marketplace.md)を参照）、[コンテンツタイプビルダー](/user-docs/content-type-builder/configuring-fields-content-type#custom-fields)で作成され、[コンテンツマネージャー](/user-docs/content-manager/writing-content/)で使用できます。

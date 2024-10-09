@@ -1,63 +1,63 @@
 ---
-title: Installing Plugins via the Marketplace
+title: Marketplaceからプラグインをインストールする
 displayed_sidebar: userDocsSidebar
 sidebar_position: 2
 tags:
-- plugins
-- provider
-- marketplace
-- upload plugin
+- プラグイン
+- プロバイダー
+- マーケットプレイス
+- アップロードプラグイン
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Using the Marketplace
+# マーケットプレイスの使用
 
 <NotV5/>
 
-The Marketplace is where users can find additional plugins to customize Strapi applications, and additional [providers](/user-docs/plugins#providers/) to extend plugins. The Marketplace is located in the admin panel, indicated by ![Marketplace icon](/img/assets/icons/v5/ShoppingCart.svg) _Marketplace_. In the Marketplace, users can browse or search for plugins and providers, link to detailed descriptions for each, and submit new plugins and providers.
+マーケットプレイスでは、ユーザーがStrapiアプリケーションをカスタマイズするための追加プラグインや、プラグインを拡張するための追加[プロバイダー](/user-docs/plugins#providers/)を見つけることができます。マーケットプレイスは、管理パネル内の ![Marketplace icon](/img/assets/icons/v5/ShoppingCart.svg) _Marketplace_ からアクセスできます。マーケットプレイスでは、プラグインやプロバイダーを閲覧したり検索したり、各詳細ページへのリンクを辿ったり、新しいプラグインやプロバイダーを提出したりできます。
 
-:::note strapi In-app Marketplace vs. Market website
-The Marketplace in the admin panel displays all existing plugins, regardless of the version of Strapi they are for. All plugins can also be discoverable through the [Strapi Market](https://market.strapi.io) website.
+:::note strapi アプリ内マーケットプレイス vs. マーケットウェブサイト
+管理パネルのマーケットプレイスでは、Strapiのバージョンに関係なく、すべての既存のプラグインが表示されます。すべてのプラグインは[Strapi Market](https://market.strapi.io)ウェブサイトでも確認できます。
 
-Keep in mind however that v4 and v5 plugins are not cross-compatible, but that providers are compatible both with v4 and v5 plugins.
+ただし、v4とv5のプラグインは互換性がありませんが、プロバイダーはv4およびv5のプラグインの両方で互換性があります。
 :::
 
 <ThemedImage
-  alt="The Marketplace interface"
+  alt="マーケットプレイスのインターフェース"
   sources={{
     light: '/img/assets/plugins/marketplace-plugins.png',
     dark: '/img/assets/plugins/marketplace-plugins_DARK.png',
   }}
 />
 
-The Plugins and Providers tabs display each plugin/provider on individual cards containing:
+「プラグイン」と「プロバイダー」タブには、以下の情報が記載された個別のカードにそれぞれ表示されます:
 
-- their name, sometimes followed by either of the following badges:
-  - ![maintained by Strapi icon](/img/assets/icons/v5/official-market.svg) to indicate it is made by Strapi,
-  - ![verified by Strapi icon](/img/assets/icons/v5/verified-marketplace.svg) to indicate it was verified by Strapi.
-- the number of times the plugin/provider was starred on GitHub and downloaded
-- the description
-- a **More** ![ExternalLink icon](/img/assets/icons/v5/ExternalLink.svg) button to be redirected to the Market website for additional information, including about the version of Strapi the plugin is for, and implementation instructions
+- 名前、時には次のいずれかのバッジが付いています:
+  - ![Strapi公式バッジ](/img/assets/icons/v5/official-market.svg) Strapiが開発したことを示します。
+  - ![Strapi認証バッジ](/img/assets/icons/v5/verified-marketplace.svg) Strapiによって検証されたことを示します。
+- GitHubでのスター数とダウンロード回数
+- 説明
+- **More** ![外部リンクアイコン](/img/assets/icons/v5/ExternalLink.svg) ボタンをクリックすると、マーケットウェブサイトにリダイレクトされ、詳細情報が表示されます（対応するStrapiのバージョンや実装手順も含まれます）。
 
-In the top right corner of the Marketplace, the **Submit plugin** button redirects to the Strapi Market where it is possible to submit your own plugin and provider.
+マーケットプレイスの右上隅には、**プラグインを提出する** ボタンがあり、ここからStrapi Marketにアクセスして独自のプラグインやプロバイダーを提出できます。
 
 :::tip TIPS
 
-- The search bar displays incremental search results based on the plugin/provider name and description.
-- Use the "Sort by" button or set filters to find plugins more easily.
+- 検索バーでは、プラグインやプロバイダーの名前や説明に基づいてインクリメンタル検索結果が表示されます。
+- 「並べ替え」ボタンやフィルターを使用して、プラグインを簡単に見つけることができます。
 
 :::
 
-## Installing Marketplace plugins and providers
+## マーケットプレイスのプラグインとプロバイダーのインストール
 
 :::note
-Marketplace plugins and providers are installed and deleted from the user's terminal ([see Developer Documentation](/dev-docs/installation/cli/)).
+マーケットプレイスのプラグインとプロバイダーは、ユーザーのターミナルからインストールおよび削除します（[開発者ドキュメント](/dev-docs/installation/cli/)を参照）。
 :::
 
-To install a new plugin or provider via the Marketplace:
+マーケットプレイスを介して新しいプラグインやプロバイダーをインストールするには:
 
-1. Go to the ![Marketplace icon](/img/assets/icons/v5/ShoppingCart.svg) *Marketplace*.
-2. Choose the **Plugins** tab to browse available plugins or the **Providers** tab to browse available providers.
-3. Choose an available plugin/provider and click on the **More** ![ExternalLink icon](/img/assets/icons/v5/ExternalLink.svg) button.
-4. Once redirected to the Strapi Market website, follow the plugin/provider-specific implementation instructions.
+1. ![Marketplace icon](/img/assets/icons/v5/ShoppingCart.svg) *Marketplace* にアクセスします。
+2. **Plugins** タブで利用可能なプラグインを閲覧するか、**Providers** タブで利用可能なプロバイダーを閲覧します。
+3. 利用可能なプラグインまたはプロバイダーを選択し、**More** ![ExternalLink icon](/img/assets/icons/v5/ExternalLink.svg) ボタンをクリックします。
+4. Strapi Marketウェブサイトにリダイレクトされたら、プラグインまたはプロバイダー固有の実装手順に従います。
