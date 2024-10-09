@@ -3,85 +3,85 @@
     <img src="./docusaurus/static/img/logo.png" width="314px" alt="Strapi logo" />
   </a>
 </p>
-<h3 align="center">API creation made simple, secure and fast.</h3>
-<p align="center">The most advanced open-source headless CMS to build powerful APIs with no effort.</p>
+<h3 align="center">APIの作成を簡単、セキュア、そして高速に。</h3>
+<p align="center">最も進化したオープンソースのヘッドレスCMSで、手間をかけずに強力なAPIを構築。</p>
 <br />
 
 ---
 
-If you are looking for the Strapi code, please see the [Strapi Monorepo](https://github.com/strapi/strapi). The present repository is only for the official Strapi documentation hosted at [docs.strapi.io](https://docs.strapi.io). Blog articles hosted at [strapi.io/blog](https://strapi.io/blog) and [community content](https://github.com/strapi/community-content) are not covered by the present repository either.
+Strapiのコードをお探しの場合は、[Strapi Monorepo](https://github.com/strapi/strapi)をご覧ください。このリポジトリは、[docs.strapi.io](https://docs.strapi.io)でホストされている公式Strapiドキュメント専用です。[strapi.io/blog](https://strapi.io/blog)でホストされているブログ記事や[コミュニティコンテンツ](https://github.com/strapi/community-content)は、このリポジトリの対象ではありません。
 
 ---
 
-Strapi is a free and open-source headless CMS that delivers your content anywhere you need.
+Strapiは、どこにでもコンテンツを提供できる無料でオープンソースのヘッドレスCMSです。
 
-- **Keep control over your data**. With Strapi, you know where your data is stored, and you keep full control at all times.
-- **Self-hosted**. You can host and scale Strapi projects the way you want. You can choose any hosting platform you want: AWS, Netlify, Heroku, a VPS, or a dedicated server. You can scale as you grow, 100% independent.
-- **Database agnostic**. You can choose the database you prefer. Strapi works with SQL databases: PostgreSQL, MySQL, MariaDB, and SQLite.
-- **Customizable**. You can quickly build your logic by fully customizing APIs, routes, or plugins to fit your needs perfectly.
+- **データを完全に管理**。Strapiを使用すると、データの保存場所を把握し、常に完全な管理権を維持できます。
+- **セルフホスト型**。Strapiプロジェクトは、必要に応じて任意のホスティングプラットフォームでホストおよびスケーリングできます。AWS、Netlify、Heroku、VPS、専用サーバーなど、お好みのホスティングプラットフォームを選択可能。成長に合わせて100%独立してスケーリング可能です。
+- **データベースに依存しない設計**。PostgreSQL、MySQL、MariaDB、SQLiteなど、好みのSQLデータベースを選択できます。
+- **カスタマイズ可能**。API、ルート、プラグインを完全にカスタマイズして、ニーズにぴったりのロジックを素早く構築できます。
 
-## Documentation websites
+## ドキュメントサイト
 
-The main official Strapi documentation website is hosted at [docs.strapi.io](https://docs.strapi.io).
+公式Strapiドキュメントサイトは[docs.strapi.io](https://docs.strapi.io)にホストされています。
 
-Additional official Strapi documentation websites cover different content:
+他の公式Strapiドキュメントサイトも異なるコンテンツをカバーしています:
 
-- Documentation for the older version 4 of Strapi is hosted at [docs-v4.strapi.io](https://docs-v4.strapi.io) and featured in the `v4` branch. This branch is not actively maintained by the Strapi Documentation team, but community contributions are most welcome!
-- Upcoming, experimental documentation is hosted at [docs-next.strapi.io](https://docs-next.strapi.io). Starting autumn/winter 2024, this website will include an all-new documentation — more info soon!
-- Documentation for the older, unsupported version 3 of Strapi is hosted at [docs-v3.strapi.io](https://docs-v3.strapi.io).
-- Documentation for contributors, which include more in-depth and experimental content for developers who actively maintain and contribute to Strapi, is hosted at [contributor.strapi.io](https://contributor.strapi.io). This experimental documentation is maintained by Strapi engineers and any issue should be reported to the [`strapi/strapi`](https://github.com/strapi/strapi/issues/new/choose) repository.
-- Documentation for the Strapi Design System is hosted at [design-system.strapi.io](https://design-system.strapi.io/) and maintained by Strapi front-end engineers in its [dedicated repository](https://github.com/strapi/design-system/).
+- Strapiの旧バージョン4のドキュメントは[docs-v4.strapi.io](https://docs-v4.strapi.io)でホストされており、`v4`ブランチにあります。このブランチはStrapiドキュメントチームによって積極的にメンテナンスされていませんが、コミュニティの貢献は大歓迎です！
+- 新しい実験的なドキュメントは[docs-next.strapi.io](https://docs-next.strapi.io)でホストされています。2024年秋/冬から、このサイトには全く新しいドキュメントが含まれる予定です—詳細は後日公開！
+- サポートされていない旧バージョン3のドキュメントは[docs-v3.strapi.io](https://docs-v3.strapi.io)でホストされています。
+- Strapiに積極的に貢献する開発者向けに、より詳細で実験的なコンテンツを提供するドキュメントは[contributor.strapi.io](https://contributor.strapi.io)でホストされています。この実験的なドキュメントはStrapiのエンジニアによってメンテナンスされており、問題がある場合は[`strapi/strapi`](https://github.com/strapi/strapi/issues/new/choose)リポジトリに報告してください。
+- Strapiデザインシステムのドキュメントは[design-system.strapi.io](https://design-system.strapi.io/)にホストされ、Strapiのフロントエンドエンジニアによって[専用リポジトリ](https://github.com/strapi/design-system/)でメンテナンスされています。
 
-## Contribution requirements
+## コントリビューションの要件
 
-The following are required if you are submitting pull requests to the documentation:
+ドキュメントにプルリクエストを送信する際は、以下が必要です:
 
 - NodeJS >=16.14 <=18.x.x
 - NPM >= 6.x
 - Yarn >= 1.22.x
 
-👉 For more information on how to contribute, please read our [contribution guide](./CONTRIBUTING.md).
+👉 詳細については、[コントリビューションガイド](./CONTRIBUTING.md)をお読みください。
 
 ## Issues
 
-Submitting issues help to improve the documentation. If you find incorrect screenshot(s), instructions, or code examples, or if you discover UX/UI bugs on the website, please use our [documentation issue](https://github.com/strapi/documentation/issues/new?template=BUG_REPORT.yml) template to report them. To submit an issue:
+問題の報告は、ドキュメントの改善に役立ちます。スクリーンショット、手順、コード例が誤っている場合や、ウェブサイトのUX/UIにバグがある場合は、[ドキュメント問題](https://github.com/strapi/documentation/issues/new?template=BUG_REPORT.yml)テンプレートを使用して報告してください。問題を報告するには:
 
-1. Verify the issue is only with one of the Strapi documentation websites. Product-related issues, missing Strapi features, and any issues not directly related to the documentation should be directed at the main [strapi/strapi](https://github.com/strapi/strapi) repository. Updates to blog posts found at [strapi.io/blog](https://strapi.io/blog) are also outside the scope of the present documentation repository; you can either reach the author of the blog post directly or use the [contact form](https://strapi.io/contact) on Strapi's corporate website if you have questions about blog posts.
-2. Follow the issue template and fill out as much information as you can.
+1. 問題がStrapiドキュメントのウェブサイトに限定されていることを確認してください。製品関連の問題、機能の欠落、ドキュメントに直接関連しない問題は、メインの[strapi/strapi](https://github.com/strapi/strapi)リポジトリに報告してください。[strapi.io/blog](https://strapi.io/blog)のブログ記事に関する更新も本リポジトリの範囲外です。ブログ投稿に関する質問がある場合は、投稿者に直接連絡するか、Strapiの企業ウェブサイトの[問い合わせフォーム](https://strapi.io/contact)を使用してください。
+2. Issueテンプレートに従い、できるだけ多くの情報を記入してください。
   
-Technical questions should be asked using the following resources:
+技術的な質問は、以下のリソースを使用して尋ねてください:
 
-- Open a Q&A thread on our [official forum](https://forum.strapi.io).
-- Engage with other community members on our [community Discord server](https://discord.strapi.io).
+- [公式フォーラム](https://forum.strapi.io)でQ&Aスレッドを開く。
+- [コミュニティDiscordサーバー](https://discord.strapi.io)で他のコミュニティメンバーと交流する。
 
-## Requests
+## リクエスト
 
-Requests for new documentation are highly encouraged. This is not limited to new additions but also changes or more information requested on existing documentation. Please use our [request documentation](https://github.com/strapi/documentation/issues/new?template=DOC_REQUEST.md&title%5B%5D=REQUEST) issue template. These requests will be checked by the Strapi Documentation team then transferred to another internal tool outside GitHub for priorization and subsequent actions.
+新しいドキュメントのリクエストは大歓迎です。これには新しい追加だけでなく、既存のドキュメントに関する変更や情報の追加も含まれます。ぜひ[ドキュメントリクエスト](https://github.com/strapi/documentation/issues/new?template=DOC_REQUEST.md&title%5B%5D=REQUEST)テンプレートを使用してください。これらのリクエストはStrapiドキュメントチームによって確認され、その後GitHub外の内部ツールに転送され、優先順位付けおよび対応が行われます。
 
-## Releases
+## リリース
 
-Thanks to a continuous integration/continuous delivery workflow, the Strapi documentation can be updated up to several times a day, depending on the number and frequency of contributions. Weekly snapshot [releases](https://github.com/strapi/documentation/releases) happen on Wednesdays and include a list of changes since the latest release.
+継続的インテグレーション/継続的デリバリーワークフローのおかげで、Strapiドキュメントは1日に数回更新されることがあります。最新のリリース以降の変更リストは、毎週水曜日にスナップショット[リリース](https://github.com/strapi/documentation/releases)に含まれます。
 
-## Community support
+## コミュニティサポート
 
-For general help using Strapi, please refer to [the official Strapi documentation](https://strapi.io/documentation/). For additional help, you can use one of these channels to ask a question:
+Strapiの一般的な使用に関するヘルプについては、[公式Strapiドキュメント](https://strapi.io/documentation/)を参照してください。追加のヘルプが必要な場合は、次のチャネルを使用して質問できます:
 
-- [Discord](http://discord.strapi.io) (For live discussion with the Community and Strapi team)
-- [Primary GitHub](https://github.com/strapi/strapi) (Bug reports, Contributions)
-- [Community Forum](https://forum.strapi.io) (Questions and Discussions)
-- [Canny](https://strapi.canny.io/) (Roadmap, Feature requests)
-- [Twitter](https://twitter.com/strapijs) (Get the news fast)
+- [Discord](http://discord.strapi.io)（コミュニティやStrapiチームとのライブディスカッション）
+- [GitHub](https://github.com/strapi/strapi)（バグ報告、コントリビューション）
+- [コミュニティフォーラム](https://forum.strapi.io)（質問やディスカッション）
+- [Canny](https://strapi.canny.io/)（ロードマップ、機能リクエスト）
+- [Twitter](https://twitter.com/strapijs)（最新情報の取得）
 - [Facebook](https://www.facebook.com/Strapi-616063331867161)
-- [YouTube Channel](https://www.youtube.com/strapi) (Learn from Video Tutorials)
+- [YouTubeチャンネル](https://www.youtube.com/strapi)（ビデオチュートリアルで学ぶ）
 
-## License
+## ライセンス
 
-See the [LICENSE](./LICENSE) file for licensing information.
+ライセンス情報については、[LICENSE](./LICENSE)ファイルを参照してください。
 
-## Code of Conduct
+## 行動規範
 
-This project and everyone participating in it are governed by the [Strapi Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold the code.
+このプロジェクトおよびその参加者全員は、[Strapi行動規範](CODE_OF_CONDUCT.md)に準拠しています。参加することで、この規範を遵守することが求められます。
 
-## Package version
+## パッケージバージョン
 
-Please note that, starting with Strapi 5, strapi/documentation and strapi/strapi package version numbers are not synchronized any more. Strapi Docs are treated as their own product and will follow their own numbering system.
+Strapi 5以降、strapi/documentationとstrapi/strapiのパッケージバージョンは同期されなくなりました。Strapi Docsは独自のプロダクトとして扱われ、独自のバージョン番号システムに従います。
