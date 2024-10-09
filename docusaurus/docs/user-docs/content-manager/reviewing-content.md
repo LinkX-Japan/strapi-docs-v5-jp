@@ -1,58 +1,58 @@
 ---
-title: Reviewing content
-description: Using review workflows to manage content throughout the content creation process.
+title: コンテンツのレビュー
+description: コンテンツ作成プロセス全体でレビューを管理するためのワークフローの使用方法。
 tags:
-- assignee
-- Enterprise feature
-- review workflows
+- アサイン
+- エンタープライズ機能
+- レビューワークフロー
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Reviewing content <EnterpriseBadge />
+# コンテンツのレビュー <EnterpriseBadge />
 
-Using the [Review Workflows](/user-docs/settings/review-workflows) feature, you can manage content throughout the content creation process. In the Content Manager, you can change the review stage of the content from the edit view, and keep moving it between stages as needed. You can also change the assignee of the content, assigning it to a Strapi admin user for review.
+[レビューワークフロー](/user-docs/settings/review-workflows)機能を使用すると、コンテンツ作成プロセス全体でコンテンツを管理できます。コンテンツマネージャーの編集ビューから、コンテンツのレビュー段階を変更し、必要に応じて段階を移動させることができます。また、コンテンツの担当者を変更し、Strapiの管理ユーザーにレビューを割り当てることができます。
 
-When viewing your content in the Content Manager, you can see the current stage in the **Review Stage** column and the assignee in the **Assignee** column.
+コンテンツマネージャーでコンテンツを表示すると、**レビュー段階**列で現在のレビュー段階を、**担当者**列で割り当てられたユーザーを確認できます。
 
 <ThemedImage
-  alt="Review Stage column"
+  alt="レビュー段階の列"
   sources={{
     light: '/img/assets/content-manager/review-workflow-list-view.png',
     dark: '/img/assets/content-manager/review-workflow-list-view_DARK.png',
   }}
 />
 
-## Change review stage
+## レビュー段階の変更
 
-As content is created and revised among your team, you can change the review stage of the content to any stage defined in the review workflow (see [Managing Review Workflows](/user-docs/settings/review-workflows)).
+チーム内でコンテンツを作成し、修正していく際に、コンテンツのレビュー段階をレビューワークフロー内で定義された任意の段階に変更できます（[レビューワークフローの管理](/user-docs/settings/review-workflows)を参照）。
 
-To change the review stage of your content:
+コンテンツのレビュー段階を変更するには:
 
-1. Access the edit view of your content-type.
-2. In the *Review Workflows* box on the right side of the interface, click on the _Review stage_ drop-down list.
-3. Choose the new review stage of your entry. It is automatically saved.
+1. コンテンツタイプの編集ビューにアクセスします。
+2. インターフェースの右側にある*レビューワークフロー*ボックス内の_レビュー段階_ドロップダウンリストをクリックします。
+3. エントリの新しいレビュー段階を選択します。選択は自動的に保存されます。
 
 <ThemedImage
-  alt="Review Stage dropdown"
+  alt="レビュー段階のドロップダウン"
   sources={{
     light: '/img/assets/content-manager/review-stage-dropdown.png',
     dark: '/img/assets/content-manager/review-stage-dropdown_DARK.png',
   }}
 />
 
-## Change assignee
+## 担当者の変更
 
-Entries of a review workflow content type can be assigned to any admin user in Strapi for review.
+レビューワークフローに属するコンテンツタイプのエントリは、Strapiの管理ユーザーにレビュー用として割り当てることができます。
 
-To change the assignee of your content:
+コンテンツの担当者を変更するには:
 
-1. Access the edit view of your content-type.
-2. In the *Review Workflows* box on the right side of the interface, click on the _Assignee_ drop-down list.
-3. Choose the new assignee of your entry. It is automatically saved.
+1. コンテンツタイプの編集ビューにアクセスします。
+2. インターフェースの右側にある*レビューワークフロー*ボックス内の_担当者_ドロップダウンリストをクリックします。
+3. エントリの新しい担当者を選択します。選択は自動的に保存されます。
 
 <ThemedImage
-  alt="Review Stage dropdown"
+  alt="担当者のドロップダウン"
   sources={{
     light: '/img/assets/content-manager/review-assignee-dropdown.png',
     dark: '/img/assets/content-manager/review-assignee-dropdown_DARK.png',

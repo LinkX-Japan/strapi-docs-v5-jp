@@ -1,102 +1,102 @@
 ---
-title: Managing content-types
-description: Learn how to manager your content-types in Strapi 5
+title: コンテンツタイプの管理
+description: Strapi 5でコンテンツタイプを管理する方法を学びます。
 tags:
-- collection type
-- components
-- Content-type
-- Content-type Builder
-- single type
+- コレクションタイプ
+- コンポーネント
+- コンテンツタイプ
+- コンテンツタイプビルダー
+- シングルタイプ
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# Managing content-types
+# コンテンツタイプの管理
 
-:::note development-only
-The Content-type Builder is only accessible to create and update content-types when your Strapi application is in a development environment, else it will be in a read-only mode in other environments.
+:::note 開発環境のみ
+コンテンツタイプビルダーは、Strapiアプリケーションが開発環境にある場合のみ、コンテンツタイプの作成および更新にアクセスできます。他の環境では読み取り専用モードになります。
 :::
 
-The Content-type Builder allows to manage any existing content-type or component, even if it is already being used in the Content Manager. They can only be managed one at a time.
+コンテンツタイプビルダーを使用して、既存のコンテンツタイプやコンポーネントを管理できます。これらはコンテンツマネージャーで既に使用されている場合でも管理可能です。ただし、1つのコンテンツタイプまたはコンポーネントしか同時に管理できません。
 
-To manage a content-type or a component, click on its name in the Collection types, Single types or Components category.
+コンテンツタイプまたはコンポーネントを管理するには、コレクションタイプ、シングルタイプ、またはコンポーネントのカテゴリでその名前をクリックします。
 
-## Editing content-types
+## コンテンツタイプの編集
 
-Managing a content-type or component can include editing the general settings and the fields, but also deleting the whole content-type or component. For any chosen content-type or component, the right side of the Content-type Builder interface displays all available editing options.
+コンテンツタイプやコンポーネントの管理には、全般設定やフィールドの編集、コンテンツタイプやコンポーネント全体の削除が含まれます。選択されたコンテンツタイプやコンポーネントの右側には、利用可能な編集オプションが表示されます。
 
 <ThemedImage
-  alt="Content-type Builder's edition interface"
+  alt="コンテンツタイプビルダーの編集インターフェース"
   sources={{
     light: '/img/assets/content-type-builder/content-types-builder_edition.png',
     dark: '/img/assets/content-type-builder/content-types-builder_edition_DARK.png',
   }}
 />
 
-- Next to the name and optional description of the content-type or component, an ![Edit icon](/img/assets/icons/v5/Pencil.svg) **Edit** button <ScreenshotNumberReference number="1" /> allows to access the [basic settings](#editing-content-type-or-component-settings) of the content-type or component.
-- In the top right corner:
-  - the **Add new/another field** and **Save** buttons <ScreenshotNumberReference number="2" /> allow to respectively add another field to the content-type or component (see [Configuring fields for content-types](/user-docs/content-type-builder/configuring-fields-content-type)), or save any ongoing modification.
-  - the **Configure the view** button allows to access the view configuration interface (see [Configuring the edit view](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view))
-- Below the previous editing options, a table <ScreenshotNumberReference number="3" /> lists all the fields created and configured for the content-type or component. From the fields table, it is possible to:
-  - Click on the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) to edit a field
-  - Click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) to delete a field
+- コンテンツタイプやコンポーネントの名前および説明の横にある ![編集アイコン](/img/assets/icons/v5/Pencil.svg) **編集** ボタン <ScreenshotNumberReference number="1" /> をクリックすると、そのコンテンツタイプやコンポーネントの[基本設定](#コンテンツタイプやコンポーネントの設定を編集する)にアクセスできます。
+- 画面右上には次のボタンがあります:
+  - **新しいフィールドを追加** と **保存** ボタン <ScreenshotNumberReference number="2" /> を使って、コンテンツタイプまたはコンポーネントにフィールドを追加したり、現在の変更を保存したりできます（[コンテンツタイプのフィールド設定](/user-docs/content-type-builder/configuring-fields-content-type)を参照）。
+  - **表示設定を構成** ボタンで、編集ビューの設定画面にアクセスできます（[編集ビューの設定](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view)を参照）。
+- さらに、設定オプションの下には、作成済みのフィールドが一覧表示されたテーブル <ScreenshotNumberReference number="3" /> があります。ここでは次の操作が可能です:
+  - ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックしてフィールドを編集。
+  - ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックしてフィールドを削除。
 
 :::caution
-Editing a field allows renaming it. However, keep in mind that regarding the database, renaming a field means creating a whole new field and deleting the former one. Although nothing is deleted from the database, the data that was associated with the former field name will not be accessible from the admin panel of your application anymore.
+フィールドの名前を変更することは可能ですが、データベースに関しては、フィールド名を変更することは、新しいフィールドを作成し、以前のフィールドを削除することを意味します。データベースからは削除されませんが、以前のフィールド名に関連付けられたデータは、管理パネルからアクセスできなくなります。
 :::
 
-### Editing content-type or component settings
+### コンテンツタイプやコンポーネントの設定を編集する
 
-The settings of a content-type or component can be edited through the Content-type Builder. There are two tabs available: **Basic Settings** and **Advanced Settings**.
+コンテンツタイプやコンポーネントの設定は、コンテンツタイプビルダーから編集できます。設定には、**基本設定** と **高度な設定** の2つのタブがあります。
 
-#### Basic settings
+#### 基本設定
 
-The **Basic Settings** tab allows to edit the following properties of the content-type or component:
+**基本設定** タブでは、以下のプロパティを編集できます:
 
 <ThemedImage
-  alt="Content-type Builder's basic settings"
+  alt="コンテンツタイプビルダーの基本設定"
   sources={{
     light: '/img/assets/content-type-builder/basic-settings.png',
     dark: '/img/assets/content-type-builder/basic-settings_DARK.png',
   }}
 />
 
-* **Display name**: Name of the content-type or component as it will be displayed in the admin panel.
-* **API ID (singular)**: Name of the content-type or component as it will be used in the API. It is automatically generated from the display name, but can be edited.
-* **API ID (plural)**: Plural name of the content-type or component as it will be used in the API. It is automatically generated from the display name, but can be edited.
-* **Type**: Type of the content-type or component. It can be either a **Collection type** or a **Single type**.
+* **表示名**: 管理パネルに表示されるコンテンツタイプやコンポーネントの名前。
+* **API ID（単数形）**: APIで使用されるコンテンツタイプやコンポーネントの名前。表示名から自動的に生成されますが、編集可能です。
+* **API ID（複数形）**: APIで使用されるコンテンツタイプやコンポーネントの複数形の名前。表示名から自動的に生成されますが、編集可能です。
+* **タイプ**: コンテンツタイプやコンポーネントのタイプ。**コレクションタイプ** または **シングルタイプ** を選択できます。
 
-#### Advanced settings
+#### 高度な設定
 
-The **Advanced Settings** tab allows to edit the following properties of the content-type or component:
+**高度な設定** タブでは、以下のプロパティを編集できます:
 
 <ThemedImage
-  alt="Content-type Builder's advanced settings"
+  alt="コンテンツタイプビルダーの高度な設定"
   sources={{
     light: '/img/assets/content-type-builder/advanced-settings.png',
     dark: '/img/assets/content-type-builder/advanced-settings_DARK.png',
   }}
 />
 
-* **Draft & Publish**: Enable the [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) feature for the content-type or component. It is disabled by default.
-* **Internationalization**: Enable the [Internationalization](/user-docs/content-manager/translating-content) feature for the content-type or component. It is disabled by default.
+* **ドラフト&公開**: コンテンツタイプやコンポーネントの[ドラフト&公開](/user-docs/content-manager/saving-and-publishing-content)機能を有効にします。デフォルトでは無効です。
+* **国際化**: コンテンツタイプやコンポーネントの[国際化](/user-docs/content-manager/translating-content)機能を有効にします。デフォルトでは無効です。
 
 <!--
-* **Review workflows**: Enable the [Review Workflows](/user-docs/settings/review-workflows) <EnterpriseBadge /> feature for the content-type. It is disabled by default.
+* **レビューワークフロー**: <EnterpriseBadge /> コンテンツタイプの[レビューワークフロー](/user-docs/settings/review-workflows)機能を有効にします。デフォルトでは無効です。
 -->
 
-## Deleting content-types
+## コンテンツタイプの削除
 
-Content types and components can be deleted through the Content-type Builder. Deleting a content-type automatically deletes all entries from the Content Manager that were based on that content-type. The same goes for the deletion of a component, which is automatically deleted from every content-type or entry where it was used.
+コンテンツタイプやコンポーネントは、コンテンツタイプビルダーから削除できます。コンテンツタイプを削除すると、それに基づいて作成されたコンテンツマネージャーのすべてのエントリも自動的に削除されます。同様に、コンポーネントを削除すると、それを使用しているすべてのコンテンツタイプやエントリから自動的に削除されます。
 
-To delete a content-type or component:
+コンテンツタイプやコンポーネントを削除するには:
 
-1. In the Content-type Builder sub navigation, click on the name of the content-type or component to delete.
-2. In the edition interface of the chosen content-type or component, click on the ![Edit icon](/img/assets/icons/v5/Pencil.svg) **Edit** button on the right side of the content-type's or component's name.
-3. In the edition window, click on the **Delete** button.
-4. In the confirmation window, confirm the deletion.
+1. コンテンツタイプビルダーのサブナビゲーションで、削除するコンテンツタイプやコンポーネントの名前をクリックします。
+2. 選択したコンテンツタイプやコンポーネントの編集インターフェースで、**編集** ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックします。
+3. 編集ウィンドウで、**削除** ボタンをクリックします。
+4. 確認ウィンドウで削除を確認します。
 
 :::caution
-Deleting a content-type only deletes what was created and available from the Content-type Builder, and by extent from the admin panel of your Strapi application. All the data that was created based on that content-type is however kept in the database. For more information, please refer to the related [GitHub issue](https://github.com/strapi/strapi/issues/1114).
+コンテンツタイプを削除すると、コンテンツタイプビルダーから作成および利用できるものが削除されますが、Strapiアプリケーションの管理パネルからは削除されません。ただし、そのコンテンツタイプに基づいて作成されたデータはデータベースに保持されます。詳細は、関連する[GitHub issue](https://github.com/strapi/strapi/issues/1114)を参照してください。
 :::

@@ -2,44 +2,44 @@
 sidebar_position: 1
 slug: /user-docs/content-type-builder
 tags:
-- collection type
-- components
-- Content-type
-- Content-type Builder
-- introduction
-- single type 
+- コレクションタイプ
+- コンポーネント
+- コンテンツタイプ
+- コンテンツタイプビルダー
+- はじめに
+- シングルタイプ
 pagination_next: user-docs/content-type-builder/creating-new-content-type
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Introduction to the Content-type Builder
+# コンテンツタイプビルダーの概要
 
-The Content-type Builder is a core plugin of Strapi. It is a feature that is always activated by default and cannot be deactivated. The Content-type Builder is however only accessible when the application is in a development environment.
+コンテンツタイプビルダーは、Strapiのコアプラグインです。常にデフォルトで有効化されており、無効化することはできません。ただし、コンテンツタイプビルダーはアプリケーションが開発環境にある場合にのみアクセス可能です。
 
-Administrators can access the Content-type Builder from ![CTB icon](/img/assets/icons/v5/Layout.svg) _Content-type Builder_ in the main navigation of the admin panel.
+管理者は、管理パネルのメインナビゲーションにある ![CTB icon](/img/assets/icons/v5/Layout.svg) _Content-type Builder_ からコンテンツタイプビルダーにアクセスできます。
 
 <ThemedImage
-  alt="Content-type Builder interface"
+  alt="コンテンツタイプビルダーのインターフェース"
   sources={{
     light: '/img/assets/content-type-builder/content-types-builder.png',
     dark: '/img/assets/content-type-builder/content-types-builder_DARK.png',
   }}
 />
 
-From the Content-type Builder, administrators can create and manage content-types: collection types and single types but also components.
+コンテンツタイプビルダーを使用して、管理者はコレクションタイプ、シングルタイプ、そしてコンポーネントを作成および管理できます。
 
-- Collection types are content-types that can manage several entries.
-- Single types are content-types that can only manage one entry.
-- Components are a data structure that can be used in multiple collection types and single types.
+- コレクションタイプは、複数のエントリを管理できるコンテンツタイプです。
+- シングルタイプは、1つのエントリのみを管理できるコンテンツタイプです。
+- コンポーネントは、複数のコレクションタイプやシングルタイプで使用できるデータ構造です。
 
-All 3 are displayed as categories in the sub navigation of the Content-type Builder. In each category are listed all content-types and components that have already been created.
+これら3つのタイプは、コンテンツタイプビルダーのサブナビゲーションにカテゴリとして表示されます。各カテゴリには、既に作成されたすべてのコンテンツタイプとコンポーネントがリストされています。
 
-From each category of the Content-type Builder sub navigation, it is possible to:
+コンテンツタイプビルダーの各カテゴリからは、次のことが可能です:
 
-- click on an existing content-type or component to access it and edit it (see [Managing content-types](/user-docs/content-type-builder/managing-content-types)),
-- or create a new content-type or component (see [Creating content-types](/user-docs/content-type-builder/creating-new-content-type)).
+- 既存のコンテンツタイプまたはコンポーネントをクリックしてアクセスし、編集する（[コンテンツタイプの管理](/user-docs/content-type-builder/managing-content-types)を参照）。
+- または新しいコンテンツタイプやコンポーネントを作成する（[コンテンツタイプの作成](/user-docs/content-type-builder/creating-new-content-type)を参照）。
 
 :::tip
-Click the search icon ![Search icon](/img/assets/icons/v5/Search.svg) in the Content-type Builder sub navigation to find a specific collection type, single type, or component.
+コンテンツタイプビルダーのサブナビゲーションにある検索アイコン ![検索アイコン](/img/assets/icons/v5/Search.svg) をクリックして、特定のコレクションタイプ、シングルタイプ、またはコンポーネントを見つけることができます。
 :::

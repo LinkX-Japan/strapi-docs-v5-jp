@@ -1,64 +1,64 @@
 ---
-title: Managing relational fields
-description: Instructions to manage relation-type fields, called "relational fields", which establish a relation between two content-types.
+title: リレーショナルフィールドの管理
+description: 2つのコンテンツタイプ間の関係を確立する「リレーショナルフィールド」と呼ばれる関係タイプのフィールドを管理するための手順。
 sidebar_position: 4
 tags:
-- Content-type Builder
-- collection type
-- components
-- relations
-- one-choice relational fields
+- コンテンツタイプビルダー
+- コレクションタイプ
+- コンポーネント
+- リレーション
+- 単一選択リレーショナルフィールド
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Managing relational fields
+# リレーショナルフィールドの管理
 
-Relation-type fields added to a content-type from the Content-type Builder allow establishing a relation with another collection type. These fields are called "relational fields". 
+コンテンツタイプビルダーからコンテンツタイプに追加された関係タイプのフィールドは、他のコレクションタイプとの関係を確立します。これらのフィールドは「リレーショナルフィールド」と呼ばれます。
 
-The content of relational fields is written from the edit view of the content-type they belong to (see [Writing content](writing-content.md)). However, relational fields can point to one or several entries of the other collection type, this is why in the Content Manager it is possible to manage a content-type's relational fields to choose which entries are relevant.
+リレーショナルフィールドの内容は、該当するコンテンツタイプの編集ビューから作成されます（[コンテンツの作成](writing-content.md)を参照）。ただし、リレーショナルフィールドは他のコレクションタイプの1つまたは複数のエントリを指すことができるため、コンテンツマネージャーではリレーショナルフィールドを管理し、関連するエントリを選択できます。
 
 <details>
-<summary>Example</summary>
+<summary>例</summary>
 
-In my Strapi admin panel I have created 2 collection types:
+Strapi管理パネルで次の2つのコレクションタイプを作成しました:
 
-- Restaurant, where each entry is a restaurant
-- Category, where each entry is a type of restaurant
+- レストラン: 各エントリがレストラン
+- カテゴリ: 各エントリがレストランの種類
 
-I want to assign a category to each of my restaurants, therefore I have established a relation between my 2 collection types: restaurants can have one category.
+各レストランにカテゴリを割り当てたいので、2つのコレクションタイプの間に関係を確立しました: レストランには1つのカテゴリがあります。
 
-In the Content Manager, from the edit view of my Restaurant entries, I can manage the Category relational field, and choose which entry of Category is relevant for my restaurant.
+コンテンツマネージャーで、レストランエントリの編集ビューからカテゴリリレーショナルフィールドを管理し、レストランに関連するカテゴリエントリを選択できます。
 </details>
 
 <ThemedImage
-  alt="Relational fields in the edit view"
+  alt="編集ビュー内のリレーショナルフィールド"
   sources={{
     light: '/img/assets/content-manager/edit-view_relational-fields2.png',
     dark: '/img/assets/content-manager/edit-view_relational-fields2_DARK.png',
   }}
 />
 
-The relational fields of a content-type are displayed among regular fields. For each relational field is displayed a drop-down list containing all available entry titles. It allows to choose which entry the relational fields should point to. You can either choose one or several entries depending on the type of relation that was established.
+コンテンツタイプのリレーショナルフィールドは通常のフィールドと共に表示されます。各リレーショナルフィールドには、利用可能なエントリタイトルを含むドロップダウンリストが表示され、リレーショナルフィールドが指すべきエントリを選択できます。関係の種類によっては、1つまたは複数のエントリを選択できます。
 
 :::tip
-Not all entries are listed by default: more can be displayed by clicking on the **Load more** button. Also, instead of choosing an entry by scrolling the list, you can click any relational field drop-down list and type to search a specific entry.
+すべてのエントリがデフォルトで表示されるわけではありません。**さらに読み込む**ボタンをクリックして追加のエントリを表示できます。また、リストをスクロールする代わりに、リレーショナルフィールドのドロップダウンリストをクリックし、特定のエントリを検索することもできます。
 :::
 
 :::note
-If the Draft & Publish feature (see [Saving, publishing and deleting content](saving-and-publishing-content.md)) is activated for the content-type the relational field belongs to, you will notice blue or green dots next to the entries names in the drop-down list. They indicate the status of the entry, respectively draft or published content.
+リレーショナルフィールドが属するコンテンツタイプに[ドラフト & 公開機能](saving-and-publishing-content.md)が有効な場合、ドロップダウンリストのエントリ名の横に青色または緑色の点が表示されます。これらはそれぞれ、下書きまたは公開済みのコンテンツのステータスを示します。
 :::
 
 :::caution
-If the [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is installed, the list of entries may be limited or differ from one locale to another. Only relevant entries that can possibly be chosen for a relational field will be listed.
+[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がインストールされている場合、エントリのリストはロケールによって制限される場合や異なる場合があります。リレーショナルフィールドに選択可能な関連エントリのみがリストに表示されます。
 :::
 
-## Managing one-choice relational fields
+## 単一選択リレーショナルフィールドの管理
 
-Many-to-one, one-to-one, and one-way types of relation only allow to choose one entry per relational field.
+「多対1」、「1対1」、および「一方向」の関係タイプでは、リレーショナルフィールドごとに1つのエントリしか選択できません。
 
 <ThemedImage
-  alt="One-choice relational fields"
+  alt="単一選択リレーショナルフィールド"
   width="40%"
   sources={{
     light: '/img/assets/content-manager/RF_one-choice2.png',
@@ -66,23 +66,23 @@ Many-to-one, one-to-one, and one-way types of relation only allow to choose one 
   }}
 />
 
-To select the only relevant relational field's entry:
+適切なリレーショナルフィールドのエントリを選択するには:
 
-1. In the content-type's edit view, click on the drop-down list of the relational field.
-2. Among the list of entries, choose one.
+1. コンテンツタイプの編集ビューで、リレーショナルフィールドのドロップダウンリストをクリックします。
+2. エントリのリストの中から1つを選択します。
 
 :::tip
-You can click on the name of the selected entry to be redirected to the edit view of the relational field's content type. Make sure you save your page first, to avoid losing your last modifications.
+選択したエントリ名をクリックすると、そのリレーショナルフィールドのコンテンツタイプの編集ビューにリダイレクトされます。最後の変更を失わないよう、ページを保存してから行ってください。
 :::
 
-To remove the entry selected in the drop-down list, click on the delete button ![Clear icon](/img/assets/icons/v5/Cross.svg).
+ドロップダウンリストで選択したエントリを削除するには、削除ボタン ![Clear icon](/img/assets/icons/v5/Cross.svg) をクリックします。
 
-## Managing multiple-choice relational fields
+## 複数選択リレーショナルフィールドの管理
 
-Many-to-many, one-to-many, and many-ways types of relation allow to choose several entries per relational field.
+「多対多」、「1対多」、および「多方向」の関係タイプでは、リレーショナルフィールドごとに複数のエントリを選択できます。
 
 <ThemedImage
-  alt="Multiple choices relational fields"
+  alt="複数選択リレーショナルフィールド"
   width="40%"
   sources={{
     light: '/img/assets/content-manager/RF_multiple-choices2.png',
@@ -90,16 +90,16 @@ Many-to-many, one-to-many, and many-ways types of relation allow to choose sever
   }}
 />
 
-To select the relevant relational field's entries:
+適切なリレーショナルフィールドのエントリを選択するには:
 
-1. In the content-type's edit view, click on the drop-down list of the relational field.
-2. Among the list of entries, choose one.
-3. Repeat step 2 until all relevant entries have been chosen.
+1. コンテンツタイプの編集ビューで、リレーショナルフィールドのドロップダウンリストをクリックします。
+2. エントリのリストの中から1つを選択します。
+3. すべての関連エントリが選択されるまでステップ2を繰り返します。
 
 :::tip
-All selected entries are listed right below the drop-down list. Click on the name of an entry to be redirected to the edit view of the relational field's content-type. Make sure you save your page first, to avoid losing your last modifications.
+選択したエントリはすべて、ドロップダウンリストのすぐ下に表示されます。エントリ名をクリックすると、そのリレーショナルフィールドのコンテンツタイプの編集ビューにリダイレクトされます。最後の変更を失わないよう、ページを保存してから行ってください。
 :::
 
-To remove an entry, click on the cross button ![Cross icon](/img/assets/icons/v5/Cross.svg) in the selected entries list.
+エントリを削除するには、選択されたエントリリストのクロスボタン ![Cross icon](/img/assets/icons/v5/Cross.svg) をクリックします。
 
-Entries from multiple-choice relational fields can be reordered, indicated by a drag button ![Drag icon](/img/assets/icons/v5/Drag.svg). To move an entry, click and hold it, drag it to the desired position, then release it.
+複数選択リレーショナルフィールドのエントリは並べ替えることができ、ドラッグボタン ![Drag icon](/img/assets/icons/v5/Drag.svg) で示されます。エントリを移動するには、エントリをクリックして保持し、希望の位置にドラッグしてから離します。

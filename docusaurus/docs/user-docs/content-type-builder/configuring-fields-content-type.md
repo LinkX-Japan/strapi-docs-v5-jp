@@ -1,283 +1,286 @@
 ---
-description: Content-types are composed of one or several fields. Each field is designed to contain specific kind of data, filled up in the Content Manager.
+description: コンテンツタイプは1つ以上のフィールドで構成されます。各フィールドは、コンテンツマネージャーで特定のデータを入力するために設計されています。
 sidebar_position: 3
 tags:
-- collection type
-- components
-- Content Manager
-- Content-type
-- Content-type Builder
-- dynamic zones
-- single type
-- password
+- コレクションタイプ
+- コンポーネント
+- コンテンツマネージャー
+- コンテンツタイプ
+- コンテンツタイプビルダー
+- ダイナミックゾーン
+- シングルタイプ
+- パスワード
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring fields for content-types
+# コンテンツタイプのフィールド設定
 
-:::note Development-only
-The Content-type Builder is only accessible to create and update content-types when your Strapi application is in a development environment, else it will be in a read-only mode in other environments.
+:::note 開発環境のみ
+コンテンツタイプビルダーは、Strapiアプリケーションが開発環境にある場合のみ、コンテンツタイプの作成と更新にアクセスできます。他の環境では読み取り専用モードになります。
 :::
 
-Content-types are composed of one or several fields. Each field is designed to contain specific kind of data, filled up in the Content Manager (see [Writing content](/user-docs/content-manager/writing-content.md)).
+コンテンツタイプは、1つ以上のフィールドで構成されています。各フィールドは、コンテンツマネージャーで特定のデータを入力するために設計されています（[コンテンツの作成](/user-docs/content-manager/writing-content.md)を参照）。
 
-In the Content-type Builder, fields can be added at the creation of a new content-type or component, or afterward when a content-type or component is edited or updated. The following documentation lists all existing regular fields but also tackles the specificities of components and dynamic zones. For each, you will find a definition, explanation of the form they take once in the Content Manager, and instructions to configure them.
+コンテンツタイプビルダーでは、新しいコンテンツタイプやコンポーネントを作成する際、またはコンテンツタイプやコンポーネントを編集・更新する際にフィールドを追加できます。このドキュメントでは、通常のフィールドをすべてリストアップし、コンポーネントやダイナミックゾーンの特性についても説明します。それぞれのフィールドについて、定義、コンテンツマネージャーでの表示形式、および設定方法の説明を記載しています。
 
 :::note
-Depending on what content-type or component is being created or edited, not all fields -including components and dynamic zones- are always available.
+作成または編集しているコンテンツタイプやコンポーネントによっては、すべてのフィールド（コンポーネントやダイナミックゾーンを含む）が常に利用できるわけではありません。
 :::
 
 <ThemedImage
-  alt="Fields selection"
+  alt="フィールドの選択"
   sources={{
     light: '/img/assets/content-type-builder/fields-selection.png',
     dark: '/img/assets/content-type-builder/fields-selection_DARK.png',
   }}
 />
 
-## Regular fields
+## 通常フィールド
 
-### <img width="28" src="/img/assets/icons/v5/ctb_text.svg" /> Text
+### <img width="28" src="/img/assets/icons/v5/ctb_text.svg" /> テキスト
 
-The Text field displays a textbox that can contain small text. This field can be used for titles, descriptions, etc.
+テキストフィールドは、小さなテキストを含むテキストボックスを表示します。このフィールドは、タイトル、説明などに使用できます。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name | Instructions                                                                                            |
-|--------------|---------------------------------------------------------------------------------------------------------|
-| Name         | Write the name of the Text field.                                                                       |
-| Type         | Choose between *Short text* and *Long text*, to allow more or less space to fill up the Text field.     |
+| 設定名       | 説明                                                                                       |
+|--------------|--------------------------------------------------------------------------------------------|
+| 名前         | テキストフィールドの名前を入力します。                                                      |
+| タイプ       | *短いテキスト*と*長いテキスト*のどちらかを選択し、テキストフィールドに入力できるスペースを調整します。 |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                  |
-|----------------|-------------------------------------------------------------------------------|
-| Default value  | Write the default value of the Text field.                                    |
-| RegExp pattern | Write a regular expression to make sure the value of the Text field matches a specific format. |
-| Private field  | Tick to make the field private and prevent it from being found via the API.   |
-| Enable localization for this field | (if [Internationalization](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.    |
-| Unique field   | Tick to prevent another field to be identical to this one.                    |
-| Maximum length | Tick to define a maximum number of characters allowed.                        |
-| Minimum length | Tick to define a minimum number of characters allowed.                        |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | テキストフィールドのデフォルト値を入力します。                                                  |
+| 正規表現パターン | テキストフィールドの値が特定の形式に一致するように、正規表現パターンを入力します。               |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ユニークフィールド | このフィールドと同じ値を持つ別のフィールドを防ぐためにチェックを入れます。                     |
+| 最大長           | 許可される最大文字数を定義します。                                                             |
+| 最小長           | 許可される最小文字数を定義します。                                                             |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_richtextblocks.svg" /> Rich Text (Blocks)
+### <img width="28" src="/img/assets/icons/v5/ctb_richtextblocks.svg" /> リッチテキスト（ブロック）
 
-The Rich Text (Blocks) field displays an editor with live rendering and various options to manage rich text. This field can be used for long written content, even including images and code.
+リッチテキスト（ブロック）フィールドは、リッチテキストを管理するためのライブレンダリング機能を備えたエディタを表示します。このフィールドは、画像やコードを含む長い文章に使用できます。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name | Instructions                                    |
-|--------------|-------------------------------------------------|
-| Name         | Write the name of the Rich Text (Blocks) field. |
+| 設定名   | 説明                                                   |
+|----------|--------------------------------------------------------|
+| 名前     | リッチテキスト（ブロック）フィールドの名前を入力します。|
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Enable localization for this field | (if [Internationalization](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ロケールごとの値を有効にする | （[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
 
 </TabItem>
 
 </Tabs>
 
 :::strapi React renderer
-If using the Blocks editor, we recommend that you also use the [Strapi Blocks React Renderer](https://github.com/strapi/blocks-react-renderer) to easily render the content in a React frontend.
+ブロックエディタを使用する場合、[Strapi Blocks React Renderer](https://github.com/strapi/blocks-react-renderer)を使用して、Reactフロントエンドでコンテンツを簡単にレンダリングすることをお勧めします。
 :::
 
-### <img width="28" src="/img/assets/icons/v5/ctb_number.svg" /> Number
+### <img width="28" src="/img/assets/icons/v5/ctb_number.svg" /> 数値
 
-The Number field displays a field for any kind of number: integer, decimal and float.
+数値フィールドは、整数、小数、浮動小数点数などのあらゆる種類の数値を入力できるフィールドを表示します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Number field.                             |
-| Number format | Choose between *integer*, *big integer*, *decimal* and *float*. |
+| 設定名     | 説明                                                        |
+|------------|-------------------------------------------------------------|
+| 名前       | 数値フィールドの名前を入力します。                           |
+| 数値形式   | *整数*、*大きな整数*、*小数*、*浮動小数点数*から選択します。 |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Number field.                                |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
-| Maximum value  | Tick to define a maximum value allowed.                      |
-| Minimum value  | Tick to define a minimum value allowed.                      |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | 数値フィールドのデフォルト値を入力します。                                                     |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ユニークフィールド | このフィールドと同じ値を持つ別のフィールドを防ぐためにチェックを入れます。                     |
+| 最大値           | 許可される最大値を定義します。                                                                 |
+| 最小値           | 許可される最小値を定義します。                                                                 |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_date.svg" /> Date
+### <img width="28" src="/img/assets/icons/v5/ctb_date.svg" /> 日付
 
-The Date field can display a date (year, month, day), time (hour, minute, second) or datetime (year, month, day, hour, minute, and second) picker.
-
-<Tabs>
-
-<TabItem value="base" label="Base settings">
-
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Date field.                               |
-| Type          | Choose between *date*, *datetime* and *time*                    |
-
-</TabItem>
-
-<TabItem value="advanced" label="Advanced settings">
-
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Date field.                                  |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
-
-</TabItem>
-
-</Tabs>
- 
-### <img width="28" src="/img/assets/icons/v5/ctb_password.svg" /> Password
-
-The Password field displays a password field that is encrypted.
+日付フィールドは、日付（年、月、日）、時間（時、分、秒）、または日時（年、月、日、時、分、秒）のピッカーを表示します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Password field.                           |
+| 設定名   | 説明                                                 |
+|----------|------------------------------------------------------|
+| 名前     | 日付フィールドの名前を入力します。                   |
+| タイプ   | *日付*、*日時*、*時間*のいずれかを選択します。       |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Password field.                              |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | 日付フィールドのデフォルト値を入力します。                                                     |
+
+
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ユニークフィールド | このフィールドと同じ値を持つ別のフィールドを防ぐためにチェックを入れます。                     |
 
 </TabItem>
 
 </Tabs>
 
+### <img width="28" src="/img/assets/icons/v5/ctb_password.svg" /> パスワード
 
-### <img width="28" src="/img/assets/icons/v5/ctb_media.svg" /> Media
-
-The Media field allows to choose one or more media files (e.g. image, video) from those uploaded in the Media Library of the application.
+パスワードフィールドは、暗号化されたパスワードフィールドを表示します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Media field.                              |
-| Type          | Choose between *Multiple media* to allow multiple media uploads, and *Single media* to only allow one media upload. |
+| 設定名   | 説明                                                 |
+|----------|------------------------------------------------------|
+| 名前     | パスワードフィールドの名前を入力します。             |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Select allowed types of media  | Click on the drop-down list to untick media types not allowed for this field. |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | パスワードフィールドのデフォルト値を入力します。                                               |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| 最大長           | 許可される最大文字数を定義します。                                                             |
+| 最小長           | 許可される最小文字数を定義します。                                                             |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_relation.svg" /> Relation
+### <img width="28" src="/img/assets/icons/v5/ctb_media.svg" /> メディア
 
-The Relation field allows to establish a relation with another content-type, that must be a collection type.
-
-There are 6 different types of relations:
-
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_oneway.svg" /> One way: Content-type A *has one* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_1to1.svg" /> One-to-one: Content-type A *has and belong to one* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_1tomany.svg" /> One-to-many: Content-type A *belongs to many* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyto1.svg" /> Many-to-one: Content-type B *has many* Content-type A
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_manytomany.svg" /> Many-to-many: Content-type A *has and belongs to many* Content-type B
-- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyway.svg" /> Many way: Content-type A *has many* Content-type B
+メディアフィールドは、アプリケーションのメディアライブラリにアップロードされたメディアファイル（例: 画像、動画）を1つまたは複数選択できるフィールドです。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-Configuring the base settings of the Relation field consists in choosing with which existing content-type the relation should be established and the kind of relation. The edition window of the Relation field displays 2 grey boxes, each representing one of the content-types in relation. Between the grey boxes are displayed all possible relation types.
-
-1. Click on the 2nd grey box to define the content-type B. It must be an already created collection type.
-2. Click on the icon representing the relation to establish between the content-types.
-3. Choose the *Field name* of the content-type A, meaning the name that will be used for the field in the content-type A.
-4. (optional if disabled by the relation type) Choose the *Field name* of the content-type B.
+| 設定名   | 説明                                                                          |
+|----------|-------------------------------------------------------------------------------|
+| 名前     | メディアフィールドの名前を入力します。                                        |
+| タイプ   | *複数のメディア*を選択して複数のメディアをアップロードできるか、*単一のメディア*を選択して1つのメディアのみをアップロードできるかを選択します。 |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| 許可されるメディアタイプの選択 | ドロップダウンリストをクリックして、このフィールドに許可されないメディアタイプのチェックを外します。 |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ユニークフィールド | このフィールドと同じ値を持つ別のフィールドを防ぐためにチェックを入れます。                     |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_boolean.svg" /> Boolean
+### <img width="28" src="/img/assets/icons/v5/ctb_relation.svg" /> リレーション
 
-The Boolean field displays a toggle button to manage boolean values (e.g. Yes or No, 1 or 0, True or False).
+リレーションフィールドは、他のコレクションタイプとの関係を確立します。
+
+6種類のリレーションがあります:
+
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_oneway.svg" /> 一方向: コンテンツタイプA *が1つの*コンテンツタイプBを持つ
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_1to1.svg" /> 1対1: コンテンツタイプA *が1つの*コンテンツタイプBと関連付けられている
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_1tomany.svg" /> 1対多: コンテンツタイプA *が多数の*コンテンツタイプBに属している
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyto1.svg" /> 多対1: コンテンツタイプB *が多数の*コンテンツタイプAを持っている
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_manytomany.svg" /> 多対多: コンテンツタイプA *が多数の*コンテンツタイプBと関連付けられている
+- <img width="25" src="/img/assets/icons/v5/ctb_relation_manyway.svg" /> 多方向: コンテンツタイプA *が多数の*コンテンツタイプBを持っている
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Boolean field.                            |
+リレーションフィールドの基本設定は、どの既存のコンテンツタイプと関係を確立するか、およびその関係の種類を選択することです。リレーションフィールドの編集ウィンドウには、関係している2つのコンテンツタイプを表す2つのグレーのボックスが表示されます。これらの間には、利用可能なすべてのリレーションタイプが表示されます。
+
+1. 2番目のグレーボックスをクリックして、コンテンツタイプBを定義します。コンテンツタイプBは、すでに作成されたコレクションタイプである必要があります。
+2. 2つのコンテンツタイプの関係を確立するアイコンをクリックします。
+3. コンテンツタイプAの*フィールド名*を選択します。これはコンテンツタイプAのフィールドに使用される名前です。
+4. （オプション、リレーションタイプが無効化されている場合）コンテンツタイプBの*フィールド名*を選択します。
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Choose the default value of the Boolean field: *true*, *null* or *false*.   |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+
+</TabItem>
+
+</Tabs>
+
+### <img width="28" src="/img/assets/icons/v5/ctb_boolean.svg" /> ブール値
+
+ブール値フィールドは、ブール値（例: YesまたはNo、1または0、TrueまたはFalse）を管理するためのトグルボタンを表示します。
+
+<Tabs>
+
+<TabItem value="base" label="基本設定">
+
+| 設定名   | 説明                                           |
+|----------|------------------------------------------------|
+| 名前     | ブール値フィールドの名前を入力します。         |
+
+</TabItem>
+
+<TabItem value="advanced" label="高度な設定">
+
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | ブール値フィールドのデフォルト値を*true*、*null*または*false*から選択します。                   |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ユニークフィールド | このフィールドと同じ値を持つ別のフィールドを
+
+防ぐためにチェックを入れます。                     |
 
 </TabItem>
 
@@ -285,256 +288,258 @@ The Boolean field displays a toggle button to manage boolean values (e.g. Yes or
 
 ### <img width="28" src="/img/assets/icons/v5/ctb_json.svg" /> JSON
 
-The JSON field allows to configure data in a JSON format, to store JSON objects or arrays.
+JSONフィールドは、JSON形式でデータを設定し、JSONオブジェクトまたは配列を保存します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the JSON field.                               |
+| 設定名   | 説明                                           |
+|----------|------------------------------------------------|
+| 名前     | JSONフィールドの名前を入力します。             |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_email.svg" /> Email
+### <img width="28" src="/img/assets/icons/v5/ctb_email.svg" /> メール
 
-The Email field displays an email address field with format validation to ensure the email address is valid.
+メールフィールドは、形式検証を行い、メールアドレスの有効性を確保するフィールドを表示します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Email field.                              |
+| 設定名   | 説明                                           |
+|----------|------------------------------------------------|
+| 名前     | メールフィールドの名前を入力します。           |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Email field.                                 |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Unique field   | Tick to prevent another field to be identical to this one.                  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | メールフィールドのデフォルト値を入力します。                                                   |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| ユニークフィールド | このフィールドと同じ値を持つ別のフィールドを防ぐためにチェックを入れます。                     |
+| 最大長           | 許可される最大文字数を定義します。                                                             |
+| 最小長           | 許可される最小文字数を定義します。                                                             |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_password.svg" /> Password
+### <img width="28" src="/img/assets/icons/v5/ctb_password.svg" /> パスワード
 
-The Password field displays a password field that is encrypted.
+パスワードフィールドは、暗号化されたパスワードフィールドを表示します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Password field.                           |
+| 設定名   | 説明                                                 |
+|----------|------------------------------------------------------|
+| 名前     | パスワードフィールドの名前を入力します。             |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Password field.                              |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | パスワードフィールドのデフォルト値を入力します。                                               |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| 最大長           | 許可される最大文字数を定義します。                                                             |
+| 最小長           | 許可される最小文字数を定義します。                                                             |
 
 </TabItem>
 
 </Tabs>
 
-### <img width="28" src="/img/assets/icons/v5/ctb_enum.svg" /> Enumeration
+### <img width="28" src="/img/assets/icons/v5/ctb_enum.svg" /> 列挙
 
-The Enumeration field allows to configure a list of values displayed in a drop-down list.
+列挙フィールドは、ドロップダウンリストに表示される値のリストを設定できます。
 
-<!--- Add note about Enumeration fields known issues (i.e. recommending a relation using either oneWay or manyWay for some use-cases instead of enum) --->
+<!--- 列挙フィールドの既知の問題についてのメモを追加します（例：一部のユースケースに対して列挙ではなく、oneWayまたはmanyWayのリレーションを使用することを推奨する） --->
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name  | Instructions                                                    |
-|---------------|-----------------------------------------------------------------|
-| Name          | Write the name of the Enumeration field.                        |
-| Values        | Write the values of the enumeration, one per line.              |
+| 設定名   | 説明                                           |
+|----------|------------------------------------------------|
+| 名前     | 列挙フィールドの名前を入力します。             |
+| 値       | 列挙の値を1行ごとに入力します。                |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Choose the default value of the Enumeration field.                          |
-| Name override for GraphQL | Write a custom GraphQL schema type to override the default one for the field. |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | 列挙フィールドのデフォルト値を選択します。                                                     |
+| GraphQL用の名前をオーバーライド | フィールドのデフォルトのGraphQLスキーマタイプをカスタムに変更します。               |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
 
 </TabItem>
 
 </Tabs>
 
 :::caution
-Since Strapi v4.1.3, enumeration values should always have an alphabetical character preceding any number as it could otherwise cause the server to crash without notice when the GraphQL plugin is installed.
+Strapi v4.1.3以降、列挙値には必ず数字の前にアルファベットの文字を含める必要があります。さもないと、GraphQLプラグインがインストールされている場合にサーバーが予告なしにクラッシュする可能性があります。
 :::
 
 ### <img width="28" src="/img/assets/icons/v5/ctb_uid.svg" /> UID
 
-The UID field displays a field that sets a unique identifier, optionally based on an existing other field from the same content-type.
+UIDフィールドは、同じコンテンツタイプの既存の他のフィールドに基づいて一意の識別子を設定するフィールドを表示します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name   | Instructions                                                    |
-|----------------|-----------------------------------------------------------------|
-| Name           | Write the name of the UID field. It must not contain special characters or spaces.                     |
-| Attached field | Choose what existing field to attach to the UID field. Choose *None* to not attach any specific field. |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| 名前             | UIDフィールドの名前を入力します。特殊文字やスペースを含めないでください。                        |
+| 添付フィールド   | UIDフィールドに添付する既存のフィールドを選択します。特定のフィールドに添付しない場合は*None*を選択します。 |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the UID field.                                   |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | UIDフィールドのデフォルト値を入力します。                                                      |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| 最大長           | 許可される最大文字数を定義します。                                                             |
+| 最小長           | 許可される最小文字数を定義します。                                                             |
 
 </TabItem>
 
 </Tabs>
 
 :::tip
-The UID field can be used to create a slug based on the Attached field.
+UIDフィールドは、添付フィールドに基づいてスラッグを作成するために使用できます。
 :::
 
-### <img width="28" src="/img/assets/icons/v5/ctb_richtext.svg" /> Rich Text (Markdown)
+### <img width="28" src="/img/assets/icons/v5/ctb_richtext.svg" /> リッチテキスト（Markdown）
 
-The Rich Text (Markdown) field displays an editor with basic formatting options to manage rich text written in Markdown. This field can be used for long written content.
+リッチテキスト（Markdown）フィールドは、Markdownで書かれたリッチテキストを管理するための基本的なフォーマットオプションを備えたエディタを表示します。このフィールドは、長文のコンテンツに使用できます。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="
 
-| Setting name | Instructions                                      |
-|--------------|---------------------------------------------------|
-| Name         | Write the name of the Rich Text (Markdown) field. |
+基本設定">
+
+| 設定名         | 説明                                                       |
+|----------------|------------------------------------------------------------|
+| 名前           | リッチテキスト（Markdown）フィールドの名前を入力します。     |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                |
-|----------------|-----------------------------------------------------------------------------|
-| Default value  | Write the default value of the Rich Text field.                             |
-| Private field  | Tick to make the field private and prevent it from being found via the API. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the field to have a different value per locale. |
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.  |
-| Maximum length | Tick to define a maximum number of characters allowed.                      |
-| Minimum length | Tick to define a minimum number of characters allowed.                      |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| デフォルト値     | リッチテキストフィールドのデフォルト値を入力します。                                           |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）フィールドがロケールごとに異なる値を持つことを許可します。 |
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| 最大長           | 許可される最大文字数を定義します。                                                             |
+| 最小長           | 許可される最小文字数を定義します。                                                             |
 
 </TabItem>
 
 </Tabs>
 
-## Custom fields
+## カスタムフィールド
 
-Custom fields are a way to extend Strapi’s capabilities by adding new types of fields to content-types or components. Once installed (see [Marketplace](/user-docs/plugins/installing-plugins-via-marketplace.md) documentation), custom fields are listed in the _Custom_ tab when selecting a field for a content-type.
+カスタムフィールドは、コンテンツタイプやコンポーネントに新しいフィールドタイプを追加することでStrapiの機能を拡張する方法です。インストール後（[マーケットプレイス](/user-docs/plugins/installing-plugins-via-marketplace.md)ドキュメントを参照）、カスタムフィールドはコンテンツタイプ用フィールドの選択時に_カスタム_タブにリストされます。
 
-Each custom field type can have basic and advanced settings. The [Marketplace](https://market.strapi.io/plugins?categories=Custom+fields) lists available custom fields, and hosts dedicated documentation for each custom field, including specific settings.
+各カスタムフィールドタイプには、基本設定と高度な設定があり得ます。[マーケットプレイス](https://market.strapi.io/plugins?categories=Custom+fields)には、利用可能なカスタムフィールドがリストされており、各カスタムフィールドに関する専用のドキュメントがホストされており、特定の設定についても説明しています。
 
-## <img width="28" src="/img/assets/icons/v5/ctb_component.svg" /> Components
+## <img width="28" src="/img/assets/icons/v5/ctb_component.svg" /> コンポーネント
 
-Components are a combination of several fields. Components allow to create reusable sets of fields, that can be quickly added to content-types, dynamic zones but also nested into other components.
+コンポーネントは、複数のフィールドを組み合わせたものです。コンポーネントは、再利用可能なフィールドセットを作成し、コンテンツタイプやダイナミックゾーン、さらには他のコンポーネントにネストして迅速に追加できます。
 
-When configuring a component through the Content-type Builder, it is possible to either:
+コンテンツタイプビルダーでコンポーネントを設定する際、次の操作が可能です:
 
-- create a new component by clicking on *Create a new component* (see [Creating a new component](/user-docs/content-type-builder/creating-new-content-type#creating-a-new-component)),
-- or use an existing one by clicking on *Use an existing component*.
+- *新しいコンポーネントを作成* をクリックして新しいコンポーネントを作成する（[新しいコンポーネントの作成](/user-docs/content-type-builder/creating-new-content-type#creating-a-new-component)を参照）、
+- または*既存のコンポーネントを使用* をクリックして既存のコンポーネントを使用します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name       | Instructions                                                    |
-|--------------------|-----------------------------------------------------------------|
-| Name               | Write the name of the component for the content-type.           |
-| Select a component | When using an existing component only - Select from the drop-down list an existing component. |
-| Type               | Choose between *Repeatable component* to be able to use several times the component for the content-type, or *Single component* to limit to only one time the use of the component. |
+| 設定名           | 説明                                                                           |
+|------------------|--------------------------------------------------------------------------------|
+| 名前             | コンテンツタイプ用のコンポーネントの名前を入力します。                         |
+| コンポーネントの選択 | 既存のコンポーネントを使用する場合のみ - ドロップダウンリストから既存のコンポーネントを選択します。 |
+| タイプ           | コンテンツタイプでコンポーネントを複数回使用できるようにする*繰り返し可能コンポーネント* または1回限りに制限する*単一コンポーネント*を選択します。 |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                            |
-|----------------|-----------------------------------------------------------------------------------------|
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.              |
-| Private field  | Tick to make the field private and prevent it from being found via the API.             |
-| Maximum value  | For repeatable components only - Tick to define a maximum number of characters allowed. |
-| Minimum value  | For repeatable components only - Tick to define a minimum number of characters allowed. |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the component to be translated per available locale. |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| プライベートフィールド | フィールドをプライベートにして、API経由で見つけられないようにします。                         |
+| 最大値           | 繰り返し可能コンポーネントのみ - 許可される最大文字数を定義します。                             |
+| 最小値           | 繰り返し可能コンポーネントのみ - 許可される最小文字数を定義します。                             |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）コンポーネントをロケールごとに翻訳できるようにします。 |
 
 </TabItem>
 
 </Tabs>
 
-## <img width="28" src="/img/assets/icons/v5/ctb_dz.svg" /> Dynamic zones
+## <img width="28" src="/img/assets/icons/v5/ctb_dz.svg" /> ダイナミックゾーン
 
-Dynamic zones are a combination of components that can be added to content-types. They allow a flexible content structure as once in the Content Manager, administrators have the choice of composing and rearranging the components of the dynamic zone how they want.
+ダイナミックゾーンは、コンテンツタイプに追加できるコンポーネントの組み合わせです。これにより、コンテンツマネージャー内で、管理者がダイナミックゾーンのコンポーネントを自由に構成し、再配置できる柔軟なコンテンツ構造を提供します。
 
 <Tabs>
 
-<TabItem value="base" label="Base settings">
+<TabItem value="base" label="基本設定">
 
-| Setting name       | Instructions                                                    |
-|--------------------|-----------------------------------------------------------------|
-| Name               | Write the name of the dynamic zone for the content-type.        |
+| 設定名           | 説明                                                                       |
+|------------------|----------------------------------------------------------------------------|
+| 名前             | コンテンツタイプ用のダイナミックゾーンの名前を入力します。                 |
 
 </TabItem>
 
-<TabItem value="advanced" label="Advanced settings">
+<TabItem value="advanced" label="高度な設定">
 
-| Setting name   | Instructions                                                                            |
-|----------------|-----------------------------------------------------------------------------------------|
-| Required field | Tick to prevent creating or saving an entry if the field is not filled in.              |
-| Maximum value  | Tick to define a maximum number of characters allowed.                                  |
-| Minimum value  | Tick to define a minimum number of characters allowed.                                  |
-| Enable localization for this field | (if [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is enabled for the content-type) Allow the dynamic zone to be translated per available locale. |
+| 設定名           | 説明                                                                                           |
+|------------------|------------------------------------------------------------------------------------------------|
+| 必須フィールド   | フィールドに入力がない場合、エントリの作成や保存を防ぐためにチェックを入れます。                 |
+| 最大値           | 許可される最大文字数を定義します。                                                             |
+| 最小値           | 許可される最小文字数を定義します。                                                             |
+| ロケールごとの値を有効にする | （[国際化プラグイン](/user-docs/plugins/strapi-plugins#-internationalization-plugin)がコンテンツタイプに対して有効になっている場合）ダイナミックゾーンを利用可能なロケールごとに翻訳できるようにします。 |
 
 </TabItem>
 
 </Tabs>
 
-After configuring the settings of the dynamic zone, its components must be configured as well. It is possible to either choose an existing component or create a new one.
+ダイナミックゾーンの設定を完了した後、そのコンポーネントも設定する必要があります。既存のコンポーネントを選択するか、新しいコンポーネントを作成することができます。
 
 :::caution
-When using dynamic zones, different components cannot have the same field name with different types (or with enumeration fields, different values).
+ダイナミックゾーンを使用する場合、異なるコンポーネントが異なる型（または列挙フィールドで異なる値）を持つ同じフィールド名を持つことはできません。
 :::
