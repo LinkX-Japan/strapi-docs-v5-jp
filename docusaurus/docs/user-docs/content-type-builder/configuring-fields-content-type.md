@@ -284,6 +284,7 @@ import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
 </TabItem>
 
+
 </Tabs>
 
 ### <img width="28" src="/img/assets/icons/v5/ctb_json.svg" /> JSON
@@ -445,9 +446,7 @@ UIDフィールドは、添付フィールドに基づいてスラッグを作�
 
 <Tabs>
 
-<TabItem value="base" label="
-
-基本設定">
+<TabItem value="base" label="基本設定">
 
 | 設定名         | 説明                                                       |
 |----------------|------------------------------------------------------------|
