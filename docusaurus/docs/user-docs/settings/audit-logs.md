@@ -1,90 +1,77 @@
 ---
-title: Viewing Audit Logs 
-description: Reviewing the audit logs in Strapi.
+title: 監査ログの確認
+description: Strapiで監査ログを確認する方法
 sidebar_position: 2
 tags:
-- audit logs
-- admin panel
-- Enterprise feature
-- payload
+- 監査ログ
+- 管理パネル
+- エンタープライズ機能
+- ペイロード
 - Strapi Cloud
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Audit Logs <EnterpriseBadge withLinkIcon link="https://strapi.io/pricing-self-hosted" /> <CloudTeamBadge/>
+# 監査ログ <EnterpriseBadge withLinkIcon link="https://strapi.io/pricing-self-hosted" /> <CloudTeamBadge/>
 
-The **Audit Logs** section provides a searchable and filterable display of all activities performed by users of the Strapi application.
+**監査ログ** セクションでは、Strapiアプリケーションのユーザーによって行われたすべてのアクティビティを検索およびフィルタできる表示を提供します。
 
-Audit logs are only accessible to users with the **Super Admin** role by default. They are available in the **Administration Panel** section of the **Settings** panel.
+監査ログは、デフォルトで**Super Admin**ロールを持つユーザーのみがアクセス可能です。監査ログは、**設定**パネル内の**管理パネル**セクションにあります。
 
 <ThemedImage
-  alt="Audit Logs panel"
+  alt="監査ログパネル"
   sources={{
     light: '/img/assets/settings/settings_audit-logs.png',
     dark: '/img/assets/settings/settings_audit-logs_DARK.png',
   }}
 />
 
-## Events logged
+## ログされるイベント
 
-The following events are logged:
+次のイベントが記録されます：
 
-| Event | Actions |
+| イベント | アクション |
 | --- | --- |
-| Content Type | `create`, `update`, `delete` |
-| Entry (draft/publish) | `create`, `update`, `delete`, `publish`, `unpublish` |
-| Media | `create`, `update`, `delete` |
-| Login / Logout | `success`, `fail` |
-| Role / Permission | `create`, `update`, `delete` |
-| User | `create`, `update`, `delete` |
+| コンテンツタイプ | `作成`、`更新`、`削除` |
+| エントリー（下書き/公開） | `作成`、`更新`、`削除`、`公開`、`非公開` |
+| メディア | `作成`、`更新`、`削除` |
+| ログイン/ログアウト | `成功`、`失敗` |
+| ロール/権限 | `作成`、`更新`、`削除` |
+| ユーザー | `作成`、`更新`、`削除` |
 
+各ログアイテムには次の情報が表示されます：
 
-For each log item the following information is displayed:
+* **アクション**: ユーザーによって実行されたアクションのタイプ。例えば `作成` または `更新`。
+* **日時**: アクションが行われた日時。
+* **ユーザー**: アクションを実行したユーザー。
+* **詳細**: アクションに関する詳細を表示するモーダル。例えばユーザーのIPアドレス、リクエストボディ、レスポンスボディなど。
 
-* **Action**: The type of action performed by the user. For example `create` or `update`.
-* **Date**: The date and time of the action.
-* **User**: The user who performed the action.
-* **Details**: Displays a modal with more details about the action. For example the User IP address, the request body, or the response body.
+## ログのフィルタリング
 
+**監査ログ** ページでは、すべてのログがデフォルトで逆時系列に表示されます。次の条件でログをフィルタリングできます：
 
-## Filtering logs
-
-The **Audit Logs** page displays all logs by default, in reverse chronological order. You can filter the logs by:
-
-* **Action**: Select the type of action to filter by. For example `create` or `update`.
-* **User**: Select the user to filter by.
-* **Date**: Select a date (range) and time to filter by.
+* **アクション**: アクションタイプでフィルタリングします。例えば `作成` または `更新`。
+* **ユーザー**: ユーザーでフィルタリングします。
+* **日時**: 日付（範囲）や時間でフィルタリングします。
 
 <ThemedImage
-  alt="Audit Logs filters"
+  alt="監査ログのフィルタ"
   sources={{
     light: '/img/assets/settings/settings_audit-logs-filters.png',
     dark: '/img/assets/settings/settings_audit-logs-filters_DARK.png',
   }}
 />
 
-<!--
-### Creating a custom filter
+## ログの詳細
 
-WiP
-
-
-## Searching logs
-
-Click the **Search** icon to search for a specific log. The search is performed on all log fields.
--->
-
-## Log details
-
-For any log item, click the ![Eye icon](/img/assets/icons/v5/Eye.svg) icon to display a modal with more details about that action.
+任意のログアイテムについて、![表示アイコン](/img/assets/icons/v5/Eye.svg) アイコンをクリックすると、そのアクションの詳細を表示するモーダルが開きます。
 
 <ThemedImage
-  alt="Log details modal"
+  alt="ログ詳細モーダル"
   sources={{
     light: '/img/assets/settings/settings_log-details.png',
     dark: '/img/assets/settings/settings_log-details_DARK.png',
   }}
 />
 
-The **Payload** details are displayed in an interactive JSON component, enabling you to expand and collapse the JSON object.
+**ペイロード**の詳細はインタラクティブなJSON形式で表示され、JSONオブジェクトを展開または折りたたむことができます。

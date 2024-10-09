@@ -1,41 +1,41 @@
 ---
 sidebar_position: 3
-title: Single Sign-On
+title: シングルサインオン (SSO)
 tags:
-- admin panel
-- Enterprise feature
-- Single Sign-On (SSO)
+- 管理パネル
+- エンタープライズ機能
+- シングルサインオン (SSO)
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring Single Sign-On (SSO) <EnterpriseBadge />
+# シングルサインオン (SSO) の設定 <EnterpriseBadge />
 
-Single Sign-On (SSO) can be made available on a Strapi application to allow administrators to authenticate through an identity provider (e.g. Microsoft Azure Active Directory). SSO configurations can be done from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > Single Sign-On*.
+シングルサインオン (SSO) 機能を使用すると、管理者がMicrosoft Azure Active Directoryなどのアイデンティティプロバイダーを介して認証できるようにすることが可能です。SSOの設定は、![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > シングルサインオン* から行います。
 
 <ThemedImage
-  alt="SSO settings"
+  alt="SSO設定"
   sources={{
     light: '/img/assets/settings/settings-sso.png',
     dark: '/img/assets/settings/settings-sso_DARK.png',
   }}
 />
 
-To configure the SSO feature settings:
+SSO機能の設定を行うには：
 
-1. Go to the *Global settings > Single Sign-On* sub-section of the settings interface.
-2. Define your chosen new settings:
+1. 設定インターフェースの *グローバル設定 > シングルサインオン* サブセクションに移動します。
+2. 以下の設定を定義します：
 
-| Setting name      | Instructions      |
-| ----------------- | ---------------------|
-| Auto-registration | Click on **True** to allow the automatic creation of a new Strapi administrator when an SSO login does not match an existing Strapi administrator account. If this setting is set on **False**, new Strapi administrators accounts must be created manually beforehand. |
-| Default role      | Choose among the drop-down list the role to attribute by default to auto-registered Strapi administrators through SSO login.           |
-| Local authentication lock-out | Choose among the drop-down list the [roles](/user-docs/users-roles-permissions) for which the local authentication capabilities are disabled.<br />Users locked out of local authentication will be forced to use SSO to login and will not be able to change or reset their password. |
+| 設定名                     | 手順                                                                                                 |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 自動登録                   | SSOログインが既存のStrapi管理者アカウントと一致しない場合、新しい管理者を自動的に作成するには **True** をクリックします。この設定が **False** の場合、新しい管理者アカウントは事前に手動で作成する必要があります。 |
+| デフォルトロール            | SSOログインによって自動登録された管理者にデフォルトで付与するロールをドロップダウンリストから選択します。                          |
+| ローカル認証のロックアウト   | ローカル認証機能を無効にする[ロール](/user-docs/users-roles-permissions)をドロップダウンリストから選択します。<br />ローカル認証がロックアウトされたユーザーは、SSOを使用してログインする必要があり、パスワードの変更やリセットはできません。 |
 
-3. Click the **Save** button.
+3. **保存** ボタンをクリックします。
 
 :::danger
-Don't select _Super Admin_ in the roles list for the _Local authentication lock-out_. If _Super Admin_ is selected, it becomes possible to accidentally lock oneself out of the Strapi admin panel entirely. A fix will be provided soon.
+_ローカル認証のロックアウト_ のロールリストで _Super Admin_ を選択しないでください。_Super Admin_ を選択すると、誤ってStrapiの管理パネルに全くアクセスできなくなる可能性があります。修正は近日中に提供予定です。
 
-In the meantime, the only way to get in if the Super Admin can't log in is to temporarily disable the SSO feature entirely, log in with username and password to remove the _Super Admin_ role from the _Local authentication lock-out_ list, and then re-enable SSO.
+それまでの間、Super Adminがログインできなくなった場合は、一時的にSSO機能を無効にし、ユーザー名とパスワードでログインして _ローカル認証のロックアウト_ リストから _Super Admin_ を削除した後、再度SSOを有効にする方法で対処してください。
 :::

@@ -1,73 +1,73 @@
 ---
-title: Including content in a release
-description: Instructions to include content in a release
+title: リリースにコンテンツを含める
+description: リリースにコンテンツを含めるための手順
 displayed_sidebar: userDocsSidebar
 tags:
-- admin panel
-- Enterprise feature
-- releases feature
+- 管理パネル
+- エンタープライズ機能
+- リリース機能
 - Strapi Cloud
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Including content in a release  <EnterpriseBadge /> <CloudTeamBadge />
+# リリースにコンテンツを含める  <EnterpriseBadge /> <CloudTeamBadge />
 
-Using the [Releases](/user-docs/releases/introduction) feature, you can group several entries to publish them altogether. Adding entries to a release is done from the Content Manager. You can also remove an entry from a release while updating the entry.
+[リリース](/user-docs/releases/introduction)機能を使用すると、複数のエントリをグループ化して一度に公開することができます。エントリをリリースに追加する作業は、コンテンツマネージャーから行います。エントリを更新する際にリリースからエントリを削除することも可能です。
 
 :::prerequisites
-- Before entries can be added to a release, you must create a release from the [Releases](/user-docs/releases/creating-a-release) page.
-- Adding content to a release requires the appropriate permissions for the Content-Releases plugin (see [configuring administrator roles](/user-docs/users-roles-permissions/configuring-administrator-roles#plugins-and-settings)).
+- エントリをリリースに追加する前に、[リリース](/user-docs/releases/creating-a-release)ページからリリースを作成しておく必要があります。
+- コンテンツをリリースに追加するには、Content-Releasesプラグインに対する適切な権限が必要です（[管理者ロールの設定](/user-docs/users-roles-permissions/configuring-administrator-roles#plugins-and-settings)を参照）。
 :::
 
-## Adding multiple entries to a release
+## 複数のエントリをリリースに追加する
 
-Multiple entries can be added to a [release](/user-docs/releases/introduction) from the list view of the Content Manager.
+複数のエントリは、コンテンツマネージャーのリストビューから[リリース](/user-docs/releases/introduction)に追加できます。
 
-To add entries to a release:
+エントリをリリースに追加する手順：
 
-1. From the list view of the Content Manager, select which entries you want to add by ticking the box on the left side of the entries' record.
-2. Click on the **Add to release** button located above the header of the table.
-3. In the modal, select which release to add these entries to.
-4. Click on the **Publish** or **Unpublish** button to decide whether these entries will be published or unpublished when the release is published, then click **Continue**.
+1. コンテンツマネージャーのリストビューから、追加したいエントリを選択し、エントリの記録の左側にあるボックスをチェックします。
+2. テーブルのヘッダー上部にある **リリースに追加** ボタンをクリックします。
+3. モーダルで、これらのエントリを追加するリリースを選択します。
+4. リリースが公開されたときにこれらのエントリを公開するか、非公開にするかを決定するために、**公開** または **非公開** ボタンをクリックし、**続行** をクリックします。
 
 <ThemedImage
-  alt="Including content in a release"
+  alt="リリースにコンテンツを含める"
   sources={{
     light: '/img/assets/releases/releases-cm-list-view.png',
     dark: '/img/assets/releases/releases-cm-list-view_DARK.png',
   }}
 />
 
-## Adding an entry to a release
+## エントリをリリースに追加する
 
-An entry can be added to a [release](/user-docs/releases/introduction) while editing it from the edit view of the Content Manager.
+エントリは、コンテンツマネージャーの編集ビューから編集中に[リリース](/user-docs/releases/introduction)に追加できます。
 
-To add an entry to a release:
+エントリをリリースに追加する手順：
 
-1. Click on ![More icon](/img/assets/icons/v5/More.svg) in the _Entry_ area on the right side of the interface.
-2. In the list, click on the ![Releases icon](/img/assets/icons/v5/PaperPlane.svg) **Add to release** button.
-2. Select which release to add this entry to.
-3. Click on the **Publish** or **Unpublish** button depending on whether you want the entry to be published or unpublished when the release itself is published, then click **Continue**.
+1. インターフェースの右側にある _エントリ_ エリアで、![その他アイコン](/img/assets/icons/v5/More.svg) をクリックします。
+2. リストの中から、![リリースアイコン](/img/assets/icons/v5/PaperPlane.svg) **リリースに追加** ボタンをクリックします。
+2. このエントリを追加するリリースを選択します。
+3. リリース自体が公開されるときにエントリを公開するか、非公開にするかを決定するために、**公開** または **非公開** ボタンをクリックし、**続行** をクリックします。
 
-The *Releases* box on the right should show which release(s) the entry is included in.
+右側の *リリース* ボックスには、そのエントリが含まれているリリースが表示されます。
 
 :::info
-If [Releases scheduling](/user-docs/releases/managing-a-release#scheduling-a-release-) is enabled and the entry is added to a scheduled release, the release date and time will also be displayed.
+[リリーススケジューリング](/user-docs/releases/managing-a-release#scheduling-a-release-) が有効になっている場合、エントリがスケジュールされたリリースに追加されると、リリースの日時も表示されます。
 :::
 
-## Removing an entry from a release
+## エントリをリリースから削除する
 
-An entry can be removed from a [release](/user-docs/releases/introduction) while editing it from the edit view of the Content Manager.
+エントリは、コンテンツマネージャーの編集ビューから編集中に[リリース](/user-docs/releases/introduction)から削除できます。
 
-To remove an entry from a release:
+エントリをリリースから削除する手順：
 
-1. In the *Releases* box in the right sidebar, click on ![More icon](/img/assets/icons/v5/More.svg) below the name of the release.
-2. Click the **Remove from release** button.
+1. 右サイドバーの *リリース* ボックスで、リリース名の下にある ![その他アイコン](/img/assets/icons/v5/More.svg) をクリックします。
+2. **リリースから削除** ボタンをクリックします。
 
-<!-- TODO: re-add when implemented -->
+<!-- TODO: 実装されたら再追加 -->
 <!-- :::tip
-You can also remove multiple entries from a release directly from the release page (see [Managing a release](/user-docs/releases/managing-a-release)).
+複数のエントリをリリースページから直接削除することもできます（[リリースの管理](/user-docs/releases/managing-a-release)を参照）。
 ::: -->
 
-<!-- TODO: add screenshot -->
+<!-- TODO: スクリーンショットを追加 -->

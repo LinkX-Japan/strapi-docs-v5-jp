@@ -1,60 +1,60 @@
 ---
 displayed_sidebar: userDocsSidebar
-description: The Strapi User Guide contains the functional documentation related to all features available in the main navigation of your Strapi application.
-sidebar_label: Welcome!
+description: Strapiユーザーガイドは、Strapiアプリケーションのメインナビゲーションで利用可能なすべての機能に関連する操作ドキュメントを含んでいます。
+sidebar_label: ようこそ！
 tags:
-- admin panel
-- guides
-- introduction
+- 管理パネル
+- ガイド
+- 紹介
 pagination_next: user-docs/getting-started/user-guide-fundamentals
 ---
 
-# Welcome to the Strapi User Guide!
+# Strapiユーザーガイドへようこそ！
 
-<SubtleCallout title="Developer Docs, User Guide, and Strapi Cloud documentation" emoji="📍">
+<SubtleCallout title="開発者ドキュメント、ユーザーガイド、Strapi Cloudドキュメント" emoji="📍">
 
-The documentation for Strapi contains 3 main sections, accessible from the top navigation bar:
+Strapiのドキュメントには、トップナビゲーションバーからアクセスできる3つの主要セクションがあります：
 
-- 🧑‍💻 The **[Developer Docs](/dev-docs/intro)** contain all the technical information related to the setup, advanced usage, customization, and update of your Strapi 5 application.
-- 🧑‍🏫 The **User Guide** that you're currently reading is all about using Strapi's admin panel.
-- ☁️ The **[Strapi Cloud](/cloud/intro)** documentation is about deploying your Strapi application to Strapi Cloud and managing your Strapi Cloud projects and settings.
+- 🧑‍💻 **[開発者ドキュメント](/dev-docs/intro)** には、Strapi 5アプリケーションのセットアップ、応用的な使い方、カスタマイズ、更新に関連するすべての技術情報が含まれています。
+- 🧑‍🏫 **ユーザーガイド**（現在お読みいただいているガイド）は、Strapiの管理パネルの使用方法に関するものです。
+- ☁️ **[Strapi Cloud](/cloud/intro)** ドキュメントでは、StrapiアプリケーションをStrapi Cloudにデプロイし、Strapi Cloudプロジェクトや設定を管理する方法について説明しています。
 
 </SubtleCallout>
 
-This user guide contains the functional documentation related to all features available in the main navigation of your Strapi application.
+このユーザーガイドには、Strapiアプリケーションのメインナビゲーションで利用可能なすべての機能に関連する操作ドキュメントが含まれています。
 
-Once you have logged in, you can access your Strapi admin panel:
+ログイン後、Strapiの管理パネルにアクセスできます：
 
 <ThemedImage
-alt="Homepage of the Admin Panel"
+alt="管理パネルのホームページ"
 sources={{
     light: '/img/assets/getting-started/admin-panel-homepage.png',
     dark: '/img/assets/getting-started/admin-panel-homepage_DARK.png',
   }}
 />
 
-If you are not sure where to begin on this User Guide, we suggest you to:
+どこから始めればよいかわからない場合は、次の手順をお勧めします：
 
-1. Go through the [User Guide fundamentals](/user-docs/getting-started/user-guide-fundamentals).
-2. Follow the [Setting up the admin panel](/user-docs/getting-started/setting-up-admin-panel) guide.
-3. Continue your journey through the various User Guide sections. The ["What you will find here"](#what-you-will-find-here) section gives you an overview of the available topics.
+1. [ユーザーガイドの基本](/user-docs/getting-started/user-guide-fundamentals)を読みましょう。
+2. [管理パネルのセットアップ](/user-docs/getting-started/setting-up-admin-panel)ガイドに従いましょう。
+3. ユーザーガイドの各セクションを順に読み進めてください。[「ここで見つかるもの」](#what-you-will-find-here) セクションでは、利用可能なトピックの概要が示されています。
 
-## What you will find here
+## ここで見つかるもの
 
-The table of content in this User Guide displays 7 main sections.
+このユーザーガイドの目次には7つの主要なセクションがあります。
 
-Clicking on any of the following cards will direct you to the introductory page for that section, with additional details and concepts:
+次のカードをクリックすると、そのセクションの紹介ページに移動し、詳細や概念がさらに表示されます：
 
 <CustomDocCardsWrapper>
-  <CustomDocCard emoji="📝" title="Content Manager" description="Manage and publish all content types created with the Content-type Builder." link="/user-docs/content-manager" />
-  <CustomDocCard emoji="📚" title="Content Type Builder" description="Build your data structure by creating and managing content-types." link="/user-docs/content-type-builder" />
-  <CustomDocCard emoji="🗃️" title="Media Library" description="Upload and manage all assets and organize them into folders." link="/user-docs/media-library" />
-  <CustomDocCard emoji="📅" title="Releases" description="Arrange entries into containers for publishing and unpublishing actions." link="/user-docs/releases/introduction"/>
-  <CustomDocCard emoji="🔐" title="Users, Roles & Permission" description="Assign permission to roles, which are then associated with users." link="/user-docs/users-roles-permissions"/>
-  <CustomDocCard emoji="🔗" title="Plugins" description="Find additional functionalities to extend and customize your applications." link="/user-docs/plugins" />
-  <CustomDocCard emoji="⚙️" title="General Settings" description="Access features needed set up your Strapi admin panel." link="/user-docs/settings/introduction" />
+  <CustomDocCard emoji="📝" title="コンテンツマネージャー" description="コンテンツタイプビルダーで作成されたすべてのコンテンツタイプを管理および公開します。" link="/user-docs/content-manager" />
+  <CustomDocCard emoji="📚" title="コンテンツタイプビルダー" description="コンテンツタイプを作成して管理することで、データ構造を構築します。" link="/user-docs/content-type-builder" />
+  <CustomDocCard emoji="🗃️" title="メディアライブラリ" description="すべてのアセットをアップロードおよび管理し、フォルダに整理します。" link="/user-docs/media-library" />
+  <CustomDocCard emoji="📅" title="リリース" description="エントリをコンテナに配置して、公開および非公開のアクションを実行します。" link="/user-docs/releases/introduction"/>
+  <CustomDocCard emoji="🔐" title="ユーザー、ロール＆権限" description="ロールに権限を割り当て、それをユーザーに関連付けます。" link="/user-docs/users-roles-permissions"/>
+  <CustomDocCard emoji="🔗" title="プラグイン" description="アプリケーションを拡張およびカスタマイズするための追加機能を見つけます。" link="/user-docs/plugins" />
+  <CustomDocCard emoji="⚙️" title="一般設定" description="Strapi管理パネルのセットアップに必要な機能にアクセスします。" link="/user-docs/settings/introduction" />
 </CustomDocCardsWrapper>
 
-:::strapi Welcome to the Strapi community!
+:::strapi Strapiコミュニティへようこそ！
 
-If you have any trouble with your Strapi experience, you can reach us through [GitHub](https://github.com/strapi/) or our [forum](https://forum.strapi.io/)! The Strapi Community and Strapi team are always available to answer your questions or help you with anything!
+Strapiの利用中に問題が発生した場合は、[GitHub](https://github.com/strapi/)または[フォーラム](https://forum.strapi.io/)を通じてご連絡ください！StrapiコミュニティとStrapiチームは、質問に答えたり、サポートを提供するために常にお待ちしています！

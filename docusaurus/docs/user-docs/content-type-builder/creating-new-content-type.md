@@ -1,80 +1,80 @@
 ---
 sidebar_position: 2
-description: The Content-type Builder allows to create new content-types, single and collection types.
+description: Content-type Builderを使用して、シングルタイプおよびコレクションタイプの新しいコンテンツタイプを作成します。
 tags:
-- collection type
-- components
-- Content-type
-- Content-type Builder
-- single type
+- コレクションタイプ
+- コンポーネント
+- コンテンツタイプ
+- コンテンツタイプビルダー
+- シングルタイプ
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Creating content-types
+# コンテンツタイプの作成
 
-:::note Development-only
-The Content-type Builder is only accessible to create and update content-types when your Strapi application is in a development environment, else it will be in a read-only mode in other environments.
+:::note 開発環境のみ
+コンテンツタイプビルダーは、Strapiアプリケーションが開発環境にある場合のみ、コンテンツタイプの作成および更新にアクセスできます。他の環境では読み取り専用モードになります。
 :::
 
-The Content-type Builder allows to create new content-types: single and collection types. Although they are not proper content-types as they cannot exist independently, components can also be created through the Content-type Builder, in the same way as collection and single types.
+コンテンツタイプビルダーを使用して、新しいコンテンツタイプ（シングルタイプおよびコレクションタイプ）を作成できます。コンポーネントは独立して存在できるコンテンツタイプではありませんが、コレクションタイプやシングルタイプと同様に、コンテンツタイプビルダーで作成できます。
 
-## Creating a new content-type
+## 新しいコンテンツタイプの作成
 
 <ThemedImage
-  alt="Content-type creation"
+  alt="コンテンツタイプの作成"
   sources={{
     light: '/img/assets/content-type-builder/content-type-creation.png',
     dark: '/img/assets/content-type-builder/content-type-creation_DARK.png',
   }}
 />
 
-Content types are created from the Content-type Builder's Collection types and Single types categories, both displayed in the Content-type Builder sub navigation.
+コンテンツタイプは、コンテンツタイプビルダーのコレクションタイプおよびシングルタイプのカテゴリから作成します。これらは、コンテンツタイプビルダーのサブナビゲーションに表示されます。
 
-To create a new content-type:
+新しいコンテンツタイプを作成するには:
 
-1. Choose whether you want to create a collection type or a single type.
-2. In the category of the content-type you want to create, click on **Create new collection/single type**.
-3. In the content-type creation window, write the name of the new content-type in the *Display name* textbox.
-4. Check the *API ID* to make sure the automatically pre-filled values are correct. Collection type names are indeed automatically pluralized when displayed in the Content Manager. It is recommended to opt for singular names, but the *API ID* field allows to fix any pluralization mistake.
-5. (optional) In the Advanced Settings tab, configure the available settings for the new content-type:
+1. コレクションタイプまたはシングルタイプのいずれかを選択します。
+2. 作成したいコンテンツタイプのカテゴリで、**新しいコレクションタイプ/シングルタイプを作成**をクリックします。
+3. コンテンツタイプ作成ウィンドウで、*表示名* テキストボックスに新しいコンテンツタイプの名前を入力します。
+4. *API ID* を確認して、事前に入力された値が正しいかどうかを確認します。コレクションタイプの名前は、コンテンツマネージャーに表示されるときに自動的に複数形になります。単数形の名前を選択することが推奨されますが、*API ID* フィールドを使用して複数形の間違いを修正できます。
+5. （オプション）[詳細設定] タブで、新しいコンテンツタイプの利用可能な設定を構成します:
 
-      | Setting name    | Instructions                                                                                                                                     |
-      |-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-      | Draft & publish | Tick the checkbox to allow entries of the content-type to be managed as draft versions, before they are published (see [Saving & publishing content](/user-docs/content-manager/saving-and-publishing-content#saving-publishing-content)). |
-      | Internationalization | Tick the checkbox to allow entries of the content-type to be translated into other locales. |
+      | 設定名               | 説明                                                                                                                                                                                                                               |
+      |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+      | ドラフト&公開        | コンテンツタイプのエントリを公開前にドラフトとして管理できるようにするには、チェックボックスをオンにします（[コンテンツの保存&公開](/user-docs/content-manager/saving-and-publishing-content#saving-publishing-content)を参照）。 |
+      | 国際化               | チェックボックスをオンにすると、コンテンツタイプのエントリを他のロケールに翻訳できます。                                                                                                        |
 
 <!--
-| Review workflows | <EnterpriseBadge /> Tick the checkbox to allow entries of the content-type to be managed through defined review stages (see [Managing Review Workflows](/user-docs/settings/review-workflows)). |
+| レビューワークフロー | <EnterpriseBadge /> チェックボックスをオンにすると、コンテンツタイプのエントリが定義されたレビューステージを通じて管理できます（[レビューワークフローの管理](/user-docs/settings/review-workflows)を参照）。 |
 -->
 
-6. Click on the **Continue** button.
-7. Add and configure chosen fields for your content-type (see [Configuring fields for content-types](/user-docs/content-type-builder/configuring-fields-content-type)).
-8. Click on the **Save** button.
+6. **続行** ボタンをクリックします。
+7. コンテンツタイプに必要なフィールドを追加し、設定します（[コンテンツタイプのフィールド設定](/user-docs/content-type-builder/configuring-fields-content-type)を参照）。
+8. **保存** ボタンをクリックします。
 
 :::caution
-New content-types are only considered created once they have been saved. Saving is only possible if at least one field has been added and properly configured. If these steps have not been done, a content-type cannot be created, listed in its category in the Content-type Builder, and cannot be used in the Content Manager.
+新しいコンテンツタイプは、保存されて初めて作成されたと見なされます。少なくとも1つのフィールドが追加され、適切に設定されている場合にのみ保存が可能です。これらの手順が完了していない場合、コンテンツタイプは作成されず、コンテンツタイプビルダーのカテゴリにリストされず、コンテンツマネージャーで使用することもできません。
 :::
 
-## Creating a new component
+## 新しいコンポーネントの作成
 
 <ThemedImage
-  alt="Component creation"
+  alt="コンポーネントの作成"
   sources={{
     light: '/img/assets/content-type-builder/component-creation-1.png',
     dark: '/img/assets/content-type-builder/component-creation-1_DARK.png',
   }}
 />
 
-Components are created from the same-named category of the Content-type Builder's sub navigation.
+コンポーネントは、コンテンツタイプビルダーのサブナビゲーションの同名のカテゴリから作成されます。
 
-To create a new component:
+新しいコンポーネントを作成するには:
 
-1. In the Components category of the Content-type Builder sub navigation, click on **Create new component**.
-2. In the component creation window, configure the base settings of the new component:
-   - Write the name of the component in the *Display name* textbox.
-   - Select an available category, or enter in the textbox a new category name to create one.
-   - _(optional)_ Choose an icon representing the new component. You can use the search ![Search icon](/img/assets/icons/v5/Search.svg) to find an icon instead of scrolling through the list.
-3. Click on the **Continue** button.
-4. Add and configure chosen fields for your component (see [Configuring fields for content-types](/user-docs/content-type-builder/configuring-fields-content-type)).
-5. Click on the **Save** button.
+1. コンテンツタイプビルダーのコンポーネントカテゴリで、**新しいコンポーネントを作成**をクリックします。
+2. コンポーネント作成ウィンドウで、新しいコンポーネントの基本設定を行います:
+   - *表示名* テキストボックスにコンポーネントの名前を入力します。
+   - 利用可能なカテゴリを選択するか、新しいカテゴリ名を入力して作成します。
+   - （オプション）新しいコンポーネントを表すアイコンを選択します。検索機能 ![検索アイコン](/img/assets/icons/v5/Search.svg) を使って、リストをスクロールする代わりにアイコンを探すこともできます。
+3. **続行** ボタンをクリックします。
+4. コンポーネントに必要なフィールドを追加し、設定します（[コンテンツタイプのフィールド設定](/user-docs/content-type-builder/configuring-fields-content-type)を参照）。
+5. **保存** ボタンをクリックします。

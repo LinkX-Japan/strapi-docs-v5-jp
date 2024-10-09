@@ -1,28 +1,33 @@
 ---
-title: User Guide fundamentals
+title: ユーザーガイドの基本
 displayed_sidebar: userDocsSidebar
-description: Here are some concepts to keep in mind
+description: 抑えておきたい基本的な概念
 tags:
-- concepts
-- environment
-- Strapi version
-- license 
-- Strapi Cloud plan
-- future flag
-- roles and permissions
-- admin panel
+- 概念
+- 環境
+- Strapiバージョン
+- ライセンス
+- Strapiクラウドプラン
+- フューチャーフラグ
+- ロールと権限
+- 管理パネル
 ---
 
-Before going any further into this user guide, we recommend you to acknowledge the main concepts below. They will help you to understand how Strapi works, and ensure a smooth Strapi experience.
+このユーザーガイドを進める前に、以下の主要な概念を理解しておくことをお勧めします。これらの概念は、Strapiの仕組みを理解し、円滑に利用するための助けとなります。
 
-- **Development, Staging or Production Environment** <br/> When you start working on your application, it is in a development environment, which is the status for the content structure and application configuration. After deploying your application, it is in production or staging environment. This status change impacts how you can use your Strapi application, as some features are only available in development environment, such as the Content-type Builder. In this user guide the availability or not of a feature, depending on the application status, is always mentioned in the feature's introduction.
+- **開発、ステージング、または本番環境**  
+  アプリケーションを開発し始めたときは、開発環境にあります。この環境は、コンテンツ構造やアプリケーションの設定を行うためのものです。アプリケーションをデプロイすると、本番環境またはステージング環境になります。このステータスの変更は、Strapiアプリケーションの使用方法に影響を与え、特定の機能は開発環境でのみ利用可能となります（例: コンテンツタイプビルダー）。本ガイドでは、機能の利用可否がアプリケーションのステータスに依存する場合、その旨が機能の説明に常に記載されています。
 
-- **Versions** <br/> Strapi is constantly evolving and growing. This implies that new releases are quite frequent, to improve what is already available but also to add new features to Strapi. For every new Strapi version, we communicate through our main channels and by sending notifications both on your terminal (when launching your Strapi application), and on your application's admin panel. We always recommend to use the latest version. However, we always keep live both the documentation of the current Strapi version, and the documentation of the previous major version — the latter being officially and actively maintained for up to 12 months after the release of the newest Strapi version.
+- **バージョン**  
+  Strapiは常に進化しており、新しいリリースも頻繁に行われます。これは、既存機能の改善や新機能の追加を意味します。新しいStrapiバージョンごとに、主要なコミュニケーションチャネルやターミナルでの通知、アプリケーションの管理パネルで通知されます。常に最新バージョンの使用が推奨されますが、Strapiの現在のバージョンと、直前のメジャーバージョンのドキュメントは12か月間公式に維持されます。
 
-- **License and Pricing Plans** <br/> As a Strapi user you have the choice between using the Community Edition, which is entirely free, or the [Enterprise Edition](https://strapi.io/pricing-self-hosted). In this user guide, if a feature is only available for the Enterprise Edition, an <EnterpriseBadge /> badge is displayed beside the section's title. Strapi can also be hosted on Strapi Cloud by subscribing to a tier that meets the functionality, support, and customization options specified on [Strapi Cloud](https://strapi.io/pricing-cloud). In this user guide, the <CloudDevBadge />, <CloudProBadge />, and <CloudTeamBadge /> badges can be displayed beside a section's title to indicate the feature is available on the tier.
+- **ライセンスと料金プラン**  
+  Strapiユーザーは、完全無料のCommunity Editionまたは[Enterprise Edition](https://strapi.io/pricing-self-hosted)のいずれかを使用することができます。本ガイドでは、Enterprise Edition限定の機能には<EnterpriseBadge />バッジが表示されます。また、Strapiは[Strapi Cloud](https://strapi.io/pricing-cloud)の料金プランに応じた機能、サポート、カスタマイズオプションを備えたクラウドホスティングにも対応しています。この場合、機能が使用可能なプランに応じて、<CloudDevBadge />、<CloudProBadge />、および<CloudTeamBadge />のバッジが表示されます。
 
-- **Future flags** <br/> Some incoming Strapi features are not yet ready to be shipped to all users, but Strapi still offers community users the opportunity to provide early feedback on these new features or changes. This feedback is invaluable in enhancing the feature before the final release. Such experimental features are indicated by a <FutureBadge /> badge throughout the documentation and enabling these features requires enabling the corresponding future flags (see [Developer Docs](/dev-docs/configurations/features#enabling-a-future-flag)).
+- **フューチャーフラグ**  
+  いくつかのStrapi機能は、まだ全ユーザー向けにリリースされていませんが、コミュニティユーザーはこれらの新機能や変更に対するフィードバックを早期に提供する機会があります。こうした実験的機能は<FutureBadge />バッジで示され、これらを有効にするには対応するフューチャーフラグを有効にする必要があります（[開発者ドキュメント](/dev-docs/configurations/features#enabling-a-future-flag)を参照）。
 
-- **Roles and Permissions** <br/> Some features of the admin panel, as well as the content managed with Strapi itself, are ruled by a system of permissions. From your Strapi admin panel, you have the possibility to define, at a detailed level, the roles and permissions of all administrators and end users. In this user guide, all features and possible options are documented. It is however possible, depending on your role and permissions, that you may not be able to access all these features and options. In that case, please refer to the main Super Admin of your Strapi application.
+- **ロールと権限**  
+  管理パネルの一部の機能や、Strapiで管理されるコンテンツには、権限システムが適用されます。管理パネルから、管理者およびエンドユーザーのロールと権限を細かく定義することが可能です。本ガイドでは、すべての機能やオプションが記載されていますが、ロールや権限によってはこれらすべての機能やオプションにアクセスできない場合があります。その場合は、アプリケーションのスーパー管理者に問い合わせてください。
 
-With all this in mind, you should be ready to start your Strapi experience!
+これらを踏まえて、Strapiの体験をスタートする準備が整いました！

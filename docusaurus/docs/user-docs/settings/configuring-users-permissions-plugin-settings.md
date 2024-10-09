@@ -1,101 +1,95 @@
 ---
 sidebar_position: 2
 tags:
-- Email plugin
-- password
-- provider
-- Users, Roles & Permissions
+- Emailプラグイン
+- パスワード
+- プロバイダー
+- ユーザー、ロール、権限
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring Users & Permissions plugin settings
+# ユーザー＆権限プラグインの設定
 
-The Users & Permissions plugin is managed from the *Users & Permissions plugin* settings section, accessible from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings* in the main navigation of the admin panel. This settings section allows to configure the available providers, email templates and the advanced settings of the plugin. It also allows to define the end-users roles and their related permissions (see [Configuring end-user roles](../users-roles-permissions/configuring-end-users-roles.md)).
+*ユーザー＆権限プラグイン* の設定は、管理パネルのメインナビゲーションにある![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定* からアクセスできる*ユーザー＆権限プラグイン* の設定セクションで管理されます。この設定セクションでは、使用可能なプロバイダー、メールテンプレート、およびプラグインの高度な設定を構成できます。また、エンドユーザーのロールとそれに関連する権限を定義することもできます（[エンドユーザーロールの設定](../users-roles-permissions/configuring-end-users-roles.md)を参照）。
 
-## Configuring providers
+## プロバイダーの設定
 
-The Users & Permissions plugin allows to enable and configure providers, for end users to login via a third-party provider to access the content of a front-end application through the Strapi application API. By default, a list of providers is available including one, "Email", enabled by default for all Strapi applications with the Users & Permissions plugin installed.
+ユーザー＆権限プラグインを使用すると、エンドユーザーがサードパーティプロバイダーを介してログインし、StrapiアプリケーションAPIを通じてフロントエンドアプリケーションのコンテンツにアクセスできるように、プロバイダーを有効化および構成できます。デフォルトでは、いくつかのプロバイダーが利用可能であり、そのうち「Email」は、ユーザー＆権限プラグインがインストールされたすべてのStrapiアプリケーションでデフォルトで有効になっています。
 
 <ThemedImage
-  alt="Providers interface"
+  alt="プロバイダー設定画面"
   sources={{
     light: '/img/assets/settings/up_providers.png',
     dark: '/img/assets/settings/up_providers_DARK.png',
   }}
 />
 
-To enable and configure a provider:
+プロバイダーを有効化および設定するには：
 
-1. Go to the *Users & Permissions plugin > Providers* sub-section of the settings interface.
-2. Click on the edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button of the provider to enable and configure.
-3. In the provider edition window, click on the **TRUE** button of the *Enable* option.
-4. Fill in the provider's configurations. Each provider has its own specific set of configurations, detailed in our developer documentation (see [Setting up the provider](/dev-docs/plugins/users-permissions#setting-up-the-provider---examples)).
-5. Click on the **Save** button.
+1. 設定画面の *ユーザー＆権限プラグイン > プロバイダー* サブセクションに移動します。
+2. 有効化および設定したいプロバイダーの編集 ![編集アイコン](/img/assets/icons/v5/Pencil.svg) ボタンをクリックします。
+3. プロバイダー編集ウィンドウで、*有効化* オプションの **TRUE** ボタンをクリックします。
+4. プロバイダーの設定を入力します。各プロバイダーには固有の設定項目があり、詳細は[開発者ドキュメント](/dev-docs/plugins/users-permissions#setting-up-the-provider---examples)をご覧ください。
+5. **保存** ボタンをクリックします。
 
 :::note
-Other providers that are not proposed by default by Strapi can be added manually through the code of your Strapi application (see [Developer documentation](/dev-docs/providers)).
+Strapiでデフォルトで提案されていない他のプロバイダーは、Strapiアプリケーションのコードを通じて手動で追加することができます（[開発者ドキュメント](/dev-docs/providers)を参照）。
 :::
 
-<!---
-:::tip
-Click the search button ![Search icon](/img/assets/icons/v5/search.svg) above the table to use a text search and find one of your providers more quickly!
-:::
---->
+## メールテンプレートの設定
 
-## Configuring email templates
+ユーザー＆権限プラグインでは、エンドユーザーに送信される2つのメールテンプレート「メールアドレス確認」と「パスワードリセット」が使用されます：
 
-The Users & Permissions plugin uses 2 email templates, "Email address confirmation" and "Reset password", that are sent to end users:
-
-- if their account must be confirmed to be activated,
-- if they need to reset the password of their Strapi account.
+- アカウントが有効化されるために確認が必要な場合、
+- Strapiアカウントのパスワードをリセットする必要がある場合。
 
 <ThemedImage
-  alt="Email templates interface"
+  alt="メールテンプレート設定画面"
   sources={{
     light: '/img/assets/settings/up_email-templates.png',
     dark: '/img/assets/settings/up_email-templates_DARK.png',
   }}
 />
 
-To configure and edit email templates:
+メールテンプレートを設定および編集するには：
 
-1. Go to the *Users & Permissions plugin > Email templates* sub-section of the settings interface.
-2. Click on the edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button of the email template to configure and edit.
-3. Configure the email template:
+1. 設定画面の *ユーザー＆権限プラグイン > メールテンプレート* サブセクションに移動します。
+2. 設定および編集したいメールテンプレートの編集 ![編集アイコン](/img/assets/icons/v5/Pencil.svg) ボタンをクリックします。
+3. メールテンプレートを設定します：
 
-| Setting name   | Instructions |
-|--------------- | ----------------------------------------------- |
-| Shipper name   | Indicate the name of the shipper of the email.                                                   |
-| Shipper email  | Indicate the email address of the shipper of the email.                                          |
-| Response email | (optional) Indicate the email address to which responses emails from the end users will be sent. |
-| Subject        | Write the subject of the email. Variables can be used (see [Developer documentation](https://strapi.io/documentation/developer-docs/latest/development/plugins/users-permissions.html#templating-emails)).             |
+| 設定項目         | 手順                                                         |
+| --------------  | ------------------------------------------------------------ |
+| 送信者名        | メールの送信者の名前を指定します。                              |
+| 送信者メール    | メールの送信者のメールアドレスを指定します。                     |
+| 返信先メール    | （任意）エンドユーザーからの返信メールが送られるメールアドレスを指定します。 |
+| 件名            | メールの件名を入力します。変数を使用することも可能です（[開発者ドキュメント](https://strapi.io/documentation/developer-docs/latest/development/plugins/users-permissions.html#templating-emails)を参照）。 |
 
-4. Edit the content of the email in the "Message" textbox. Email templates content is in HTML and uses variables (see [Developer documentation](https://docs.strapi.io/developer-docs/latest/plugins/users-permissions.html#templating-emails)).
-5. Click on the **Finish** button.
+4. 「メッセージ」テキストボックスでメールの内容を編集します。メールテンプレートの内容はHTML形式で、変数を使用します（[開発者ドキュメント](https://docs.strapi.io/developer-docs/latest/plugins/users-permissions.html#templating-emails)を参照）。
+5. **完了** ボタンをクリックします。
 
-## Configuring advanced settings
+## 高度な設定の構成
 
-All settings related to the Users & Permissions plugin are managed from the *Advanced Settings* sub-section, including the choice of a default role for end users, the enablement of sign-ups and email confirmation, as well as the choice of landing page for resetting a password.
+ユーザー＆権限プラグインに関連するすべての設定は *高度な設定* サブセクションから管理されます。これには、エンドユーザーのデフォルトロールの選択、サインアップの有効化、メール確認の有効化、パスワードリセット用のランディングページの選択が含まれます。
 
 <ThemedImage
-  alt="Advanced settings interface"
+  alt="高度な設定画面"
   sources={{
     light: '/img/assets/settings/up_settings.png',
     dark: '/img/assets/settings/up_settings_DARK.png',
   }}
 />
 
-1. Go to the *Users & Permissions plugin > Advanced settings* sub-section of the settings interface.
-2. Configure the settings:
+1. 設定画面の *ユーザー＆権限プラグイン > 高度な設定* サブセクションに移動します。
+2. 設定を構成します：
 
-| Setting name  | Instructions         |
-| ------------------------------------ | --------------------------------------------------------------|
-| Default role for authenticated users | Click the drop-down list to choose the default role for new end users.                                                                                             |
-| One account per email address        | Click on the **TRUE** button to limit to 1 the number of end-user accounts with the same email address. Click on **FALSE** to disable this limitation and allow several end-user accounts to be associated with the same email address (e.g. `kai.doe@strapi.io` can be used when logging in via several different providers).  |
-| Enable sign-ups                      | Click on the **TRUE** button to enable end-user sign-ups. Click on **FALSE** to prevent end-user registration to your front-end application(s).                        |
-| Reset password page                  | Indicate the URL of the reset password page for your front-end application(s).                                                                                     |
-| Enable email confirmation            | Click on the **TRUE** button to enable end-user account confirmation by sending them a confirmation email. Click on **FALSE** to disable account confirmation.         |
-| Redirection url                      | Indicate the URL of the page where end users should be redirected after confirming their Strapi account.                                                           |
+| 設定項目                     | 手順                                                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 認証済みユーザーのデフォルトロール | ドロップダウンリストをクリックして、新しいエンドユーザーのデフォルトロールを選択します。                                                   |
+| メールアドレスごとのアカウント数 | **TRUE** ボタンをクリックして、同じメールアドレスで作成できるエンドユーザーアカウントの数を1つに制限します。**FALSE** をクリックして、この制限を無効化し、複数のエンドユーザーアカウントに同じメールアドレス（例：`kai.doe@strapi.io`）を使用できるようにします。 |
+| サインアップの有効化             | **TRUE** ボタンをクリックしてエンドユーザーのサインアップを有効化します。**FALSE** をクリックしてフロントエンドアプリケーションへのエンドユーザー登録を無効化します。 |
+| パスワードリセットページのURL       | フロントエンドアプリケーションのパスワードリセットページのURLを指定します。                                                                             |
+| メール確認の有効化               | **TRUE** ボタンをクリックして、確認メールを送信してエンドユーザーのアカウント確認を有効化します。**FALSE** をクリックしてアカウント確認を無効化します。      |
+| リダイレクトURL                | エンドユーザーがStrapiアカウントを確認した後にリダイレクトされるページのURLを指定します。                                                                    |
 
-3. Click the **Save** button.
+3. **保存** ボタンをクリックします。

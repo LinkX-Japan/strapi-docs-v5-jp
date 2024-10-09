@@ -1,53 +1,46 @@
 ---
-title: Translating content
+title: コンテンツの翻訳
 displayed_sidebar: userDocsSidebar
-description: Instructions to translate content in various locales with i18n plugin.
+description: i18nプラグインを使用して、複数のロケールでコンテンツを翻訳するための手順。
 sidebar_position: 5
 tags:
-- collection type
-- components
-- Content-type Builder
-- dynamic zones
-- Internationalization (i18n)
-- single type
+- コレクションタイプ
+- コンポーネント
+- コンテンツタイプビルダー
+- ダイナミックゾーン
+- 国際化 (i18n)
+- シングルタイプ
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Translating content
+# コンテンツの翻訳
 
-With the [Internationalization feature](/user-docs/plugins/strapi-plugins#-internationalization-plugin) enabled for a content-type, it is possible to manage content in more than one language, called "locale". To manage content in a specific locale, the latter must be added beforehand through the Internationalization settings (see [Configuring Internationalization locales](../settings/internationalization)).
+コンテンツタイプに[国際化機能](/user-docs/plugins/strapi-plugins#-internationalization-plugin)が有効な場合、複数の言語（「ロケール」）でコンテンツを管理できます。特定のロケールでコンテンツを管理するには、事前に国際化設定でそのロケールを追加する必要があります（[国際化ロケールの設定](../settings/internationalization)を参照）。
 
 <ThemedImage
-  alt="Edit view of a localizable content-type"
+  alt="ローカライズ可能なコンテンツタイプの編集ビュー"
   sources={{
     light: '/img/assets/content-manager/content-manager_translate3.png',
     dark: '/img/assets/content-manager/content-manager_translate3_DARK.png',
   }}
 />
 
-<!-- In the Content Manager, when the Internationalization plugin is installed, some options are added to the edit view: -->
-In the Content Manager, when the Internationalization feature is enabled for the content-type, a locale drop-down list is added to the top right of the edit view and allows to switch locales.
+コンテンツタイプに国際化機能が有効になると、編集ビューの右上にロケールのドロップダウンリストが追加され、ロケールを切り替えることができます。
 
-<!-- - a locale dropdown, displayed in the top right side of the interface, from where it is possible to switch locales -->
-<!-- TODO: uncomment when it will work again, if it's planned for v5 -->
-<!-- - icons displayed next to every field to indicate whether the field can be translated or not:
-  - ![World icon](/img/assets/icons/world.svg) indicates that the field can be translated,
-  - ![Striked world icon](/img/assets/icons/world_striked.svg) indicates that the field cannot be translated: its content is the same for every locale (i.e. changing the value of a non-localizable field changes it for all other locales). -->
-
-The Internationalization feature also allows dynamic zones and components to differ from one locale to another. Depending on the locale, dynamic zones can indeed have different structures depending on the locale, and repeatable components can have different entries and be organized differently as well.
+国際化機能により、ダイナミックゾーンやコンポーネントもロケールごとに異なる構造を持つことが可能になります。ロケールによって、ダイナミックゾーンの構造が異なったり、リピート可能なコンポーネントが異なるエントリを持ち、異なる順序で整理される場合もあります。
 
 :::caution
-Content can only be managed one locale at the time. It is not possible to edit or publish content for several locales at the same time (e.g. Clicking on the **Publish** button will only publish the content for the locale you are currently working on).
+コンテンツは1つのロケールのみを管理できます。同時に複数のロケールのコンテンツを編集または公開することはできません（例: **公開**ボタンをクリックしても、作業中のロケールのコンテンツのみが公開されます）。
 :::
 
-To translate content in another locale:
+別のロケールでコンテンツを翻訳するには:
 
-1. Access the edit view of your collection or single type.
-2. On the top right of the edit view, click on the locale drop-down list.
-3. Choose the locale in which you want to translate your content.
-4. Translate your content by filling up your content-type's fields (see [Writing content](writing-content.md)). 
+1. コレクションまたはシングルタイプの編集ビューにアクセスします。
+2. 編集ビューの右上にあるロケールドロップダウンリストをクリックします。
+3. 翻訳したいロケールを選択します。
+4. コンテンツタイプのフィールドに入力してコンテンツを翻訳します（[コンテンツの作成](writing-content.md)を参照）。
 
 :::tip
-Click on the ![Dowload icon](/img/assets/icons/v5/Download.svg) *Fill in from another locale* button, in the top right corner, for all non relational fields to be filled up with the values of another chosen locale. It can be useful if you do not remember what was the exact content in another locale.
+右上にある![ダウンロードアイコン](/img/assets/icons/v5/Download.svg) *他のロケールから入力*ボタンをクリックすると、リレーショナルフィールド以外のフィールドが、選択した別のロケールの値で自動的に埋められます。別のロケールでの正確なコンテンツが思い出せない場合に便利です。
 :::

@@ -1,32 +1,32 @@
 ---
-title: Introduction to Releases
-description: Introduction to the Releases feature that enables content managers to organize entries to publish/unpublish simultaneously
+title: リリースの紹介
+description: コンテンツマネージャーがエントリーを同時に公開/非公開にするために整理できるリリース機能の紹介
 tags:
-- admin panel
-- Enterprise feature
-- introduction
-- Releases feature
+- 管理パネル
+- エンタープライズ機能
+- 紹介
+- リリース機能
 - Strapi Cloud
 pagination_next: user-docs/releases/creating-a-release
 ---
 
-# Releases <EnterpriseBadge /> <CloudTeamBadge/>
+# リリース <EnterpriseBadge /> <CloudTeamBadge/>
 
-Releases enables content managers to organize entries into containers that can perform publish and unpublish actions simultaneously. A release can contain entries from different content types and can mix locales.
+リリース機能を使用すると、コンテンツマネージャーはエントリーをコンテナに整理し、同時に公開および非公開アクションを実行できます。リリースには、異なるコンテンツタイプからのエントリーを含めたり、ロケールを混在させることができます。
 
 <ThemedImage
-  alt="List of Releases"
+  alt="リリースのリスト"
   sources={{
     light: '/img/assets/releases/releases-overview2.png',
     dark: '/img/assets/releases/releases-overview2_DARK.png',
   }}
 />
 
-Administrators can access Releases from ![Releases icon](/img/assets/icons/v5/PaperPlane.svg) _Releases_ in the main navigation of the admin panel.
+管理者は、管理パネルのナビゲーションメニューで _リリース_ をクリックし、![リリースアイコン](/img/assets/icons/v5/PaperPlane.svg) リリースにアクセスできます。
 
-From the Releases view, it is possible to:
+リリースビューからは、以下の操作が可能です：
 
-- [create a new release](/user-docs/releases/creating-a-release),
-- view pending and done releases,
-- view which releases are [scheduled](/user-docs/releases/managing-a-release#scheduling-a-release-), and when they will be published (in the Pending tab) or have been published (in the Done tab),
-- and click on a release to [manage its content](/user-docs/releases/managing-a-release).
+- [新しいリリースを作成](/user-docs/releases/creating-a-release)する、
+- 保留中および完了したリリースを表示する、
+- [スケジュールされた](/user-docs/releases/managing-a-release#scheduling-a-release-)リリースを表示し、いつ公開されるか（保留中タブ）、または公開されたか（完了タブ）を確認する、
+- さらに、リリースをクリックしてその[コンテンツを管理](/user-docs/releases/managing-a-release)する。

@@ -1,191 +1,192 @@
 ---
-title: Configuring administrator roles
+title: 管理者ロールの設定
 displayed_sidebar: userDocsSidebar
 sidebar_position: 2
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring administrator roles (RBAC)
+# 管理者ロールの設定 (RBAC)
 
-Administrators are the users of an admin panel of a Strapi application. Administrator accounts and roles are managed with the Role-Based Access Control (RBAC) feature. It is available in the *Administration panel* section of the ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings* sub navigation.
+管理者は、Strapiアプリケーションの管理パネルのユーザーです。管理者アカウントとロールは、ロールベースのアクセス制御 (RBAC) 機能で管理されます。この機能は、管理パネルの ![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定* サブナビゲーション内にある *管理パネル* セクションで利用可能です。
 
-The *Administration panel* section is divided into 2 sub-sections: *Roles* and *Users* (see [Managing administrators](./managing-administrators)).
+*管理パネル* セクションは、*ロール* と *ユーザー* の2つのサブセクションに分かれています（[管理者の管理](./managing-administrators)を参照）。
 
 <ThemedImage
-  alt="Administrator roles interface"
+  alt="管理者ロールインターフェース"
   sources={{
     light: '/img/assets/users-permissions/administrator_roles.png',
     dark: '/img/assets/users-permissions/administrator_roles_DARK.png',
   }}
 />
 
-The *Roles* sub-section of *Administration panel* displays all created roles for the administrators of your Strapi application.
+*管理パネル* の *ロール* サブセクションでは、Strapiアプリケーションの管理者向けに作成されたすべてのロールが表示されます。
 
-From this interface, it is possible to:
+このインターフェースからは、以下の操作が可能です：
 
-- create a new administrator role (see [Creating a new role](#creating-a-new-role-)),
-- delete an administrator role (see [Deleting a role](#deleting-a-role-)),
-- or access information regarding an administrator role, and edit it (see [Editing a role](#editing-a-role)).
+- 新しい管理者ロールを作成する（[新しいロールの作成](#creating-a-new-role-)を参照）、
+- 管理者ロールを削除する（[ロールの削除](#deleting-a-role-)を参照）、
+- 管理者ロールに関する情報にアクセスし、編集する（[ロールの編集](#editing-a-role)を参照）。
 
-By default, 3 administrator roles are defined for any Strapi application:
+デフォルトでは、任意のStrapiアプリケーションに3つの管理者ロールが定義されています：
 
-- Author: to be able to create and manage their own content.
-- Editor: to be able to create content, and manage and publish any content.
-- Super Admin: to be able to access all features and settings. This is the role attributed by default to the first administrator at the creation of the Strapi application.
+- **Author**: 自分のコンテンツを作成および管理できる。
+- **Editor**: コンテンツを作成し、任意のコンテンツを管理および公開できる。
+- **Super Admin**: すべての機能と設定にアクセスできる。このロールは、Strapiアプリケーションの作成時に最初の管理者にデフォルトで割り当てられます。
 
-## Creating a new role
+## 新しいロールの作成
 
-On the top right side of the *Administration panel > Roles* interface, an **Add new role** button is displayed. It allows to create a new role for administrators of your Strapi application.
+*管理パネル > ロール* インターフェースの右上に **新しいロールを追加** ボタンが表示されます。これを使って、Strapiアプリケーションの管理者向けの新しいロールを作成できます。
 
-To create a new role, click on the **Add new role** button.
-Clicking on the **Add new role** button will redirect you to the roles edition interface, where you will be able to edit the role's details and configure its permissions (see [Editing a role](#editing-roles-details)).
+新しいロールを作成するには、**新しいロールを追加** ボタンをクリックします。このボタンをクリックすると、ロールの詳細を編集し、権限を設定できるロール編集インターフェースにリダイレクトされます（[ロールの詳細を編集](#editing-roles-details)を参照）。
 
 :::tip
-In the *Roles* interface, from the table, you can click on the duplicate button ![Duplicate icon](/img/assets/icons/v5/Duplicate.svg) to create a new role by duplicating an existing one.
+*ロール* インターフェースのテーブルから、既存のロールを複製して新しいロールを作成するには、複製ボタン ![複製アイコン](/img/assets/icons/v5/Duplicate.svg) をクリックします。
 :::
 
-## Deleting a role
+## ロールの削除
 
-Administrator roles can be deleted from the *Administration panel > Roles* interface. However, they can only be deleted once they are no more attributed to any administrator of the Strapi application.
+管理者ロールは、*管理パネル > ロール* インターフェースから削除できます。ただし、Strapiアプリケーションの管理者にまだ割り当てられているロールは削除できません。
 
-To delete a role:
+ロールを削除するには：
 
-1. Click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) on the right side of the role's record.
-2. In the deletion window, click on the **Confirm** button to confirm the deletion.
+1. ロールのレコードの右側にある削除ボタン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックします。
+2. 削除ウィンドウで、**確認** ボタンをクリックして削除を確認します。
 
-## Editing a role
+## ロールの編集
 
 <ThemedImage
-  alt="Administrator roles edition interface"
+  alt="管理者ロール編集インターフェース"
   sources={{
     light: '/img/assets/users-permissions/administrator_roles-edition.png',
     dark: '/img/assets/users-permissions/administrator_roles-edition_DARK.png',
   }}
 />
 
-The role edition interface allows to edit the details of an administrator role as well as configure in detail the permissions to all sections of your Strapi application. It is accessible from *Administration panel > Roles* either after clicking on the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) on the right side of a role's record, or after clicking on the **Add new role** button (see [Creating a new role](#creating-a-new-role-)).
+ロール編集インターフェースでは、管理者ロールの詳細を編集し、Strapiアプリケーションのすべてのセクションに対する権限を詳細に設定できます。*管理パネル > ロール* からアクセスできます。ロールのレコードの右側にある編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックするか、**新しいロールを追加** ボタンをクリックしてアクセスします（[新しいロールの作成](#creating-a-new-role-)を参照）。
 
 :::caution
-It isn't possible to edit the permissions of the Super Admin role. All configurations are in read-only mode.
+Super Adminロールの権限は編集できません。すべての設定は読み取り専用です。
 :::
 
-### Editing role's details
+### ロールの詳細を編集
 
-The details area of an administrator role editing interface allow to define the name of the role, and to give it a description that should help other administrators understand what the role gives access to.
+管理者ロール編集インターフェースの詳細セクションでは、ロールの名前を定義し、他の管理者がそのロールでどのような権限が付与されているかを理解できるように、説明を追加できます。
 
 :::tip
-In the top right corner, you can see a counter indicating how many administrators have been attributed the role.
+右上には、そのロールが割り当てられている管理者の数がカウンターで表示されます。
 :::
 
-To edit a role's details, follow the instructions from the table below:
+ロールの詳細を編集するには、以下の手順に従ってください：
 
-| Role details  | Instructions   |
-| ------------- | -------------- |
-| Name | Write the new name of the role in the textbox. |
-| Description | Write the description of the role in the textbox. |
+| ロールの詳細     | 手順                                  |
+| ------------- | ----------------------------------- |
+| 名前          | テキストボックスにロールの新しい名前を入力します。 |
+| 説明          | テキストボックスにロールの説明を入力します。     |
 
-### Configuring role's permissions
+### ロールの権限を設定
 
-The permissions area of an administrator role editing interface allows to configure in detail what actions an administrator can do for any part of the Strapi application. It is displayed as a table, split into 4 categories: Collection types, Single types, Plugins and Settings.
+管理者ロール編集インターフェースの権限セクションでは、管理者がStrapiアプリケーションの各部分で行える操作を詳細に設定できます。権限はテーブル形式で表示され、コレクションタイプ、シングルタイプ、プラグイン、設定の4つのカテゴリに分かれています。
 
-#### Collection and Single types
+#### コレクションタイプとシングルタイプ
 
-The Collection types and Single types categories respectively list all available collection and single types for the Strapi application. For each content-type, the administrators can have the permission to perform the following actions: create, read, update, delete and publish.
+コレクションタイプとシングルタイプのカテゴリには、それぞれStrapiアプリケーションで利用可能なすべてのコレクションタイプとシングルタイプがリストされています。各コンテンツタイプについて、管理者は以下の操作権限を持つことができます：作成、読み取り、更新、削除、公開。
 
-To configure Collection or Single types permissions for a role:
+ロールのコレクションタイプまたはシングルタイプの権限を設定するには：
 
-1. Go to the Collection types or Single types category of the permissions table.
-2. Tick the box on the left of the name of the content-type to give access to. By default, all actions can be performed for all fields of the content-type.
-3. (optional) Untick the action-related boxes to prevent actions of your choice.
-4. (optional) Click the name of the content-type to display its full list of fields. Untick the field and action-related boxes to prevent access and/or action for the fields of your choice. If the [Internationalization plugin](/user-docs/plugins/strapi-plugins#-internationalization-plugin) is installed, define also what permissions should be granted for each available locale.
-5. Repeat steps 2 to 4 for each content-type available to which the role should give access.
-6. Click on the **Save** button on the top right corner.
+1. 権限テーブルのコレクションタイプまたはシングルタイプカテゴリに移動します。
+2. アクセスを許可するコンテンツタイプの名前の左側にあるボックスにチェックを入れます。デフォルトでは、すべてのフィールドに対してすべてのアクションが実行可能です。
+3. （任意）アクションに関連するボックスのチェックを外し、特定のアクションを禁止します。
+4. （任意）コンテンツタイプの名前をクリックして、そのフィールドの完全なリストを表示します。フィールドとアクションに関連するボックスのチェックを外し、特定のフィールドに対するアクセスまたはアクションを禁止します。インターナショナライゼーションプラグインがインストールされている場合、各ロケールに対してどの権限を付与するかも定義します。
+5. アクセスを許可する各コンテンツタイプに対して、手順2～4を繰り返します。
+6. 右上の **保存** ボタンをクリックします。
 
-#### Plugins and Settings
+#### プラグインと設定
 
-The Plugins and Settings categories both display a sub-category per available plugin or setting of the Strapi application. Each sub-category contains its own specific set of permissions.
+プラグインと設定のカテゴリには、それぞれのプラグインやStrapiアプリケーションの設定に関連するサブカテゴリが表示されます。各サブカテゴリには、固有の権限セットが含まれています。
 
-To configure plugins or settings permissions for a role:
+ロールのプラグインまたは設定の権限を設定するには：
 
-1. Go to the Plugins or Settings category of the permissions table.
-2. Click on the name of the sub-category which permissions to configure, to display all available permissions.
-3. Tick the boxes of the permissions the role should give access to. You can refer to the table below for more information and instructions.
+1. 権限テーブルのプラグインまたは設定カテゴリに移動します。
+2. 設定したいサブカテゴリの名前をクリックして、すべての利用可能な権限を表示します。
+3. ロールに付与する権限のボックスにチェックを入れます。詳しい手順は以下の表を参照してください。
 
 <Tabs>
 
-<TabItem value="plugins" label="Plugins">
+<TabItem value="plugins" label="プラグイン">
 
-By default, plugins permissions can be configured for the Content-type Builder, the Upload (i.e. Media Library) plugin, the Content Manager, and Users Permissions (i.e. the Users & Permissions plugin allowing to manage end users). Each plugin has its own specific set of permissions.
+デフォルトでは、プラグインの権限は、Content-Type Builder、Upload（メディアライブラリ）、コンテンツマネージャー、ユーザー＆権限（エンドユーザーを管理するためのプラグイン）のために設定できます。各プラグインには、固有の権限セットがあります。
 
-| Plugin name          | Permissions |
-| -------------------- | ----------- |
-| Content-Releases <br /> *(Releases)* | <ul><li>General</li><ul><li>"Read" - gives access to the Releases feature</li><li>"Create" - allows to create releases</li><li>"Edit" - allows to edit releases</li><li>"Delete" - allows to delete releases</li><li>"Publish" - allows to publish releases</li><li>"Remove an entry from a release"</li><li>"Add an entry to a release"</li></ul></ul> |
-| Content-Manager | <ul><li>Single types</li><ul><li>"Configure view" - allows to configure the edit view of a single type</li></ul></ul><ul><li>Collection types</li><ul><li>"Configure view" - allows to configure the edit view of a collection type</li></ul></ul><ul><li>Components</li><ul><li>"Configure Layout" - allows to configure the layout of a component</li></ul></ul> |
-| Content-Type-Builder | <ul><li>General</li><ul><li>"Read" - gives access to the Content-type Builder plugin in read-only mode</li></ul></ul> |
-| Upload <br /> *(Media Library)* | <ul><li>General</li><ul><li>"Access the Media Library" - gives access to the Media Library plugin</li><li>"Configure view" - allows to configure the view of the Media Library</li></ul></ul> <ul><li>Assets</li><ul><li>"Create (upload)" - allows to upload media files</li> <li>"Update (crop, details, replace) + delete" - allows to edit uploaded media files</li><li>"Download" - allows to download uploaded media files</li><li>"Copy link" - allows to copy the link of an uploaded media file</li></ul></ul> |
-| Users-Permissions | <ul><li>Roles</li><ul><li>"Create" - allows to create end-user roles</li><li>"Read" - allows to see created end-user roles</li><li>"Update" - allows to edit end-user roles</li><li>"Delete" - allows to delete end-user roles</li></ul></ul><ul><li>Providers</li><ul><li>"Read" - allows to see providers</li><li>"Edit" - allows to edit providers</li></ul></ul><ul><li>Email Templates</li><ul><li>"Read" - allows to access the email templates</li><li>"Edit" - allows to edit email templates</li></ul></ul><ul><li>Advanced settings</li><ul><li>"Read" - allows to access the advanced settings of the Users & Permissions plugin</li><li>"Edit" - allows to edit advanced settings</li></ul></ul> 👉 Path reminder to the Users & Permissions plugin: <br />*General > Settings > Users & Permissions plugin* |
+| プラグイン名                    | 権限 |
+| ------------------------------ | ----------- |
+| コンテンツ
+
+リリース<br /> *(リリース)* | <ul><li>一般</li><ul><li>"読み取り" - リリース機能へのアクセスを許可</li><li>"作成" - リリースの作成を許可</li><li>"編集" - リリースの編集を許可</li><li>"削除" - リリースの削除を許可</li><li>"公開" - リリースの公開を許可</li><li>"リリースからエントリを削除"</li><li>"リリースにエントリを追加"</li></ul></ul> |
+| コンテンツマネージャー           | <ul><li>シングルタイプ</li><ul><li>"表示の設定" - シングルタイプの編集画面の設定を許可</li></ul></ul><ul><li>コレクションタイプ</li><ul><li>"表示の設定" - コレクションタイプの編集画面の設定を許可</li></ul></ul><ul><li>コンポーネント</li><ul><li>"レイアウトの設定" - コンポーネントのレイアウト設定を許可</li></ul></ul> |
+| コンテンツタイプビルダー         | <ul><li>一般</li><ul><li>"読み取り" - Content-Type Builderプラグインへの読み取り専用アクセスを許可</li></ul></ul> |
+| アップロード<br /> *(メディアライブラリ)* | <ul><li>一般</li><ul><li>"メディアライブラリへのアクセス" - メディアライブラリプラグインへのアクセスを許可</li><li>"表示の設定" - メディアライブラリの表示設定を許可</li></ul></ul><ul><li>アセット</li><ul><li>"作成（アップロード）" - メディアファイルのアップロードを許可</li><li>"更新（トリミング、詳細、置き換え）+削除" - アップロードされたメディアファイルの編集を許可</li><li>"ダウンロード" - アップロードされたメディアファイルのダウンロードを許可</li><li>"リンクのコピー" - アップロードされたメディアファイルのリンクをコピーすることを許可</li></ul></ul> |
+| ユーザー＆権限                   | <ul><li>ロール</li><ul><li>"作成" - エンドユーザーロールの作成を許可</li><li>"読み取り" - 作成されたエンドユーザーロールの表示を許可</li><li>"更新" - エンドユーザーロールの編集を許可</li><li>"削除" - エンドユーザーロールの削除を許可</li></ul></ul><ul><li>プロバイダー</li><ul><li>"読み取り" - プロバイダーの表示を許可</li><li>"編集" - プロバイダーの編集を許可</li></ul></ul><ul><li>メールテンプレート</li><ul><li>"読み取り" - メールテンプレートへのアクセスを許可</li><li>"編集" - メールテンプレートの編集を許可</li></ul></ul><ul><li>高度な設定</li><ul><li>"読み取り" - ユーザー＆権限プラグインの高度な設定へのアクセスを許可</li><li>"編集" - 高度な設定の編集を許可</li></ul></ul> 👉 ユーザー＆権限プラグインのパス：<br />*一般 > 設定 > ユーザー＆権限プラグイン* |
 
 </TabItem>
 
-<TabItem value="settings" label="Settings">
+<TabItem value="settings" label="設定">
 
-Settings permissions can be configured for all settings accessible from *General > Settings* from the main navigation of the admin panel: Media Library and Webhooks (*Global settings* section) and Users & Roles (*Administration panel* section, to configure the settings of the RBAC feature). Settings permissions also allow to configure access to the Plugins and Marketplace sections of the admin panel. Each setting has its own specific set of permissions.
+設定の権限は、管理パネルのメインナビゲーションから *一般 > 設定* にアクセスできるすべての設定に対して設定できます。メディアライブラリとWebhook（*グローバル設定*セクション）およびユーザーとロール（RBAC機能の設定を行う*管理パネル*セクション）が含まれます。設定の権限は、管理パネルのプラグインおよびマーケットプレイスセクションへのアクセスを構成することもできます。各設定には固有の権限セットがあります。
 
-| Setting name            | Permissions |
-| ----------------------- | ----------- |
-| Content Releases | <ul><li>Options</li><ul><li>"Read" - allows to access the Releases settings</li><li>"Edit" - allows to edit the Releases settings</li></ul></ul> 👉 Path reminder to the Releases settings: <br />*General > Settings > Global Settings - Releases* |
-| Email | <ul><li>General</li><ul><li>"Access the Email settings page" - gives access to Email settings</li></ul></ul> 👉 Path reminder to Email settings: <br /> *General > Settings > Users & Permissions plugin - Email templates* |
-| Media Library | <ul><li>General</li><ul><li>"Access the Media Library settings page" - gives access to Media Library settings</li></ul></ul> 👉 Path reminder to Media Library settings: <br /> *General > Settings > Global Settings - Media Library* |
-| Internationalization | <ul><li>Locales</li><ul><li>"Create" - allows to create new locales</li><li>"Read" - allows to see available locales</li><li>"Update" - allows to edit available locales</li><li>"Delete" - allows to delete locales</li></ul></ul> 👉 Path reminder to the Internationalization settings: <br /> *General > Settings > Global Settings - Internationalization* |
-| Review Workflows <EnterpriseBadge /> | <ul><li>"Create" - allows to create workflows</li><li>"Read" - allows to see created workflows</li><li>"Update" - allows to edit workflows</li><li>"Delete" - allows to delete workflows</li></ul> 👉 Path reminder to Review workflows settings: <br /> *General > Settings > Global Settings - Review workflows* |
-| Single sign on <EnterpriseBadge /> | <ul><li>Options</li><ul><li>"Read" - allows to access the SSO settings</li><li>"Update" - allows to edit the SSO settings</li></ul></ul> 👉 Path reminder to the SSO settings: <br />*General > Settings > Global Settings - Single Sign-On* |
-| Audit Logs | <ul><li>Options</li><ul><li>"Read" - allows to access the Audit Logs settings</li></ul></ul> 👉 Path reminder to the Audit Logs settings: <br />*General > Settings > Admin Panel - Audit Logs* |
-| Plugins and Marketplace | <ul><li>Marketplace</li><ul><li>"Access the Marketplace" - gives access to the Marketplace</li></ul></ul> |
-| Webhooks | <ul><li>General</li><ul><li>"Create" - allows to create webhooks</li><li>"Read" - allows to see created webhooks</li><li>"Update" - allows to edit webhooks</li><li>"Delete" - allows to delete webhooks</li></ul></ul> 👉 Path reminder to Webhook settings: <br /> *General > Settings > Global Settings - Webhook* |
-| Users and Roles | <ul><li>Users</li><ul><li>"Create (invite)" - allows to create administrator accounts</li><li>"Read" - allows to see existing administrator accounts</li><li>"Update" - allows to edit administrator accounts</li><li>"Delete" - allows to delete administrator accounts</li></ul></ul><ul><li>Roles</li><ul><li>"Create" - allows to create administrator roles</li><li>"Read" - allows to see created administrator roles</li><li>"Update" - allows to edit administrator roles</li><li>"Delete" - allows to delete administrator roles</li></ul></ul> 👉 Path reminder to the RBAC feature: <br /> *General > Settings > Administration Panel* |
-| API Tokens |  <ul><li>API tokens</li><ul><li>"Access the API tokens settings page" - toggles access to the API tokens page</li></ul></ul><ul><li>General</li><ul><li>"Create (generate)" - allows the creation of API tokens</li><li>"Read" - allows you to see created API tokens (disabling this permission will disable access to the *Global Settings - API Tokens* settings)</li><li>"Update" - allows editing of API tokens</li><li>"Delete (revoke)" - allows deletion of API tokens</li> <li> "Regenerate" - allows regeneration of the API token</li></ul></ul> 👉 Path reminder to API Tokens settings: <br /> *General > Settings > Global Settings - API Tokens* |
-| Project | <ul><li>General</li><ul><li>"Update the project level settings" - allows to edit the settings of the project</li><li>"Read the project level settings" - gives access to settings of the project</li></ul></ul> |
-| Transfer Tokens | <ul><li>Transfer tokens</li><ul><li>"Access the Transfer tokens settings page" - toggles access to the Transfer tokens page</li></ul></ul><ul><li>General</li><ul><li>"Create (generate)" - allows the creation of Transfer tokens</li><li>"Read" - allows you to see created Transfer tokens (disabling this permission will disable access to the *Global Settings - Transfer Tokens* settings)</li><li>"Update" - allows editing of Transfer tokens</li><li>"Delete (revoke)" - allows deletion of Transfer tokens</li> <li> "Regenerate" - allows regeneration of the Transfer token</li></ul></ul> 👉 Path reminder to Transfer Tokens settings: <br /> *General > Settings > Global Settings - Transfer Tokens* |
+| 設定名                | 権限 |
+| -------------------- | ----------- |
+| コンテンツリリース     | <ul><li>オプション</li><ul><li>"読み取り" - リリース設定へのアクセスを許可</li><li>"編集" - リリース設定の編集を許可</li></ul></ul> 👉 リリース設定へのパス：<br />*一般 > 設定 > グローバル設定 - リリース* |
+| メール                | <ul><li>一般</li><ul><li>"メール設定ページへのアクセス" - メール設定へのアクセスを許可</li></ul></ul> 👉 メール設定へのパス：<br />*一般 > 設定 > ユーザー＆権限プラグイン - メールテンプレート* |
+| メディアライブラリ     | <ul><li>一般</li><ul><li>"メディアライブラリ設定ページへのアクセス" - メディアライブラリ設定へのアクセスを許可</li></ul></ul> 👉 メディアライブラリ設定へのパス：<br />*一般 > 設定 > グローバル設定 - メディアライブラリ* |
+| 国際化                | <ul><li>ロケール</li><ul><li>"作成" - 新しいロケールの作成を許可</li><li>"読み取り" - 利用可能なロケールの表示を許可</li><li>"更新" - 利用可能なロケールの編集を許可</li><li>"削除" - ロケールの削除を許可</li></ul></ul> 👉 国際化設定へのパス：<br />*一般 > 設定 > グローバル設定 - 国際化* |
+| レビューワークフロー <EnterpriseBadge /> | <ul><li>"作成" - ワークフローの作成を許可</li><li>"読み取り" - 作成されたワークフローの表示を許可</li><li>"更新" - ワークフローの編集を許可</li><li>"削除" - ワークフローの削除を許可</li></ul> 👉 レビューワークフロー設定へのパス：<br />*一般 > 設定 > グローバル設定 - レビューワークフロー* |
+| シングルサインオン <EnterpriseBadge /> | <ul><li>オプション</li><ul><li>"読み取り" - SSO設定へのアクセスを許可</li><li>"更新" - SSO設定の編集を許可</li></ul></ul> 👉 SSO設定へのパス：<br />*一般 > 設定 > グローバル設定 - シングルサインオン* |
+| 監査ログ              | <ul><li>オプション</li><ul><li>"読み取り" - 監査ログ設定へのアクセスを許可</li></ul></ul> 👉 監査ログ設定へのパス：<br />*一般 > 設定 > 管理パネル - 監査ログ* |
+| プラグインとマーケットプレイス | <ul><li>マーケットプレイス</li><ul><li>"マーケットプレイスへのアクセス" - マーケットプレイスへのアクセスを許可</li></ul></ul> |
+| Webhook              | <ul><li>一般</li><ul><li>"作成" - Webhookの作成を許可</li><li>"読み取り" - 作成されたWebhookの表示を許可</li><li>"更新" - Webhookの編集を許可</li><li>"削除" - Webhookの削除を許可</li></ul></ul> 👉 Webhook設定へのパス：<br />*一般 > 設定 > グローバル設定 - Webhook* |
+| ユーザーとロール       | <ul><li>ユーザー</li><ul><li>"作成（招待）" - 管理者アカウントの作成を許可</li><li>"読み取り" - 既存の管理者アカウントの表示を許可</li><li>"更新" - 管理者アカウントの編集を許可</li><li>"削除" - 管理者アカウントの削除を許可</li></ul></ul><ul><li>ロール</li><ul><li>"作成" - 管理者ロールの作成を許可</li><li>"読み取り" - 作成された管理者ロールの表示を許可</li><li>"更新" - 管理者ロールの編集を許可</li><li>"削除" - 管理者ロールの削除を許可</li></ul></ul> 👉 RBAC機能へのパス：<br /> *一般 > 設定 > 管理パネル* |
+| APIトークン           | <ul><li>APIトークン</li><ul><li>"APIトークン設定ページへのアクセス" - APIトークンページへのアクセスをトグル</li></ul></ul><ul><li>一般</li><ul><li>"作成（生成）" - APIトークンの作成を許可</li><li>"読み取り" - 作成されたAPIトークンの表示を許可（この権限を無効にすると、*グローバル設定 - APIトークン*設定へのアクセスが無効になります）</li><li>"更新" - APIトークンの編集を許可</li><li>"削除（無効化）" - APIトークンの削除を許可</li> <li> "再生成" - APIトークンの再生成を許可</li></ul></ul> 👉 APIトークン設定へのパス：<br /> *一般 > 設定 > グローバル設定 - APIトークン* |
+| プロジェクト           | <ul><li>一般</li><ul><li>"プロジェクトレベルの設定の更新" - プロジェクトの設定の編集を許可</li><li>"プロジェクトレベルの設定の読み取り" - プロジェクトの設定へのアクセスを許可</li></ul></ul> |
+| トランスファートークン   | <ul><li>トランスファートークン</li><ul><li>"トランスファートークン設定ページへのアクセス" - トランスファートークンページへのアクセスをトグル</li></ul></ul><ul><li>一般</li><ul><li>"作成（生成）" - トランスファートークンの作成を許可</li><li>"読み取り" - 作成されたトランスファートークンの表示を許可（この権限を無効にすると、*グローバル設定 - トランスファートークン*設定へのアクセスが無効になります）</li><li>"更新" - トランスファートークンの編集を許可</li><li>"削除（無効化）" - トランスファートークンの削除を許可</li> <li> "再生成" - トランスファートークンの再生成を許可</li></ul></ul> 👉 トランスファートークン設定へのパス：<br /> *一般 > 設定 > グローバル設定 - トランスファートークン* |
 
 </TabItem>
 
 </Tabs>
 
-4. Click on the **Save** button on the top right corner.
+4. 右上の **保存** ボタンをクリックします。
 
-### Setting custom conditions for permissions
+### 権限のカスタム条件を設定
 
-For each permission of each category, a ![Settings icon](/img/assets/icons/v5/Cog.svg) **Settings** button is displayed. It allows to push the permission configuration further by defining additional conditions for the administrators to be granted the permission. There are 2 default additional conditions:
+各カテゴリの権限ごとに、![設定アイコン](/img/assets/icons/v5/Cog.svg) **設定** ボタンが表示されます。これにより、管理者が権限を付与されるための追加条件を定義することで、権限設定をさらに細かく調整できます。デフォルトの追加条件は2つあります：
 
-- the administrator must be the creator,
-- the administrator must have the same role as the creator.
+- 管理者が作成者である必要がある、
+- 管理者が作成者と同じロールである必要がある。
 
 :::note
-Other custom conditions can be available if they have been created beforehand for your Strapi application (see [Role-Based Access Control](/dev-docs/configurations/guides/rbac)).
+他のカスタム条件が、事前にStrapiアプリケーションのために作成されている場合、それらも利用可能です（[ロールベースのアクセス制御](/dev-docs/configurations/guides/rbac)を参照）。
 :::
 
 <ThemedImage
-  alt="Custom conditions"
+  alt="カスタム条件"
   sources={{
     light: '/img/assets/users-permissions/administrator_custom-conditions.png',
     dark: '/img/assets/users-permissions/administrator_custom-conditions_DARK.png',
   }}
 />
 
-To set custom conditions:
+カスタム条件を設定するには：
 
-1. Click on the ![Settings icon](/img/assets/icons/v5/Cog.svg) **Settings** button of the permission already granted for the role.
-2. In the *Define conditions* window, each available permission can be customized with a specific condition. Click on the drop-down list related to the permission you want to customize.
-3. Define the custom condition for the chosen permission. You can either:
-   - Tick the Default option for all available additional conditions to be applied.
-   - Click on the arrow button ![Carret icon](/img/assets/icons/v5/CaretDown.svg) to see the available additional conditions and tick only the chosen one(s).
-4. Click on the **Apply** button.
+1. ロールに既に付与されている権限の ![設定アイコン](/img/assets/icons/v5/Cog.svg) **設定** ボタンをクリックします。
+2. *条件を定義* ウィンドウで、利用可能な各権限に特定の条件をカスタマイズできます。カスタム条件を設定したい権限に関連するドロップダウンリストをクリックします。
+3. 選択した権限に対してカスタム条件を定義します。次のいずれかを実行できます：
+   - すべての追加条件が適用されるように、デフォルトオプションにチェックを入れます。
+   - 矢印ボタン ![キャレットアイコン](/img/assets/icons/v5/CaretDown.svg) をクリックして、利用可能な追加条件を表示し、選択したものだけにチェックを入れます。
+4. **適用** ボタンをクリックします。
 
 :::tip
-Once a custom condition is set for a permission, a dot is displayed next to the permission's name and the ![Settings icon](/img/assets/icons/v5/Cog.svg) **Settings** button.
+カスタム条件が権限に設定されると、権限の名前の横にドットが表示され、![設定アイコン](/img/assets/icons/v5/Cog.svg) **設定** ボタンも表示されます。
 :::
 
 :::caution
-Custom conditions can only be set for permissions that have been ticked to be granted for the role. If not, when clicking the ![Settings icon](/img/assets/icons/v5/Cog.svg) **Settings** button, the window that opens will remain empty, as no custom condition option will be available.
+カスタム条件は、ロールに対して付与される権限にのみ設定できます。そうでない場合、![設定アイコン](/img/assets/icons/v5/Cog.svg) **設定** ボタンをクリックしても、カスタム条件オプションは表示されません。
 :::

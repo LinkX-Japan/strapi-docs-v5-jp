@@ -1,62 +1,62 @@
 ---
-title: Release notes
-description: Learn what has changed with each version of the Strapi 5 documentation, with links to GitHub pull requests for more information.
+title: リリースノート
+description: 各バージョンのStrapi 5ドキュメントの変更点を確認し、詳細についてはGitHubのプルリクエストへのリンクをご覧ください。
 custom_edit_url: null
 ---
 
 <div className="release-notes-page">
 
-This page lists all the Strapi Docs version numbers and their corresponding updates.
+このページには、すべてのStrapiドキュメントのバージョン番号とそれに対応する更新内容が記載されています。
 
 <details>
-<summary>🧐 Strapi Docs version numbers explained:</summary>
+<summary>🧐 Strapiドキュメントのバージョン番号の説明：</summary>
 
-The Strapi Documentation (Strapi Docs) at [docs.strapi.io](https://docs.strapi.io) always documents the latest version of Strapi (CMS and Cloud) products.
+[docs.strapi.io](https://docs.strapi.io) にあるStrapi Documentation（Strapi Docs）は、常に最新のStrapi（CMSおよびCloud）製品をドキュメント化しています。
 
-Since Strapi Docs version 5.0.0, the **docs' version number is independent from the Strapi product version**. Thus, the version numbers of [`strapi/documentation`](https://github.com/strapi/documentation) and [`strapi/strapi`](https://github.com/strapi/strapi) may differ.
+Strapi Docsバージョン5.0.0以降、**ドキュメントのバージョン番号はStrapi製品のバージョンとは独立しています**。したがって、[`strapi/documentation`](https://github.com/strapi/documentation) と [`strapi/strapi`](https://github.com/strapi/strapi) のバージョン番号は異なる場合があります。
 
-Strapi Docs now follow the **[semantic versioning](https://semver.org/)** philosophy, but adapted to docs:
+Strapi Docsは、**[セマンティックバージョニング](https://semver.org/)**の哲学に従っていますが、ドキュメントに適応しています：
 
-- **Major version** (6.0.0, 7.0.0…): A **significant rewrite** of the docs (content or framework). This may impact the user experience, redesign the site, or break old links (redirections are handled, but broken links can be [reported](https://github.com/strapi/documentation/issues/new/choose)).
-- **Minor version** (5.1.0, 5.2.0…): **New Strapi features or improvements** to the docs (e.g., new components or tools).
-- **Patch version** (5.1.1, 5.1.2…): **Content updates**, including improvement or extension of existing pages, code examples fixes, and typos.
+- **メジャーバージョン**（6.0.0、7.0.0…）：ドキュメントの**大幅な書き直し**（内容またはフレームワーク）。これにより、ユーザーエクスペリエンスに影響を与え、サイトのデザインを再構築したり、古いリンクが切れる可能性があります（リダイレクションは処理されますが、リンク切れは[報告](https://github.com/strapi/documentation/issues/new/choose)することができます）。
+- **マイナーバージョン**（5.1.0、5.2.0…）：ドキュメントの**新しいStrapi機能や改善**（例：新しいコンポーネントやツールの追加）。
+- **パッチバージョン**（5.1.1、5.1.2…）：**コンテンツの更新**（既存ページの改善や拡張、コード例の修正、誤字脱字の修正など）。
 
-New versions (minor or patch) are generally released weekly, on Wednesdays.
+新しいバージョン（マイナーまたはパッチ）は、一般的に毎週水曜日にリリースされます。
 
 </details>
 
 ## 5.1.0
 
-### ✨ New content
+### ✨ 新しいコンテンツ
 
-#### Cloud Docs
+#### クラウドドキュメント
 
-* [Multi-Environments](https://github.com/strapi/documentation/pull/2229)
+* [マルチ環境](https://github.com/strapi/documentation/pull/2229)
 
-### 🖌 Updated content
+### 🖌 更新されたコンテンツ
 
-#### User Guide
+#### ユーザーガイド
 
-* [Mention Blocked status for Releases](https://github.com/strapi/documentation/pull/2235)
+* [リリースのブロックステータスについて言及](https://github.com/strapi/documentation/pull/2235)
 
-#### Dev Docs
+#### 開発者ドキュメント
 
-* [Clarify helper-plugin migration guide](https://github.com/strapi/documentation/pull/2230)
+* [helper-plugin移行ガイドの明確化](https://github.com/strapi/documentation/pull/2230)
 
-### 🧹 Chore, fixes, typos, and other improvements
+### 🧹 雑務、修正、誤字脱字、その他の改善
 
-#### Dev Docs
+#### 開発者ドキュメント
 
-* [Fix creating a custom provider example](https://github.com/strapi/documentation/pull/2237)
-* [Fix pagination_next for first page of categories](https://github.com/strapi/documentation/pull/2234)
-* [Fix SEO issues](https://github.com/strapi/documentation/pull/2233)
-* [Fix links to strapi codebase](https://github.com/strapi/documentation/pull/2226)
-* [Fix code example in general deployment guidelines](https://github.com/strapi/documentation/pull/2231)
-* [Fix grammar in TypeScript development docs](https://github.com/strapi/documentation/pull/2232)
+* [カスタムプロバイダー作成例の修正](https://github.com/strapi/documentation/pull/2237)
+* [カテゴリの最初のページのpagination_nextを修正](https://github.com/strapi/documentation/pull/2234)
+* [SEOの問題修正](https://github.com/strapi/documentation/pull/2233)
+* [Strapiのコードベースへのリンク修正](https://github.com/strapi/documentation/pull/2226)
+* [一般的なデプロイメントガイドラインでのコード例の修正](https://github.com/strapi/documentation/pull/2231)
+* [TypeScript開発ドキュメントの文法修正](https://github.com/strapi/documentation/pull/2232)
 
 ***
 
-This release was made possible thanks to the following contributors. Thank you! 🫶
+このリリースは、次のコントリビューターのおかげで実現しました。ありがとうございます！ 🫶
 
 <div>
 
@@ -89,120 +89,124 @@ This release was made possible thanks to the following contributors. Thank you! 
 
 ## 5.0.0
 
-_The following is an extensive list of all the pull requests that were merged since we started working on Strapi 5 documentation. For a quicker tour, please refer to the [What's new page](/dev-docs/whats-new)._
+_以下は、Strapi 5ドキュメントの作業開始以降にマージされたすべてのプルリクエストの詳細なリストです。クイックツアーについては、[新着ページ](/dev-docs/whats-new)をご覧ください。_
 
-### ✨ New content
+### ✨ 新しいコンテンツ
 
-#### Dev Docs
+#### 開発者ドキュメント
 
-* [Breaking change for database columns](https://github.com/strapi/documentation/pull/2221)
-* [Content Manager APIs](https://github.com/strapi/documentation/pull/2220)
-* [Breaking change for removing the "shared population strategy" for components & dynamic zones](https://github.com/strapi/documentation/pull/2204)
-* [Templates](https://github.com/strapi/documentation/pull/2192)
-* [Upgrade section revamp](https://github.com/strapi/documentation/pull/2153)
-* [Custom U&P providers](https://github.com/strapi/documentation/pull/2138)
-* [Breaking change for server.proxy config](https://github.com/strapi/documentation/pull/2131)
-* [New "Upgrades" section (replaces updates & migration) for Strapi 5](https://github.com/strapi/documentation/pull/2126)
-* [New proxy configuration feature](https://github.com/strapi/documentation/pull/2124)
-* [lockIcon → licenseOnly breaking change](https://github.com/strapi/documentation/pull/2123)
-* [Breaking change for default input validation](https://github.com/strapi/documentation/pull/2096)
-* [Entity Service → Document Service: Breaking change + migration reference](https://github.com/strapi/documentation/pull/2093)
-* [Plugins migration summary](https://github.com/strapi/documentation/pull/2089)
-* [Breaking change for better-sqlite3](https://github.com/strapi/documentation/pull/2083)
-* [Breaking change for Admin RBAC updates](https://github.com/strapi/documentation/pull/2082)
-* [Breaking change for model config path uses uid](https://github.com/strapi/documentation/pull/2055)
-* [Breaking change for upgrade from apollo v3 to apollo v4](https://github.com/strapi/documentation/pull/2053)
-* [Breaking change for removed `localizations` field](https://github.com/strapi/documentation/pull/2050)
-* [Breaking change for server log level configuration](https://github.com/strapi/documentation/pull/2049)
-* [Breaking change for the removed webpack aliases](https://github.com/strapi/documentation/pull/2047)
-* [Breaking change for strict requirements on configuration filenames](https://github.com/strapi/documentation/pull/2009)
-* [Breaking change about removed support for some env-only options](https://github.com/strapi/documentation/pull/2007)
-* [Breaking change for no findPage() method in Document Service API](https://github.com/strapi/documentation/pull/2006)
-* [Breaking change for sorting by id](https://github.com/strapi/documentation/pull/1999)
-* [Breaking change for Vite as default bundler](https://github.com/strapi/documentation/pull/1998)
-* [Breaking change for U&P register.allowedFields](https://github.com/strapi/documentation/pull/1997)
-* [Breaking change for CM redux store](https://github.com/strapi/documentation/pull/1995)
-* [Breaking change for `strapi.container`](https://github.com/strapi/documentation/pull/1994)
-* [Breaking change for i18n CM locale parameter](https://github.com/strapi/documentation/pull/1991)
-* [Breaking change for strapi exports](https://github.com/strapi/documentation/pull/1989)
-* [Breaking change for removal of `isSupportedImage`](https://github.com/strapi/documentation/pull/1988)
-* [Breaking change about react-router-dom 6](https://github.com/strapi/documentation/pull/1987)
-* [Upgrade tool](https://github.com/strapi/documentation/pull/1945)
-* [Document Service](https://github.com/strapi/documentation/pull/1935)
-* [Breaking change for fetch](https://github.com/strapi/documentation/pull/1915)
-* [Breaking change for MySQL v5 support drop](https://github.com/strapi/documentation/pull/1892)
-* [Init. breaking changes pages for Strapi v4 → v5 migration](https://github.com/strapi/documentation/pull/1896)
-* [New v5 Dev Docs structure](https://github.com/strapi/documentation/pull/1811)
+* [データベース列に関する互換性のない変更](https://github.com/strapi/documentation/pull/2221)
+* [コンテンツマネージャーAPI](https://github.com/strapi/documentation/pull/2220)
+* [コンポーネント＆ダイナミックゾーンに対する「共有ポピュレーション戦略」の削除に関する互換性のない変更](https://github.com/strapi/documentation/pull/2204)
+* [テンプレート](https://github.com/strapi/documentation/pull/2192)
+* [アップグレードセクションの刷新](https://github.com/strapi/documentation/pull/2153)
+* [カスタムU&Pプロバイダー](https://github.com/strapi/documentation/pull/2138)
+* [server.proxy設定の互換性のない変更](https://github.com/strapi/documentation/pull/2131)
+* [Strapi 5向けに「アップグレード」セクションを新設（更新＆移行セクションに代わるもの）](https://github.com/strapi/documentation/pull/2126)
+* [新しいプロキシ設定機能](https://github.com/strapi/documentation/pull/2124)
+* [lockIcon → licenseOnlyの互換性のない変更](https://github.com/strapi/documentation/pull/2123)
+* [デフォルト入力バリデーションの互換性のない変更](https://github.com/strapi/documentation/pull/2096)
+* [エンティティサービス → ドキュメントサービス：互換性のない変更および移行の参照](https://github.com/strapi/documentation/pull/2093)
+* [プラグイン移行の概要](https://github.com/strapi/documentation/pull/2089)
+* [better-sqlite3に対する互換性のない変更](https://github.com/strapi/documentation/pull/2083)
+* [Admin RBACの更新に関する互換性のない変更](https://github.com/strapi/documentation/pull/2082)
+* [モデル設定パスでuidを使用する互換性のない変更](https
 
-#### User Guide
+://github.com/strapi/documentation/pull/2055)
+* [apollo v3からapollo v4へのアップグレードの互換性のない変更](https://github.com/strapi/documentation/pull/2053)
+* [「localizations」フィールドの削除に関する互換性のない変更](https://github.com/strapi/documentation/pull/2050)
+* [serverログレベル設定に関する互換性のない変更](https://github.com/strapi/documentation/pull/2049)
+* [webpackエイリアスの削除に関する互換性のない変更](https://github.com/strapi/documentation/pull/2047)
+* [設定ファイル名に対する厳格な要件に関する互換性のない変更](https://github.com/strapi/documentation/pull/2009)
+* [いくつかのenv専用オプションのサポート削除に関する互換性のない変更](https://github.com/strapi/documentation/pull/2007)
+* [Document Service APIのfindPage()メソッドの廃止に関する互換性のない変更](https://github.com/strapi/documentation/pull/2006)
+* [idでのソートに関する互換性のない変更](https://github.com/strapi/documentation/pull/1999)
+* [Viteをデフォルトのバンドラーにする互換性のない変更](https://github.com/strapi/documentation/pull/1998)
+* [U&P register.allowedFieldsに対する互換性のない変更](https://github.com/strapi/documentation/pull/1997)
+* [CM reduxストアに対する互換性のない変更](https://github.com/strapi/documentation/pull/1995)
+* [strapi.containerに対する互換性のない変更](https://github.com/strapi/documentation/pull/1994)
+* [i18n CMロケールパラメーターに対する互換性のない変更](https://github.com/strapi/documentation/pull/1991)
+* [Strapiエクスポートに関する互換性のない変更](https://github.com/strapi/documentation/pull/1989)
+* [isSupportedImageの削除に関する互換性のない変更](https://github.com/strapi/documentation/pull/1988)
+* [react-router-dom 6に関する互換性のない変更](https://github.com/strapi/documentation/pull/1987)
+* [アップグレードツール](https://github.com/strapi/documentation/pull/1945)
+* [ドキュメントサービス](https://github.com/strapi/documentation/pull/1935)
+* [fetchに関する互換性のない変更](https://github.com/strapi/documentation/pull/1915)
+* [MySQL v5サポートの廃止に関する互換性のない変更](https://github.com/strapi/documentation/pull/1892)
+* [Strapi v4→v5移行の互換性のない変更ページの初期化](https://github.com/strapi/documentation/pull/1896)
+* [新しいv5開発者ドキュメント構造](https://github.com/strapi/documentation/pull/1811)
 
-* [Updated screenshots & last updates in User Guide](https://github.com/strapi/documentation/pull/2207)
-* [Releases settings](https://github.com/strapi/documentation/pull/2120)
+#### ユーザーガイド
 
-#### Cloud Docs
+* [ユーザーガイドのスクリーンショットと最新の更新内容](https://github.com/strapi/documentation/pull/2207)
+* [リリース設定](https://github.com/strapi/documentation/pull/2120)
 
-* [Port existing Cloud docs content from v4 website to website](https://github.com/strapi/documentation/pull/2154) 
-* [Make main categories clickable in breadcrumbs](https://github.com/strapi/documentation/pull/2198)
+#### クラウドドキュメント
 
-#### Global
+* [v4ウェブサイトからv5ウェブサイトへの既存クラウドドキュメントの移行](https://github.com/strapi/documentation/pull/2154) 
+* [パンくずリストでメインカテゴリをクリック可能にする](https://github.com/strapi/documentation/pull/2198)
 
-* [AI widget](https://github.com/strapi/documentation/pull/1898) 
-* [Tagging system](https://github.com/strapi/documentation/pull/2076)
-* [New homepage](https://github.com/strapi/documentation/pull/2087) 
+#### グローバル
 
-### 🖌 Updated content
+* [AIウィジェット](https://github.com/strapi/documentation/pull/1898) 
+* [タグシステム](https://github.com/strapi/documentation/pull/2076)
+* [新しいホームページ](https://github.com/strapi/documentation/pull/2087) 
 
-#### Dev Docs
+### 🖌 更新されたコンテンツ
 
-* [Remove shared population strategy for dynamic zones](https://github.com/strapi/documentation/pull/2222)
-* [Update breaking change for default server level log](https://github.com/strapi/documentation/pull/2216)
-* [Update breaking change for reserved attributes and content-types names](https://github.com/strapi/documentation/pull/2215)
-* [Update breaking change for `is-supported-image`](https://github.com/strapi/documentation/pull/2214)
-* [Update codemods list](https://github.com/strapi/documentation/pull/2212)
-* [Update some v5 migration and Plugin SDK docs](https://github.com/strapi/documentation/pull/2210)
-* [Add more before examples for helper plugin migration](https://github.com/strapi/documentation/pull/2209)
-* [Plugin migration updates](https://github.com/strapi/documentation/pull/2208)
-* [Update the Quick Start Guide with Cloud CLI and new CLI prompts](https://github.com/strapi/documentation/pull/2203)
-* [Update sdk-plugin init with new options](https://github.com/strapi/documentation/pull/2202)
-* [Update helper plugin migration doc](https://github.com/strapi/documentation/pull/2200)
-* [Update backend customization examples to Document Service API](https://github.com/strapi/documentation/pull/2196)
-* [Add scope and warning details to the upgrade tool guide](https://github.com/strapi/documentation/pull/2195)
-* [More examples for middlewares context to Document Service API](https://github.com/strapi/documentation/pull/2189)
-* [Deprecate integration guides](https://github.com/strapi/documentation/pull/2173)
-* [Transfer deployment guides to external resources](https://github.com/strapi/documentation/pull/2172)
-* [Database lifecycles vs. Document Service middlewares](https://github.com/strapi/documentation/pull/2170)
-* [Admin panel customization section rework](https://github.com/strapi/documentation/pull/2162)
-* [Update REST API additional resources with new links and call to write](https://github.com/strapi/documentation/pull/2148)
-* [Updates to the CLI installation guide](https://github.com/strapi/documentation/pull/2121)
-* [FAQ section for 'Cannot find module @strapi/XXX' build error](https://github.com/strapi/documentation/pull/2116)
-* [Update upgrade tool documentation with codemods updates](https://github.com/strapi/documentation/pull/2112)
-* [Plugin CLI update for @strapi/sdk-plugin package](https://github.com/strapi/documentation/pull/2109)
-* [Updates to relations in API docs](https://github.com/strapi/documentation/pull/2100)
-* [Update doc service doc to match latest changes being prepared](https://github.com/strapi/documentation/pull/2074)
-* [GraphQL updates](https://github.com/strapi/documentation/pull/2051)
-* [REST API updates (incl. i18n and breaking changes)](https://github.com/strapi/documentation/pull/2038)
-* [(no-)watch-admin and bundler updates](https://github.com/strapi/documentation/pull/2037)
-* [Turn the TypeScript page into a section](https://github.com/strapi/documentation/pull/1913)
-* [New Dev Docs introduction](https://github.com/strapi/documentation/pull/1911)
-* [Update supported databases](https://github.com/strapi/documentation/pull/1887)
+#### 開発者ドキュメント
 
-#### User Guide
+* [ダイナミックゾーンの共有ポピュレーション戦略を削除](https://github.com/strapi/documentation/pull/2222)
+* [デフォルトサーバーレベルログの互換性のない変更の更新](https://github.com/strapi/documentation/pull/2216)
+* [予約済み属性とコンテンツタイプ名に関する互換性のない変更の更新](https://github.com/strapi/documentation/pull/2215)
+* [is-supported-imageの互換性のない変更の更新](https://github.com/strapi/documentation/pull/2214)
+* [codemodsリストの更新](https://github.com/strapi/documentation/pull/2212)
+* [v5移行およびプラグインSDKドキュメントの一部更新](https://github.com/strapi/documentation/pull/2210)
+* [helper plugin移行ドキュメントにさらに多くの例を追加](https://github.com/strapi/documentation/pull/2209)
+* [プラグイン移行の更新](https://github.com/strapi/documentation/pull/2208)
+* [クイックスタートガイドのCloud CLIと新しいCLIプロンプトに関する更新](https://github.com/strapi/documentation/pull/2203)
+* [sdk-plugin initの新オプションによる更新](https://github.com/strapi/documentation/pull/2202)
+* [helper plugin移行ドキュメントの更新](https://github.com/strapi/documentation/pull/2200)
+* [バックエンドカスタマイズ例をDocument Service APIに更新](https://github.com/strapi/documentation/pull/2196)
+* [アップグレードツールガイドにスコープと警告の詳細を追加](https://github.com/strapi/documentation/pull/2195)
+* [Document Service API向けのミドルウェアコンテキストにさらに例を追加](https://github.com/strapi/documentation/pull/2189)
+* [統合ガイドの廃止](https://github.com/strapi/documentation/pull/2173)
+* [デプロイメントガイドの外部リソースへの転送](https://github.com/strapi/documentation/pull/2172)
+* [データベースライフサイクルとDocument Serviceミドルウェアの違い](https://github.com/strapi/documentation/pull/2170)
+* [管理パネルカスタマイズセクションの再構築](https://github.com/strapi/documentation/pull/2162)
+* [REST APIの追加リソースに新しいリンクと執筆依頼を追加](https://github.com/strapi/documentation/pull/2148)
+* [CLIインストールガイドの更新](https://github.com/strapi/documentation/pull/2121)
+* ['Cannot find module @strapi/XXX' ビルドエラーに関するFAQセクション](https://github.com/strapi/documentation/pull/2116)
+* [codemods更新によるアップグレードツールドキュメントの更新](https://github.com/strapi/documentation/pull/2112)
+* [@strapi/sdk-pluginパッケージ用のプラグインCLIの更新](https://github.com/strapi/documentation/pull/2109)
+* [APIドキュメントでのリレーションに関する更新](https://github.com/strapi/documentation/pull/2100)
+* [Document Service APIに一致するようにバックエンドカスタマイズ例を更新](https://github.com/strapi/documentation/pull/2074)
+* [GraphQLの更新](https://github.com/strapi/documentation/pull/2051)
+* [REST APIの更新（i18nおよび互換性のない変更を含む）](https://github.com/strapi/documentation/pull/2038)
+* [(no-)watch-adminおよびバンドラーの更新](https://github.com/strapi/documentation/pull/2037)
+* [TypeScriptページをセクションに変更](https://github.com/strapi/documentation/pull/1913)
+* [新しい開発者ドキュメントの導入](https://github.com/strapi/documentation/pull/1911)
+* [サポートされているデータベースの更新](https://github.com/strapi/documentation/pull/1887)
 
-* [Make main categories clickable in breadcrumbs](https://github.com/strapi/documentation/pull/2197)
-* [Update whole content in User Guide](https://github.com/strapi/documentation/pull/2193)
-* [Update Draft & Publish](https://github.com/strapi/documentation/pull/2027)
+#### ユーザーガイド
 
-#### Cloud Docs
+* [パンくずリストでメインカテゴリをクリック可能にする](https://github.com/str
 
-* [Make main categories clickable in breadcrumbs](https://github.com/strapi/documentation/pull/2198)
+api/documentation/pull/2197)
+* [ユーザーガイドのコンテンツ全体を更新](https://github.com/strapi/documentation/pull/2193)
+* [ドラフト＆パブリッシュの更新](https://github.com/strapi/documentation/pull/2027)
 
-### 🧹 Chore, fixes, typos, and other improvements
+#### クラウドドキュメント
 
-* [AI bot improvements](https://github.com/strapi/documentation/pull/2142)
+* [パンくずリストでメインカテゴリをクリック可能にする](https://github.com/strapi/documentation/pull/2198)
+
+### 🧹 雑務、修正、誤字脱字、その他の改善
+
+* [AIボットの改善](https://github.com/strapi/documentation/pull/2142)
 
 ***
 
-This release was made possible thanks to the following contributors. Thank you! 🫶
+このリリースは、次のコントリビューターのおかげで実現しました。ありがとうございます！ 🫶
 
 <div>
 <a href="https://github.com/derrickmehaffy" target="_blank">

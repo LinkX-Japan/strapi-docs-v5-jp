@@ -1,26 +1,27 @@
 ---
-title: Releases
-description: Managing Releases settings.
+title: リリース
+description: リリース設定の管理
 tags:
-  - settings
-  - releases
+  - 設定
+  - リリース
 ---
 
-# Releases
+# リリース
 
-The [Releases](/user-docs/releases/introduction) feature enables content managers to organize entries into containers that can perform publish and unpublish actions simultaneously. The default timezone to use when scheduling a publication can be modified from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > Releases*.
+[リリース](/user-docs/releases/introduction)機能は、コンテンツマネージャーがエントリーをコンテナに整理し、同時に公開および非公開アクションを実行できるようにします。公開スケジュールを設定する際に使用するデフォルトのタイムゾーンは、![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > リリース* から変更できます。
 
-<!-- TODO: update screenshots and a dark mode one when I can actually test the feature -->
+<!-- TODO: 実際に機能をテストできるときにスクリーンショットとダークモード用の画像を更新する -->
+
 <ThemedImage
-  alt="Release settings"
+  alt="リリース設定"
   sources={{
     light: '/img/assets/releases/release-settings.png',
     dark: '/img/assets/releases/release-settings_DARK.png',
   }}
 />
 
-To modify the default timezone:
+デフォルトのタイムゾーンを変更するには：
 
-1. Go to the *Global settings > Releases* sub-section of the settings interface.
-2. Click on the _Default timezone_ dropdown list and choose the default timezone to use.
-3. Click **Save**.
+1. 設定インターフェースの *グローバル設定 > リリース* サブセクションに移動します。
+2. _デフォルトタイムゾーン_ ドロップダウンリストをクリックし、使用するデフォルトタイムゾーンを選択します。
+3. **保存** ボタンをクリックします。

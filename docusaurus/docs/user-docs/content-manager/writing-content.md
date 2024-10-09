@@ -1,70 +1,70 @@
 ---
-title: Writing Content
-description: Instructions to write content by filling up fields that are meant to contain specific content (e.g. text, numbers, media etc.).
+title: コンテンツの作成
+description: 特定のコンテンツ（例：テキスト、数値、メディアなど）を含むフィールドに入力してコンテンツを作成する方法。
 sidebar_position: 3
 displayed_sidebar: userDocsSidebar
 tags:
-- Content-type Builder
-- collection type
-- components
-- dynamic zones
-- single type
-- password
+- コンテンツタイプビルダー
+- コレクションタイプ
+- コンポーネント
+- ダイナミックゾーン
+- シングルタイプ
+- パスワード
 ---
 
-# Writing content
+# コンテンツの作成
 
-In Strapi, writing content consists in filling up fields, which are meant to contain specific content (e.g. text, numbers, media, etc.). These fields were configured for the collection or single type beforehand, through the [Content-type Builder](/user-docs/content-type-builder).
+Strapiでは、コンテンツの作成は、特定のコンテンツ（例: テキスト、数値、メディアなど）を含むように設定されたフィールドに入力することを指します。これらのフィールドは、事前に[コンテンツタイプビルダー](/user-docs/content-type-builder)でコレクションまたはシングルタイプに対して設定されています。
 
 <ThemedImage
-  alt="Edit view to write content"
+  alt="コンテンツ作成の編集ビュー"
   sources={{
     light: '/img/assets/content-manager/edit-view3.png',
     dark: '/img/assets/content-manager/edit-view3_DARK.png',
   }}
 />
 
-## Filling up fields
+## フィールドへの入力
 
-To write or edit content:
+コンテンツを作成または編集するには:
 
-1. Access the edit view of your collection type or single type.
-2. Write your content, following the available field schema. You can refer to the table below for more information and instructions on how to fill up each field type.
+1. コレクションタイプまたはシングルタイプの編集ビューにアクセスします。
+2. 指定されたフィールドスキーマに従ってコンテンツを入力します。各フィールドタイプの入力方法については、以下の表を参照してください。
 
 :::info
-If Draft & Publish is enabled for your content-type (it's enabled by default), the fields work the same way whether you are editing the draft or published version. See [Saving, publishing, and deleting content](/user-docs/content-manager/saving-and-publishing-content) for more information about the Draft & Publish feature.
+コンテンツタイプにドラフト & 公開が有効な場合（デフォルトで有効）、フィールドは下書きバージョンと公開済みバージョンで同じように機能します。詳細は、[コンテンツの保存、公開、および削除](/user-docs/content-manager/saving-and-publishing-content)をご覧ください。
 :::
 
-| Field name  | Instructions                                                                                                                                                                                                                                                                                                                                                              |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Text        | Write your content in the textbox.                                                                                                                                                                                                                                                                                                                                        |
-| Rich text (Markdown) | Write your textual content in the editor, in Markdown. Some basic formatting options (titles, bold, italics, underline) are available in the top bar of the editor to apply to selected text. A **Preview mode/Markdown mode** button to switch between modes is also available. <br /><br /> 💡 The box can be expanded by clicking on **Expand** in the bottom bar. It displays side by side, at the same time, the textbox that you can edit and the preview. |
-| Rich text (Blocks) | Write and manage your content in the editor, which automatically renders live all additions/updates. In the Blocks editor, paragraphs behave as blocks of text: hovering on a paragraph will display an icon ![Reorder icon](/img/assets/icons/v5/Drag.svg) on which to click to reorder the content. Options to format or enrich the content are also accessible from the top bar of the editor (basic formatting options, code, links, image etc.). <!-- <br /><br /> 💡 Type `/` in the editor to have access to the list of all available options and select one. --> <br /><br /> 💡 You can use text formatting keyboard shortcuts in the Blocks editor (e.g. bold, italics, underline, and pasting link). |
-| Number      | Write your number in the textbox. Up and down arrows, displayed on the right of the box, allow to increase or decrease the current number indicated in the textbox.                                                                                                                                                                                                       |
-| Date        | 1. Click the date and/or time box. <br /> 2. Type the date and time or choose a date using the calendar and/or a time from the list. The calendar view fully supports keyboard-based navigation. |
-| Media       | 1. Click the media area. <br /> 2. Choose an asset from the [Media Library](/user-docs/media-library) or from a [folder](/user-docs/media-library/organizing-assets-with-folders.md) if you created some, or click the **Add more assets** button to add a new file to the Media Library. <br /><br /> 💡 It is possible to drag and drop the chosen file in the media area.                                                                                                                                   |
-| Relation    | Choose an entry from the drop-down list. See [Managing relational fields](/user-docs/content-manager/managing-relational-fields.md) for more information.                                                                                                                                                                                                          |
-| Boolean     | Click on **TRUE** or **FALSE**.                                                                                                                                                                                                                                                                                                                                               |
-| JSON        | Write your content, in JSON format, in the code textbox.                                                                                                                                                                                                                                                                                                                  |
-| Email       | Write a complete and valid email address.                                                                                                                                                                                                                                                                                                                                 |
-| Password    | Write a password. <br /><br /> 💡 Click the ![Eye icon](/img/assets/icons/v5/Eye.svg) icon, displayed on the right of the box, to show the password.                                                                                                                                                                                                                                                                |
-| Enumeration | 1. Click the drop-down list. <br /> 2. Choose an entry from the list.                                                                                                                                                                                                                                                                                                       |
-| UID         | Write a unique identifier in the textbox. A "Regenerate" button, displayed on the right of the box, allows automatically generating a UID based on the content type name.                                                                                                                                                                                                |
+| フィールド名  | 説明                                                                                                                                                                                                                                                                                                                                                           |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| テキスト      | テキストボックスにコンテンツを入力します。                                                                                                                                                                                                                                                                                                                        |
+| リッチテキスト（Markdown） | エディタにMarkdown形式でテキストコンテンツを入力します。エディタの上部バーには、選択したテキストに適用するための基本的なフォーマットオプション（タイトル、太字、斜体、下線）が表示されます。また、**プレビューモード/Markdownモード**ボタンを使ってモードを切り替えることもできます。<br /><br />💡 ボトムバーの**拡張**をクリックすると、編集テキストボックスとプレビューが並んで表示されます。 |
+| リッチテキスト（ブロック） | ブロックエディタで、コンテンツを管理しながらリアルタイムで編集します。パラグラフはブロックとして扱われ、ホバーすると![Reorder icon](/img/assets/icons/v5/Drag.svg)アイコンが表示され、それを使ってコンテンツの順序を変更できます。エディタの上部バーには、基本的なフォーマットオプション、コード、リンク、画像などの追加オプションが表示されます。<br /><br /> 💡 ブロックエディタでは、テキストフォーマットのショートカット（例: 太字、斜体、下線、リンクの貼り付け）も使用できます。 |
+| 数値         | テキストボックスに数値を入力します。右側に表示される上下の矢印を使って、現在の数値を増減できます。                                                                                                                                                                                                                                                                   |
+| 日付         | 1. 日付および/または時間ボックスをクリックします。<br /> 2. 日付と時間を入力するか、カレンダーを使用して日付を選択し、リストから時間を選択します。カレンダー表示はキーボード操作にも対応しています。|
+| メディア     | 1. メディアエリアをクリックします。<br /> 2. [メディアライブラリ](/user-docs/media-library)または[フォルダ](/user-docs/media-library/organizing-assets-with-folders.md)（作成している場合）からアセットを選択するか、**追加のアセットを追加**ボタンをクリックして新しいファイルをメディアライブラリに追加します。<br /><br /> 💡 選択したファイルをメディアエリアにドラッグ&ドロップすることも可能です。|
+| リレーション | ドロップダウンリストからエントリを選択します。詳細は、[リレーショナルフィールドの管理](/user-docs/content-manager/managing-relational-fields.md)を参照してください。                                                                                                                                                                                                                  |
+| ブール値     | **TRUE** または **FALSE** をクリックします。                                                                                                                                                                                                                                                                                                                       |
+| JSON         | コードテキストボックスにJSON形式でコンテンツを入力します。                                                                                                                                                                                                                                                                                                         |
+| メール       | 有効なメールアドレスを入力します。                                                                                                                                                                                                                                                                                                                                |
+| パスワード   | パスワードを入力します。<br /><br /> 💡 ボックスの右側に表示される![Eye icon](/img/assets/icons/v5/Eye.svg)アイコンをクリックすると、パスワードを表示できます。                                                                                                                                                                                                                                            |
+| 列挙         | 1. ドロップダウンリストをクリックします。<br /> 2. リストからエントリを選択します。                                                                                                                                                                                                                                                                                 |
+| UID          | テキストボックスに一意の識別子を入力します。ボックスの右側に表示される「再生成」ボタンをクリックすると、コンテンツタイプ名に基づいて自動的にUIDが生成されます。                                                                                                                                                                                                               |
 
 :::note
-Filling out a [custom field](/user-docs/content-type-builder/configuring-fields-content-type.md#custom-fields) depends on the type of content handled by the field. Please refer to the dedicated documentation for each custom field hosted on the [Marketplace](https://market.strapi.io).
+[カスタムフィールド](/user-docs/content-type-builder/configuring-fields-content-type.md#custom-fields)の入力は、フィールドで扱うコンテンツのタイプに依存します。各カスタムフィールドに関しては、[マーケットプレイス](https://market.strapi.io)にホストされている専用ドキュメントを参照してください。
 :::
 
-### Components
+### コンポーネント
 
-Components are a combination of several fields, which are grouped together in the edit view. Writing their content works exactly like for independent fields, but there are some specificities to components.
+コンポーネントは、複数のフィールドを組み合わせたもので、編集ビューで一緒に表示されます。コンテンツの入力方法は独立したフィールドと同様ですが、コンポーネントにはいくつかの特有の要素があります。
 
-There are 2 types of components: non-repeatable and repeatable components.
+コンポーネントには、リピート不可能なものとリピート可能なものの2種類があります。
 
-#### Non-repeatable components
+#### リピート不可能なコンポーネント
 
 <ThemedImage
-  alt="Non-repeatable component - No entry yet"
+  alt="リピート不可能なコンポーネント - まだエントリがない場合"
   width="80%"
   sources={{
     light: '/img/assets/content-manager/edit-view_component3.png',
@@ -72,7 +72,7 @@ There are 2 types of components: non-repeatable and repeatable components.
   }}
 />
 <ThemedImage
-  alt="Non-repeatable component - With entries"
+  alt="リピート不可能なコンポーネント - エントリあり"
   width="80%"
   sources={{
     light: '/img/assets/content-manager/edit-view_component2.png',
@@ -80,19 +80,19 @@ There are 2 types of components: non-repeatable and repeatable components.
   }}
 />
 
-Non-repeatable components are a combination of fields that can be used only once.
+リピート不可能なコンポーネントは、1度だけ使用できるフィールドの組み合わせです。
 
-By default, the combination of fields is not directly displayed in the edit view:
+デフォルトでは、フィールドの組み合わせは編集ビューに直接表示されません:
 
-1. Click on the add button ![Add icon](/img/assets/icons/v5/PlusCircle.svg) to add the component.
-2. Fill in the fields of the component.
+1. 追加ボタン ![Add icon](/img/assets/icons/v5/PlusCircle.svg)をクリックしてコンポーネントを追加します。
+2. コンポーネントのフィールドに入力します。
 
-To delete the non-repeatable component, click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg), located in the top right corner of the component area.
+リピート不可能なコンポーネントを削除するには、コンポーネントエリアの右上にある削除ボタン ![Delete icon](/img/assets/icons/v5/Trash.svg) をクリックします。
 
-#### Repeatable components
+#### リピート可能なコンポーネント
 
 <ThemedImage
-  alt="Repeatable component"
+  alt="リピート可能なコンポーネント"
   width="80%"
   sources={{
     light: '/img/assets/content-manager/edit-view_component4.png',
@@ -100,29 +100,31 @@ To delete the non-repeatable component, click on the delete button ![Delete icon
   }}
 />
 
-Repeatable components are also a combination of fields, but they allow the creation of multiple component entries, all following the same combination of fields.
+リピート可能なコンポーネントも複数のフィールドを組み合わせたもので、同じフィールドの組み合わせに基づいて複数のエントリを作成できます。
 
-To add a new entry and display its combination of fields:
+新しいエントリを追加して、そのフィールドの組み合わせを表示するには:
 
-1. Click on the add button ![Add icon](/img/assets/icons/v5/PlusCircle.svg) to add the component.
-2. Fill in the fields of the component.
-3. (optional) Click on the **Add an entry** button and fill in the fields again.
+1. 追加ボタン ![Add icon](/img/assets/icons/v5/PlusCircle.svg)をクリックしてコンポーネントを追加します。
+2. コンポーネントのフィールドに入力します。
+3. （オプション）**エントリを追加**ボタンをクリックし、再度フィールドに入力します。
 
-The repeatable component entries can be reordered or deleted directly in the edit view, using buttons displayed on the right of the entry area.
+リ
 
-- Use the drag & drop button ![Drag icon](/img/assets/icons/v5/Drag.svg) to reorder entries of your repeatable component.
-- Use the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) to delete an entry from your repeatable component.
+ピート可能なコンポーネントのエントリは、編集ビューで順序を変更したり削除したりできます。エントリエリアの右側に表示されるボタンを使用します。
+
+- リピート可能なコンポーネントのエントリを並べ替えるには、ドラッグ&ドロップボタン ![Drag icon](/img/assets/icons/v5/Drag.svg)を使用します。
+- エントリを削除するには、削除ボタン ![Delete icon](/img/assets/icons/v5/Trash.svg)をクリックします。
 
 :::note
-Unlike regular fields, the order of the entries of a repeatable component is important. It should correspond exactly to how end users will read/see the content.
+通常のフィールドとは異なり、リピート可能なコンポーネントのエントリの順序は重要です。最終ユーザーがどのようにコンテンツを読む/見るかに正確に対応する必要があります。
 :::
 
-### Dynamic zones
+### ダイナミックゾーン
 
-Dynamic zones are a combination of components, which themselves are composed of several fields. Writing the content of a dynamic zone requires additional steps in order to access the fields.
+ダイナミックゾーンは、複数のフィールドで構成されたコンポーネントの組み合わせです。ダイナミックゾーンのコンテンツを入力するには、フィールドにアクセスするための追加手順が必要です。
 
 <ThemedImage
-  alt="Writing content for a dynamic zone"
+  alt="ダイナミックゾーンのコンテンツ作成"
   sources={{
     light: '/img/assets/content-manager/edit-view_dynamic-zone-1.png',
     dark: '/img/assets/content-manager/edit-view_dynamic-zone-1_DARK.png',
@@ -130,26 +132,26 @@ Dynamic zones are a combination of components, which themselves are composed of 
 />
 
 <ThemedImage
-  alt="Writing content for a dynamic zone"
+  alt="ダイナミックゾーンのコンテンツ作成"
   sources={{
     light: '/img/assets/content-manager/edit-view_dynamic-zone-2.png',
     dark: '/img/assets/content-manager/edit-view_dynamic-zone-2_DARK.png',
   }}
 />
 
-1. Click on the ![Add icon](/img/assets/icons/v5/PlusCircle.svg) **Add a component to [dynamic zone name]** button.
-2. Choose a component available for the dynamic zone.
-3. Fill in the fields of the component.
+1. ![Add icon](/img/assets/icons/v5/PlusCircle.svg) **[ダイナミックゾーン名]にコンポーネントを追加**ボタンをクリックします。
+2. ダイナミックゾーンに利用可能なコンポーネントを選択します。
+3. コンポーネントのフィールドに入力します。
 
-Dynamic zones' components can also be reordered or deleted directly in the edit view, using buttons displayed in the top right corner of the component area.
+ダイナミックゾーンのコンポーネントも、編集ビューで順序を変更したり削除したりできます。コンポーネントエリアの右上に表示されるボタンを使用します。
 
-- Use the drag & drop button ![Drag icon](/img/assets/icons/v5/Drag.svg) to reorder components in your dynamic zone.
-- Use the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) to delete a component from your dynamic zone.
+- ダイナミックゾーン内のコンポーネントを並べ替えるには、ドラッグ&ドロップボタン ![Drag icon](/img/assets/icons/v5/Drag.svg)を使用します。
+- ダイナミックゾーンからコンポーネントを削除するには、削除ボタン ![Delete icon](/img/assets/icons/v5/Trash.svg)をクリックします。
 
 :::tip
-You can also use the keyboard to reorder components: focus the component using Tab, press Space on the drag & drop button ![Drag icon](/img/assets/icons/v5/Drag.svg) and use the arrow keys to then re-order, pressing Space again to drop the item.
+キーボードを使ってコンポーネントを並べ替えることもできます。Tabキーでコンポーネントをフォーカスし、ドラッグ&ドロップボタン ![Drag icon](/img/assets/icons/v5/Drag.svg)でスペースキーを押して選択し、矢印キーで順序を変更し、スペースキーでドロップします。
 :::
 
 :::note
-Unlike regular fields, the order of the fields and components inside a dynamic field is important. It should correspond exactly to how end users will read/see the content.
+通常のフィールドとは異なり、ダイナミックフィールド内のフィールドとコンポーネントの順序は重要です。最終ユーザーがどのようにコンテンツを読む/見るかに正確に対応する必要があります。
 :::

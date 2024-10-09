@@ -1,19 +1,19 @@
 ---
-title: Managing a release
-description: Instructions on how to manage a Release from the admin panel
+title: リリースの管理
+description: 管理パネルからリリースを管理するための手順
 tags:
-- admin panel
-- Enterprise feature
-- Releases feature
+- 管理パネル
+- エンタープライズ機能
+- リリース機能
 - Strapi Cloud
 ---
 
-# Managing a release <EnterpriseBadge /> <CloudTeamBadge />
+# リリースの管理 <EnterpriseBadge /> <CloudTeamBadge />
 
-Adding entries to a [release](/user-docs/releases/introduction) allow viewing them altogether on a single page.
+[リリース](/user-docs/releases/introduction) にエントリーを追加すると、すべてのエントリーを1つのページで表示できます。
 
 <ThemedImage
-  alt="Release details"
+  alt="リリースの詳細"
   sources={{
     light: '/img/assets/releases/release-details.png',
     dark: '/img/assets/releases/release-details_DARK.png',
@@ -22,83 +22,84 @@ Adding entries to a [release](/user-docs/releases/introduction) allow viewing th
 
 <br /><br />
 
-From a release page, you can:
+リリースページからは、以下の操作が可能です：
 
-- edit the release, to update its name or schedule it, or delete the release,
-- decide whether an entry will be published or unpublished with the release,
-- and publish the release.
+- リリースの名前を更新したり、スケジュールを設定したり、削除したりする、
+- エントリーが公開されるか、非公開にされるかを決定する、
+- そして、リリースを公開する。
 
-<!-- - [adjust the view](#choose-how-entries-are-grouped) to display entries grouped either by locale or by content-type, -->
-<!-- - edit a specific entry or [remove](#remove-entries-from-a-release) it from the release, -->
+<!-- - [表示方法を調整](#choose-how-entries-are-grouped)して、エントリーをロケール別またはコンテンツタイプ別にグループ化して表示する、 -->
+<!-- - 特定のエントリーを編集するか、リリースから[削除](#remove-entries-from-a-release)する、 -->
 
 :::caution
-Since publishing an entry with a release means turning a draft entry into a published entry, Releases will not work if [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) is disabled for the content-type.
+リリースでエントリーを公開するということは、下書きのエントリーを公開済みエントリーにすることを意味するため、コンテンツタイプに対して[下書きと公開](/user-docs/content-manager/saving-and-publishing-content)機能が無効になっている場合、リリースは機能しません。
 :::
 
-## Editing a release
+## リリースの編集
 
-You can rename a release. To do so, while on a release page:
+リリースの名前を変更できます。リリースページで次の手順を行います：
 
-1. Click on the ![More icon](/img/assets/icons/v5/More.svg) button in the top right corner of the admin panel.
-2. Select ![Edit icon](/img/assets/icons/v5/Pencil.svg) **Edit**.
-3. In the modal, change the name of the release in the _Name_ field.
-4. Click **Continue** to save the change.
+1. 管理パネルの右上にある ![その他アイコン](/img/assets/icons/v5/More.svg) ボタンをクリックします。
+2. ![編集アイコン](/img/assets/icons/v5/Pencil.svg) **編集** を選択します。
+3. モーダルウィンドウで、_名前_ フィールドに新しいリリース名を入力します。
+4. **続行** をクリックして変更を保存します。
 
-## Scheduling a release
+## リリースのスケジュール設定
 
-Releases can be [published manually](#publishing-a-release) or scheduled to be automatically published at a given date and time, with the timezone of your choice.
+リリースは、[手動で公開](#publishing-a-release)するか、指定された日時に自動で公開されるようにスケジュール設定できます。タイムゾーンも選択可能です。
 
-You can schedule a release:
-- when [creating the release](/user-docs/releases/creating-a-release),
-- or once the release is already created, by editing it.
+リリースのスケジュールを設定するには：
 
-To schedule an existing release, while on a release page:
-1. Click on the ![More icon](/img/assets/icons/v5/More.svg) button in the top right corner of the admin panel.
-2. Select ![Edit icon](/img/assets/icons/v5/Pencil.svg) **Edit**.
-3. In the modal, check the **Schedule release** checkbox.
-4. Select a date, time, and timezone for the release to be published.
-5. Click **Save**.
+- [リリース作成時](/user-docs/releases/creating-a-release)にスケジュール設定する、
+- または、既に作成済みのリリースを編集して設定することができます。
+
+既存のリリースをスケジュール設定するには、リリースページで次の手順を行います：
+1. 管理パネルの右上にある ![その他アイコン](/img/assets/icons/v5/More.svg) ボタンをクリックします。
+2. ![編集アイコン](/img/assets/icons/v5/Pencil.svg) **編集** を選択します。
+3. モーダルウィンドウで **リリースをスケジュール** チェックボックスをオンにします。
+4. 公開日時とタイムゾーンを選択します。
+5. **保存** をクリックします。
 
 <ThemedImage
-  alt="Release scheduling"
+  alt="リリースのスケジュール設定"
   sources={{
     light: '/img/assets/releases/release-scheduling.png',
     dark: '/img/assets/releases/release-scheduling_DARK.png',
   }}
 />
 
-## Choosing how entries are grouped
+## エントリーのグループ化方法の選択
 
-A release page can display entries either grouped by locale, content-type, or action (publish or unpublish). To change how entries are grouped, click the **Group by …** dropdown and select an option from the list.
+リリースページでは、エントリーをロケール別、コンテンツタイプ別、またはアクション（公開または非公開）別にグループ化して表示できます。グループ化方法を変更するには、**グループ化 …** ドロップダウンをクリックし、リストからオプションを選択します。
 
-## Publishing or unpublishing entries
+## エントリーの公開または非公開
 
-A release includes multiple entries. You can set the state of each entry with the **Publish** and **Unpublish** action buttons. When the release itself is “published” then the desired actions will be simultaneously performed on each entry.
+リリースには複数のエントリーが含まれています。それぞれのエントリーには **公開** および **非公開** アクションボタンを使って状態を設定できます。リリース自体が「公開」されると、設定されたアクションが各エントリーに対して同時に実行されます。
 
-## Removing entries from a release
+## リリースからエントリーを削除
 
-Entries can be removed from a release. To do so, click the ![More icon](/img/assets/icons/v5/More.svg) at the end of the row of an entry and select the **Remove from release** button.
+リリースからエントリーを削除することができます。エントリーの行の末尾にある ![その他アイコン](/img/assets/icons/v5/More.svg) をクリックし、**リリースから削除** ボタンを選択します。
 
-## Publishing a release
+## リリースを公開
 
-Publishing a release means that all the actions (publish or unpublish) defined for each entry included in the release will be performed simultaneously. To publish a release, click the **Publish** button in the top right corner of the admin panel.
+リリースを公開すると、リリースに含まれる各エントリーに設定されたすべてのアクション（公開または非公開）が同時に実行されます。リリースを公開するには、管理パネルの右上にある **公開** ボタンをクリックします。
 
-The _Status_ column displays the status of each entry:
+_ステータス_ 列には各エントリーのステータスが表示されます：
 
-   - ![Success icon](/img/assets/icons/v5/CheckCircle.svg) Already published: the entry is already published and publishing the release will not affect this entry 
-   - ![Success icon](/img/assets/icons/v5/CheckCircle.svg) Ready to publish: the entry is ready to  be published with the release
-   - ![Fail icon](/img/assets/icons/v5/CrossCircle2.svg) "[field name] is required", "[field name] is too short" or "[field name] is too long": the entry cannot be published because of the issue stated in the red warning message. In this case, the release will be indicated as *Blocked* until all issues have been fixed.
-   
-If some of your entries have a ![Fail icon](/img/assets/icons/v5/CrossCircle2.svg) status, click the ![More icon](/img/assets/icons/v5/More.svg) and the **Edit the entry** button to fix the issues until all entries have the ![Success icon](/img/assets/icons/v5/CheckCircle.svg) status. Note that you will have to click on the **Refresh** button to update the release page as you fix the various entries issues.
+- ![成功アイコン](/img/assets/icons/v5/CheckCircle.svg) すでに公開済み：エントリーは既に公開されており、リリースを公開しても影響はありません
+- ![成功アイコン](/img/assets/icons/v5/CheckCircle.svg) 公開準備完了：エントリーはリリースと共に公開される準備ができています
+- ![失敗アイコン](/img/assets/icons/v5/CrossCircle2.svg) 「[フィールド名] が必須です」、「[フィールド名] が短すぎます」または「[フィールド名] が長すぎます」：エントリーは、赤い警告メッセージに記載された問題のため、公開できません。この場合、すべての問題が解決されるまでリリースは *ブロック中* と表示されます。
+
+一部のエントリーに ![失敗アイコン](/img/assets/icons/v5/CrossCircle2.svg) ステータスが表示されている場合は、![その他アイコン](/img/assets/icons/v5/More.svg) をクリックし、**エントリーを編集** ボタンを選択して問題を修正してください。すべてのエントリーが ![成功アイコン](/img/assets/icons/v5/CheckCircle.svg) ステータスになるまで問題を修正し、その都度 **更新** ボタンをクリックしてリリースページを更新します。
 
 :::caution
-Once a release is published, the release itself cannot be updated. You can not re-release that specific release with the same group of entries with some modifications; you must create another release.
+一度リリースが公開されると、そのリリース自体は更新できません。同じエントリーグループでいくつかの変更を加えて再リリースすることはできません。別のリリースを作成する必要があります。
 :::
 
-## Deleting a release
+## リリースの削除
 
-You can delete a release. Deleting a release will only delete the release itself, but not the content-type entries included in the release. To delete a release, while on the release page:
+リリースを削除できます。リリースを削除しても、リリースに含まれているコンテンツタイプのエントリー自体は削除されません。リリースを削除するには、リリースページで以下の手順を実行します：
 
-1. Click on the ![More icon](/img/assets/icons/v5/More.svg) button in the top right corner of the admin panel.
-2. Select ![Delete icon](/img/assets/icons/v5/Trash.svg) **Delete**.
-3. In the confirmation dialog, click ![Delete icon](/img/assets/icons/v5/Trash.svg) **Confirm**.
+1. 管理パネルの右上にある ![その他アイコン](/img/assets/icons/v5/More.svg) ボタンをクリックします。
+2. ![削除アイコン](/img/assets/icons/v5/Trash.svg) **削除** を選択します。
+3. 確認ダイアログで、![削除アイコン](/img/assets/icons/v5/Trash.svg) **確認** をクリックします。

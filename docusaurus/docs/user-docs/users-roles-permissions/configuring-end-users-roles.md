@@ -1,98 +1,97 @@
 ---
-title: Configuring end-user roles
-description: With the Users & Permissions plugin, it is possible to manage roles for end users roles, i.e., users who consume the content that is created and managed with a Strapi application and displayed on front-end applications.
+title: エンドユーザーロールの設定
+description: Users & Permissionsプラグインを使用すると、Strapiアプリケーションで作成されたコンテンツを利用するエンドユーザーのロールを管理できます。
 displayed_sidebar: userDocsSidebar
 sidebar_position: 4
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring end-user roles
+# エンドユーザーロールの設定
 
-End-users are the users who consume the content that is created and managed with a Strapi application and displayed on front-end applications (e.g. websites, mobile applications, connected devices etc.). Unlike the administrators, they do not have access to the admin panel.
+エンドユーザーとは、Strapiアプリケーションで作成および管理されたコンテンツを利用し、フロントエンドアプリケーション（例: ウェブサイト、モバイルアプリ、接続デバイスなど）で表示されるユーザーを指します。管理者とは異なり、エンドユーザーは管理パネルにアクセスできません。
 
-With the [Users & Permissions plugin](../plugins/strapi-plugins.md#users-permissions-plugin) activated, it is possible to manage end users. This plugin is however not entirely managed and configured from one same place of the admin panel: end-user accounts are managed from the Content Manager (see [Managing end-user accounts](../users-roles-permissions/managing-end-users.md)) but end-user roles and permissions are managed in the Settings interface.
+[Users & Permissionsプラグイン](../plugins/strapi-plugins.md#users-permissions-plugin)が有効化されていると、エンドユーザーの管理が可能です。このプラグインは、管理パネルの1つの場所で完全に管理および設定されるわけではなく、エンドユーザーアカウントはコンテンツマネージャーで管理されます（[エンドユーザーアカウントの管理](../users-roles-permissions/managing-end-users.md)を参照）。エンドユーザーのロールと権限は設定画面で管理されます。
 
-The configurations of the end-user roles and permissions are available in the *Users & Permissions plugin* section of the ![Settings icon](/img/assets/icons/v5/Cog.svg) _Settings_ sub navigation.
+エンドユーザーロールと権限の設定は、管理パネルの *設定 > Users & Permissionsプラグイン* セクションから利用できます。
 
 <ThemedImage
-  alt="End-users roles interface"
+  alt="エンドユーザーロールインターフェース"
   sources={{
     light: '/img/assets/users-permissions/end-user_roles.png',
     dark: '/img/assets/users-permissions/end-user_roles_DARK.png',
   }}
 />
 
-The *Roles* sub-section of *Users & Permissions plugin* displays all created roles for the end users of your Strapi application.
+*Users & Permissionsプラグイン* の *ロール* サブセクションには、Strapiアプリケーションのエンドユーザー向けに作成されたすべてのロールが表示されます。
 
-From this interface, it is possible to:
+このインターフェースからは、以下の操作が可能です：
 
-- create a new end-user role (see [Creating a new role](#creating-a-new-role)),
-- delete an end-user role (see [Deleting a role](#deleting-a-role)),
-- or access information regarding an end-user role, and edit it (see [Editing a role](#editing-a-role)).
+- 新しいエンドユーザーロールを作成する（[新しいロールの作成](#creating-a-new-role)を参照）、
+- エンドユーザーロールを削除する（[ロールの削除](#deleting-a-role)を参照）、
+- エンドユーザーロールに関する情報にアクセスし、編集する（[ロールの編集](#editing-a-role)を参照）。
 
 :::tip
-Click the search button ![Search icon](/img/assets/icons/v5/Search.svg) above the table to use a text search and find one of your administrator roles more quickly!
+テーブルの上にある検索ボタン ![検索アイコン](/img/assets/icons/v5/Search.svg) をクリックして、管理者ロールをすばやく検索できます。
 :::
 
-By default, 2 end-user roles are defined for any Strapi application:
+デフォルトでは、Strapiアプリケーションには2つのエンドユーザーロールが定義されています：
 
-- Authenticated: for end users to access content only if they are logged in to a front-end application.
-- Public: for end users to access content without being logged in to a front-end application.
+- **Authenticated**: フロントエンドアプリケーションにログインしている場合のみコンテンツにアクセスできるエンドユーザー向け。
+- **Public**: フロントエンドアプリケーションにログインせずにコンテンツにアクセスできるエンドユーザー向け。
 
 :::note
-The end-user role attributed by default to all new end users can be defined in the *Advanced settings* sub-section of *Users & Permissions plugin* (see [Configuring advanced settings](../settings/configuring-users-permissions-plugin-settings.md#configuring-advanced-settings)).
+新しいエンドユーザーにデフォルトで付与されるエンドユーザーロールは、*Users & Permissionsプラグイン* の *高度な設定* サブセクションで定義できます（[高度な設定の構成](../settings/configuring-users-permissions-plugin-settings.md#configuring-advanced-settings)を参照）。
 :::
 
-## Creating a new role
+## 新しいロールの作成
 
-On the top right side of the *Users & Permissions plugin > Roles* interface, an **Add new role** button is displayed. It allows to create a new role for end users of your Strapi application.
+*Users & Permissionsプラグイン > ロール* インターフェースの右上に **新しいロールを追加** ボタンが表示されます。これを使って、Strapiアプリケーションのエンドユーザー向けの新しいロールを作成できます。
 
-To create a new role, click on the **Add new role** button.
-Clicking on the **Add new role** button will redirect you to the roles edition interface, where you will be able to edit the role's details and configure its permissions (see [Editing a role](#editing-roles-details)).
+新しいロールを作成するには、**新しいロールを追加** ボタンをクリックします。このボタンをクリックすると、ロールの詳細を編集し、権限を設定できるロール編集インターフェースにリダイレクトされます（[ロールの編集](#editing-roles-details)を参照）。
 
-## Deleting a role
+## ロールの削除
 
-Although the 2 default end-user roles cannot be deleted, the other ones can, as long as no end user still has this role attributed to their account.
+デフォルトの2つのエンドユーザーロールは削除できませんが、それ以外のロールは、割り当てられているエンドユーザーがいなければ削除できます。
 
-To delete a role:
+ロールを削除するには：
 
-1. Click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) on the right side of the role's record.
-2. In the deletion window, click on the ![Delete icon](/img/assets/icons/v5/Trash.svg) **Confirm** button to confirm the deletion.
+1. ロールのレコードの右側にある削除ボタン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックします。
+2. 削除ウィンドウで、![削除アイコン](/img/assets/icons/v5/Trash.svg) **確認** ボタンをクリックして削除を確認します。
 
-## Editing a role
+## ロールの編集
 
 <ThemedImage
-  alt="Configuring a role for end users"
+  alt="エンドユーザー向けロールの設定"
   sources={{
     light: '/img/assets/users-permissions/end-user_roles-config.png',
     dark: '/img/assets/users-permissions/end-user_roles-config_DARK.png',
   }}
 />
 
-The role edition interface allows to edit the details of an end-user role as well as to configure in detail the permissions to access the content of a front-end application. It is accessible from *Users & Permissions plugin > Roles* either after clicking on the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) on the right side of a role's record, or after clicking on the **Add new role** button (see [Creating a new role](#creating-a-new-role)).
+ロール編集インターフェースでは、エンドユーザーロールの詳細を編集し、フロントエンドアプリケーションのコンテンツにアクセスするための権限を詳細に設定できます。*Users & Permissionsプラグイン > ロール* からアクセスできます。ロールのレコードの右側にある編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックするか、**新しいロールを追加** ボタンをクリックしてアクセスします（[新しいロールの作成](#creating-a-new-role)を参照）。
 
-### Editing role's details
+### ロールの詳細を編集
 
-The details area of an end-user role editing interface allows to define the name of the role, and to give it a description that should help administrators understand what the role gives access to.
+エンドユーザーロール編集インターフェースの詳細セクションでは、ロールの名前を定義し、管理者がそのロールでどのような権限が付与されているかを理解できるように説明を追加できます。
 
-To edit a role's details, follow the instructions from the table below:
+ロールの詳細を編集するには、以下の手順に従ってください：
 
-| Role details  | Instructions |
-| ------------- | ---------------------------------------- |
-| Name          | Write the new name of the role in the textbox. |
-| Description   | Write the description of the role in the textbox. |
+| ロールの詳細   | 手順                                  |
+| ------------- | ----------------------------------- |
+| 名前          | テキストボックスにロールの新しい名前を入力します。 |
+| 説明          | テキストボックスにロールの説明を入力します。     |
 
-### Configuring role's permissions
+### ロールの権限を設定
 
-The permissions area of an end-user role editing interface allows to configure all possible actions and accesses for content-types and available plugins of the Strapi application.
+エンドユーザーロール編集インターフェースの権限セクションでは、Strapiアプリケーションのコンテンツタイプやプラグインに対するすべての操作とアクセス権を設定できます。
 
-To configure permissions for an end-user role:
+エンドユーザーロールの権限を設定するには：
 
-1. Click on the name of the permission category to configure (e.g. Application, Content-Manager, Email etc.).
-2. Tick the boxes of the actions and permissions to grant for the role.
-3. Click on the **Save** button.
+1. 設定する権限カテゴリの名前（例: アプリケーション、コンテンツマネージャー、Emailなど）をクリックします。
+2. そのロールに付与するアクションや権限のボックスにチェックを入れます。
+3. **保存** ボタンをクリックします。
 
 :::tip
-When ticking an action or permission box, related bound routes of the API are displayed in the right side of the interface.
+アクションや権限のボックスにチェックを入れると、関連するAPIルートがインターフェースの右側に表示されます。
 :::

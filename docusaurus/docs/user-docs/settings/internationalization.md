@@ -1,45 +1,45 @@
 ---
 sidebar_position: 3
-title: Internationalization
+title: 国際化
 tags:
-- admin panel
-- Internationalization (i18n)
-- plugins
+- 管理パネル
+- 国際化 (i18n)
+- プラグイン
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring Internationalization locales
+# 国際化ロケールの設定
 
-The [Internationalization plugin](/user-docs/plugins/strapi-plugins.md#-internationalization-plugin) allows to manage content in different languages, called "locales". Once the Internationalization plugin is installed in a Strapi application (see [Installing plugins via the Marketplace](/user-docs/plugins/installing-plugins-via-marketplace.md)), administrators can manage locales from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > Internationalization*.
+[国際化プラグイン](/user-docs/plugins/strapi-plugins.md#-internationalization-plugin)を使用すると、異なる言語（「ロケール」）でコンテンツを管理できます。Strapiアプリケーションに国際化プラグインがインストールされると（[マーケットプレイス経由でプラグインをインストールする](/user-docs/plugins/installing-plugins-via-marketplace.md)を参照）、管理者は ![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > 国際化* からロケールを管理できます。
 
 <ThemedImage
-  alt="i18n settings"
+  alt="i18n設定画面"
   sources={{
     light: '/img/assets/settings/settings-i18n.png',
     dark: '/img/assets/settings/settings-i18n_DARK.png',
   }}
 />
 
-The *Internationalization* settings sub-section displays a table listing all locales available for the Strapi application. By default, only the English locale is configured and set as the default locale. 
+*国際化* 設定サブセクションには、Strapiアプリケーションで使用可能なすべてのロケールがリスト表示されます。デフォルトでは、英語のみが設定され、デフォルトのロケールとして設定されています。
 
-For each locale, the table displays the default ISO code of the locale, its optional display name and indicates if the locale is set as the default one. From the table, administrators can also:
+各ロケールには、デフォルトのISOコード、任意の表示名、そしてそのロケールがデフォルトであるかどうかが表示されます。また、管理者は以下の操作を行うことができます：
 
-- Click on the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) to edit a locale
-- Click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) to delete a locale
+- ![編集アイコン](/img/assets/icons/v5/Pencil.svg) ボタンをクリックしてロケールを編集
+- ![削除アイコン](/img/assets/icons/v5/Trash.svg) ボタンをクリックしてロケールを削除
 
-## Adding a new locale
+## 新しいロケールの追加
 
-Administrators can add and manage as many locales as they want. There can however only be one locale set as the default one for the whole Strapi application.
+管理者は、好きなだけロケールを追加して管理できます。ただし、Strapiアプリケーション全体でデフォルトとして設定できるロケールは1つだけです。
 
 :::note
-It is not possible to create custom locales. Locales can only be created based on [the 500+ pre-created list of locales](https://github.com/strapi/strapi/blob/v4.0.0/packages/plugins/i18n/server/constants/iso-locales.json) set by Strapi.
+カスタムロケールを作成することはできません。ロケールは、Strapiによって設定された[500以上の事前作成されたロケールリスト](https://github.com/strapi/strapi/blob/v4.0.0/packages/plugins/i18n/server/constants/iso-locales.json)に基づいて作成されます。
 :::
 
-To add a new locale:
+新しいロケールを追加するには：
 
-1. Click on the **Add new locale** button.
-2. In the locale addition window, choose your new locale among the *Locales* drop-down list. The latter lists alphabetically all locales, displayed as their ISO code, that can be added to your Strapi application.
-3. (optional) In the *Locale display name* textbox, write a new display name for your new locale.
-4. (optional) In the Advanced settings tab, tick the *Set as default locale* setting to make your new locale the default one for your Strapi application.
-5. Click on the **Save** button to confirm the addition of your new locale.
+1. **新しいロケールを追加** ボタンをクリックします。
+2. ロケール追加ウィンドウで、*ロケール* ドロップダウンリストから新しいロケールを選択します。このリストには、追加可能なすべてのロケールがISOコードとしてアルファベット順に表示されます。
+3. （任意）*ロケール表示名* テキストボックスに、新しいロケールの表示名を入力します。
+4. （任意）詳細設定タブで、*デフォルトロケールとして設定* オプションをオンにして、Strapiアプリケーションのデフォルトロケールに設定します。
+5. **保存** ボタンをクリックして、新しいロケールの追加を確定します。
