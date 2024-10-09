@@ -1,5 +1,5 @@
 ---
-title: Managing administrator accounts
+title: 管理者アカウントの管理
 displayed_sidebar: userDocsSidebar
 sidebar_position: 3
 ---
@@ -7,106 +7,105 @@ sidebar_position: 3
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# Managing administrator accounts
+# 管理者アカウントの管理
 
-Administrators are the users of an admin panel of a Strapi application. Administrator accounts and roles are managed with the Role-Based Access Control (RBAC) feature. It is available in the *Administration panel* section of the section of the ![Settings icon](/img/assets/icons/v5/Cog.svg) _Settings_ sub navigation.
+管理者は、Strapiアプリケーションの管理パネルのユーザーです。管理者アカウントとロールは、ロールベースのアクセス制御 (RBAC) 機能で管理されます。この機能は、管理パネルの *設定* サブナビゲーション内の ![設定アイコン](/img/assets/icons/v5/Cog.svg) _設定_ セクションにある *管理パネル* セクションから利用可能です。
 
-The *Administration panel* section is divided into 2 sub-sections: *Roles* (see [Configuring administrator roles](configuring-administrator-roles.md)) and *Users*.
+*管理パネル* セクションは、*ロール*（[管理者ロールの設定](configuring-administrator-roles.md)を参照）と *ユーザー* の2つのサブセクションに分かれています。
 
 <ThemedImage
-  alt="Manage administrator accounts"
+  alt="管理者アカウントの管理"
   sources={{
     light: '/img/assets/users-permissions/administrator_list-view.png',
     dark: '/img/assets/users-permissions/administrator_list-view_DARK.png',
   }}
 />
 
-The *Users* sub-section of *Administration panel* displays a table listing all the administrators of your Strapi application.
+*管理パネル > ユーザー* サブセクションでは、Strapiアプリケーションのすべての管理者が一覧表示されたテーブルが表示されます。
 
-From this interface, it is possible to:
+このインターフェースからは、以下の操作が可能です：
 
-- make a textual search <ScreenshotNumberReference number="1" /> to find specific administrators,
-- set filters <ScreenshotNumberReference number="2" /> to find specific administrators,
-- create a new administrator account (see [Creating a new account](#creating-a-new-account)) <ScreenshotNumberReference number="3" />,
-- delete an administrator account (see [Deleting an account](#deleting-an-account)),
-- or access information regarding an administrator account, and edit it (see [Editing an account](#editing-an-account)).
+- 特定の管理者を見つけるためのテキスト検索 <ScreenshotNumberReference number="1" />、
+- 特定の管理者を見つけるためのフィルター設定 <ScreenshotNumberReference number="2" />、
+- 新しい管理者アカウントを作成する（[新しいアカウントの作成](#creating-a-new-account)を参照） <ScreenshotNumberReference number="3" />、
+- 管理者アカウントを削除する（[アカウントの削除](#deleting-an-account)を参照）、
+- または管理者アカウントに関する情報にアクセスし、編集する（[アカウントの編集](#editing-an-account)を参照）。
 
-For each administrator listed in the table, their main account information are displayed, including name, email and attributed role. The status of their account is also indicated: active or inactive, depending on whether the administrator has already logged in to activate the account or not.
+テーブルに表示される各管理者について、名前、メールアドレス、および割り当てられたロールなどの主要なアカウント情報が表示されます。アカウントの状態（アクティブまたは非アクティブ）も表示され、管理者がログインしてアカウントをアクティブにしたかどうかがわかります。
 
 :::tip
-Sorting can be enabled for most fields displayed in the table. Click on a field name, in the header of the table, to sort on that field.
+テーブルに表示されているほとんどのフィールドに対して並べ替えを有効にできます。フィールド名をクリックすると、そのフィールドで並べ替えが行われます。
 :::
 
-## Creating a new account
+## 新しいアカウントの作成
 
-On the top right side of the *Administration panel > Users* interface, a ![Mail icon](/img/assets/icons/v5/Mail.svg) **Invite new user** button is displayed. It allows to create a new administrator account for your Strapi application.
+*管理パネル > ユーザー* インターフェースの右上に、![メールアイコン](/img/assets/icons/v5/Mail.svg) **新しいユーザーを招待** ボタンが表示されます。これを使って、Strapiアプリケーションの新しい管理者アカウントを作成できます。
 
-To create a new administrator account:
+新しい管理者アカウントを作成するには：
 
-1. Click on the ![Mail icon](/img/assets/icons/v5/Mail.svg) **Invite new user** button.
-2. In the *Invite new user* window, fill in the Details information about the new administrator:
+1. ![メールアイコン](/img/assets/icons/v5/Mail.svg) **新しいユーザーを招待** ボタンをクリックします。
+2. *新しいユーザーを招待* ウィンドウで、新しい管理者の詳細情報を入力します：
 
-  | User information | Instructions                                                                 |
-  | ---------------- | ---------------------------------------------------------------------------- |
-  | First name       | (mandatory) Write the administrator's first name in the textbox.             |
-  | Last name        | (mandatory) Write the administrator's last name in the textbox.              |
-  | Email            | (mandatory) Write the administrator's complete email address in the textbox. |
+  | ユーザー情報  | 手順                                                                         |
+  | ------------- | ------------------------------------------------------------------------ |
+  | 名前          | （必須）管理者の名前をテキストボックスに入力します。                        |
+  | 姓            | （必須）管理者の姓をテキストボックスに入力します。                          |
+  | メールアドレス | （必須）管理者の完全なメールアドレスをテキストボックスに入力します。          |
 
-3. Fill in the Login settings about the new administrator:
+3. 新しい管理者のログイン設定を入力します：
 
-  | Setting          | Instructions                                                                                                    |
-  | ---------------- | --------------------------------------------------------------------------------------------------------------- |
-  | User's roles     | (mandatory) Choose from the drop-down list the role to attribute to the new administrator.                      |
-  | Connect with SSO | (optional) Click **TRUE** or **FALSE** to connect the new administrator account with SSO.                       |
+  | 設定               | 手順                                                                                       |
+  | ------------------ | ---------------------------------------------------------------------------------------- |
+  | ユーザーのロール   | （必須）ドロップダウンリストから新しい管理者に割り当てるロールを選択します。                |
+  | SSOで接続          | （任意）新しい管理者アカウントをSSOで接続する場合は **TRUE** または **FALSE** をクリックします。 |
 
-4. Click on the **Invite user** button in the bottom right corner of the *Add new user* window.
-5. A URL appears at the top of the window: it is the URL to send the new administrator for them to log in for the first time to your Strapi application. Click the copy button ![Duplicate icon](/img/assets/icons/v5/Duplicate.svg) to copy the URL.
-6. Click on the **Finish** button in the bottom right corner to finish the new administrator account creation. The new administrator should now be listed in the table.
+4. *新しいユーザーを追加* ウィンドウの右下にある **ユーザーを招待** ボタンをクリックします。
+5. ウィンドウの上部にURLが表示されます：これは、新しい管理者がStrapiアプリケーションに初めてログインするために送信するURLです。コピー用ボタン ![コピーアイコン](/img/assets/icons/v5/Duplicate.svg) をクリックしてURLをコピーします。
+6. **完了** ボタンをクリックして、新しい管理者アカウントの作成を完了します。新しい管理者がテーブルにリストされるはずです。
 
 :::note
-The administrator invitation URL is accessible from the administrator's account until it has been activated.
+管理者の招待URLは、管理者のアカウントが有効化されるまでアクセス可能です。
 :::
 
-## Deleting an account
+## アカウントの削除
 
-Administrator accounts can be deleted from the *Administration panel > Users* interface. It is possible to delete one or several administrator accounts at the same time.
+管理者アカウントは、*管理パネル > ユーザー* インターフェースから削除できます。複数の管理者アカウントを同時に削除することも可能です。
 
-To delete an administrator:
+管理者を削除するには：
 
-1. Click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) on the right side of the account's record, or select one or more accounts by ticking the boxes on the left side of the accounts' records then click on the ![Delete icon](/img/assets/icons/v5/Trash.svg) **Delete** button above the table.
-2. In the deletion window, click on the **Confirm** button to confirm the deletion.
+1. アカウントのレコードの右側にある削除ボタン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックするか、レコードの左側にあるボックスにチェックを入れて複数のアカウントを選択し、テーブル上部に表示される **削除** ボタン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックします。
+2. 削除ウィンドウで、**確認** ボタンをクリックして削除を確認します。
 
-## Editing an account
+## アカウントの編集
 
 <ThemedImage
-  alt="Edit an administrator account"
+  alt="管理者アカウントの編集"
   sources={{
     light: '/img/assets/users-permissions/administrator_edit-info.png',
     dark: '/img/assets/users-permissions/administrator_edit-info_DARK.png',
   }}
 />
 
-The table displayed in the *Administration panel > Users* interface allows to access all information regarding each administrator, where it is also possible to edit that information.
+*管理パネル > ユーザー* インターフェースに表示されるテーブルから、各管理者のアカウント情報にアクセスし、その情報を編集することが可能です。
 
-To edit an administrator account:
+管理者アカウントを編集するには：
 
-1. Click on the name of the administrator whose account you want to edit.
-2. In the *Details* area, edit your chosen account details:
+1. 編集したい管理者の名前をクリックします。
+2. *詳細* エリアで、アカウントの詳細を編集します：
 
-| User information      | Instructions  |
-| --------------------- | ----------------------- |
-| First name            | Write the administrator's first name in the textbox.                                        |
-| Last name             | Write the administrator's last name in the textbox.                                         |
-| Email                 | Write the administrator's complete email address in the textbox.                            |
-| Username              | Write the administrator's username in the textbox.                                          |
-| Password              | Write the new administrator account's password in the textbox.                              |
-| Confirm password      | Write the new password in the textbox for confirmation.                                     |
-| Active                | Click on **TRUE** to activate the administrator's account.                                  |
+| ユーザー情報           | 手順                                                                         |
+| --------------------- | -------------------------------------------------------------------------- |
+| 名前                  | 管理者の名前をテキストボックスに入力します。                                  |
+| 姓                    | 管理者の姓をテキストボックスに入力します。                                    |
+| メールアドレス         | 管理者のメールアドレスをテキストボックスに入力します。                        |
+| ユーザー名             | 管理者のユーザー名をテキストボックスに入力します。                            |
+| パスワード             | 新しい管理者アカウントのパスワードをテキストボックスに入力します。              |
+| パスワードの確認       | 新しいパスワードを確認のためにもう一度入力します。                            |
+| アクティブ             | **TRUE** をクリックして、管理者のアカウントをアクティブにします。               |
 
-3. (optional) In the *Roles* area, edit the role of the administrator:
+3. （任意）*ロール* エリアで、管理者のロールを編集します：
 
-  - Click on the drop-down list to choose a new role, and/or add it to the already attributed one.
-  - Click on the delete button ![Clear icon](/img/assets/icons/v5/Cross.svg) to delete an already attributed role.
+  - ドロップダウンリストをクリックして、新しいロールを選択するか、既に割り当てられているロールに追加します。
+  - 割り当てられたロールを削除するには、削除ボタン ![クリアアイコン](/img/assets/icons/v5/Cross.svg) をクリックします。
 
-4. Click on the **Save** button in the top right corner.
-
+4. 右上の **保存** ボタンをクリックします。

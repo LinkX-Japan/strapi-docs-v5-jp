@@ -1,47 +1,47 @@
 ---
-title: Managing end-user accounts
-description: With the Users & Permissions plugin, it is possible to manage end users, i.e., users who consume the content that is created and managed with a Strapi application and displayed on front-end applications.
+title: エンドユーザーアカウントの管理
+description: Users & Permissionsプラグインを使用して、Strapiアプリケーションで作成および管理されたコンテンツをフロントエンドアプリケーションで利用するエンドユーザーを管理できます。
 displayed_sidebar: userDocsSidebar
 sidebar_position: 5
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Managing end-user accounts
+# エンドユーザーアカウントの管理
 
-End-users are the users who consume the content that is created and managed with a Strapi application and displayed on front-end applications (e.g. websites, mobile applications, connected devices etc.). Unlike the administrators, they do not have access to the admin panel.
+エンドユーザーとは、Strapiアプリケーションで作成および管理されたコンテンツを利用し、フロントエンドアプリケーション（例: ウェブサイト、モバイルアプリ、接続デバイスなど）で表示されるユーザーを指します。管理者とは異なり、エンドユーザーは管理パネルにアクセスできません。
 
-With the [Users & Permissions plugin](../plugins/strapi-plugins.md#users-permissions-plugin) activated, it is possible to manage end users. This plugin is however not entirely managed and configured from one same place of the admin panel: end-user roles and permissions are managed in the ![Settings icon](/img/assets/icons/v5/Cog.svg) _Settings_ interface (see [Configuring end-user roles](../users-roles-permissions/configuring-end-users-roles.md)), but end-user accounts are managed from the ![Content icon](/img/assets/icons/v5/Feather.svg) _Content Manager_.
+[Users & Permissionsプラグイン](../plugins/strapi-plugins.md#users-permissions-plugin)が有効化されていると、エンドユーザーを管理することができます。このプラグインの設定は、管理パネル内の1つの場所で完全に管理されるわけではなく、エンドユーザーロールと権限は![設定アイコン](/img/assets/icons/v5/Cog.svg) _設定_ インターフェースで管理され（[エンドユーザーロールの設定](../users-roles-permissions/configuring-end-users-roles.md)を参照）、エンドユーザーアカウントは![コンテンツアイコン](/img/assets/icons/v5/Feather.svg) _コンテンツマネージャー_ で管理されます。
 
-With the Users & Permissions plugin, the end users and their account information are managed as a content-type. When the plugin is installed on a Strapi application, 3 collection types are automatically created (see [Users & Permissions plugin](../plugins/strapi-plugins.md#users-permissions-plugin)), including "User" which is the only one available directly in the Content Manager.
+Users & Permissionsプラグインを使用すると、エンドユーザーおよびそのアカウント情報はコンテンツタイプとして管理されます。このプラグインがStrapiアプリケーションにインストールされると、3つのコレクションタイプが自動的に作成されます（[Users & Permissionsプラグイン](../plugins/strapi-plugins.md#users-permissions-plugin)を参照）。その中で、「ユーザー」はコンテンツマネージャーで直接利用できる唯一のコレクションタイプです。
 
 <ThemedImage
-  alt="Managing end users via the Content Manager"
+  alt="コンテンツマネージャーを介してエンドユーザーを管理"
   sources={{
     light: '/img/assets/users-permissions/end-user_content-manager.png',
     dark: '/img/assets/users-permissions/end-user_content-manager_DARK.png',
   }}
 />
 
-Registering new end users in a front-end application with the Users & Permissions plugin consists in adding a new entry to the User collection type (see [Introduction to the Content Manager](/user-docs/content-manager) for more information about the Content Manager).
+Users & Permissionsプラグインを使用して、フロントエンドアプリケーションで新しいエンドユーザーを登録するには、ユーザーコレクションタイプに新しいエントリを追加することが必要です（コンテンツマネージャーに関する詳細は[コンテンツマネージャーの概要](/user-docs/content-manager)を参照してください）。
 
 :::note
-If end users can register themselves on your front-end application (see [Managing Users & Permissions plugin settings](../settings/configuring-users-permissions-plugin-settings.md)), a new entry will automatically be created and the fields of that entry will be filled up with the information indicated by the end user. All fields can however be edited by an administrator of the Strapi application.
+エンドユーザーがフロントエンドアプリケーションで自分自身を登録できる場合（[Users & Permissionsプラグインの設定を管理](../settings/configuring-users-permissions-plugin-settings.md)を参照）、新しいエントリが自動的に作成され、そのエントリのフィールドにはエンドユーザーが入力した情報が自動的に反映されます。ただし、すべてのフィールドはStrapiアプリケーションの管理者が編集できます。
 :::
 
-To create a new end-user account:
+## 新しいエンドユーザーアカウントの作成
 
-1. Go to the User collection type in the Content Manager.
-2. Click on the **Create new entry** button in the top right corner.
-3. Fill in the default fields of the entry. Additional fields added specifically for your Strapi application by your administrators may be displayed as well.
+1. コンテンツマネージャー内のユーザーコレクションタイプに移動します。
+2. 右上にある **新しいエントリを作成** ボタンをクリックします。
+3. エントリのデフォルトフィールドを入力します。Strapiアプリケーションに特別に追加されたフィールドも表示される場合があります。
 
-| Field     | Instructions    |
-| --------- | ---------------------------- |
-| Username  | Write the username of the end user.    |
-| Email     | Write the complete email address of the end user in the textbox.   |
-| Password  | (optional) Write a new password in the textbox. You can click on the ![Eye icon](/img/assets/icons/v5/Eye.svg) icon for the password to be shown. |
-| Confirmed | (optional) Click **ON** for the end-user account to be confirmed.                                           |
-| Blocked   | (optional) Click **ON** to block the account of the end user, to prevent them to access content.            |
-| Role      | (optional) Indicate the role that should be granted to the new end user. If this field is not filled in, the end user will be attributed the role set as default (see [Managing Users & Permissions plugin settings](../settings/configuring-users-permissions-plugin-settings.md)). |
+| フィールド    | 手順                                                                 |
+| ------------ | ------------------------------------------------------------------ |
+| ユーザー名    | エンドユーザーのユーザー名を入力します。                                    |
+| メールアドレス | エンドユーザーの完全なメールアドレスをテキストボックスに入力します。                    |
+| パスワード    | （任意）新しいパスワードをテキストボックスに入力します。パスワードを表示するには、![目のアイコン](/img/assets/icons/v5/Eye.svg) アイコンをクリックできます。 |
+| 確認済み     | （任意）エンドユーザーアカウントを確認するには **ON** をクリックします。                  |
+| ブロック      | （任意）エンドユーザーのアカウントをブロックして、コンテンツへのアクセスを防ぐには **ON** をクリックします。 |
+| ロール       | （任意）新しいエンドユーザーに付与するロールを指定します。このフィールドに入力されていない場合は、エンドユーザーにはデフォルトのロールが付与されます（[Users & Permissionsプラグインの設定を管理](../settings/configuring-users-permissions-plugin-settings.md)を参照）。 |
 
-4. Click on the **Save** button.
+4. **保存** ボタンをクリックします。
