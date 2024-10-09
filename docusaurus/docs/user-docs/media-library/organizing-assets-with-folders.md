@@ -1,106 +1,106 @@
 ---
-title: Organizing assets with folders
+title: フォルダを使ったアセットの整理
 displayed_sidebar: userDocsSidebar
-description: Instructions on how to use folders in the Media Library, including adding, editing, and deleting folders, and browsing their content.
+description: メディアライブラリでフォルダを使用してアセットを整理する方法（フォルダの追加、編集、削除、コンテンツの閲覧など）
 tags:
-- admin panel
-- Content-type Builder
-- folders
-- media library
-- Users, Roles & Permissions
+- 管理パネル
+- コンテンツタイプビルダー
+- フォルダ
+- メディアライブラリ
+- ユーザー、ロールと権限
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# Organizing assets with folders
+# フォルダを使ったアセットの整理
 
-Folders in the Media Library help you organize uploaded assets. Folders sit at the top of the Media Library view or are accessible from the Media field popup when using the [Content Manager](/user-docs/content-manager/writing-content).
+メディアライブラリのフォルダは、アップロードされたアセットを整理するために役立ちます。フォルダはメディアライブラリビューの上部に表示され、[コンテンツマネージャー](/user-docs/content-manager/writing-content)でメディアフィールドを使用する際のポップアップからアクセスできます。
 
-From the Media Library, it is possible to view the list of folders and browse a folder's content, create new folders, edit an existing folder, move assets to a folder, and delete a folder.
+メディアライブラリでは、フォルダのリストを表示し、フォルダのコンテンツを閲覧することができ、新しいフォルダを作成したり、既存のフォルダを編集したり、アセットをフォルダに移動したり、フォルダを削除したりできます。
 
 :::note
-Folders follow the permission system of assets (see [Users, Roles & Permissions](/user-docs/users-roles-permissions)). It is not yet possible to define specific permissions for a folder.
+フォルダはアセットと同様の権限システムに従います（[ユーザー、ロールと権限](/user-docs/users-roles-permissions)を参照）。ただし、現時点ではフォルダごとに特定の権限を定義することはできません。
 :::
 
-## Browsing folders
+## フォルダの閲覧
 
-By default, the Media Library displays folders and assets created at the root level. Clicking a folder navigates to this folder, and displays the following elements:
+デフォルトでは、メディアライブラリにはルートレベルで作成されたフォルダとアセットが表示されます。フォルダをクリックすると、そのフォルダに移動し、次の要素が表示されます:
 
-- the folder title and breadcrumbs to navigate to a parent folder <ScreenshotNumberReference number="1" />
-- the subfolders <ScreenshotNumberReference number="2" /> the current folder contains
-- all assets <ScreenshotNumberReference number="3" /> from this folder
+- フォルダのタイトルと、親フォルダに移動するためのパンくずリスト <ScreenshotNumberReference number="1" />
+- 現在のフォルダに含まれるサブフォルダ <ScreenshotNumberReference number="2" />
+- このフォルダ内のすべてのアセット <ScreenshotNumberReference number="3" />
 
 <ThemedImage
-  alt="Media library one folder deep, with back button and updated folder title"
+  alt="メディアライブラリ内のフォルダビュー"
   sources={{
     light: '/img/assets/media-library/media-library_folder-content.png',
     dark: '/img/assets/media-library/media-library_folder-content_DARK.png',
   }}
 />
 
-From this dedicated folder view, folders and assets can be managed, filtered, sorted and searched just like from the main Media Library (see [introduction to Media Library](/user-docs/media-library)).
+この専用のフォルダビューから、フォルダやアセットを管理したり、フィルターを設定したり、並べ替えたり、検索したりすることが、メインのメディアライブラリと同様に行えます（[メディアライブラリの概要](/user-docs/media-library)を参照）。
 
-To navigate back to the parent folder, one level up, use the **Back** button at the top of the interface.
+親フォルダに戻るには、インターフェース上部の**戻る**ボタンを使用します。
 
 :::tip
-The breadcrumb navigation can also be used to go back to a parent folder: click on a folder name to directly jump to it or click on the 3 dots `/img.` and select a parent folder from the drop-down list.
+パンくずリストナビゲーションを使用して親フォルダに戻ることもできます。フォルダ名をクリックして直接そのフォルダに移動するか、3点リーダーをクリックして親フォルダを選択します。
 :::
 
-## Adding folders
+## フォルダの追加
 
-To create a new folder in the Media Library:
+メディアライブラリに新しいフォルダを作成するには:
 
-1. Click on **Add new folder** in the upper right of the Media Library interface.
-2. In the window that pops up, type a name for the new folder in the _Name_ field.
-3. (optional) In the _Location_ drop-down list, choose a location for the new folder. The default location is the active folder.
-4. Click **Create**.
+1. メディアライブラリインターフェースの右上にある **新しいフォルダを追加** ボタンをクリックします。
+2. ポップアップウィンドウで、新しいフォルダの名前を _名前_ フィールドに入力します。
+3. (任意) _場所_ ドロップダウンリストで、フォルダの場所を選択します。デフォルトの場所はアクティブなフォルダです。
+4. **作成** ボタンをクリックします。
 
 :::note
-There is no limit to how deep your folders hierarchy can go, but bear in mind it might take some effort to reach a deeply nested subfolder, as the Media Library currently has no visual hierarchy indication. Searching for files using the ![Search icon](/img/assets/icons/v5/Search.svg) on the right side of the user interface might be a faster alternative to finding the asset you are looking for.
+フォルダ階層の深さに制限はありませんが、現在メディアライブラリには視覚的な階層のインジケーターがないため、深くネストされたサブフォルダに到達するのは少し手間がかかることがあります。右側にある検索アイコン ![検索アイコン](/img/assets/icons/v5/Search.svg) を使用して、目的のアセットを探すほうが速い場合があります。
 :::
 
-## Moving assets to a folder
+## アセットをフォルダに移動する
 
-Assets and folders can be moved to another folder from the root view of the Media Library or from any view for a dedicated folder.
+アセットやフォルダは、メディアライブラリのルートビューや特定のフォルダビューから他のフォルダに移動できます。
 
 <ThemedImage
-  alt="'Move elements to' popup"
+  alt="アセット移動のポップアップウィンドウ"
   sources={{
     light: '/img/assets/media-library/media-library_move-assets.png',
     dark: '/img/assets/media-library/media-library_move-assets_DARK.png',
   }}
 />
 
-To bulk move assets and folders to another folder:
+アセットやフォルダを一括で別のフォルダに移動するには:
 
-1. Select assets and folder to be moved, by clicking the checkbox on the left of the folder name or clicking the asset itself.
-2. Click the ![Move icon](/img/assets/icons/v5/Folder.svg) **Move** button at the top of the interface.
-3. In the _Move elements to_ pop-up window, select the new folder from the _Location_ drop-down list.
-4. Click **Move**.
+1. 移動するアセットやフォルダを、名前の左側のチェックボックスをクリックするか、アセット自体をクリックして選択します。
+2. インターフェース上部の ![移動アイコン](/img/assets/icons/v5/Folder.svg) **移動** ボタンをクリックします。
+3. _要素を移動_ ポップアップウィンドウで、_場所_ ドロップダウンリストから新しいフォルダを選択します。
+4. **移動** をクリックします。
 
 :::note
-An individual asset can also be moved to a folder when [editing the asset](/user-docs/media-library/managing-assets.md).
+個々のアセットも、その詳細を[編集](/user-docs/media-library/managing-assets.md)する際にフォルダに移動できます。
 :::
 
-## Editing folders
+## フォルダの編集
 
-Once created, a folder can be renamed, moved or deleted. To manage a single folder:
+作成後のフォルダは、名前の変更、移動、削除が可能です。フォルダを編集するには:
 
-1. In the Folders part of the Media library, hover the folder to be edited and click its edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg).
-2. In the window that pops up, update the name and location with the _Name_ field and _Location_ drop-down list, respectively.
-3. Click **Save**.
+1. メディアライブラリのフォルダリストで、編集するフォルダにカーソルを合わせて編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックします。
+2. ポップアップウィンドウで、_名前_ フィールドと _場所_ ドロップダウンリストを使用して名前と場所を更新します。
+3. **保存** ボタンをクリックします。
 
-## Deleting folders
+## フォルダの削除
 
-Deleting a folder can be done either from the list of folders of the Media Library, or when editing a single folder.
+フォルダは、メディアライブラリのフォルダリストから、または個別に編集して削除することができます。
 
-To delete a folder, from the Media Library:
+メディアライブラリからフォルダを削除するには:
 
-1. Click the checkbox on the left of the folder name. Multiple folders can be selected.
-2. Click the ![Delete icon](/img/assets/icons/v5/Trash.svg) **Delete** button above the Folders list.
-3. In the _Confirmation_ dialog, click **Confirm**.
+1. フォルダ名の左側にあるチェックボックスをクリックします。複数のフォルダを選択できます。
+2. フォルダリスト上部の ![削除アイコン](/img/assets/icons/v5/Trash.svg) **削除** ボタンをクリックします。
+3. _確認_ ダイアログで **確認** をクリックします。
 
 :::note
-A single folder can also be deleted when editing it: hover the folder, click on its edit icon ![Edit icon](/img/assets/icons/v5/Pencil.svg), and in the window that pops up, click the **Delete folder** button and confirm the deletion.
+フォルダを編集する際に、個別に削除することも可能です。フォルダにカーソルを合わせて編集アイコン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックし、ポップアップウィンドウで **フォルダを削除** ボタンをクリックして、削除を確認します。
 :::

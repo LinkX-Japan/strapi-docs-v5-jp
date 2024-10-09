@@ -1,98 +1,98 @@
 ---
-title: Introduction to the Media Library
+title: メディアライブラリの概要
 slug: /user-docs/media-library
 sidebar_position: 1
-description: Introduction to the Media Library which allows to display and manage all assets uploaded in the application.
+description: アプリケーションにアップロードされたすべてのアセットを表示および管理できるメディアライブラリの概要。
 tags:
-- admin panel
-- Content-type Builder
-- filters
-- introduction
-- media library
+- 管理パネル
+- コンテンツタイプビルダー
+- フィルター
+- 概要
+- メディアライブラリ
 pagination_next: user-docs/media-library/adding-assets
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# Introduction to the Media Library
+# メディアライブラリの概要
 
-The Media Library is a Strapi plugin that is always activated by default and cannot be deactivated. It is accessible both when the application is in a development and production environment.
+メディアライブラリは、Strapiのプラグインで、デフォルトで常に有効化されています。これは無効化することはできず、アプリケーションが開発環境と本番環境のどちらにある場合でもアクセス可能です。
 
-Administrators can access the Media Library from ![ML icon](/img/assets/icons/v5/Images.svg) _Media Library_ in the main navigation of the admin panel.
+管理者は、管理パネルのメインナビゲーションにある ![ML icon](/img/assets/icons/v5/Images.svg) _Media Library_ からメディアライブラリにアクセスできます。
 
 <ThemedImage
-  alt="Media Library overview, annotated"
+  alt="メディアライブラリの概要"
   sources={{
     light: '/img/assets/media-library/media-library_overview.png',
     dark: '/img/assets/media-library/media-library_overview_DARK.png',
   }}
 />
 
-The Media Library displays all assets uploaded in the application, either via the Media Library itself or via the Content Manager when managing a media field. Assets uploaded to the Media Library can be inserted into content-types using the [Content Manager](/user-docs/content-manager/writing-content#filling-up-fields).
+メディアライブラリには、メディアライブラリ自体や、メディアフィールドを管理する際に[コンテンツマネージャー](/user-docs/content-manager/writing-content#filling-up-fields)からアップロードされたアセットがすべて表示されます。メディアライブラリにアップロードされたアセットは、[コンテンツマネージャー](/user-docs/content-manager/writing-content#filling-up-fields)を使用してコンテンツタイプに挿入できます。
 
-From the Media Library, it is possible to:
+メディアライブラリからは、次の操作が可能です:
 
-- upload a new asset (see [adding assets](/user-docs/media-library/adding-assets)) or create a new folder (see [organizing assets with folders](/user-docs/media-library/organizing-assets-with-folders)) <ScreenshotNumberReference number="1" />,
-- sort the assets and folders or set filters <ScreenshotNumberReference number="2" /> to find assets and folders more easily,
-- toggle between the list view ![List icon](/img/assets/icons/v5/List.svg) and the grid view ![Grid icon](/img/assets/icons/v5/GridFour.svg) to display assets, access settings ![Settings icon](/img/assets/icons/v5/Cog.svg) to [configure the view](#configuring-the-view), and make a textual search ![Search icon](/img/assets/icons/v5/Search.svg) <ScreenshotNumberReference number="3" /> to find a specific asset or folder,
-- and view, navigate through, and manage folders <ScreenshotNumberReference number="4" />.
+- 新しいアセットをアップロードする（[アセットの追加](/user-docs/media-library/adding-assets)を参照）または新しいフォルダを作成する（[フォルダでアセットを整理する](/user-docs/media-library/organizing-assets-with-folders)を参照） <ScreenshotNumberReference number="1" />、
+- アセットやフォルダを並べ替えたりフィルターを設定することで、アセットやフォルダを簡単に見つける <ScreenshotNumberReference number="2" />、
+- アセットのリストビュー ![List icon](/img/assets/icons/v5/List.svg) とグリッドビュー ![Grid icon](/img/assets/icons/v5/GridFour.svg) を切り替えて表示し、設定 ![設定アイコン](/img/assets/icons/v5/Cog.svg) にアクセスして[ビューを設定](#ビューの設定)したり、テキスト検索 ![検索アイコン](/img/assets/icons/v5/Search.svg) で特定のアセットやフォルダを検索する <ScreenshotNumberReference number="3" />、
+- フォルダを表示して移動したり、管理する <ScreenshotNumberReference number="4" />。
 
 :::tip
-Click the search icon ![Search icon](/img/assets/icons/v5/Search.svg) on the right side of the user interface to use a text search and find one of your assets or folders more quickly!
+インターフェースの右側にある検索アイコン ![検索アイコン](/img/assets/icons/v5/Search.svg) をクリックすると、テキスト検索を使用してアセットやフォルダをすばやく見つけることができます！
 :::
 
-## Filtering assets
+## アセットのフィルタリング
 
-Right above the list of folders and assets, on the left side of the interface, a ![Filter icon](/img/assets/icons/v5/Filter.svg) **Filters** button is displayed. It allows setting one or more condition-based filters, which add to one another (i.e. if you set several conditions, only the assets that match all the conditions will be displayed).
+フォルダとアセットのリストの上部左側に、![フィルターアイコン](/img/assets/icons/v5/Filter.svg) **フィルター** ボタンが表示されます。これにより、1つ以上の条件に基づくフィルターを設定できます。フィルターは条件ごとに追加され、複数の条件を設定した場合、すべての条件に一致するアセットのみが表示されます。
 
 <ThemedImage
-  alt="Filters"
+  alt="フィルター"
   sources={{
     light: '/img/assets/media-library/media-library_filters.png',
     dark: '/img/assets/media-library/media-library_filters_DARK.png',
   }}
 />
 
-To set a new filter:
+新しいフィルターを設定するには:
 
-1. Click on the ![Filter icon](/img/assets/icons/v5/Filter.svg) **Filters** button.
-2. Click on the 1st drop-down list to choose the field on which the condition will be applied.
-3. Click on the 2nd drop-down list to choose the type of condition to apply.
-4. For conditions based on the type of asset to filter, click on the 3rd drop-down list and choose a file type to include or exclude. For conditions based on date and time (i.e. _createdAt_ or _updatedAt_ fields), click on the left field to select a date and click on the right field to select a time.
-5. Click on the **Add filter** button.
+1. ![フィルターアイコン](/img/assets/icons/v5/Filter.svg) **フィルター** ボタンをクリックします。
+2. 最初のドロップダウンリストをクリックして、条件を適用するフィールドを選択します。
+3. 2番目のドロップダウンリストをクリックして、適用する条件の種類を選択します。
+4. アセットの種類に基づく条件の場合、3番目のドロップダウンリストをクリックして、含めるまたは除外するファイルタイプを選択します。作成日や更新日などの日付と時刻に基づく条件の場合は、左側のフィールドをクリックして日付を選択し、右側のフィールドをクリックして時間を選択します。
+5. **フィルターを追加** ボタンをクリックします。
 
 :::note
-When active, filters are displayed next to the ![Filter icon](/img/assets/icons/v5/Filter.svg) **Filters** button. They can be removed by clicking on the delete icon ![Clear icon](/img/assets/icons/v5/Cross.svg).
+フィルターが有効になると、フィルターアイコンの隣に表示されます。フィルターを削除するには、削除アイコン ![クリアアイコン](/img/assets/icons/v5/Cross.svg) をクリックします。
 :::
 
-## Sorting assets
+## アセットの並べ替え
 
 <ThemedImage
-  alt="Sort"
+  alt="並べ替え"
   sources={{
     light: '/img/assets/media-library/media-library_sort.png',
     dark: '/img/assets/media-library/media-library_sort_DARK.png',
   }}
 />
 
-Just above the list of folders and assets and next to the ![Filter icon](/img/assets/icons/v5/Filter.svg) **Filters** button, on the left side of the interface, a drop-down button is displayed. It allows to sort the assets by upload date, alphabetical order or date of update. Click on the drop-down button and select an option in the list to automatically display the sorted assets.
+フォルダとアセットのリストの上部、**フィルター** ボタンの隣には、ドロップダウンボタンが表示されます。これにより、アセットをアップロード日、アルファベット順、または更新日で並べ替えることができます。ドロップダウンボタンをクリックし、リスト内のオプションを選択すると、アセットが自動的に並べ替えられて表示されます。
 
-## Configuring the view
+## ビューの設定
 
-Just above the list of folders and assets, on the right side of the interface, there is a group of 3 buttons. Click on ![Settings icon](/img/assets/icons/v5/Cog.svg) to configure the default view for the Media library.
+フォルダとアセットのリストの上部右側には、3つのボタンが表示されています。![設定アイコン](/img/assets/icons/v5/Cog.svg) をクリックして、メディアライブラリのデフォルトビューを設定します。
 
 <ThemedImage
-  alt="Configure the view"
+  alt="ビューの設定"
   sources={{
     light: '/img/assets/media-library/media-library_configure-the-view.png',
     dark: '/img/assets/media-library/media-library_configure-the-view_DARK.png',
   }}
 />
 
-From there you can:
+ここから次のことができます:
 
-- Use the **Entries per page** dropdown to define the number of assets displayed by default
-- Use the **Default sort order** dropdown the define the default order in which assets are displayed. This can be overriden when you [sort assets](#sorting-assets) in the Media Library.
+- **1ページあたりのエントリ数** のドロップダウンを使用して、デフォルトで表示されるアセットの数を定義します。
+- **デフォルトの並べ替え順** のドロップダウンを使用して、アセットが表示されるデフォルトの順序を定義します。この設定は、メディアライブラリ内でアセットを[並べ替える](#アセットの並べ替え)ときに上書きされることがあります。
 
-Both settings are used as the defaults in the Media Library and in the [Content Manager media upload modal](/user-docs/content-manager/writing-content#filling-up-fields). The settings saved here are global across the entire Strapi project for all users.
+これらの設定は、メディアライブラリおよび[コンテンツマネージャーのメディアアップロードモーダル](/user-docs/content-manager/writing-content#filling-up-fields)全体で使用されるグローバル設定です。

@@ -1,44 +1,43 @@
 ---
-title: Adding assets
-description: Instructions to add assets to the Media Library
+title: アセットの追加
+description: メディアライブラリにアセットを追加するための手順
 tags:
-- admin panel
-- add new assets
-- Content Manager
-- Content-type Builder
-- media library
+- 管理パネル
+- 新しいアセットの追加
+- コンテンツマネージャー
+- コンテンツタイプビルダー
+- メディアライブラリ
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Adding assets
+# アセットの追加
 
-The Media Library displays all assets uploaded in the application, either via the [Media Library](/user-docs/media-library) or the [Content Manager](/user-docs/content-manager/writing-content.md#filling-up-fields) when managing a media field.
+メディアライブラリには、アプリケーションにアップロードされたすべてのアセットが表示されます。これには、[メディアライブラリ](/user-docs/media-library)または[コンテンツマネージャー](/user-docs/content-manager/writing-content.md#filling-up-fields)のメディアフィールドを管理するときにアップロードされたものが含まれます。
 
 <ThemedImage
-  alt="Add new assets window"
+  alt="新しいアセットを追加するウィンドウ"
   sources={{
     light: '/img/assets/media-library/media-library_add-new-assets.png',
     dark: '/img/assets/media-library/media-library_add-new-assets_DARK.png',
   }}
 />
 
-To add new assets to the media library:
+メディアライブラリに新しいアセットを追加するには:
 
-1. Click the **Add new assets** button in the upper right corner of the Media Library.
-2. Choose whether you want to upload the new asset from your computer or from an URL:
-    - from the computer, either drag & drop the asset directly or browse files on your system,
-    - from an URL, type or copy and paste an URL(s) in the _URL_ field, making sure multiple URLs are separated by carriage returns, then click **Next**.
-3. (optional) Click the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) to view asset metadata and define a _File name_, _Alternative text_ and a _Caption_ for the asset (see [editing and deleting assets](managing-assets.md)).
-4. (optional) Add more assets by clicking **Add new assets** and going back to step 2.
-5. Click on **Upload assets to the library**.
+1. メディアライブラリの右上にある **新しいアセットを追加** ボタンをクリックします。
+2. 新しいアセットをコンピューターからアップロードするか、URLからアップロードするかを選択します:
+    - コンピューターからアップロードする場合、アセットを直接ドラッグ&ドロップするか、システム内のファイルを参照します。
+    - URLからアップロードする場合、_URL_ フィールドにURLを入力またはコピー＆ペーストし、複数のURLがある場合は改行で区切ります。その後、**次へ**をクリックします。
+3. （オプション）編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックして、アセットのメタデータを表示し、_ファイル名_、_代替テキスト_、および_キャプション_を定義します（[アセットの編集と削除](managing-assets.md)を参照）。
+4. （オプション）**新しいアセットを追加**をクリックして、ステップ2に戻り、さらにアセットを追加します。
+5. **アセットをライブラリにアップロード**をクリックします。
 
-A variety of media types and extensions are supported by the Media Library:
+メディアライブラリでは、さまざまなメディアタイプと拡張子がサポートされています:
 
-| Media type | Supported extensions                                            |
-| ---------- | --------------------------------------------------------------- |
-| Image      | - JPEG<br />- PNG<br />- GIF<br />- SVG<br />- TIFF<br />- ICO<br />- DVU   |
-| Video      | - MPEG<br />- MP4<br />- MOV (Quicktime)<br />- WMV<br />- AVI<br />- FLV |
-| Audio      | - MP3<br />- WAV<br />- OGG                                         |
-| File       | - CSV<br />- ZIP<br />- PDF<br />- XLS, XLSX<br />- JSON                |
-
+| メディアタイプ | サポートされている拡張子                                           |
+| -------------- | --------------------------------------------------------------- |
+| 画像           | - JPEG<br />- PNG<br />- GIF<br />- SVG<br />- TIFF<br />- ICO<br />- DVU |
+| 動画           | - MPEG<br />- MP4<br />- MOV (Quicktime)<br />- WMV<br />- AVI<br />- FLV |
+| 音声           | - MP3<br />- WAV<br />- OGG                                      |
+| ファイル       | - CSV<br />- ZIP<br />- PDF<br />- XLS, XLSX<br />- JSON          |

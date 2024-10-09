@@ -1,78 +1,77 @@
 ---
-title: Managing individual assets
-description: Instructions on how to manage assets uploaded to the Media Library, including editing, moving, and deleting assets, and cropping images.
+title: 個別アセットの管理
+description: メディアライブラリにアップロードされたアセットを管理する方法（編集、移動、削除、画像のトリミングなど）
 tags:
-- admin panel
-- Content Manager
-- Content-type Builder
-- images
-- media library
+- 管理パネル
+- コンテンツマネージャー
+- コンテンツタイプビルダー
+- 画像
+- メディアライブラリ
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# Managing individual assets
+# 個別アセットの管理
 
-The Media Library allows managing assets, which includes modifying assets' file details and location, downloading and copying the link of the assets file, and deleting assets. Image files can also be cropped. To manage an asset, click on its Edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button.
+メディアライブラリでは、アセットのファイル詳細や場所の変更、アセットのダウンロードやリンクのコピー、アセットの削除などを管理できます。画像ファイルはトリミングも可能です。アセットを管理するには、そのアセットの編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックします。
 
-## Editing assets
+## アセットの編集
 
-Clicking on the edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button of an asset opens up a "Details" window, with all the available options.
+アセットの編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックすると、「詳細」ウィンドウが開き、利用可能なオプションが表示されます。
 
 <ThemedImage
-  alt="Annotated asset details window screenshot"
+  alt="アセットの詳細ウィンドウ"
   sources={{
     light: '/img/assets/media-library/media-library_asset-details.png',
     dark: '/img/assets/media-library/media-library_asset-details_DARK.png',
   }}
 />
 
-- On the left, above the preview of the asset, control buttons <ScreenshotNumberReference number="1" /> allow performing various actions:
-  - click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) to delete the asset,
-  - click on the download button ![Download icon](/img/assets/icons/v5/Download.svg) to download the asset,
-  - click on the copy link button ![Copy link icon](/img/assets/icons/v5/Link.svg) to copy the asset's link to the clipboard,
-  - optionally, click on the crop button ![Copy link icon](/img/assets/icons/v5/Crop.svg) to enter cropping mode for the image (see [cropping images](#cropping-images)).
-- On the right, meta data for the asset is displayed at the top of the window <ScreenshotNumberReference number="2" /> and the fields below can be used to update the _File name_, _Alternative text_, _Caption_ and _Location_ (see [organizing assets with folders](/user-docs/media-library/organizing-assets-with-folders.md)) for the asset <ScreenshotNumberReference number="3" />.
-- At the bottom, the **Replace Media** button <ScreenshotNumberReference number="4" /> can be used to replace the asset file but keep the existing content of the other editable fields, and the **Finish** button is used to confirm any updates to the fields.
+- 左側にはアセットのプレビューが表示され、その上にあるコントロールボタン <ScreenshotNumberReference number="1" /> で様々な操作が可能です:
+  - 削除ボタン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックしてアセットを削除する。
+  - ダウンロードボタン ![ダウンロードアイコン](/img/assets/icons/v5/Download.svg) をクリックしてアセットをダウンロードする。
+  - リンクコピーアイコン ![リンクコピーアイコン](/img/assets/icons/v5/Link.svg) をクリックして、アセットのリンクをクリップボードにコピーする。
+  - 画像をトリミングしたい場合は、トリミングボタン ![トリミングアイコン](/img/assets/icons/v5/Crop.svg) をクリックしてトリミングモードに入る（[画像のトリミング](#画像のトリミング)を参照）。
+- 右側には、アセットのメタデータが表示され <ScreenshotNumberReference number="2" />、_ファイル名_、_代替テキスト_、_キャプション_、_場所_ を更新するためのフィールドが表示されます <ScreenshotNumberReference number="3" />（[フォルダでアセットを整理する](/user-docs/media-library/organizing-assets-with-folders.md)を参照）。
+- 下部には、**メディアを置換** ボタン <ScreenshotNumberReference number="4" /> を使用してアセットファイルを置換できます。他の編集可能なフィールドの既存の内容は保持されます。**終了** ボタンでフィールドの更新を確定します。
 
-## Moving assets
+## アセットの移動
 
-An individual asset can be moved to a folder when editing its details.
+アセットの詳細を編集するときに、個別のアセットをフォルダに移動できます。
 
-To move an asset:
+アセットを移動するには:
 
-1. Click on the edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button for the asset to be moved.
-2. In the window that pops up, click the _Location_ field and choose a different folder from the drop-down list.
-3. Click **Save** to confirm.
+1. 移動するアセットの編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックします。
+2. 表示されるウィンドウで、_場所_ フィールドをクリックし、ドロップダウンリストから別のフォルダを選択します。
+3. **保存** をクリックして確定します。
 
 :::note
-Assets can also be moved to other folders from the main view of the Media Library (see [organizing assets with folders](/user-docs/media-library/organizing-assets-with-folders.md#moving-assets-to-a-folder)). This includes the ability to move several assets simultaneously.
+メインのメディアライブラリビューからもアセットを他のフォルダに移動できます（[フォルダでアセットを整理する](/user-docs/media-library/organizing-assets-with-folders.md#moving-assets-to-a-folder)を参照）。複数のアセットを同時に移動することも可能です。
 :::
 
-## Cropping images
+## 画像のトリミング
 
-Images can be cropped when editing the asset's details.
+アセットの詳細を編集するときに、画像をトリミングできます。
 
-To crop an image:
+画像をトリミングするには:
 
-1. Click on the edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button for the asset to be cropped.
-2. In the window that pops up, click the crop button ![Crop icon](/img/assets/icons/v5/Crop.svg) to enter cropping mode.
-3. Crop the image using handles in the corners to resize the frame. The frame can also be moved by drag & drop.
-4. Click the crop ![Done icon](/img/assets/icons/v5/Check.svg) button to validate the new dimensions, and choose either to **crop the original asset** or to **duplicate & crop the asset** (i.e. to create a copy with the new dimensions while keeping the original asset untouched). Alternatively, click the stop cropping ![Cancel icon](/img/assets/icons/v5/Cross.svg) button to cancel and quit cropping mode.
-<!-- TODO: ask devs because there seems to be a bug/unintuitive behavior:  choosing crop the original asset does not quit cropping mode 😅  -->
-5. Click **Finish** to save changes to the file.
+1. トリミングしたいアセットの編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックします。
+2. 表示されるウィンドウで、トリミングボタン ![トリミングアイコン](/img/assets/icons/v5/Crop.svg) をクリックしてトリミングモードに入ります。
+3. 四隅のハンドルを使用してフレームのサイズを変更し、フレーム全体をドラッグ＆ドロップで移動させることもできます。
+4. トリミングを確認するには、トリミングボタン ![完了アイコン](/img/assets/icons/v5/Check.svg) をクリックし、**元のアセットをトリミング** するか、**複製してトリミング** するか（元のアセットを保持しながら新しい寸法のコピーを作成）を選択します。または、トリミングをキャンセルするには、トリミング停止ボタン ![キャンセルアイコン](/img/assets/icons/v5/Cross.svg) をクリックします。
+5. **終了** をクリックしてファイルへの変更を保存します。
 
-## Deleting assets
+## アセットの削除
 
-An individual asset can be deleted when editing its details.
+アセットの詳細を編集するときに、個別のアセットを削除できます。
 
-To delete an asset:
+アセットを削除するには:
 
-1. Click on the edit ![Edit icon](/img/assets/icons/v5/Pencil.svg) button for the asset to be deleted.
-2. In the window that pops up, click the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) in the control buttons bar above the asset's preview.
-3. Click **Confirm**.
+1. 削除するアセットの編集ボタン ![編集アイコン](/img/assets/icons/v5/Pencil.svg) をクリックします。
+2. 表示されるウィンドウで、アセットのプレビュー上部にある削除ボタン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックします。
+3. **確認** をクリックします。
 
 :::tip
-Assets can also be deleted individually or in bulk from the main view of the Media Library. Select assets by clicking on their checkbox in the top left corner, then click the Delete icon ![Delete icon](/img/assets/icons/v5/Trash.svg) at the top of the window, below the filters and sorting options.
+メインのメディアライブラリビューからも、個別または複数のアセットを削除できます。アセットの左上にあるチェックボックスをクリックして選択し、フィルターや並べ替えオプションの下に表示される削除アイコン ![削除アイコン](/img/assets/icons/v5/Trash.svg) をクリックします。
 :::
