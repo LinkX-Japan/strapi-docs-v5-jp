@@ -8,15 +8,12 @@ tags:
 - Strapi Cloud
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
+# リリースの作成 <EnterpriseBadge /> <CloudTeamBadge />
 
-# Creating a release  <EnterpriseBadge /> <CloudTeamBadge />
+![Releases icon](/img/assets/icons/v5/PaperPlane.svg) [リリース](/user-docs/releases/introduction) ページでは、エントリーを整理するための新しいリリースを作成できます。
 
-The ![Releases icon](/img/assets/icons/v5/PaperPlane.svg) [Releases](/user-docs/releases/introduction) page allows creating new releases that will be used to organize entries.
-
-<!-- TODO: update screenshot to show scheduling -->
 <ThemedImage
-  alt="Adding a new release"
+  alt="新しいリリースの追加"
   sources={{
     light: '/img/assets/releases/new-release.png',
     dark: '/img/assets/releases/new-release_DARK.png',
@@ -25,18 +22,11 @@ The ![Releases icon](/img/assets/icons/v5/PaperPlane.svg) [Releases](/user-docs/
 
 <br /><br />
 
-To create a new release:
+リリースを作成するには、以下の手順を実行します：
 
-1. Click the ![Plus icon](/img/assets/icons/v5/Plus.svg) **New Release** button in the upper right corner of the Releases page.  
-2. Give the release a name.
-3. (_optional_) If you want to schedule the release publication instead of publishing the release manually, check the **Schedule release** checkbox and define the date, time, and timezone for publication. Scheduling is currently a <FutureBadge /> feature (see [scheduling a release](/user-docs/releases/managing-a-release#scheduling-a-release-) for details).
-4. Click the **Continue** button.
+1. リリースページの右上にある ![Plus icon](/img/assets/icons/v5/Plus.svg) **New Release** ボタンをクリックします。  
+2. リリースの名前を入力します。
+3. (_任意_) リリースを手動で公開するのではなく、公開のスケジュールを設定したい場合は、**Schedule release** チェックボックスをオンにし、公開の日時とタイムゾーンを設定します。スケジューリングは現在、<FutureBadge /> 機能です（詳細は [リリースのスケジューリング](/user-docs/releases/managing-a-release#scheduling-a-release-) を参照してください）。
+4. **Continue** ボタンをクリックします。
 
-Adding entries to a release must be done from the Content Manager. You can add a single entry to a release while creating or editing the entry [in the edit view](/user-docs/content-manager/adding-content-to-releases).
-
-<!-- TODO: for later, when multiple addition is implemented, probably in 4.20 -->
-<!-- 
-Adding entries to a release must be done from the Content Manager:
-
-- You can add multiple entries to a release [from the list view](/user-docs/content-manager/adding-content-to-releases#adding-multiple-entries-to-a-release).
-- You can also add a single entry to a release while creating or editing the entry [in the edit view](/user-docs/content-manager/adding-content-to-releases#adding-a-single-entry-to-a-release). -->
+リリースにエントリーを追加するには、コンテンツマネージャーから行います。エントリーの作成や編集時に、[編集画面](/user-docs/content-manager/adding-content-to-releases)から単一のエントリーをリリースに追加できます。
