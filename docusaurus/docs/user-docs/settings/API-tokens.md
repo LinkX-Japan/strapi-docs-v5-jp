@@ -1,57 +1,57 @@
 ---
 sidebar_position: 3
-title: API tokens
+title: APIトークン
 tags:
-- API Token
+- APIトークン
 - REST API
 - GraphQL API
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Managing API tokens
+# APIトークンの管理
 
 :::prerequisites
-* Administrators can create, read, update, or delete API tokens only if proper permissions are granted (see [Configuring administrator roles](/user-docs/users-roles-permissions/configuring-administrator-roles#plugins-and-settings)).
-* The *Global settings > API Tokens* sub-section of the settings interface is accessible in the admin panel only if the _API tokens > Read_ permission is granted.
+* 管理者は、適切な権限が付与されている場合のみ、APIトークンの作成、読み取り、更新、または削除が可能です（[管理者ロールの設定](/user-docs/users-roles-permissions/configuring-administrator-roles#plugins-and-settings)を参照）。
+* 管理パネルの *グローバル設定 > APIトークン* サブセクションは、_APIトークン > 読み取り_ 権限が付与されている場合にのみアクセス可能です。
 :::
 
-API tokens allow users to authenticate REST and GraphQL API queries (see [Developer Documentation](/dev-docs/configurations/api-tokens)). Administrators can manage API tokens from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > API Tokens*.
+APIトークンは、RESTおよびGraphQL APIクエリの認証を行うために使用されます（[開発者ドキュメント](/dev-docs/configurations/api-tokens)を参照）。管理者は、![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > APIトークン* からAPIトークンを管理できます。
 
 <ThemedImage
-  alt="API tokens"
+  alt="APIトークン"
   sources={{
     light: '/img/assets/settings/settings_api-token.png',
     dark: '/img/assets/settings/settings_api-token_DARK.png',
   }}
 />
 
-The *API Tokens* settings sub-section displays a table listing all of the created API tokens.
+*APIトークン* 設定サブセクションでは、作成されたすべてのAPIトークンがリスト表示されます。
 
-The table displays each API token's name, description, date of creation, and date of last use. From the table, administrators can also:
+このテーブルには、各APIトークンの名前、説明、作成日、および最終使用日が表示されます。また、管理者は以下の操作が可能です：
 
-- Click on the ![edit button](/img/assets/icons/v5/Pencil.svg) to edit an API token's name, description, type, duration or [regenerate the token](#regenerating-an-api-token).
-- Click on the ![delete button](/img/assets/icons/v5/Trash.svg) to delete an API token.
+- ![編集ボタン](/img/assets/icons/v5/Pencil.svg) をクリックして、APIトークンの名前、説明、タイプ、期間を編集したり、[トークンを再生成](#regenerating-an-api-token)する。
+- ![削除ボタン](/img/assets/icons/v5/Trash.svg) をクリックしてAPIトークンを削除する。
 
-## Creating a new API token
+## 新しいAPIトークンの作成
 
-To create a new API token:
+新しいAPIトークンを作成するには：
 
-1. Click on the **Create new API Token** button.
-2. In the API token edition interface, configure the new API token:
+1. **新しいAPIトークンを作成** ボタンをクリックします。
+2. APIトークンの編集画面で、新しいAPIトークンを設定します：
 
-    | Setting name   | Instructions                                                             |
-    | -------------- | ------------------------------------------------------------------------ |
-    | Name           | Write the name of the API token.                                         |
-    | Description    | (optional) Write a description for the API token.                        |
-    | Token duration | Choose a token duration: *7 days*, *30 days*, *90 days*, or *Unlimited*. |
-    | Token type     | Choose a token type: *Read-only*, *Full access*, or *Custom*.            |
+    | 設定名           | 手順                                                                       |
+    | ---------------- | ------------------------------------------------------------------------ |
+    | 名前             | APIトークンの名前を入力します。                                           |
+    | 説明             | （任意）APIトークンの説明を入力します。                                   |
+    | トークンの期間   | *7日間*、*30日間*、*90日間*、または *無制限* の期間を選択します。          |
+    | トークンのタイプ | *読み取り専用*、*フルアクセス*、または *カスタム* のタイプを選択します。    |
 
-3. (optional) For the *Custom* token type, define specific permissions for your API endpoints by clicking on the content-type name and using checkboxes to enable or disable permissions.
-4. Click on the **Save** button. The new API token will be displayed at the top of the interface, along with a copy button ![copy button](/img/assets/icons/v5/Duplicate.svg).
+3. （任意）*カスタム* トークンタイプの場合、コンテンツタイプ名をクリックしてチェックボックスを使用し、APIエンドポイントの特定の権限を定義します。
+4. **保存** ボタンをクリックします。新しいAPIトークンがインターフェースの上部に表示され、コピー用ボタン ![コピーアイコン](/img/assets/icons/v5/Duplicate.svg) が表示されます。
 
 <ThemedImage
-  alt="Custom API token"
+  alt="カスタムAPIトークン"
   sources={{
     light: '/img/assets/settings/settings_api-token-custom.png',
     dark: '/img/assets/settings/settings_api-token-custom_DARK.png',
@@ -59,14 +59,14 @@ To create a new API token:
 />
 
 :::caution
-For security reasons, API tokens are only shown right after they have been created. When refreshing the page or navigating elsewhere in the admin panel, the newly created API token will be hidden and will not be displayed again.
+セキュリティ上の理由から、APIトークンは作成直後にのみ表示されます。ページをリフレッシュしたり、管理パネル内の別の場所に移動すると、新しく作成されたAPIトークンは非表示となり、再表示されません。
 :::
 
-## Regenerating an API token
+## APIトークンの再生成
 
-To regenerate an API token:
+APIトークンを再生成するには：
 
-1. Click on the API token's edit button.
-2. Click on the **Regenerate** button.
-3. Click on the **Regenerate** button to confirm in the dialog.
-4. Copy the new API token displayed at the top of the interface.
+1. APIトークンの編集ボタンをクリックします。
+2. **再生成** ボタンをクリックします。
+3. ダイアログで **再生成** ボタンをクリックして確認します。
+4. インターフェースの上部に表示された新しいAPIトークンをコピーします。

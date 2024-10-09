@@ -1,35 +1,35 @@
 ---
 sidebar_position: 3
-title: Media Library
+title: メディアライブラリ
 tags:
-- admin panel
-- media library
-- plugins
+- 管理パネル
+- メディアライブラリ
+- プラグイン
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Configuring the Media Library
+# メディアライブラリの設定
 
-The [Media Library](/user-docs/media-library) displays all assets uploaded in the Strapi application. The Media Library settings allow controlling the format, file size, and orientation of uploaded assets. Those settings can be configured from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > Media Library*.
+[メディアライブラリ](/user-docs/media-library)では、Strapiアプリケーションにアップロードされたすべてのアセットを表示します。メディアライブラリの設定では、アップロードされたアセットのフォーマット、ファイルサイズ、向きなどを管理できます。これらの設定は、![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > メディアライブラリ* から構成できます。
 
 <ThemedImage
-  alt="Media Library settings"
+  alt="メディアライブラリの設定"
   sources={{
     light: '/img/assets/settings/settings_media-library.png',
     dark: '/img/assets/settings/settings_media-library_DARK.png',
   }}
 />
 
-To configure the Media Library settings:
+メディアライブラリの設定を構成するには：
 
-1. Go to the *Global settings > Media Library* sub-section of the settings interface.
-2. Define your chosen new settings:
+1. 設定インターフェースの *グローバル設定 > メディアライブラリ* サブセクションに移動します。
+2. 以下の新しい設定を定義します：
 
-    | Setting name   | Instructions   | Default value |
-    | -------------------------- | ----------------------- |---------------|
-    | Responsive friendly upload | Enabling this option will generate multiple formats (small, medium and large) of the uploaded asset. | True          |
-    | Size optimization          | Enabling this option will reduce the image size and slightly reduce its quality.                     | True          |
-    | Auto orientation           | Enabling this option will automatically rotate the image according to EXIF orientation tag.          | False         |
+    | 設定項目                   | 説明                                                                      | デフォルト値  |
+    | -------------------------- | ------------------------------------------------------------------------ |--------------|
+    | レスポンシブ対応アップロード | このオプションを有効にすると、アップロードされたアセットの複数のフォーマット（小、中、大）が生成されます。 | True         |
+    | サイズ最適化               | このオプションを有効にすると、画像のサイズが縮小され、画質がやや低下します。                  | True         |
+    | 自動向き設定               | このオプションを有効にすると、EXIFの向きタグに基づいて画像が自動的に回転されます。             | False        |
 
-3. Click on the **Save** button.
+3. **保存** ボタンをクリックします。

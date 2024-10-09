@@ -1,97 +1,92 @@
 ---
-title: Review Workflows
-description: Managing your review workflows and stages in Strapi.
+title: レビューワークフロー
+description: Strapiでのレビューワークフローとステージの管理
 tags:
-- admin panel
-- review workflows
-- Enterprise feature
+- 管理パネル
+- レビューワークフロー
+- エンタープライズ機能
 - Strapi Cloud
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Managing Review Workflows <EnterpriseBadge /> <CloudTeamBadge/>
+# レビューワークフローの管理 <EnterpriseBadge /> <CloudTeamBadge/>
 
-The Review Workflows feature allows you to create and manage workflows for your various content-types. Each workflow can consist of any review stages for your content, enabling your team to collaborate in the content creation flow from draft to publication.
+レビューワークフロー機能を使用すると、さまざまなコンテンツタイプに対してワークフローを作成および管理できます。各ワークフローは、コンテンツのレビュー段階で構成され、チームが下書きから公開までのコンテンツ作成フローにおいてコラボレーションできるようになります。
 
 <ThemedImage
-  alt="Workflow list view"
+  alt="ワークフローリストビュー"
   sources={{
     light: '/img/assets/review-workflows/list-view-light.png',
     dark: '/img/assets/review-workflows/list-view-dark.png',
   }}
 />
 
-In many organizations different teams review different parts of content. By using different review workflows for different content-types, it is possible to adjust each workflow to the needs of each team involved.
+多くの組織では、異なるチームがコンテンツの異なる部分をレビューします。コンテンツタイプごとに異なるレビューワークフローを使用することで、各チームのニーズに合わせたワークフローを調整することが可能です。
 
-The default workflow is configured to have 4 stages: To do, In progress, Ready to review, and Reviewed. All 4 stages can be edited, reordered or deleted as needed, and it is also possible to add new stages.
+デフォルトのワークフローには4つのステージが設定されています：「To do」、「In progress」、「Ready to review」、および「Reviewed」です。これらの4つのステージは、必要に応じて編集、順序変更、または削除でき、さらに新しいステージを追加することも可能です。
 
-Before being available in the [Content Manager](/user-docs/content-manager/reviewing-content), review workflows must be configured from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > Review Workflows*. The Review workflows settings are only available to users with the Super Admin role by default. Other roles must be granted the **Review workflows** permissions. See [Users, Roles, & Permissions](/user-docs/users-roles-permissions) for more information.
+ワークフローを[コンテンツマネージャー](/user-docs/content-manager/reviewing-content)で使用できるようにするには、まずワークフローを ![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > レビューワークフロー* から構成する必要があります。デフォルトでは、レビューワークフローの設定は**Super Admin**ロールを持つユーザーのみが利用できます。他のロールには**レビューワークフロー**の権限を付与する必要があります。[ユーザー、ロール、権限](/user-docs/users-roles-permissions)を参照してください。
 
-## Creating or editing a workflow
+## ワークフローの作成または編集
 
 <ThemedImage
-  alt="Workflow edit view"
+  alt="ワークフロー編集ビュー"
   sources={{
     light: '/img/assets/review-workflows/edit-view-light.png',
     dark: '/img/assets/review-workflows/edit-view-dark.png',
   }}
 />
 
-1. Click on the **Create new workflow** button or on the edit button ![Edit icon](/img/assets/icons/v5/Pencil.svg) of a workflow.
-2. In the workflow edit interface, configure the new workflow:
+1. **新しいワークフローを作成** ボタン、またはワークフローの編集 ![編集アイコン](/img/assets/icons/v5/Pencil.svg) ボタンをクリックします。
+2. ワークフロー編集画面で、新しいワークフローを設定します：
 
-    | Setting name   | Instructions                                                             |
-    | -------------- | ------------------------------------------------------------------------ |
-    | Workflow name  | Write a unique name of workflow.                                         |
-    | Associated to  | (optional) Assign this workflow to one or more existing content-types.   |
-    | Stages         | Add review stages (see [Adding a new stage](#adding-a-new-stage)).       |
+    | 設定名           | 手順                                                                 |
+    | ---------------- | ------------------------------------------------------------------- |
+    | ワークフロー名   | ワークフローの一意の名前を入力します。                              |
+    | 関連付け先       | （任意）このワークフローを1つ以上の既存のコンテンツタイプに関連付けます。 |
+    | ステージ         | レビューステージを追加します（[新しいステージの追加](#adding-a-new-stage)を参照）。 |
 
-3. Click on the **Save** button. The new workflow will be displayed in the list-view and for every content-type assigned.
+3. **保存** ボタンをクリックします。新しいワークフローはリストビューに表示され、割り当てられたコンテンツタイプごとに適用されます。
 
 :::note
-The maximum number of [workflows and stages per workflow is limited](https://strapi.io/pricing-cloud).
+[ワークフローとステージの最大数](https://strapi.io/pricing-cloud)には制限があります。
 :::
 
+### 新しいステージの追加
 
-### Adding a new stage
+レビューワークフローに新しいステージを追加するには：
 
-To add a new stage in the review workflows:
+1. **新しいステージを追加** ボタンをクリックします。
+2. *ステージ名* を入力します。
+3. *カラー* を選択します。
+4. レビューステージにある場合、そのステージの変更が可能な*ロール*を選択します。
+5. **保存** ボタンをクリックします。
 
-1. Click on the **Add new stage** button.
-2. Write the *Stage name*.
-3. Select a *Color*.
-4. Select *Roles* that can change the stage, if the entity is currently in that review stage.
-5. Click on the **Save** button.
-
-By default new stages are appended, but they can be reordered anytime using the ![drag & drop](/img/assets/icons/v5/Drag.svg) button.
+デフォルトでは新しいステージは末尾に追加されますが、![ドラッグ＆ドロップ](/img/assets/icons/v5/Drag.svg) ボタンを使用していつでも順序を変更できます。
 
 :::tip
-To set up roles for each stage, you can either click "Apply to all stages" to apply the current roles to all other stages of the workflow or use "Duplicate stage" of the stage context menu.
+ステージごとのロールを設定する際、現在のロールをすべてのステージに適用する「すべてのステージに適用」をクリックするか、ステージのコンテキストメニューで「ステージを複製」を使用できます。
 :::
 
+### ステージの複製
 
-### Duplicating a stage
+1. ステージのコンテキストメニューで **ステージを複製** をクリックします。
+2. 複製されたステージの名前を変更します。
+3. **保存** ボタンをクリックします。
 
-1. Click **Duplicate Stage** in the context menu of the stage.
-2. Change the name of the duplicated stage.
-2. Click on the **Save** button.
+### ステージの削除
 
+ステージを削除するには、ステージのコンテキストメニューで ![その他](/img/assets/icons/v5/More.svg) をクリックし、**削除** を選択します。
 
-### Deleting a stage
+保留中のレビューがあるステージを削除した場合、レビューはワークフローの最初のステージに移動されます。すべてのワークフローには少なくとも1つのステージが必要であり、最後のステージを削除することはできません。
 
-To delete a stage, click ![More](/img/assets/icons/v5/More.svg) in the context menu of the stage, then **Delete**.
+## ワークフローの削除
 
-If you delete a stage that has pending reviews, the reviews will be moved to first stage in the workflow. Every workflow needs to
-contain at least one stage and therefore it is not possible to delete the last stage.
-
-
-## Deleting a workflow
-
-To delete a workflow click on the delete button ![Delete icon](/img/assets/icons/v5/Trash.svg) of a workflow in the list view.
+ワークフローを削除するには、リストビューでワークフローの ![削除アイコン](/img/assets/icons/v5/Trash.svg) ボタンをクリックします。
 
 :::note
-It is not possible to delete the last workflow.
-:::
+最後のワークフローは削除できません。
+::: 
 
 <FeedbackPlaceholder />

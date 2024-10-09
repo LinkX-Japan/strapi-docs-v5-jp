@@ -1,37 +1,37 @@
 ---
 sidebar_position: 3
-title: Overview & Custom logo
+title: 概要 & カスタムロゴ
 tags:
-- admin panel
-- company logo
+- 管理パネル
+- 会社ロゴ
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Customizing the logo
+# ロゴのカスタマイズ
 
-The default Strapi logos, displayed in the main navigation of a Strapi application and the authentication pages, can be modified from ![Settings icon](/img/assets/icons/v5/Cog.svg) *Settings > Global settings > Overview*.
+Strapiアプリケーションのメインナビゲーションや認証ページに表示されるデフォルトのStrapiロゴは、![設定アイコン](/img/assets/icons/v5/Cog.svg) *設定 > グローバル設定 > 概要* から変更できます。
 
 :::note
-Both logos can also be customized programmatically via the Strapi application's configuration files (see [Developer Documentation](/dev-docs/admin-panel-customization#logos)). However, the logos uploaded via the admin panel supersedes any logo set through the configuration files.
+両方のロゴは、Strapiアプリケーションの設定ファイルを通じてプログラム的にカスタマイズすることも可能です（詳細は[開発者ドキュメント](/dev-docs/admin-panel-customization#logos)を参照）。ただし、管理パネル経由でアップロードされたロゴは、設定ファイルで指定されたロゴよりも優先されます。
 :::
 
 <ThemedImage
-  alt="Custom logo settings"
+  alt="カスタムロゴの設定"
   sources={{
     light: '/img/assets/settings/settings_custom-logo.png',
     dark: '/img/assets/settings/settings_custom-logo_DARK.png',
   }}
 />
 
-To customize the logos:
+ロゴをカスタマイズする手順は以下の通りです：
 
-1. Go to the *Global settings > Overview* sub-section of the settings interface.
-2. Click on the upload area.
-3. Upload your chosen logo, either by browsing files, drag & dropping the file in the right area, or by using a URL. The logo shouldn't be more than 750x750px. 
-4. Click on the **Upload logo** button in the upload window.
-5. Click on the **Save** button in the top right corner.
+1. 設定画面の *グローバル設定 > 概要* サブセクションに移動します。
+2. アップロードエリアをクリックします。
+3. ファイルを選択してアップロードするか、ファイルをドラッグ＆ドロップするか、URLを使用して希望のロゴをアップロードします。ロゴのサイズは750x750px以下にしてください。
+4. アップロードウィンドウで **ロゴをアップロード** ボタンをクリックします。
+5. 右上の **保存** ボタンをクリックします。
 
 :::tip
-Once uploaded, the new logo can be replaced with another one ![Add icon](/img/assets/icons/v5/Plus.svg), or reset ![Reset icon](/img/assets/icons/v5/ArrowClockwise.svg) with the default Strapi logo or the logo set in the configuration files.
+ロゴをアップロードした後、![追加アイコン](/img/assets/icons/v5/Plus.svg) 新しいロゴと置き換えたり、![リセットアイコン](/img/assets/icons/v5/ArrowClockwise.svg) デフォルトのStrapiロゴまたは設定ファイルで指定されたロゴにリセットすることができます。
 :::
