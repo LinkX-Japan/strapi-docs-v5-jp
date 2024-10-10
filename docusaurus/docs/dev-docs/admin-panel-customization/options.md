@@ -1,53 +1,53 @@
 ---
-title: Admin panel customization options
-description: Various options help you configure Strapi's administration panel behavior and look, so you can make it reflect your identity.
-sidebar_label: Customization options
+title: 管理パネルのカスタマイズオプション
+description: Strapiの管理パネルの動作や見た目を設定し、あなたのアイデンティティを反映させる方法について学びましょう。
+sidebar_label: カスタマイズオプション
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
+- 管理パネル
+- 管理パネルのカスタマイズ
 
 ---
 
 import HotReloading from '/docs/snippets/hot-reloading-admin-panel.md'
 
-Many aspects of Strapi's [admin panel](/dev-docs/admin-panel-customization) can be customized through the code using the admin panel's `/src/admin/app.[tsx|js]` entry point file (see [project structure](/dev-docs/project-structure)).
+Strapiの[管理パネル](/dev-docs/admin-panel-customization)の多くの部分は、管理パネルの`/src/admin/app.[tsx|js]`エントリーポイントファイルを使用してコードを通じてカスタマイズできます（[プロジェクト構造](/dev-docs/project-structure)を参照してください）。
 
 :::prerequisites
-Before trying to update code to configure any admin panel customization option:
+管理パネルのカスタマイズオプションを設定するコードを更新する前に：
 
-- Rename the default `app.example.[tsx|js]` file into `app.[ts|js]`.
-- Create a new `extensions` folder in `/src/admin/`.
-- If you want to see your changes applied live while developing, ensure the admin panel server is running (it's usually done with the `yarn develop` or `npm run develop` command if you have not changed the default [host, port, and path](/dev-docs/admin-panel-customization/host-port-path) of the admin panel).
+- デフォルトの`app.example.[tsx|js]`ファイルを`app.[ts|js]`にリネームします。
+- `/src/admin/`に新しい`extensions`フォルダを作成します。
+- 開発中に変更がすぐに反映されるように、管理パネルサーバーが実行されていることを確認してください（デフォルトの[ホスト、ポート、パス](/dev-docs/admin-panel-customization/host-port-path)を変更していない場合、`yarn develop`や`npm run develop`コマンドで通常実行されます）。
 :::
 
-:::note Note: Admin panel extensions vs. plugins extensions
-By default, Strapi projects already contain another `extensions` folder in `/src` but it is for plugins extensions only (see [Plugins extension](/dev-docs/plugins-extension)).
+:::note メモ: 管理パネルの拡張とプラグインの拡張
+デフォルトでStrapiプロジェクトには`/src`フォルダ内に別の`extensions`フォルダがありますが、これはプラグイン拡張用です（[プラグイン拡張](/dev-docs/plugins-extension)を参照してください）。
 :::
 
-The `config` object found in `/src/admin/app.[ts|js]` stores the admin panel configuration.
+`/src/admin/app.[ts|js]`内の`config`オブジェクトは、管理パネルの設定を格納しています。
 
-Any file used by the `config` object (e.g., a custom logo) should be placed in a `/src/admin/extensions/` folder and imported inside `/src/admin/app.js`.
+`config`オブジェクトで使用されるファイル（カスタムロゴなど）は、`/src/admin/extensions/`フォルダに配置し、`/src/admin/app.js`内でインポートする必要があります。
 
 <HotReloading />
 
-## Available configuration options
+## 利用可能な設定オプション
 
-The `config` object of `/src/admin/app.[tsx|js]` accepts the following parameters:
+`/src/admin/app.[tsx|js]`の`config`オブジェクトは、以下のパラメータを受け付けます。
 
-| Parameter                      | Type             | Description                                                                                                           |
-| ------------------------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `auth`                         | Object           | Accepts a `logo` key to replace the default Strapi [logo](#logos) on login screen                                     |
-| `head`                         | Object           | Accepts a `favicon` key to replace the default Strapi [favicon](#favicon)                                             |
-| `locales`                      | Array of Strings | Defines availables locales (see [updating locales](#locales))                                                         |
-| `translations`                 | Object           | [Extends the translations](#extending-translations)                                                                   |
-| `menu`                         | Object           | Accepts the `logo` key to change the [logo](#logos) in the main navigation                                            |
-| `theme.light` and `theme.dark` | Object           | [Overwrite theme properties](#theme-extension) for Light and Dark modes                                               |
-| `tutorials`                    | Boolean          | Toggles [displaying the video tutorials](#tutorial-videos)                                                            |
-| `notifications`                | Object           | Accepts the `releases` key (Boolean) to toggle [displaying notifications about new releases](#releases-notifications) |
+| パラメータ                     | タイプ           | 説明                                                                                               |
+| ------------------------------ | ---------------- | -------------------------------------------------------------------------------------------------- |
+| `auth`                         | オブジェクト     | ログイン画面のデフォルトのStrapi [ロゴ](#ロゴ)を置き換えるための`logo`キーを受け付けます            |
+| `head`                         | オブジェクト     | デフォルトのStrapi [favicon](#favicon)を置き換えるための`favicon`キーを受け付けます                 |
+| `locales`                      | 文字列配列       | 使用可能なロケールを定義します（[ロケールの更新](#ロケール)を参照）                                |
+| `translations`                 | オブジェクト     | [翻訳を拡張](#翻訳の拡張)します                                                                     |
+| `menu`                         | オブジェクト     | メインナビゲーションの[ロゴ](#ロゴ)を変更するための`logo`キーを受け付けます                         |
+| `theme.light` および `theme.dark` | オブジェクト     | ライトおよびダークモードの[テーマプロパティを上書き](#テーマの拡張)します                          |
+| `tutorials`                    | ブール値         | [ビデオチュートリアルの表示](#ビデオチュートリアル)を切り替えます                                 |
+| `notifications`                | オブジェクト     | 新しいリリースに関する通知を表示するかどうかを切り替える`releases`キー（ブール値）を受け付けます    |
 
 <details>
-<summary>Example of a custom configuration for the admin panel:</summary>
+<summary>管理パネルのカスタム設定例:</summary>
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -59,23 +59,23 @@ import favicon from "./extensions/favicon.png";
 
 export default {
   config: {
-    // Replace the Strapi logo in auth (login) views
+    // 認証（ログイン）画面でStrapiロゴを置き換える
     auth: {
       logo: AuthLogo,
     },
-    // Replace the favicon
+    // Faviconを置き換える
     head: {
       favicon: favicon,
     },
-    // Add a new locale, other than 'en'
+    // 'en'以外の新しいロケールを追加する
     locales: ["fr", "de"],
-    // Replace the Strapi logo in the main navigation
+    // メインナビゲーションでStrapiロゴを置き換える
     menu: {
       logo: MenuLogo,
     },
-    // Override or extend the theme
+    // テーマを上書きまたは拡張する
     theme: {
-      // overwrite light theme properties
+      // ライトテーマのプロパティを上書きする
       light: {
         colors: {
           primary100: "#f6ecfc",
@@ -87,24 +87,24 @@ export default {
         },
       },
 
-      // overwrite dark theme properties
+      // ダークテーマのプロパティを上書きする
       dark: {
         // ...
       },
     },
-    // Extend the translations
+    // 翻訳を拡張する
     translations: {
       fr: {
         "Auth.form.email.label": "test",
         Users: "Utilisateurs",
         City: "CITY (FRENCH)",
-        // Customize the label of the Content Manager table.
+        // コンテンツマネージャーテーブルのラベルをカスタマイズする
         Id: "ID french",
       },
     },
-    // Disable video tutorials
+    // ビデオチュートリアルを無効化する
     tutorials: false,
-    // Disable notifications about new Strapi releases
+    // Strapiの新しいリリースに関する通知を無効化する
     notifications: { releases: false },
   },
 
@@ -123,23 +123,21 @@ import favicon from "./extensions/favicon.png";
 
 export default {
   config: {
-    // Replace the Strapi logo in auth (login) views
+    // 認証（ログイン）画面でStrapiロゴを置き換える
     auth: {
       logo: AuthLogo,
     },
-    // Replace the favicon
+    // Faviconを置き換える
     head: {
-      // Try to change the origin favicon.png file in the
-      // root of strapi project if this config don't work.
-      favicon: favicon, 
+      favicon: favicon,
     },
-    // Add a new locale, other than 'en'
+    // 'en'以外の新しいロケールを追加する
     locales: ["fr", "de"],
-    // Replace the Strapi logo in the main navigation
+    // メインナビゲーションでStrapiロゴを置き換える
     menu: {
       logo: MenuLogo,
     },
-    // Override or extend the theme
+    // テーマを上書きまたは拡張する
     theme: {
       colors: {
         primary100: "#f6ecfc",
@@ -150,19 +148,19 @@ export default {
         danger700: "#b72b1a",
       },
     },
-    // Extend the translations
+    // 翻訳を拡張する
     translations: {
       fr: {
         "Auth.form.email.label": "test",
         Users: "Utilisateurs",
         City: "CITY (FRENCH)",
-        // Customize the label of the Content Manager table.
+        // コンテンツマネージャーテーブルのラベルをカスタマイズする
         Id: "ID french",
       },
     },
-    // Disable video tutorials
+    // ビデオチュートリアルを無効化する
     tutorials: false,
-    // Disable notifications about new Strapi releases
+    // Strapiの新しいリリースに関する通知を無効化する
     notifications: { releases: false },
   },
 
@@ -175,9 +173,9 @@ export default {
 
 </details>
 
-## Locales
+## ロケール
 
-To update the list of available locales in the admin panel, use the `config.locales` array:
+管理パネルで使用可能なロケールのリストを更新するには、`config.locales`配列を使用します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -207,16 +205,16 @@ export default {
 </TabItem>
 </Tabs>
 
-:::note NOTES
+:::note メモ
+- `en`ロケールはビルドから削除できません。これはフォールバック（翻訳がロケールで見つからない場合に`en`が使用される）であり、デフォルトのロケール（ユーザーが初めて管理パネル
 
-- The `en` locale cannot be removed from the build as it is both the fallback (i.e. if a translation is not found in a locale, the `en` will be used) and the default locale (i.e. used when a user opens the administration panel for the first time).
-- The full list of available locales is accessible on [Strapi's Github repo](https://github.com/strapi/strapi/blob/v4.0.0/packages/plugins/i18n/server/constants/iso-locales.json).
-
+を開いたときに使用される）だからです。
+- 利用可能なロケールの完全なリストは、[StrapiのGithubリポジトリ](https://github.com/strapi/strapi/blob/v4.0.0/packages/plugins/i18n/server/constants/iso-locales.json)で確認できます。
 :::
 
-### Extending translations
+### 翻訳の拡張
 
-Translation key/value pairs are declared in `@strapi/admin/admin/src/translations/[language-name].json` files. These keys can be extended through the `config.translations` key:
+翻訳のキーと値のペアは、`@strapi/admin/admin/src/translations/[language-name].json`ファイルに宣言されています。これらのキーは`config.translations`キーを通じて拡張できます。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -230,7 +228,7 @@ export default {
         "Auth.form.email.label": "test",
         Users: "Utilisateurs",
         City: "CITY (FRENCH)",
-        // Customize the label of the Content Manager table.
+        // コンテンツマネージャーテーブルのラベルをカスタマイズする
         Id: "ID french",
       },
     },
@@ -252,7 +250,7 @@ export default {
         "Auth.form.email.label": "test",
         Users: "Utilisateurs",
         City: "CITY (FRENCH)",
-        // Customize the label of the Content Manager table.
+        // コンテンツマネージャーテーブルのラベルをカスタマイズする
         Id: "ID french",
       },
     },
@@ -264,7 +262,7 @@ export default {
 </TabItem>
 </Tabs>
 
-A plugin's key/value pairs are declared independently in the plugin's files at `./admin/src/translations/[language-name].json`. These key/value pairs can similarly be extended in the `config.translations` key by prefixing the key with the plugin's name (i.e. `[plugin name].[key]: 'value'`) as in the following example:
+プラグインのキーと値のペアは、それぞれのプラグインのファイルで`./admin/src/translations/[language-name].json`に宣言されています。これらのキーと値のペアも、`config.translations`キーを使用して`[プラグイン名].[キー]: '値'`という形式で拡張できます。次の例を参照してください。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -276,8 +274,8 @@ export default {
     translations: {
       fr: {
         "Auth.form.email.label": "test",
-        // Translate a plugin's key/value pair by adding the plugin's name as a prefix
-        // In this case, we translate the "plugin.name" key of plugin "content-type-builder"
+        // プラグインのキーと値のペアを翻訳するには、プラグイン名を接頭辞として追加します
+        // この場合、「content-type-builder」プラグインの「plugin.name」キーを翻訳します
         "content-type-builder.plugin.name": "Constructeur de Type-Contenu",
       },
     },
@@ -297,8 +295,8 @@ export default {
     translations: {
       fr: {
         "Auth.form.email.label": "test",
-        // Translate a plugin's key/value pair by adding the plugin's name as a prefix
-        // In this case, we translate the "plugin.name" key of plugin "content-type-builder"
+        // プラグインのキーと値のペアを翻訳するには、プラグイン名を接頭辞として追加します
+        // この場合、「content-type-builder」プラグインの「plugin.name」キーを翻訳します
         "content-type-builder.plugin.name": "Constructeur de Type-Contenu",
       },
     },
@@ -310,37 +308,37 @@ export default {
 </TabItem>
 </Tabs>
 
-If more translations files should be added, place them in `./src/admin/extensions/translations` folder.
+追加の翻訳ファイルが必要な場合は、`./src/admin/extensions/translations`フォルダに配置します。
 
-## Logos
+## ロゴ
 
-The Strapi admin panel displays a logo in 2 different locations, represented by 2 different keys in the [admin panel configuration](#configuration-options):
+Strapi管理パネルには、2つの異なる場所にロゴが表示され、それぞれのキーが[管理パネルの設定](#利用可能な設定オプション)に対応しています。
 
-| Location in the UI     | Configuration key to update |
-| ---------------------- | --------------------------- |
-| On the login page      | `config.auth.logo`          |
-| In the main navigation | `config.menu.logo`          |
+| UIの場所                     | 更新する設定キー     |
+| ----------------------------- | ------------------- |
+| ログインページ               | `config.auth.logo`  |
+| メインナビゲーション          | `config.menu.logo`  |
 
 :::note
-Both logos can also be customized directly via the admin panel (see [User Guide](/user-docs/settings/admin-panel.md)).
-Logos uploaded via the admin panel supersede any logo set through the configuration files.
+両方のロゴは、管理パネルから直接カスタマイズすることも可能です（[ユーザーガイド](/user-docs/settings/admin-panel.md)を参照してください）。
+管理パネルからアップロードされたロゴは、設定ファイルで指定されたロゴよりも優先されます。
 :::
 
-### Logos location in the admin panel
+### 管理パネルのロゴの場所
 
 <!--TODO: update screenshot #2 -->
 
-The logo handled by `config.auth.logo` logo is only shown on the login screen:
+`config.auth.logo`で管理されているロゴは、ログイン画面でのみ表示されます。
 
-![Location of the auth logo](/img/assets/development/config-auth-logo.png)
+![認証ロゴの位置](/img/assets/development/config-auth-logo.png)
 
-The logo handled by `config.menu.logo` logo is located in the main navigation at the top left corner of the admin panel:
+`config.menu.logo`で管理されているロゴは、管理パネルのメインナビゲーションの左上隅に表示されます。
 
-![Location of Menu logo](/img/assets/development/config-menu-logo.png)
+![メニューロゴの位置](/img/assets/development/config-menu-logo.png)
 
-### Updating logos
+### ロゴの更新
 
-To update the logos, put image files in the `/src/admin/extensions` folder, import these files in `src/admin/app.[tsx|js]` and update the corresponding keys as in the following example:
+ロゴを更新するには、画像ファイルを`/src/admin/extensions`フォルダに配置し、これらのファイルを`src/admin/app.[tsx|js]`でインポートし、次のように対応するキーを更新します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -351,14 +349,15 @@ import MenuLogo from "./extensions/my-menu-logo.png";
 
 export default {
   config: {
-    // … other configuration properties 
-    auth: { // Replace the Strapi logo in auth (login) views
+    // 他の設定プロパティ
+    auth: { // 認証（ログイン）画面でStrapiロゴを置き換える
       logo: AuthLogo,
     },
-    menu: { // Replace the Strapi logo in the main navigation
+    menu: { // メインナビゲーションでStrapiロゴを置き換える
       logo: MenuLogo,
     },
-    // … other configuration properties 
+    // 他の設定プロパティ
+  },
 
   bootstrap() {},
 };
@@ -374,14 +373,15 @@ import MenuLogo from "./extensions/my-menu-logo.png";
 
 export default {
   config: {
-    // … other configuration properties 
-    auth: { // Replace the Strapi logo in auth (login) views
+    // 他の設定プロパティ
+    auth: { // 認証（ログイン）画面でStrapiロゴを置き換える
       logo: AuthLogo,
     },
-    menu: { // Replace the Strapi logo in the main navigation
+    menu: { // メインナビゲーションでStrapiロゴを置き換える
       logo: MenuLogo,
     },
-    // … other configuration properties 
+    // 他の設定プロパティ
+  },
 
   bootstrap() {},
 };
@@ -391,24 +391,24 @@ export default {
 </Tabs>
 
 :::note
-There is no size limit for image files set through the configuration files.
+設定ファイルを通じて設定された画像ファイルのサイズには制限はありません。
 :::
 
 ## Favicon
 
-To replace the favicon:
+Faviconを置き換えるには、次の手順に従います。
 
-1. Create a `/src/admin/extensions/` folder if the folder does not already exist.
-2. Upload your favicon into `/src/admin/extensions/`.
-3. Replace the existing **favicon.png|ico** file at the Strapi application root with a custom `favicon.png|ico` file.
-4. Update `/src/admin/app.[tsx|js]` with the following:
+1. `/src/admin/extensions/`フォルダが存在しない場合は作成します。
+2. カスタムfaviconを`/src/admin/extensions/`にアップロードします。
+3. Strapiアプリケーションルートにある既存の**favicon.png|ico**ファイルを、カスタムの`favicon.png|ico`ファイルに置き換えます。
+4. `/src/admin/app.[tsx|js]`を次のように更新します。
 
    ```js title="./src/admin/app.js"
    import favicon from "./extensions/favicon.png";
 
    export default {
      config: {
-       // replace favicon with a custom icon
+       // カスタムアイコンでfaviconを置き換える
        head: {
          favicon: favicon,
        },
@@ -416,33 +416,35 @@ To replace the favicon:
    };
    ```
 
-5. Rebuild, launch and revisit your Strapi app by running `yarn build && yarn develop` in the terminal.
+5. ターミナルで`yarn build && yarn develop`コマンドを実行し、Strapiアプリを再構築、起動、再度アクセスします。
 
 :::tip
-This same process may be used to replace the login logo (i.e. `AuthLogo`) and menu logo (i.e. `MenuLogo`) (see [logos customization documentation](#logos)).
+この手順は、ログインロゴ（`AuthLogo`）やメニューロゴ（`MenuLogo`）を置き換える場合にも同様に使用できます（[ロゴカスタマイズのドキュメント](#ロゴ)を参照）。
 :::
 
 :::caution
-Make sure that the cached favicon is cleared. It can be cached in your web browser and also with your domain management tool like Cloudflare's CDN.
+キャッシュされたfaviconがクリアされていることを確認してください。これは、ウェブブラウザやCloudflareのCDNなどのドメイン管理ツールにキャッシュされる可能性があります。
 :::
 
-## Tutorial videos
+## ビデオチュートリアル
 
-To disable the information box containing the tutorial videos, set the `config.tutorials` key of the `src/admin/app.[tsx|js]` file to `false`.
+ビデオチュートリアルを含む情報ボックスを無効化するには、`src/admin/app.[tsx|js]`ファイルの`config.tutorials`キーを`false`に設定します。
 
-## Releases notifications
+## リリース通知
 
-To disable notifications about new Strapi releases, set the `config.notifications.releases` key of the `src/admin/app.[tsx|js]` file to `false`.
+新しいStrapiリリースに関する通知を無効化するには、`src/admin/app.[tsx|js]`ファイルの`config.notifications.releases`キーを`false`に設定します。
 
-## Theme extension
+## テーマの拡張
 
-Strapi applications can be displayed either in Light or Dark mode (see [administrator profile setup in the User Guide](/user-docs/getting-started/setting-up-admin-panel#setting-up-your-administrator-profile)), and both can be extended through custom theme settings.
+Strapiアプリケーションはライトモードとダークモードで表示できます（[ユーザーガイドの管理者プロフィール設定](https://docs.strapi.io/user-docs/getting-started/setting-up-admin-panel#setting-up-your-administrator-profile)を参照）。どちらもカスタムテーマ設定を通じて拡張できます。
 
-To extend the theme, use either:
+テーマを拡張するには、次のいずれかを使用します。
 
-- the `config.theme.light` key for the Light mode
-- the `config.theme.dark` key for the Dark mode
+- ライトモードの場合は`config.theme.light`キー
+- ダークモードの場合は
 
-:::strapi Strapi Design System
-The default [Strapi theme](https://github.com/strapi/design-system/tree/main/packages/design-system/src/themes) defines various theme-related keys (shadows, colors…) that can be updated through the `config.theme.light` and `config.theme.dark` keys in `./admin/src/app.js`. The [Strapi Design System](https://design-system.strapi.io/) is fully customizable and has a dedicated [StoryBook](https://design-system-git-main-strapijs.vercel.app) documentation.
+`config.theme.dark`キー
+
+:::strapi Strapiデザインシステム
+デフォルトの[Strapiテーマ](https://github.com/strapi/design-system/tree/main/packages/design-system/src/themes)では、影、色などのさまざまなテーマ関連のキーが定義されており、`./admin/src/app.js`の`config.theme.light`および`config.theme.dark`キーを通じて更新できます。[Strapiデザインシステム](https://design-system.strapi.io/)は完全にカスタマイズ可能で、専用の[StoryBook](https://design-system-git-main-strapijs.vercel.app)ドキュメントもあります。
 :::

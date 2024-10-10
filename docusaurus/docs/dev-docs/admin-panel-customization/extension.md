@@ -1,35 +1,35 @@
 ---
-title: Admin panel extension
-description: Learn more about extending Strapi's admin panel.
-sidebar_label: Extension
+title: 管理パネルの拡張
+description: Strapiの管理パネルを拡張する方法について学びましょう。
+sidebar_label: 拡張
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
+- 管理パネル
+- 管理パネルのカスタマイズ
 
 ---
 
 import HotReloading from '/docs/snippets/hot-reloading-admin-panel.md'
 
-# Admin panel extension
+# 管理パネルの拡張
 
-Strapi's admin panel is a React-based single-page application that encapsulates all the features and installed plugins of a Strapi application. If the [customization options](/dev-docs/admin-panel-customization/options) provided by Strapi are not enough for your use case, you will need to extend Strapi's admin panel.
+Strapiの管理パネルは、Strapiアプリケーションのすべての機能とインストールされたプラグインをカプセル化した、Reactベースのシングルページアプリケーションです。Strapiが提供する[カスタマイズオプション](/dev-docs/admin-panel-customization/options)がニーズに合わない場合、管理パネルを拡張する必要があります。
 
-Extending Strapi's admin panel means leveraging its React foundation to adapt and enhance the interface and features according to the specific needs of your project, which might imply creating new components or adding new types of fields.
+管理パネルの拡張とは、Reactの基盤を活用してインターフェースや機能をプロジェクトの特定の要件に応じて適応・強化することを意味します。これには、新しいコンポーネントの作成や新しいタイプのフィールドの追加が含まれる場合があります。
 
-There are 2 use cases where you might want to extend the admin panel:
+管理パネルを拡張したいケースは2つあります。
 
-- As a Strapi plugin developer, you want to develop a Strapi plugin that extends the admin panel **everytime it's installed in any Strapi application**.
+- **Strapiプラグイン開発者**として、Strapiアプリケーションにインストールされるたびに管理パネルを拡張するプラグインを開発したい場合。
 
-  👉 This can be done by taking advantage of the [Admin Panel API for plugins](/dev-docs/plugins/admin-panel-api).
+  👉 これは、[プラグイン用管理パネルAPI](/dev-docs/plugins/admin-panel-api)を利用することで実現できます。
 
-- As a Strapi developer, you want to develop a unique solution for a Strapi user who only needs to extend a specific instance of a Strapi application.
+- **Strapi開発者**として、特定のStrapiアプリケーションインスタンスだけを拡張するユニークなソリューションを開発したい場合。
 
-  👉 This can be done by directly updating the `/src/admin/app.[tsx|js]` file, which can import any file located in `/src/admin/extensions`.
+  👉 これは、`/src/admin/app.[tsx|js]`ファイルを直接更新し、`/src/admin/extensions`に配置された任意のファイルをインポートすることで実現できます。
 
-:::strapi Additional resources
-* If you're searching for ways of replacing the default WYSIWYG editor, please refer to the [corresponding page](/dev-docs/admin-panel-customization/wysiwyg-editor).
-* The [Strapi Design System documentation](https://design-system.strapi.io/?path=/docs/getting-started-welcome--docs) will also provide additional information on developing for Strapi's admin panel.
+:::strapi 追加リソース
+* デフォルトのWYSIWYGエディタを置き換える方法を探している場合は、[該当ページ](/dev-docs/admin-panel-customization/wysiwyg-editor)を参照してください。
+* [Strapiデザインシステムのドキュメント](https://design-system.strapi.io/?path=/docs/getting-started-welcome--docs)では、管理パネル開発に関する追加情報も提供しています。
 :::
 
 <HotReloading />

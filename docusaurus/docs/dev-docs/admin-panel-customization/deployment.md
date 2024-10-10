@@ -1,30 +1,30 @@
 ---
-title: Admin panel deployment
-description: Learn more about deploying Strapi's admin panel in various scenarios.
-sidebar_label: Deployment
+title: 管理パネルのデプロイ
+description: Strapiの管理パネルをさまざまなシナリオでデプロイする方法について学びましょう。
+sidebar_label: デプロイ
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
-- deployment
+- 管理パネル 
+- 管理パネルのカスタマイズ
+- デプロイ
 ---
 
-# Admin panel deployment
+# 管理パネルのデプロイ
 
-The front-end part of Strapi is called the admin panel. The admin panel presents a graphical user interface to help you structure and manage the content that will be accessible to your application's own front-end through Strapi's Content API.
+Strapiのフロントエンド部分は「管理パネル」と呼ばれます。管理パネルはグラフィカルユーザーインターフェイスを提供し、アプリケーションのフロントエンドでStrapiのContent APIを通じてアクセスできるコンテンツを構築・管理するのに役立ちます。
 
-The admin panel is a React-based single-page application that encapsulates all the features and installed plugins of a Strapi application.
+管理パネルはReactベースのシングルページアプリケーションで、Strapiアプリケーションのすべての機能とインストールされたプラグインをカプセル化しています。
 
-The [back-end server](/dev-docs/backend-customization) of Strapi serves the Content API which provides endpoints to your content.
+Strapiの[バックエンドサーバー](/dev-docs/backend-customization)はContent APIを提供し、コンテンツにアクセスするためのエンドポイントを提供します。
 
-By default, the back-end server and the admin panel server are deployed on the same server. But the admin panel and the back-end server are independent and can be deployed on different servers, which brings us to different scenarios:
+デフォルトでは、バックエンドサーバーと管理パネルサーバーは同じサーバー上にデプロイされます。しかし、管理パネルとバックエンドサーバーは独立しており、異なるサーバーにデプロイすることも可能です。このため、次のような異なるシナリオが考えられます。
 
-- Deploy the entire project on the same server.
-- Deploy the administration panel on a server (AWS S3, Azure, etc) different from the API server.
+- プロジェクト全体を同じサーバーにデプロイする。
+- 管理パネルをAPIサーバーとは異なるサーバー（AWS S3、Azureなど）にデプロイする。
 
-Build configurations differ for each case.
+ケースごとにビルド設定が異なります。
 
-Before deployment, the admin panel needs to be built, by running the following command from the project's root directory:
+デプロイ前に、プロジェクトのルートディレクトリで次のコマンドを実行して管理パネルをビルドする必要があります。
 
 <Tabs groupId="yarn-npm">
 
@@ -46,19 +46,19 @@ npm run build
 
 </Tabs>
 
-This will replace the folder's content located at `./build`. Visit [http://localhost:1337/admin](http://localhost:1337/admin) to make sure customizations have been taken into account.
+これにより、`./build`フォルダの内容が置き換えられます。[http://localhost:1337/admin](http://localhost:1337/admin)にアクセスして、カスタマイズが反映されているか確認してください。
 
-## Same server
+## 同じサーバー
 
-Deploying the admin panel and the back end (API) of Strapi on the same server is the default behavior. The build configuration will be automatically set. The server will start on the defined port and the administration panel will be accessible through `http://yourdomain.com:1337/admin`.
+管理パネルとStrapiのバックエンド(API)を同じサーバーにデプロイすることはデフォルトの動作です。ビルド設定は自動的に行われます。サーバーは指定されたポートで起動し、管理パネルは`http://yourdomain.com:1337/admin`でアクセス可能になります。
 
 :::tip
-You might want to [change the path to access the administration panel](/dev-docs/admin-panel-customization/host-port-path).
+[管理パネルへのアクセスパスを変更](/dev-docs/admin-panel-customization/host-port-path)することも可能です。
 :::
 
-## Different servers
+## 異なるサーバー
 
-To deploy the admin panel and the back end (API) of Strapi on different servers, use the following configuration:
+管理パネルとStrapiのバックエンド(API)を異なるサーバーにデプロイするには、次の設定を使用します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -74,11 +74,11 @@ module.exports = ({ env }) => ({
 ```js title="./config/admin.js"
 module.exports = ({ env }) => ({
   /**
-   * Note: The administration will be accessible from the root of the domain 
-   * (ex: http://yourfrontend.com/)
+   * 注意: 管理パネルはドメインのルートからアクセス可能です 
+   * (例: http://yourfrontend.com/)
    */ 
   url: "/",
-  serveAdminPanel: false, // http://yourbackend.com will not serve any static admin files
+  serveAdminPanel: false, // http://yourbackend.com は管理パネルの静的ファイルを提供しません
 });
 ```
 
@@ -97,21 +97,21 @@ export default ({ env }) => ({
 ```js title="./config/admin.ts"
 export default ({ env }) => ({
   /**
-   * Note: The administration will be accessible from the root of the domain 
-   * (ex: http://yourfrontend.com/)
+   * 注意: 管理パネルはドメインのルートからアクセス可能です 
+   * (例: http://yourfrontend.com/)
    */ 
   url: "/",
-  serveAdminPanel: false, // http://yourbackend.com will not serve any static admin files
+  serveAdminPanel: false, // http://yourbackend.com は管理パネルの静的ファイルを提供しません
 });
 ```
 
 </TabItem>
 </Tabs>
 
-After running `yarn build` with this configuration, the `build` folder will be created/overwritten. Use this folder to serve it from another server with the domain of your choice (e.g. `http://yourfrontend.com`).
+この設定で`yarn build`を実行すると、`build`フォルダが作成または上書きされます。このフォルダを使用して、別のサーバーから任意のドメイン（例: `http://yourfrontend.com`）で提供します。
 
-The administration URL will then be `http://yourfrontend.com` and every request from the panel will hit the backend at `http://yourbackend.com`.
+管理パネルのURLは`http://yourfrontend.com`となり、パネルからのすべてのリクエストは`http://yourbackend.com`のバックエンドに送信されます。
 
 :::note
-If you add a path to the `url` option, it won't prefix your application. To do so, use a proxy server like Nginx (see [optional software deployment guides](/dev-docs/deployment#optional-software-guides)).
+`url`オプションにパスを追加しても、アプリケーションのプレフィックスにはなりません。これを実現するには、Nginxなどのプロキシサーバーを使用します（[オプションのソフトウェアデプロイガイド](/dev-docs/deployment#optional-software-guides)を参照してください）。
 :::
