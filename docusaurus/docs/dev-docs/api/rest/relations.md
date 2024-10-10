@@ -1,33 +1,33 @@
 ---
-title: Relations
-description: Use the REST API to manage the order of relations
+title: 関係性
+description: REST APIを使用して関係性の順序を管理します
 displayed_sidebar: restApiSidebar
 tags:
 - API 
-- relations
+- 関係性
 - Content API
-- disconnect
+- 切断
 - REST API
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Managing relations with API requests
+# APIリクエストでの関係性の管理
 
-Defining relations between content-types (that are designated as entities in the database layers) is connecting entities with each other.
+コンテンツタイプ間の関係性を定義することは、データベースレイヤーでエンティティとして指定されたコンテンツタイプを互いに接続することです。
 
-Relations between content-types can be managed through the [admin panel](/user-docs/content-manager/managing-relational-fields#managing-multiple-choices-relational-fields) or through [REST API](/dev-docs/api/rest) or [Document Service API](/dev-docs/api/document-service) requests.
+コンテンツタイプ間の関係性は、[管理パネル](/user-docs/content-manager/managing-relational-fields#managing-multiple-choices-relational-fields)または[REST API](/dev-docs/api/rest)または[Document Service API](/dev-docs/api/document-service)のリクエストを通じて管理することができます。
 
-Relations can be connected, disconnected or set through the Content API by passing parameters in the body of the request:
+関係性は、リクエストのボディにパラメータを渡すことにより、Content APIを通じて接続、切断、または設定することができます:
 
-|  Parameter name         | Description | Type of update |
+|  パラメータ名         | 説明 | 更新のタイプ |
 |-------------------------|-------------|----------------|
-| [`connect`](#connect)   | Connects new entities.<br /><br />Can be used in combination with `disconnect`.<br /><br />Can be used with [positional arguments](#relations-reordering) to define an order for relations.    | Partial |
-| [`disconnect`](#disconnect)    | Disconnects entities.<br /><br />Can be used in combination with `connect`. | Partial |
-| [`set`](#set)           | Set entities to a specific set. Using `set` will overwrite all existing connections to other entities.<br /><br />Cannot be used in combination with `connect` or `disconnect`.  | Full |
+| [`connect`](#connect)   | 新しいエンティティを接続します。<br /><br />`disconnect`と組み合わせて使用することができます。<br /><br />関係性の順序を定義するために[位置引数](#relations-reordering)と組み合わせて使用することができます。    | 部分的な更新 |
+| [`disconnect`](#disconnect)    | エンティティを切断します。<br /><br />`connect`と組み合わせて使用することができます。 | 部分的な更新 |
+| [`set`](#set)           | エンティティを特定のセットに設定します。`set`を使用すると、他のエンティティへのすべての既存の接続が上書きされます。<br /><br />`connect`または`disconnect`と組み合わせて使用することはできません。  | 完全な更新 |
 
 :::note
-When [Internationalization (i18n)](/user-docs/content-manager/translating-content) is enabled on the content-type, you can also pass a locale to set relations for a specific locale, as in this Document Service API example:
+コンテンツタイプに[国際化（i18n）](/user-docs/content-manager/translating-content)が有効になっている場合、特定のロケールの関係性を設定するためにロケールを渡すこともできます。以下にDocument Service APIの例を示します:
 
 ```js
 await strapi.documents('api::restaurant.restaurant').update({ 
@@ -41,35 +41,35 @@ await strapi.documents('api::restaurant.restaurant').update({
 })
 ```
 
-If no locale is passed, the default locale will be assumed.
+ロケールが渡されない場合、デフォルトのロケールが想定されます。
 :::
 
 ## `connect`
 
-Using `connect` in the body of a request performs a partial update, connecting the specified relations.
+リクエストのボディで`connect`を使用すると、指定された関係性を接続する部分的な更新が行われます。
 
-`connect` accepts either a shorthand or a longhand syntax:
+`connect`は省略形式または詳細形式の構文を受け入れます:
 
-| Syntax type | Syntax example |
+| 構文タイプ | 構文の例 |
 | ------------|----------------|
-| shorthand   | `connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']` |
-| longhand    | ```connect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
+| 省略形   | `connect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']` |
+| 詳細形    | ```connect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
 
-You can also use the longhand syntax to [reorder relations](#relations-reordering).
+詳細形式の構文を使用して[関係性の順序を変更](#relations-reordering)することもできます。
 
-`connect` can be used in combination with [`disconnect`](#disconnect).
+`connect`は[`disconnect`](#disconnect)と組み合わせて使用することができます。
 
 :::caution
-`connect` can not be used for media attributes (see [Upload plugin documentation](/dev-docs/plugins/upload#examples) for more details).
+`connect`はメディア属性には使用できません（詳細は[Upload plugin documentation](/dev-docs/plugins/upload#examples)を参照してください）。
 :::
 
 <Tabs groupId="shorthand-longhand">
 
-<TabItem value="shorthand" label="Shorthand syntax example">
+<TabItem value="shorthand" label="省略形構文の例">
 
-Sending the following request updates a `restaurant`, identified by its `documnentId` `a1b2c3d4e5f6g7h8i9j0klm`. The request uses the `categories` attribute to connect the restaurant with 2 categories identified by their `documentId`:
+以下のリクエストを送信すると、その`documnentId` `a1b2c3d4e5f6g7h8i9j0klm`で特定される`restaurant`が更新されます。リクエストは`categories`属性を使用して、その`documentId`で特定される2つのカテゴリとレストランを接続します。
 
-<MultiLanguageSwitcher title="Example request using the shorthand syntax">
+<MultiLanguageSwitcher title="短縮構文を使用した例のリクエスト">
 <MultiLanguageSwitcherRequest language="REST">
 
 `PUT` `http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
@@ -111,11 +111,11 @@ const response = await fetch(
 
 </TabItem>
 
-<TabItem value="longhand" label="Longhand syntax example">
+<TabItem value="longhand" label="詳細構文の例">
 
-Sending the following request updates a `restaurant`, identified by its `documnentId` `a1b2c3d4e5f6g7h8i9j0klm`. The request uses the `categories` attribute to connect the restaurant with 2 categories identified by their `documentId`:
+以下のリクエストを送信すると、その`documnentId` `a1b2c3d4e5f6g7h8i9j0klm`で特定される`restaurant`が更新されます。リクエストは`categories`属性を使用して、その`documentId`で特定される2つのカテゴリとレストランを接続します。
 
-<MultiLanguageSwitcher title="Example request using the longhand syntax">
+<MultiLanguageSwitcher title="詳細構文を使用した例のリクエスト">
 <MultiLanguageSwitcherRequest language="REST">
 
 `PUT` `http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
@@ -164,40 +164,40 @@ const response = await fetch(
 </TabItem>
 </Tabs>
 
-### Relations reordering
+### 関係の並べ替え
 
-Positional arguments can be passed to the longhand syntax of `connect` to define the order of relations.
+`connect`の詳細構文には、関係の順序を定義するための位置引数を渡すことができます。
 
-The longhand syntax accepts an array of objects, each object containing the `documentId` of the entry to be connected and an optional `position` object to define where to connect the relation.
+詳細構文は、各オブジェクトが接続するエントリーの`documentId`と、関係を接続する位置を定義するオプションの`position`オブジェクトを含むオブジェクトの配列を受け入れます。
 
-:::note Different syntaxes for different relations
-The syntaxes described in this documentation are useful for one-to-many, many-to-many and many-ways relations.<br />For one-to-one, many-to-one and one-way relations, the syntaxes are also supported but only the last relation will be used, so it's preferable to use a shorter format (e.g.: `{ data: { category: 'a1b2c3d4e5f6g7h8i9j0klm' } }`, see [REST API documentation](/dev-docs/api/rest#requests)).
+:::note 異なる関係性に対する異なる構文
+このドキュメントで説明されている構文は、一対多、多対多、多方向の関係性に有用です。<br />一対一、多対一、一方向の関係性についても、構文はサポートされていますが、最後の関係性のみが使用されるため、より短い形式を使用することが望ましいです（例：`{ data: { category: 'a1b2c3d4e5f6g7h8i9j0klm' } }`、[REST API ドキュメンテーション](/dev-docs/api/rest#requests)を参照）。
 :::
 
-To define the `position` for a relation, pass one of the following 4 different positional attributes:
+関係性の`position`を定義するには、以下の4つの異なる位置属性のうちの1つを指定します：
 
-| Parameter name and syntax | Description                                                            | Type       |
+| パラメータ名と構文 | 説明                                                            | タイプ       |
 | ------------------------- | ---------------------------------------------------------------------- | ---------- |
-| `before: documentId`      | Positions the relation before the given `documentId`.                  | `documentId` (string) |
-| `after: documentId`       | Positions the relation after the given `documentId`.                   | `documentId` (string) |
-| `start: true`             | Positions the relation at the start of the existing list of relations. | Boolean    |
-| `end: true`               | Positions the relation at the end of the existing list of relations.   | Boolean    |
+| `before: documentId`      | 指定した`documentId`の前に関係性を配置します。                  | `documentId`（文字列） |
+| `after: documentId`       | 指定した`documentId`の後に関係性を配置します。                   | `documentId`（文字列） |
+| `start: true`             | 既存の関係性のリストの先頭に関係性を配置します。 | Boolean    |
+| `end: true`               | 既存の関係性のリストの末尾に関係性を配置します。   | Boolean    |
 
-The `position` argument is optional and defaults to `position: { end: true }`.
+`position`引数はオプションで、デフォルトは`position: { end: true }`です。
 
-:::note Sequential order
-Since `connect` is an array, the order of operations is important as they will be treated sequentially (see combined example below).
+:::note 順序の連続性
+`connect`は配列であるため、操作の順序は重要で、それらは順番に処理されます（以下の組み合わせ例を参照）。
 :::
 
 :::caution
-The same relation should not be connected more than once, otherwise it would return a Validation error by the API.
+同じ関係性を複数回接続しないでください。そうすると、APIによってバリデーションエラーが返されます。
 :::
 
 <Tabs>
 
-<TabItem value="basic" label="Basic example">
+<TabItem value="basic" label="基本的な例">
 
-Consider the following record in the database:
+データベースには以下のレコードが存在するとします：
 
 ```js
 categories: [
@@ -206,9 +206,9 @@ categories: [
 ]
 ```
 
-Sending the following request updates a `restaurant`, identified by its `documentId` `a1b2c3d4e5f6g7h8i9j0klm`, connecting a relation of entity with a `documentId` of `ma12bc34de56fg78hi90jkl` for the `categories` attribute and positioning it before the entity with `documentId` `z0y2x4w6v8u1t3s5r7q9onm`:
+以下のリクエストを送信すると、`documentId`が`a1b2c3d4e5f6g7h8i9j0klm`の`restaurant`を更新し、`categories`属性のエンティティの関係性を`documentId`が`ma12bc34de56fg78hi90jkl`のエンティティと接続し、それを`documentId`が`z0y2x4w6v8u1t3s5r7q9onm`のエンティティの前に配置します：
 
-<Request title="Example request to update the position of one relation">
+<Request title="関係性の位置を更新するための例示リクエスト">
 
 `PUT http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
 
@@ -227,9 +227,9 @@ Sending the following request updates a `restaurant`, identified by its `documen
 </Request>
 </TabItem>
 
-<TabItem value="combined" label="Combined example">
+<TabItem value="combined" label="組み合わせ例">
 
-Consider the following record in the database:
+データベースには以下のレコードが存在するとします：
 
 ```js
 categories: [
@@ -238,9 +238,9 @@ categories: [
 ]
 ```
 
-Sending the following example in the request body of a PUT request updates multiple relations:
+以下の例をPUTリクエストのリクエストボディに含めて送信すると、複数の関係性が更新されます：
 
-<Request title="Example request to reorder several relations">
+<Request title="複数の関係性の順序を変更するための例示リクエスト">
 
 `PUT http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
 
@@ -262,7 +262,7 @@ Sending the following example in the request body of a PUT request updates multi
 
 </Request>
 
-Omitting the `position` argument (as in `documentId: 'srkvrr77k96o44d9v6ef1vu9'`) defaults to `position: { end: true }`. All other relations are positioned relative to another existing `id` (using `after` or `before`) or relative to the list of relations (using `start` or `end`). Operations are treated sequentially in the order defined in the `connect` array, so the resulting database record will be the following:
+`position`引数を省略する（`documentId: 'srkvrr77k96o44d9v6ef1vu9'`のように）と、デフォルトでは`position: { end: true }`が適用されます。他のすべての関係は、既存の`id`に対して相対的に（`after`や`before`を使用して）または関係のリストに対して相対的に（`start`や`end`を使用して）位置付けられます。操作は、`connect`配列で定義された順序で逐次的に処理されるため、結果として得られるデータベースレコードは次のようになります：
 
 ```js
 categories: [
@@ -280,34 +280,34 @@ categories: [
 
 </Tabs>
 
-### Edge cases: Draft & Publish or i18n disabled
+### エッジケース：ドラフト＆パブリッシュまたはi18nが無効
 
-When some built-in features of Strapi 5 are disabled for a content-type, such as [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) and [Internationalization (i18)](/user-docs/content-manager/translating-content), the `connect` parameter might be used differently:
+Strapi 5の組み込み機能の一部がコンテンツタイプに対して無効にされている場合、例えば[ドラフト＆パブリッシュ](/user-docs/content-manager/saving-and-publishing-content)や[国際化（i18）](/user-docs/content-manager/translating-content)など、`connect`パラメーターの使用方法が異なる場合があります：
 
-**Relation from a `Category` with i18n _off_ to an `Article` with i18n _on_:**
+**i18nが_off_の`Category`からi18nが_on_の`Article`への関係：**
 
-In this situation you can select which locale you are connecting to:
+この状況では、どのロケールに接続するかを選択できます：
 
 ```js
 data: {
     categories: {
       connect: [
         { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', locale: 'en' },
-        // Connect to the same document id but with a different locale 👇
+        // 同じドキュメントIDに異なるロケールで接続 👇
         { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', locale: 'fr' },
       ]
    }
 }
 ```
 
-**Relation from a `Category` with Draft & Publish _off_ to an `Article` with Draft & Publish _on_:**
+**ドラフト＆パブリッシュが_off_の`Category`からドラフト＆パブリッシュが_on_の`Article`への関係：**
 
 ```js
 data: {
   categories: {
     connect: [
       { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', status: 'draft' },
-      // Connect to the same document id but with different publication states 👇
+      // 同じドキュメントIDに異なる公開状態で接続 👇
       { documentId: 'z0y2x4w6v8u1t3s5r7q9onm', status: 'published' },
     ]
   }
@@ -316,16 +316,16 @@ data: {
 
 ## `disconnect`
 
-Using `disconnect` in the body of a request performs a partial update, disconnecting the specified relations.
+リクエストの本文で`disconnect`を使用すると、指定された関係を切断する部分的な更新が行われます。
 
-`disconnect` accepts either a shorthand or a longhand syntax:
+`disconnect`は省略形または詳細形の構文を受け入れます：
 
-| Syntax type | Syntax example |
+| 構文タイプ | 構文例 |
 | ------------|----------------|
-| shorthand   | `disconnect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`
-| longhand    | ```disconnect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
+| 省略形   | `disconnect: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`
+| 詳細形    | ```disconnect: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
 
-`disconnect` can be used in combination with [`connect`](#connect).
+`disconnect`は[`connect`](#connect)と組み合わせて使用できます。
 
 <br />
 
@@ -333,9 +333,9 @@ Using `disconnect` in the body of a request performs a partial update, disconnec
 
 <TabItem value="shorthand" label="Shorthand syntax example">
 
-Sending the following request updates a `restaurant`, identified by its `documentId` `a1b2c3d4e5f6g7h8i9j0klm`, disconnecting the relations with 2 entries identified by their `documentId`:
+次のリクエストを送信すると、`documentId` `a1b2c3d4e5f6g7h8i9j0klm`によって識別される`restaurant`が更新され、その`documentId`によって識別される2つのエントリとの関連が切断されます：
 
-<Request title="Example request using the shorthand syntax">
+<Request title="省略形式を使用した例のリクエスト">
 
 `PUT http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
 
@@ -353,11 +353,11 @@ Sending the following request updates a `restaurant`, identified by its `documen
 
 </TabItem>
 
-<TabItem value="longhand" label="Longhand syntax example">
+<TabItem value="longhand" label="詳細形式の例">
 
-Sending the following request updates a `restaurant`, identified by its `documentId` `a1b2c3d4e5f6g7h8i9j0klm`, disconnecting the relations with 2 entries identified by their `documentId`:
+次のリクエストを送信すると、`documentId` `a1b2c3d4e5f6g7h8i9j0klm`によって識別される`restaurant`が更新され、その`documentId`によって識別される2つのエントリとの関連が切断されます：
 
-<Request title="Example request using the longhand syntax">
+<Request title="詳細形式を使用した例のリクエスト">
 
 `PUT http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
 
@@ -381,19 +381,19 @@ Sending the following request updates a `restaurant`, identified by its `documen
 
 ## `set`
 
-Using `set` performs a full update, replacing all existing relations with the ones specified, in the order specified.
+`set`を使用すると、全体の更新が行われ、指定された順序で既存のすべての関連が指定されたものに置き換えられます。
 
-`set` accepts a shorthand or a longhand syntax:
+`set`は省略形式または詳細形式の構文を受け入れます：
 
-| Syntax type | Syntax example                  |
+| 構文タイプ | 構文の例                  |
 | ----------- | ------------------------------- |
-| shorthand   | `set: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`                   |
-| longhand    | ```set: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
+| 省略形式   | `set: ['z0y2x4w6v8u1t3s5r7q9onm', 'j9k8l7m6n5o4p3q2r1s0tuv']`                   |
+| 詳細形式   | ```set: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }]``` |
 
-As `set` replaces all existing relations, it should not be used in combination with other parameters. To perform a partial update, use [`connect`](#connect) and [`disconnect`](#disconnect).
+`set`はすべての既存の関連を置き換えるため、他のパラメータと組み合わせて使用するべきではありません。部分的な更新を行うには、[`connect`](#connect)と[`disconnect`](#disconnect)を使用してください。
 
-:::note Omitting set
-Omitting any parameter is equivalent to using `set`.<br/>For instance, the following 3 syntaxes are all equivalent:
+:::note setの省略
+あらゆるパラメータを省略することは、`set`を使用することと同等です。<br/>例えば、以下の3つの構文はすべて同等です：
 
 - `data: { categories: set: [{ documentId: 'z0y2x4w6v8u1t3s5r7q9onm' }, { documentId: 'j9k8l7m6n5o4p3q2r1s0tuv' }] }}`
 - `data: { categories: set: ['z0y2x4w6v8u1t3s5r7q9onm2', 'j9k8l7m6n5o4p3q2r1s0tuv'] }}`
@@ -403,11 +403,11 @@ Omitting any parameter is equivalent to using `set`.<br/>For instance, the follo
 
 <Tabs groupId="shorthand-longhand">
 
-<TabItem value="shorthand" label="Shorthand syntax example">
+<TabItem value="shorthand" label="省略形式の例">
 
-Sending the following request updates a `restaurant`, identified by its `documentId` `a1b2c3d4e5f6g7h8i9j0klm`, replacing all previously existing relations and using the `categories` attribute to connect 2 categories identified by their `documentId`:
+次のリクエストを送信すると、`documentId` `a1b2c3d4e5f6g7h8i9j0klm`によって識別される`restaurant`が更新され、すべての既存の関連が置き換えられ、`categories`属性を使用して、その`documentId`で識別される2つのカテゴリーに接続されます：
 
-<Request title="Example request using the shorthand syntax with set">
+<Request title="setを使用した省略形式の例のリクエスト">
 
 `PUT http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
 
@@ -425,11 +425,11 @@ Sending the following request updates a `restaurant`, identified by its `documen
 
 </TabItem>
 
-<TabItem value="longhand" label="Longhand syntax example">
+<TabItem value="longhand" label="詳細形式の例">
 
-Sending the following request updates a `restaurant`, identified by its `documentId` `a1b2c3d4e5f6g7h8i9j0klm`, replacing all previously existing relations and using the `categories` attribute to connect 2 categories identified by their `documentId`:
+以下のリクエストを送信すると、`documentId` `a1b2c3d4e5f6g7h8i9j0klm`で識別される`restaurant`が更新され、すべての既存の関係が置き換えられ、`categories`属性を使用して、`documentId`で識別される2つのカテゴリが接続されます：
 
-<Request title="Example request using the longhand syntax with set">
+<Request title="長い構文を使用したsetとともに例示するリクエスト">
 
 `PUT http://localhost:1337/api/restaurants/a1b2c3d4e5f6g7h8i9j0klm`
 
@@ -450,5 +450,4 @@ Sending the following request updates a `restaurant`, identified by its `documen
 
 </TabItem>
 </Tabs>
-
 <FeedbackPlaceholder />

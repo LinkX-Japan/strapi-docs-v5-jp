@@ -1,6 +1,6 @@
 ---
-title: Sort and Pagination
-description: Use Strapi's REST API to sort or paginate your data.
+title: 並び替えとページネーション
+description: StrapiのREST APIを使用してデータを並び替えたり、ページネーションを行います。
 sidebarDepth: 3
 displayed_sidebar: restApiSidebar
 tags:
@@ -20,9 +20,9 @@ import QsForQueryTitle from '/docs/snippets/qs-for-query-title.md'
 import QsForQueryBody from '/docs/snippets/qs-for-query-body.md'
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# REST API: Sort & Pagination
+# REST API: 並び替えとページネーション
 
-Entries that are returned by queries to the [REST API](/dev-docs/api/rest) can be sorted and paginated.
+[REST API](/dev-docs/api/rest)へのクエリによって返されるエントリは、並び替えやページネーションが可能です。
 
 :::tip
 
@@ -30,24 +30,24 @@ Entries that are returned by queries to the [REST API](/dev-docs/api/rest) can b
 
 :::
 
-## Sorting
+## 並び替え
 
-Queries can accept a `sort` parameter that allows sorting on one or multiple fields with the following syntaxes:
+クエリは、以下の構文で1つまたは複数のフィールドを並び替えることを許可する`sort`パラメータを受け入れることができます：
 
-- `GET /api/:pluralApiId?sort=value` to sort on 1 field
-- `GET /api/:pluralApiId?sort[0]=value1&sort[1]=value2` to sort on multiple fields (e.g. on 2 fields)
+- `GET /api/:pluralApiId?sort=value` で1つのフィールドを並び替える
+- `GET /api/:pluralApiId?sort[0]=value1&sort[1]=value2` で複数のフィールドを並び替える（例：2つのフィールド）
 
-The sorting order can be defined with:
+並び替えの順序は以下のように定義できます：
 
-- `:asc` for ascending order (default order, can be omitted)
-- or `:desc` for descending order.
+- `:asc` で昇順（デフォルトの順序、省略可能）
+- または `:desc` で降順。
 
 <SideBySideContainer>
 <SideBySideColumn>
 
-### Example: Sort using 2 fields
+### 例：2つのフィールドを使用して並び替える
 
-You can sort by multiple fields by passing fields in a `sort` array.
+`sort`配列にフィールドを渡すことで、複数のフィールドで並び替えることができます。
 
 </SideBySideColumn>
 
@@ -56,13 +56,13 @@ You can sort by multiple fields by passing fields in a `sort` array.
 <br />
 
 <ApiCall>
-<Request title="Example request: Sort using 2 fields">
+<Request title="例：2つのフィールドを使用して並び替えるリクエスト">
 
 `GET /api/restaurants?sort[0]=Description&sort[1]=Name`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例：レスポンス">
 
 ```json
 {
@@ -136,9 +136,9 @@ await request(`/api/restaurants?${query}`);
 <SideBySideContainer>
 <SideBySideColumn>
 
-### Example: Sort using 2 fields and set the order
+### 例：2つのフィールドを使用して並び替え、順序を設定する
 
-Using the `sort` parameter and defining `:asc` or  `:desc` on sorted fields, you can get results sorted in a particular order.
+`sort`パラメータを使用し、並び替えたフィールドに`:asc`または`:desc`を定義することで、特定の順序で結果を並び替えることができます。
 
 </SideBySideColumn>
 
@@ -147,13 +147,13 @@ Using the `sort` parameter and defining `:asc` or  `:desc` on sorted fields, you
 <br />
 
 <ApiCall>
-<Request title="Example request: Sort using 2 fields and set the order">
+<Request title="例：2つのフィールドを使用して並び替え、順序を設定するリクエスト">
 
 `GET /api/restaurants?sort[0]=Description:asc&sort[1]=Name:desc`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -161,14 +161,14 @@ Using the `sort` parameter and defining `:asc` or  `:desc` on sorted fields, you
     {
       "id": 8,
       "documentId": "flzc8qrarj19ee0luix8knxn",
-      "Name": "Restaurant D",
+      "Name": "レストランD",
       "Description": [
         {
           "type": "paragraph",
           "children": [
             {
               "type": "text",
-              "text": "A very short description goes here."
+              "text": "ここに非常に短い説明が入ります。"
             }
           ]
         }
@@ -185,7 +185,7 @@ Using the `sort` parameter and defining `:asc` or  `:desc` on sorted fields, you
           "children": [
             {
               "type": "text",
-              "text": "A very short description goes here."
+              "text": "ここに非常に短い説明が入ります。"
             }
           ]
         }
@@ -214,7 +214,7 @@ const qs = require('qs');
 const query = qs.stringify({
   sort: ['Description:asc', 'Name:desc'],
 }, {
-  encodeValuesOnly: true, // prettify URL
+  encodeValuesOnly: true, // URLをきれいにする
 });
 
 await request(`/api/restaurants?${query}`);
@@ -225,34 +225,34 @@ await request(`/api/restaurants?${query}`);
 </SideBySideColumn>
 </SideBySideContainer>
 
-## Pagination
+## ページネーション
 
-Queries can accept `pagination` parameters. Results can be paginated:
+クエリは`pagination`パラメータを受け入れることができます。結果はページネーションできます：
 
-- either by [page](#pagination-by-page) (i.e., specifying a page number and the number of entries per page)
-- or by [offset](#pagination-by-offset) (i.e., specifying how many entries to skip and to return)
+- [ページ](#pagination-by-page)ごと（つまり、ページ番号とページごとのエントリ数を指定）
+- または[オフセット](#pagination-by-offset)ごと（つまり、スキップするエントリ数と返すエントリ数を指定）
 
 :::note
-Pagination methods can not be mixed. Always use either `page` with `pageSize` **or** `start` with `limit`.
+ページネーション方法は混在できません。常に`page`と`pageSize`、**または** `start`と`limit`を使用してください。
 :::
 
-### Pagination by page
+### ページごとのページネーション
 
-To paginate results by page, use the following parameters:
+ページごとに結果をページネーションするには、以下のパラメータを使用します：
 
-| Parameter               | Type    | Description                                                               | Default |
+| パラメータ               | タイプ    | 説明                                                               | デフォルト |
 | ----------------------- | ------- | ------------------------------------------------------------------------- | ------- |
-| `pagination[page]`      | Integer | Page number                                                               | 1       |
-| `pagination[pageSize]`  | Integer | Page size                                                                 | 25      |
-| `pagination[withCount]` | Boolean | Adds the total numbers of entries and the number of pages to the response | True    |
+| `pagination[page]`      | 整数 | ページ番号                                                               | 1       |
+| `pagination[pageSize]`  | 整数 | ページサイズ                                                                 | 25      |
+| `pagination[withCount]` | ブール | 応答にエントリの総数とページ数を追加します | True    |
 
 <ApiCall>
-<Request title="Example request: Return only 10 entries on page 1">
+<Request title="例のリクエスト: ページ1に10エントリだけを返す">
 
 `GET /api/articles?pagination[page]=1&pagination[pageSize]=10`
 
 </Request>
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -286,7 +286,7 @@ const query = qs.stringify({
     pageSize: 10,
   },
 }, {
-  encodeValuesOnly: true, // prettify URL
+  encodeValuesOnly: true, // URLをきれいにする
 });
 
 await request(`/api/articles?${query}`);
@@ -294,28 +294,28 @@ await request(`/api/articles?${query}`);
 
 </details>
 
-### Pagination by offset
+### オフセットによるページネーション
 
-To paginate results by offset, use the following parameters:
+オフセットによる結果のページネーションには、以下のパラメーターを使用します：
 
-| Parameter               | Type    | Description                                                    | Default |
+| パラメーター               | タイプ    | 説明                                                    | デフォルト |
 | ----------------------- | ------- | -------------------------------------------------------------- | ------- |
-| `pagination[start]`     | Integer | Start value (i.e. first entry to return)                      | 0       |
-| `pagination[limit]`     | Integer | Number of entries to return                                    | 25      |
-| `pagination[withCount]` | Boolean | Toggles displaying the total number of entries to the response | `true`  |
+| `pagination[start]`     | 整数 | 開始値（つまり、最初に返すエントリー）                      | 0       |
+| `pagination[limit]`     | 整数 | 返すエントリーの数                                    | 25      |
+| `pagination[withCount]` | ブール値 | レスポンスにエントリーの総数を表示するかどうかを切り替えます | `true`  |
 
 :::tip
-The default and maximum values for `pagination[limit]` can be [configured in the `./config/api.js`](/dev-docs/configurations/api) file with the `api.rest.defaultLimit` and `api.rest.maxLimit` keys.
+`pagination[limit]`のデフォルト値と最大値は、`./config/api.js`ファイルの`api.rest.defaultLimit`と`api.rest.maxLimit`キーで[設定できます](/dev-docs/configurations/api)。
 :::
 
 <ApiCall>
-<Request title="Example request: Return only the first 10 entries using offset">
+<Request title="例：最初の10エントリーのみを返すリクエスト">
 
 `GET /api/articles?pagination[start]=0&pagination[limit]=10`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例：レスポンス">
 
 ```json
 {
@@ -348,7 +348,7 @@ const query = qs.stringify({
     limit: 10,
   },
 }, {
-  encodeValuesOnly: true, // prettify URL
+  encodeValuesOnly: true, // URLを綺麗にする
 });
 
 await request(`/api/articles?${query}`);

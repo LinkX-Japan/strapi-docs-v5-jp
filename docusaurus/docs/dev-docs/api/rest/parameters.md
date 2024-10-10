@@ -1,6 +1,6 @@
 ---
-title: Parameters
-description: Use API parameters to refine your Strapi REST API queries.
+title: パラメータ
+description: APIパラメータを使用して、Strapi REST APIのクエリを絞り込む。
 
 next: ./filtering-locale-publication.md
 tags:
@@ -16,24 +16,24 @@ tags:
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# REST API parameters
+# REST APIパラメータ
 
-API parameters can be used with the [REST API](/dev-docs/api/rest) to filter, sort, and paginate results and to select fields and relations to populate. Additionally, specific parameters related to optional Strapi features can be used, like the publication state and locale of a content-type.
+APIパラメータは、[REST API](/dev-docs/api/rest)と一緒に使用して結果をフィルタリング、ソート、ページネーションしたり、フィールドや関連を選択してポピュレートしたりすることができます。また、Strapiのオプション機能に関連する特定のパラメータを使用することも可能です。例えば、コンテンツタイプのパブリケーション状態やロケールなどです。
 
-The following API parameters are available:
+以下のAPIパラメータが利用可能です：
 
-| Operator           | Type          | Description                                           |
+| オペレータ           | タイプ          | 説明                                           |
 | ------------------ | ------------- | ----------------------------------------------------- |
-| `populate`         | String or Object | [Populate relations, components, or dynamic zones](/dev-docs/api/rest/populate-select#population) |
-| `fields`           | Array         | [Select only specific fields to display](/dev-docs/api/rest/populate-select#field-selection) |
-| `filters`          | Object        | [Filter the response](/dev-docs/api/rest/filters-locale-publication#filtering) |
-| `locale`           | String        | [Select a locale](/dev-docs/i18n#rest) |
-| `status`           | String        | [Select the Draft & Publish status](/dev-docs/api/rest/filters-locale-publication#status) |
-| `sort`             | String or Array  | [Sort the response](/dev-docs/api/rest/sort-pagination.md#sorting) |
-| `pagination`       | Object        | [Page through entries](/dev-docs/api/rest/sort-pagination.md#pagination) |
+| `populate`         | 文字列またはオブジェクト | [関連、コンポーネント、またはダイナミックゾーンをポピュレート](/dev-docs/api/rest/populate-select#population) |
+| `fields`           | 配列         | [表示する特定のフィールドのみを選択](/dev-docs/api/rest/populate-select#field-selection) |
+| `filters`          | オブジェクト        | [レスポンスをフィルタリング](/dev-docs/api/rest/filters-locale-publication#filtering) |
+| `locale`           | 文字列        | [ロケールを選択](/dev-docs/i18n#rest) |
+| `status`           | 文字列        | [ドラフト＆パブリッシュのステータスを選択](/dev-docs/api/rest/filters-locale-publication#status) |
+| `sort`             | 文字列または配列  | [レスポンスをソート](/dev-docs/api/rest/sort-pagination.md#sorting) |
+| `pagination`       | オブジェクト        | [エントリをページごとに表示](/dev-docs/api/rest/sort-pagination.md#pagination) |
 
-Query parameters use the [LHS bracket syntax](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets) (i.e. they are encoded using square brackets `[]`).
+クエリパラメータは、[LHSブラケット構文](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets)（つまり、角括弧 `[]` を使用してエンコードされます）を使用します。
 
 :::tip
-A wide range of REST API parameters can be used and combined to query your content, which can result in long and complex query URLs.<br/>👉 You can use Strapi's [interactive query builder](/dev-docs/api/rest/interactive-query-builder) tool to build query URLs more conveniently. 🤗
+REST APIパラメータは、幅広く使用し、組み合わせることができます。これにより、長く複雑なクエリURLが生成される可能性があります。<br/>👉 Strapiの[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールを使用すると、クエリURLをより便利に作成することができます。🤗
 :::
