@@ -1,13 +1,13 @@
 ---
-title: Using the locale parameter with the Document Service API
-description: Use Strapi's Document Service API to work with locale versions with your queries.
+title: Document Service APIをlocaleパラメータとともに使用する
+description: StrapiのDocument Service APIを使用して、クエリでロケールバージョンを操作します。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
 - Content API
 - create()
 - count()
-- deleting content
+- コンテンツの削除
 - Document Service API
 - discardDraft()
 - findOne()
@@ -16,16 +16,16 @@ tags:
 - locale
 - publish()
 - update()
-- unpublishing content
+- コンテンツの非公開化
 ---
 
-# Document Service API: Using the `locale` parameter
+# Document Service API: `locale`パラメータの使用
 
-By default the [Document Service API](/dev-docs/api/document-service) returns the default locale version of documents (which is 'en', i.e. the English version, unless another default locale has been set for the application, see [User Guide](/user-docs/settings/internationalization)). This page describes how to use the `locale` parameter to get or manipulate data only for specific locales.
+デフォルトでは、[Document Service API](/dev-docs/api/document-service)はドキュメントのデフォルトのロケールバージョン（つまり、'en'、すなわち英語版）を返します（アプリケーションに別のデフォルトロケールが設定されている場合を除く、詳しくは[ユーザーガイド](/user-docs/settings/internationalization)を参照）。このページでは、特定のロケールのデータのみを取得または操作するために`locale`パラメータを使用する方法について説明します。
 
-## Get a locale version with `findOne()` {#find-one}
+## `findOne()`でロケールバージョンを取得する {#find-one}
 
-If a `locale` is passed, the [`findOne()` method](/dev-docs/api/document-service#find-one) of the Document Service API returns the version of the document for this locale:
+`locale`が渡されると、Document Service APIの[`findOne()`メソッド](/dev-docs/api/document-service#find-one)はそのロケールのドキュメントのバージョンを返します：
 
 <ApiCall>
 
@@ -46,8 +46,8 @@ await strapi.documents('api::restaurant.restaurant').findOne({
 {
   documentId: "a1b2c3d4e5f6g7h8i9j0klm",
   name: "Biscotte Restaurant",
-  publishedAt: null, // draft version (default)
-  locale: "fr", // as asked from the parameters
+  publishedAt: null, // ドラフトバージョン (デフォルト)
+  locale: "fr", // パラメータから要求された通り
   // …
 }
 ```
@@ -56,14 +56,14 @@ await strapi.documents('api::restaurant.restaurant').findOne({
 
 </ApiCall>
 
-If no `status` parameter is passed, the `draft` version is returned by default.
+`status`パラメータが渡されない場合、デフォルトで`draft`バージョンが返されます。
 
-## Get a locale version with `findFirst()` {#find-first}
+## `findFirst()`でロケールバージョンを取得する {#find-first}
 
-To return a specific locale while [finding the first document](/dev-docs/api/document-service#findfirst) matching the parameters with the Document Service API:
+Document Service APIでパラメータに一致する最初のドキュメントを[見つける](/dev-docs/api/document-service#findfirst)際に特定のロケールを返すには：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 const document = await strapi.documents('api::article.article').findFirst({
@@ -73,7 +73,7 @@ const document = await strapi.documents('api::article.article').findFirst({
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -86,19 +86,19 @@ const document = await strapi.documents('api::article.article').findFirst({
 </Response>
 </ApiCall>
 
-If no `status` parameter is passed, the `draft` version is returned by default.
+`status`パラメータが渡されない場合、デフォルトで`draft`バージョンが返されます。
 
-## Get locale versions with `findMany()` {#find-many}
+## `findMany()`でロケールバージョンを取得する {#find-many}
 
-When a `locale` is passed to the [`findMany()` method](/dev-docs/api/document-service#findmany) of the Document Service API, the response will return all documents that have this locale available.
+`locale`がDocument Service APIの[`findMany()`メソッド](/dev-docs/api/document-service#findmany)に渡されると、レスポンスはこのロケールが利用可能なすべてのドキュメントを返します。
 
-If no `status` parameter is passed, the `draft` versions are returned by default.
+`status`パラメータが渡されない場合、デフォルトで`draft`バージョンが返されます。
 
 <ApiCall>
 <Request>
 
 ```js
-// Defaults to status: draft
+// デフォルトでstatus: draft
 await strapi.documents('api::restaurant.restaurant').findMany({ locale: 'fr' });
 ```
 
@@ -123,38 +123,38 @@ await strapi.documents('api::restaurant.restaurant').findMany({ locale: 'fr' });
 </ApiCall>
 
 <details>
-<summary>Explanation:</summary>
+<summary>説明:</summary>
 
-Given the following 4 documents that have various locales:
+以下の4つのドキュメントが各々異なるロケールを持つ場合：
 
-- Document A:
+- ドキュメントA：
   - en
   - `fr`
   - it
-- Document B:
+- ドキュメントB：
   - en
   - it
-- Document C:
+- ドキュメントC：
   - `fr`
-- Document D:
+- ドキュメントD：
   - `fr`
   - it
 
-`findMany({ locale: 'fr' })` would only return the draft version of the documents that have a `‘fr’` locale version, that is documents A, C, and D.
+`findMany({ locale: 'fr' })`は、`‘fr’`ロケールバージョンを持つドキュメントのドラフトバージョンのみを返します。つまり、ドキュメントA、C、およびDです。
 
 </details>
 
-## `create()` a document for a locale {#create}
+## ロケールのドキュメントを`create()`する {#create}
 
-To create a document for specific locale, pass the `locale` as a parameter to the [`create` method](/dev-docs/api/document-service#create) of the Document Service API:
+特定のロケールのドキュメントを作成するには、`locale`をDocument Service APIの[`create`メソッド](/dev-docs/api/document-service#create)のパラメータとして渡します：
 
 <ApiCall>
 
-<Request title="Create the Spanish draft locale of a document">
+<Request title="ドキュメントのスペイン語ドラフトロケールを作成する">
 
 ```js
 await strapi.documents('api::restaurant.restaurant').create({
-  locale: 'es' // if not passed, the draft is created for the default locale
+  locale: 'es' // 渡されなかった場合、ドラフトはデフォルトのロケールで作成されます
   data: { name: 'Restaurante B' }
 })
 ```
@@ -177,13 +177,13 @@ await strapi.documents('api::restaurant.restaurant').create({
 
 </ApiCall>
 
-## `update()` a locale version {#update}
+## ロケールバージョンを`update()`する {#update}
 
-To update only a specific locale version of a document, pass the `locale` parameter to the [`update()` method](/dev-docs/api/document-service#update) of the Document Service API:
+ドキュメントの特定のロケールバージョンのみを更新するには、`locale`パラメータをDocument Service APIの[`update()`メソッド](/dev-docs/api/document-service#update)に渡します：
 
 <ApiCall>
 
-<Request title="Update the Spanish locale of a document">
+<Request title="ドキュメントのスペイン語ロケールを更新する">
 
 ```js
 await strapi.documents('api::restaurant.restaurant').update({
@@ -211,15 +211,15 @@ await strapi.documents('api::restaurant.restaurant').update({
 
 </ApiCall>
 
-## `delete()` locale versions {#delete}
+## ロケールバージョンを`delete()`する {#delete}
 
-Use the `locale` parameter with the [`delete()` method](/dev-docs/api/document-service#delete) of the Document Service API to delete only some locales. Unless a specific `status` parameter is passed, this deletes both the draft and published versions.
+Document Service APIの[`delete()`メソッド](/dev-docs/api/document-service#delete)で`locale`パラメータを使用して、一部のロケールのみを削除します。特定の`status`パラメータが渡されない限り、これによりドラフトと公開バージョンの両方が削除されます。
 
-### Delete a locale version
+### ロケールバージョンを削除する
 
-To delete a specific locale version of a document:
+ドキュメントの特定のロケールバージョンを削除するには：
 
-<Request title="Delete the Spanish locale of a document">
+<Request title="ドキュメントのスペイン語ロケールを削除する">
 
 ```js
 await strapi.documents('api::restaurant.restaurant').delete({
@@ -230,9 +230,9 @@ await strapi.documents('api::restaurant.restaurant').delete({
 
 </Request>
 
-### Delete all locale versions
+### すべてのロケールバージョンを削除する
 
-The `*` wildcard is supported by the `locale` parameter and can be used to delete all locale versions of a document:
+`locale`パラメータは`*`ワイルドカードをサポートし、ドキュメントのすべてのロケールバージョンを削除するために使用できます：
 
 <ApiCall>
 <Request>
@@ -246,12 +246,12 @@ await strapi.documents('api::restaurant.restaurant').delete({
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
   "documentId": "a1b2c3d4e5f6g7h8i9j0klm",
-  // All of the deleted locale versions are returned
+  // 削除されたすべてのロケールバージョンが返されます
   "versions": [
     {
       "title": "Test Article"
@@ -263,17 +263,17 @@ await strapi.documents('api::restaurant.restaurant').delete({
 </Response>
 </ApiCall>
 
-## `publish()` locale versions {#publish}
+## ロケールバージョンを`publish()`する {#publish}
 
-To publish only specific locale versions of a document with the [`publish()` method](/dev-docs/api/document-service#publish) of the Document Service API, pass `locale` as a parameter:
+Document Service APIの[`publish()` メソッド](/dev-docs/api/document-service#publish)を使用して、特定のロケールバージョンのみのドキュメントを公開するには、`locale`をパラメータとして渡します:
 
-### Publish a locale version
+### ロケールバージョンの公開
 
-To publish a specific locale version of a document:
+特定のロケールバージョンのドキュメントを公開するには：
 
 <ApiCall>
 
-<Request title="Publish the French locale of document">
+<Request title="ドキュメントのフレンチロケールを公開する">
 
 ```js
 await strapi.documents('api::restaurant.restaurant').publish({
@@ -304,13 +304,13 @@ await strapi.documents('api::restaurant.restaurant').publish({
 
 </ApiCall>
 
-### Publish all locale versions
+### すべてのロケールバージョンを公開する
 
-The `*` wildcard is supported by the `locale` parameter to publish all locale versions of a document:
+`locale` パラメータは `*` ワイルドカードをサポートしており、ドキュメントのすべてのロケールバージョンを公開することができます：
 
 <ApiCall>
 
-<Request title="Publish all locales of a document">
+<Request title="ドキュメントのすべてのロケールを公開する">
 
 ```js
 await strapi
@@ -351,17 +351,17 @@ await strapi
 
 </ApiCall>
 
-## `unpublish()` locale versions {#unpublish}
+## `unpublish()` ロケールバージョン {#unpublish}
 
-To publish only specific locale versions of a document with the [`unpublish()` method](/dev-docs/api/document-service#unpublish) of the Document Service API, pass `locale` as a parameter:
+Document Service APIの[`unpublish()` メソッド](/dev-docs/api/document-service#unpublish)を使用して、特定のロケールバージョンのみのドキュメントを非公開にするには、`locale`をパラメータとして渡します：
 
-### Unpublish a locale version
+### ロケールバージョンの非公開
 
-To unpublish a specific locale version of a document, pass the `locale` as a parameter to `unpublish()`:
+特定のロケールバージョンのドキュメントを非公開にするには、`locale`を`unpublish()`のパラメータとして渡します：
 
 <ApiCall>
 
-<Request title="Unpublish the French locale version of document">
+<Request title="ドキュメントのフレンチロケールバージョンを非公開にする">
 
 ```js
 await strapi
@@ -383,13 +383,13 @@ await strapi
 
 </ApiCall>
 
-### Unpublish all locale versions
+### すべてのロケールバージョンを非公開にする
 
-The `*` wildcard is supported by the `locale` parameter, to unpublish all locale versions of a document:
+`locale` パラメータは `*` ワイルドカードをサポートしており、ドキュメントのすべてのロケールバージョンを非公開にすることができます：
 
 <ApiCall>
 
-<Request title="Unpublish all locale versions of a document">
+<Request title="ドキュメントのすべてのロケールバージョンを非公開にする">
 
 ```js
 await strapi
@@ -412,7 +412,7 @@ await strapi
 </ApiCall>
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエスト例">
 
 ```js
 const document = await strapi.documents('api::article.article').unpublish({
@@ -423,15 +423,15 @@ const document = await strapi.documents('api::article.article').unpublish({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンス例">
 
 ```json
 {
   "documentId": "cjld2cjxh0000qzrmn831i7rn",
-  // All of the unpublished locale versions are returned
+  // 未公開のロケールバージョンすべてが返されます
   "versions": [
     {
-      "title": "Test Article"
+      "title": "テスト記事"
     }
   ]
 }
@@ -440,17 +440,17 @@ const document = await strapi.documents('api::article.article').unpublish({
 </Response>
 </ApiCall>
 
-## `discardDraft()` for locale versions {#discard-draft}
+## ロケールバージョンの`discardDraft()` {#discard-draft}
 
-To discard draft data only for some locales versions of a document with the [`discardDraft()` method](/dev-docs/api/document-service#discarddraft) of the Document Service API, pass `locale` as a parameter:
+ドキュメントの一部のロケールバージョンのみドラフトデータを破棄するには、Document Service APIの[`discardDraft()` メソッド](/dev-docs/api/document-service#discarddraft)に`locale`をパラメータとして渡します：
 
-### Discard draft for a locale version
+### ロケールバージョンのドラフトを破棄する
 
-To discard draft data for a specific locale version of a document and override it with data from the published version for this locale, pass the `locale` as a parameter to `discardDraft()`:
+ドキュメントの特定のロケールバージョンのドラフトデータを破棄し、そのロケールの公開バージョンからのデータで上書きするには、`locale`を`discardDraft()`のパラメータとして渡します：
 
 <ApiCall>
 
-<Request title="Discard draft for the French locale version of document">
+<Request title="ドキュメントのフランス語ロケールバージョンのドラフトを破棄する">
 
 ```js
 await strapi
@@ -480,13 +480,13 @@ await strapi
 
 </ApiCall>
 
-### Discard drafts for all locale versions
+### すべてのロケールバージョンのドラフトを破棄する
 
-The `*` wildcard is supported by the `locale` parameter, to discard draft data for all locale versions of a document and replace them with the data from the published versions:
+`locale`パラメータは`*`ワイルドカードをサポートしており、ドキュメントのすべてのロケールバージョンのドラフトデータを破棄し、それらを公開バージョンからのデータで置き換えることができます：
 
 <ApiCall>
 
-<Request title="Discard drafts for all locale versions of a document">
+<Request title="ドキュメントのすべてのロケールバージョンのドラフトを破棄する">
 
 ```js
 await strapi
@@ -530,13 +530,13 @@ await strapi
 
 </ApiCall>
 
-## `count()` documents for a locale {#count}
+## ロケールのドキュメントを`count()`する {#count}
 
-To count documents for a specific locale, pass the `locale` along with other parameters to the [`count()` method](/dev-docs/api/document-service#count) of the Document Service API.
+特定のロケールのドキュメントを数えるには、`locale`を他のパラメータとともにDocument Service APIの[`count()` メソッド](/dev-docs/api/document-service#count)に渡します。
 
-If no `status` parameter is passed, draft documents are counted (which is the total of available documents for the locale since even published documents are counted as having a draft version):
+`status`パラメータが渡されない場合、ドラフトのドキュメントが数えられます（これは、公開されたドキュメントもドラフトバージョンとして数えられるため、ロケールで利用可能なドキュメントの合計です）：
 
 ```js
-// Count number of published documents in French
+// フランス語の公開ドキュメントの数を数える
 strapi.documents('api::restaurant.restaurant').count({ locale: 'fr' });
 ```

@@ -1,7 +1,7 @@
 ---
 unlisted: true
-title: Populating with the Query Engine API
-description: Use Strapi's Query Engine API to populate relations when querying your content.
+title: クエリエンジンAPIを使ったポピュレート
+description: StrapiのクエリエンジンAPIを使って、コンテンツを問い合わせる際に関連付けをポピュレートします。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
@@ -13,13 +13,13 @@ tags:
 
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
 
-# Populating with the Query Engine API
+# クエリエンジンAPIを使ったポピュレート
 
 <ConsiderDocumentService />
 
-Relations and components have a unified API for populating them.
+関連付けとコンポーネントは、それらをポピュレートするための統一されたAPIを持っています。
 
-To populate all the root level relations, use `populate: true`:
+すべてのルートレベルの関連付けをポピュレートするには、`populate: true`を使用します：
 
 ```js
 strapi.db.query('api::article.article').findMany({
@@ -27,7 +27,7 @@ strapi.db.query('api::article.article').findMany({
 });
 ```
 
-Select which data to populate by passing an array of attribute names:
+ポピュレートするデータを選択するには、属性名の配列を渡します：
 
 ```js
 strapi.db.query('api::article.article').findMany({
@@ -35,7 +35,7 @@ strapi.db.query('api::article.article').findMany({
 });
 ```
 
-An object can be passed for more advanced usage:
+より高度な使用法のために、オブジェクトを渡すこともできます：
 
 ```js
 strapi.db.query('api::article.article').findMany({
@@ -47,7 +47,7 @@ strapi.db.query('api::article.article').findMany({
 });
 ```
 
-Complex populating can also be achieved by applying `where` filters and select or populate nested relations:
+複雑なポピュレートは、`where`フィルターを適用してネストされた関連付けを選択またはポピュレートすることで実現できます：
 
 ```js
 strapi.db.query('api::article.article').findMany({
@@ -73,7 +73,7 @@ strapi.db.query('api::article.article').findMany({
 });
 ```
 
-When dealing with polymorphic data structures (dynamic zones, polymorphic relations, etc...), it is possible to use populate fragments to have a better granularity on the populate strategy.
+ポリモーフィックなデータ構造（ダイナミックゾーン、ポリモーフィックな関連付けなど）を扱う場合、ポピュレートの粒度をより細かくするためにポピュレートフラグメントを使用することが可能です。
 
 ```js
 strapi.db.query('api::article.article').findMany('api::article.article', {

@@ -1,6 +1,6 @@
 ---
-title: Using filters with the Document Service API
-description: This document provides information about the filters available in the Document Service API.
+title: Document Service APIでのフィルターの使用
+description: このドキュメントでは、Document Service APIで利用可能なフィルターについて説明します。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
@@ -10,46 +10,46 @@ tags:
 - logical operators
 ---
 
-# Document Service API: Filters
+# Document Service API: フィルター
 
-The [Document Service API](/dev-docs/api/document-service) offers the ability to filter results.
+[Document Service API](/dev-docs/api/document-service)は、結果をフィルタリングする機能を提供します。
 
-The following operators are available:
+以下の演算子が利用可能です：
 
-| Operator                         | Description                              |
+| 演算子                          | 説明                                      |
 | -------------------------------- | ---------------------------------------- |
-| [`$eq`](#eq)                     | Equal                                    |
-| [`$eqi`](#eqi)                   | Equal (case-insensitive)                 |
-| [`$ne`](#ne)                     | Not equal                                |
-| [`$nei`](#nei)                   | Not equal (case-insensitive)             |
-| [`$lt`](#lt)                     | Less than                                |
-| [`$lte`](#lte)                   | Less than or equal to                    |
-| [`$gt`](#gt)                     | Greater than                             |
-| [`$gte`](#gte)                   | Greater than or equal to                 |
-| [`$in`](#in)                     | Included in an array                     |
-| [`$notIn`](#notin)               | Not included in an array                 |
-| [`$contains`](#contains)         | Contains                                 |
-| [`$notContains`](#notcontains)   | Does not contain                         |
-| [`$containsi`](#containsi)       | Contains (case-insensitive)              |
-| [`$notContainsi`](#notcontainsi) | Does not contain (case-insensitive)      |
-| [`$null`](#null)                 | Is null                                  |
-| [`$notNull`](#notnull)           | Is not null                              |
-| [`$between`](#between)           | Is between                               |
-| [`$startsWith`](#startswith)     | Starts with                              |
-| [`$startsWithi`](#startswithi)   | Starts with (case-insensitive)           |
-| [`$endsWith`](#endswith)         | Ends with                                |
-| [`$endsWithi`](#endswithi)       | Ends with (case-insensitive)             |
-| [`$or`](#or)                     | Joins the filters in an "or" expression  |
-| [`$and`](#and)                   | Joins the filters in an "and" expression |
-| [`$not`](#not)                   | Joins the filters in an "not" expression |
+| [`$eq`](#eq)                     | 等しい                                    |
+| [`$eqi`](#eqi)                   | 等しい（大文字・小文字を区別しない）         |
+| [`$ne`](#ne)                     | 等しくない                                |
+| [`$nei`](#nei)                   | 等しくない（大文字・小文字を区別しない）     |
+| [`$lt`](#lt)                     | より小さい                                |
+| [`$lte`](#lte)                   | 以下                                      |
+| [`$gt`](#gt)                     | より大きい                                |
+| [`$gte`](#gte)                   | 以上                                      |
+| [`$in`](#in)                     | 配列に含まれる                            |
+| [`$notIn`](#notin)               | 配列に含まれない                          |
+| [`$contains`](#contains)         | 含む                                      |
+| [`$notContains`](#notcontains)   | 含まない                                  |
+| [`$containsi`](#containsi)       | 含む（大文字・小文字を区別しない）           |
+| [`$notContainsi`](#notcontainsi) | 含まない（大文字・小文字を区別しない）       |
+| [`$null`](#null)                 | nullである                                |
+| [`$notNull`](#notnull)           | nullでない                                |
+| [`$between`](#between)           | ～の間である                              |
+| [`$startsWith`](#startswith)     | ～で始まる                                |
+| [`$startsWithi`](#startswithi)   | ～で始まる（大文字・小文字を区別しない）     |
+| [`$endsWith`](#endswith)         | ～で終わる                                |
+| [`$endsWithi`](#endswithi)       | ～で終わる（大文字・小文字を区別しない）     |
+| [`$or`](#or)                     | フィルタを"or"式で結合する                 |
+| [`$and`](#and)                   | フィルタを"and"式で結合する                |
+| [`$not`](#not)                   | フィルタを"not"式で結合する                |
 
-## Attribute operators
+## 属性演算子
 
 ### `$not`
 
-Negates the nested condition(s).
+ネストされた条件を否定します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -65,9 +65,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$eq`
 
-Attribute equals input value.
+属性が入力値と等しい。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -79,7 +79,7 @@ const entries = await strapi.documents('api::article.article').findMany({
 });
 ```
 
-`$eq` can be omitted:
+`$eq`は省略可能です：
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -91,9 +91,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$eqi`
 
-Attribute equals input value (case-insensitive).
+属性が入力値と等しい（大文字小文字を区別しない）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -107,9 +107,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$ne`
 
-Attribute does not equal input value.
+属性が入力値と等しくない。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -123,9 +123,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$nei`
 
-Attribute does not equal input value (case-insensitive).
+属性が入力値と等しくない（大文字小文字を区別しない）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -139,9 +139,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$in`
 
-Attribute is contained in the input list.
+属性が入力リストに含まれている。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -153,7 +153,7 @@ const entries = await strapi.documents('api::article.article').findMany({
 });
 ```
 
-`$in` can be omitted when passing an array of values:
+値の配列を渡す場合、`$in`は省略可能です：
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -165,9 +165,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$notIn`
 
-Attribute is not contained in the input list.
+属性が入力リストに含まれていない。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -181,9 +181,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$lt`
 
-Attribute is less than the input value.
+属性が入力値より小さい。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -197,9 +197,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$lte`
 
-Attribute is less than or equal to the input value.
+属性が入力値以下。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -213,9 +213,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$gt`
 
-Attribute is greater than the input value.
+属性が入力値より大きい。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -229,9 +229,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$gte`
 
-Attribute is greater than or equal to the input value.
+属性が入力値以上。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -245,9 +245,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$between`
 
-Attribute is between the 2 input values, boundaries included (e.g., `$between[1, 3]` will also return `1` and `3`).
+属性が2つの入力値の間にある、境界を含む（例えば、`$between[1, 3]`は`1`と`3`も返します）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -261,9 +261,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$contains`
 
-Attribute contains the input value (case-sensitive).
+属性が入力値を含む（大文字小文字を区別）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -277,9 +277,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$notContains`
 
-Attribute does not contain the input value (case-sensitive).
+属性は入力値を含まない（大文字と小文字を区別します）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -293,9 +293,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$containsi`
 
-Attribute contains the input value. `$containsi` is not case-sensitive, while [$contains](#contains) is.
+属性が入力値を含む。`$containsi`は大文字と小文字を区別しませんが、[$contains](#contains)は区別します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -309,9 +309,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$notContainsi`
 
-Attribute does not contain the input value. `$notContainsi` is not case-sensitive, while [$notContains](#notcontains) is.
+属性は入力値を含まない。`$notContainsi`は大文字と小文字を区別しませんが、[$notContains](#notcontains)は区別します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -325,9 +325,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$startsWith`
 
-Attribute starts with input value.
+属性が入力値で始まる。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -341,9 +341,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$endsWith`
 
-Attribute ends with input value.
+属性が入力値で終わる。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -357,9 +357,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$null`
 
-Attribute is `null`.
+属性が`null`である。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -373,9 +373,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$notNull`
 
-Attribute is not `null`.
+属性が`null`でない。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -387,13 +387,13 @@ const entries = await strapi.documents('api::article.article').findMany({
 });
 ```
 
-## Logical operators
+## 論理演算子
 
 ### `$and`
 
-All nested conditions must be `true`.
+すべてのネストされた条件が`true`でなければなりません。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -410,7 +410,7 @@ const entries = await strapi.documents('api::article.article').findMany({
 });
 ```
 
-`$and` will be used implicitly when passing an object with nested conditions:
+ネストされた条件を持つオブジェクトを渡すときは、暗黙的に`$and`が使用されます：
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -423,9 +423,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$or`
 
-One or many nested conditions must be `true`.
+1つまたは複数のネストされた条件が`true`である必要があります。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -444,9 +444,9 @@ const entries = await strapi.documents('api::article.article').findMany({
 
 ### `$not`
 
-Negates the nested conditions.
+ネストされた条件を否定します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.documents('api::article.article').findMany({
@@ -459,12 +459,12 @@ const entries = await strapi.documents('api::article.article').findMany({
 ```
 
 :::note
-`$not` can be used as:
+`$not`は次のように使用できます：
 
-- a logical operator (e.g. in `filters: { $not: { // conditions… }}`)
-- [an attribute operator](#not) (e.g. in `filters: { attribute-name: $not: { … } }`).
+- 論理演算子（例：`filters: { $not: { // conditions… }}`）
+- [属性演算子](#not)（例：`filters: { attribute-name: $not: { … } }`）。
 :::
 
 :::tip
-`$and`, `$or` and `$not` operators are nestable inside of another `$and`, `$or` or `$not` operator.
+`$and`、`$or`、`$not`の演算子は、別の`$and`、`$or`、または`$not`演算子の中にネストすることができます。
 :::

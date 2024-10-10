@@ -1,21 +1,21 @@
 ---
-title: Populating with the Entity Service API
-description: Use Strapi's Entity Service API to populate relations in your queries.
+title: エンティティサービスAPIを使用したポピュレート
+description: StrapiのエンティティサービスAPIを使用して、クエリに関係をポピュレートします。
 displayed_sidebar: devDocsSidebar
 unlisted: true
 ---
 
 import ESdeprecated from '/docs/snippets/entity-service-deprecated.md'
 
-# Populating with the Entity Service API
+# エンティティサービスAPIを使用したポピュレート
 
 <ESdeprecated />
 
-The [Entity Service API](/dev-docs/api/entity-service) does not populate relations, components or dynamic zones by default, which means an Entity Service API query that does not use the `populate` parameter will not return information about relations, components, or dynamic zones.
+[エンティティサービスAPI](/dev-docs/api/entity-service)は、デフォルトでは関係、コンポーネント、ダイナミックゾーンをポピュレートしません。つまり、`populate`パラメータを使用しないエンティティサービスAPIクエリは、関係、コンポーネント、ダイナミックゾーンに関する情報を返しません。
 
-## Basic populating
+## 基本的なポピュレート
 
-To populate all the root level relations, use `populate: '*'`:
+すべてのルートレベルの関係をポピュレートするには、`populate: '*'`を使用します：
 
 ```js
 const entries = await strapi.entityService.findMany('api::article.article', {
@@ -23,7 +23,7 @@ const entries = await strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-Populate various component or relation fields by passing an array of attribute names:
+配列の属性名を渡すことで、さまざまなコンポーネントまたは関係フィールドをポピュレートします：
 
 ```js
 const entries = await strapi.entityService.findMany('api::article.article', {
@@ -31,9 +31,9 @@ const entries = await strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-## Advanced populating
+## 高度なポピュレート
 
-An object can be passed for more advanced populating:
+より高度なポピュレートのために、オブジェクトを渡すことができます：
 
 ```js
 const entries = await strapi.entityService.findMany('api::article.article', {
@@ -51,7 +51,7 @@ const entries = await strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-Complex populating can be achieved by using the [`filters` parameter](/dev-docs/api/entity-service/filter) and select or populate nested relations or components:
+[`filters`パラメータ](/dev-docs/api/entity-service/filter)を使用して、ネストされた関係やコンポーネントを選択またはポピュレートすることで、複雑なポピュレートを実現できます：
 
 ```js
 const entries = await strapi.entityService.findMany('api::article.article', {
@@ -75,9 +75,9 @@ const entries = await strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-## Populate fragments
+## フラグメントのポピュレート
 
-When dealing with polymorphic data structures (dynamic zones, polymorphic relations, etc...), it is possible to use populate fragments to have a better granularity on the populate strategy.
+ポリモーフィックなデータ構造（ダイナミックゾーン、ポリモーフィックな関係など）を扱う場合、ポピュレートの戦略により細かい粒度を持つために、ポピュレートフラグメントを使用することができます。
 
 ```js
 const entries = await strapi.entityService.findMany('api::article.article', {

@@ -1,49 +1,49 @@
 ---
-title: Extending the Document Service behavior
-description: This document provides information about the middlewares in the Document Service API.
+title: Document Serviceの振る舞いを拡張する
+description: この文書では、Document Service APIのミドルウェアについて説明しています。
 toc_max_heading_level: 4
 displayed_sidebar: devDocsSidebar
 ---
 
-# Document Service API: Middlewares
+# Document Service API: ミドルウェア
 
-The [Document Service API](/dev-docs/api/document-service) offers the ability to extend its behavior thanks to middlewares.
+[Document Service API](/dev-docs/api/document-service)は、ミドルウェアのおかげでその振る舞いを拡張する能力を提供します。
 
-Document Service middlewares allow you to perform actions before and/or after a method runs.
+Document Serviceのミドルウェアは、メソッドが実行される前と/または後にアクションを実行することを可能にします。
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-controllers-services.png" alt="Simplified Strapi backend diagram with controllers highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with the Document Service highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-controllers-services.png" alt="コントローラーが強調表示されたシンプル化されたStrapiバックエンドのダイアグラム" />
+  <em><figcaption style={{fontSize: '12px'}}>このダイアグラムは、リクエストがStrapiバックエンドを通過する方法の簡略化されたバージョンを示しており、Document Serviceが強調表示されています。バックエンドのカスタマイズ紹介ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブなダイアグラム</a>が含まれています。</figcaption></em>
 </figure>
 
-## Registering a middleware
+## ミドルウェアの登録
 
-Syntax: `strapi.documents.use(middleware)`
+構文: `strapi.documents.use(middleware)`
 
-### Parameters
+### パラメータ
 
-A middleware is a function that receives a context and a next function.
+ミドルウェアは、コンテキストと次の関数を受け取る関数です。
 
-Syntax: `(context, next) => ReturnType<typeof next>`
+構文: `(context, next) => ReturnType<typeof next>`
 
-| Parameter | Description                           | Type       |
+| パラメータ | 説明                           | タイプ       |
 |-----------|---------------------------------------|------------|
-| `context` | Middleware context                    | `Context`  |
-| `next`    | Call the next middleware in the stack | `function` |
+| `context` | ミドルウェアのコンテキスト                    | `Context`  |
+| `next`    | スタック内の次のミドルウェアを呼び出す | `function` |
 
 #### `context`
 
-| Parameter     | Description                                                                          | Type          |
+| パラメータ     | 説明                                                                          | タイプ          |
 |---------------|--------------------------------------------------------------------------------------|---------------|
-| `action`      | The method that is running ([see available methods](/dev-docs/api/document-service)) | `string`      |
-| `params`      | The method params ([see available methods](/dev-docs/api/document-service))          | `Object`      |
-| `uid`         | Content type unique identifier                                                       | `string`      |
-| `contentType` | Content type                                                                         | `ContentType` |
+| `action`      | 実行中のメソッド ([利用可能なメソッドを参照](/dev-docs/api/document-service)) | `string`      |
+| `params`      | メソッドのパラメータ ([利用可能なメソッドを参照](/dev-docs/api/document-service))          | `Object`      |
+| `uid`         | コンテンツタイプの一意の識別子                                                       | `string`      |
+| `contentType` | コンテンツタイプ                                                                         | `ContentType` |
 
 <details>
-<summary>Examples:</summary>
+<summary>例:</summary>
 
-The following examples show what `context` might include depending on the method called:
+以下の例は、呼び出されたメソッドによって`context`が含む可能性があるものを示しています:
 
 <Tabs>
 
@@ -83,102 +83,9 @@ The following examples show what `context` might include depending on the method
     actions: { /*...*/ },
     lifecycles: { /*...*/ },
   },
-  action: "findOne",
+  action: "update",
   params: {
     documentId: 'hp7hjvrbt8rcgkmabntu0aoq',
-    locale: undefined,
-    status: "publish"
-    populate: { /*...*/ },
-  }
-}
-```
-
-</TabItem>
-
-<TabItem value="find-many" label="findMany">
-
-```js
-{
-  uid: "api::restaurant.restaurant",
-  contentType: {
-    kind: "collectionType",
-    collectionName: "restaurants",
-    info: {
-      singularName: "restaurant",
-      pluralName: "restaurants",
-      displayName: "restaurant"
-    },
-    options: {
-      draftAndPublish: true
-    },
-    pluginOptions: {},
-    attributes: {
-      name: { /*...*/ },
-      description: { /*...*/ },
-      createdAt: { /*...*/ },
-      updatedAt: { /*...*/ },
-      publishedAt: { /*...*/ },
-      createdBy: { /*...*/ },
-      updatedBy: { /*...*/ },
-      locale: { /*...*/ },
-    },
-    apiName: "restaurant",
-    globalId: "Restaurants",
-    uid: "api::restaurant.restaurant",
-    modelType: "contentType",
-    modelName: "restaurant",
-    actions: { /*...*/ },
-    lifecycles: { /*...*/ },
-  },
-  action: "findMany",
-  params: {
-    filters: { /*...*/ },
-    status: "draft",
-    locale: null,
-    fields: ['name', 'description'],
-  }
-}
-```
-
-</TabItem>
-
-<TabItem value="create" label="create">
-
-```js
-{
-  uid: "api::restaurant.restaurant",
-  contentType: {
-    kind: "collectionType",
-    collectionName: "restaurants",
-    info: {
-      singularName: "restaurant",
-      pluralName: "restaurants",
-      displayName: "restaurant"
-    },
-    options: {
-      draftAndPublish: true
-    },
-    pluginOptions: {},
-    attributes: {
-      name: { /*...*/ },
-      description: { /*...*/ },
-      createdAt: { /*...*/ },
-      updatedAt: { /*...*/ },
-      publishedAt: { /*...*/ },
-      createdBy: { /*...*/ },
-      updatedBy: { /*...*/ },
-      locale: { /*...*/ },
-    },
-    apiName: "restaurant",
-    globalId: "Restaurants",
-    uid: "api::restaurant.restaurant",
-    modelType: "contentType",
-    modelName: "restaurant",
-    actions: { /*...*/ },
-    lifecycles: { /*...*/ },
-  },
-  action: "create",
-  params: {
     data: { /*...*/ },
     status: "draft",
     populate: { /*...*/ },
@@ -188,7 +95,7 @@ The following examples show what `context` might include depending on the method
 
 </TabItem>
 
-<TabItem value="update" label="update">
+<TabItem value="find-many" label="findMany">
 
 ```js
 {
@@ -287,9 +194,9 @@ The following examples show what `context` might include depending on the method
 
 #### `next`
 
-`next` is a function without parameters that calls the next middleware in the stack and return its response.
+`next`は、スタック内の次のミドルウェアを呼び出し、そのレスポンスを返すパラメータなしの関数です。
 
-**Example**
+**例**
 
 ```js
 strapi.documents.use((context, next) => {
@@ -297,19 +204,19 @@ strapi.documents.use((context, next) => {
 });
 ```
 
-### Where to register
+### 登録する場所
 
-Generaly speaking you should register your middlewares during the Strapi registration phase.
+一般的に、あなたはStrapiの登録フェーズ中にミドルウェアを登録するべきです。
 
-#### Users
+#### ユーザー
 
-The middleware must be registered in the general `register()` lifecycle method:
+ミドルウェアは一般的な `register()` ライフサイクルメソッドで登録する必要があります：
 
 ```js title="/src/index.js|ts"
 module.exports = {
   register({ strapi }) {
     strapi.documents.use((context, next) => {
-      // your logic
+      // あなたのロジック
       return next();
     });
   },
@@ -319,54 +226,49 @@ module.exports = {
 };
 ```
 
-#### Plugin developers
+#### プラグイン開発者
 
-The middleware must be registered in the plugin's `register()` lifecycle method:
+ミドルウェアはプラグインの `register()` ライフサイクルメソッドで登録する必要があります：
 
 ```js title="/(plugin-root-folder)/strapi-server.js|ts"
 module.exports = {
   register({ strapi }) {
     strapi.documents.use((context, next) => {
-      // your logic
+      // あなたのロジック
       return next();
     });
   },
 
-  // bootstrap({ strapi }) {},
-  // destroy({ strapi }) {},
-};
-```
+## ミドルウェアの実装
 
-## Implementing a middleware
+ミドルウェアを実装する際は、常に`next()`からのレスポンスを返すようにしてください。
+これを怠ると、Strapiアプリケーションが壊れます。
 
-When implementing a middleware, always return the response from `next()`.
-Failing to do this will break the Strapi application.
-
-### Examples
+### 例
 
 ```js
 const applyTo = ['api::article.article'];
 
 strapi.documents.use((context, next) => {
-  // Only run for certain content types
+  // 特定のコンテンツタイプのみで実行
   if (!applyTo.includes(context.uid)) {
     return next();
   }
 
-  // Only run for certain actions
+  // 特定のアクションのみで実行
   if (['create', 'update'].includes(context.action)) {
     context.params.data.fullName = `${context.params.data.firstName} ${context.params.data.lastName}`;
   }
 
   const result = await next();
 
-  // do something with the result before returning it
+  // 返す前に結果で何かをする
   return result
 });
 ```
 
 <br/>
 
-:::strapi Lifecycle hooks
-The Document Service API triggers various database lifecycle hooks based on which method is called. For a complete reference, see [Document Service API: Lifecycle hooks](/dev-docs/migration/v4-to-v5/breaking-changes/lifecycle-hooks-document-service#table).
+:::strapi ライフサイクルフック
+Document Service APIは、呼び出されるメソッドに基づいて、さまざまなデータベースライフサイクルフックをトリガーします。完全なリファレンスについては、[Document Service API: ライフサイクルフック](/dev-docs/migration/v4-to-v5/breaking-changes/lifecycle-hooks-document-service#table)を参照してください。
 :::

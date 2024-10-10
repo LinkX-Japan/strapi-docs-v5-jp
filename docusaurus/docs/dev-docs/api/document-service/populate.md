@@ -1,6 +1,6 @@
 ---
-title: Using Populate with the Document Service API
-description: Use Strapi's Document Service API to populate or select some fields.
+title: Document Service APIを使用したフィールドのPopulate
+description: StrapiのDocument Service APIを使用して、特定のフィールドをpopulateまたはselectします。
 displayed_sidebar: devDocsSidebar
 tags:
 - Components
@@ -13,27 +13,27 @@ tags:
 - Populating with update()
 ---
 
-# Document Service API: Populating fields
+# Document Service API: フィールドのPopulate
 
-By default the [Document Service API](/dev-docs/api/document-service) does not populate any relations, media fields, components, or dynamic zones. This page describes how to use the populate parameter to [`populate`](#populate) specific fields.
+デフォルトでは、[Document Service API](/dev-docs/api/document-service)は関連性、メディアフィールド、コンポーネント、またはダイナミックゾーンをpopulateしません。このページでは、特定のフィールドを[`populate`](#populate)するためにpopulateパラメーターを使用する方法について説明します。
 
 :::tip
-You can also use the `select` parameter to return only specific fields with the query results (see the [`select` parameter](/dev-docs/api/document-service/fields) documentation).
+クエリ結果で特定のフィールドのみを返すために、`select`パラメータも使用できます（[`select`パラメータ](/dev-docs/api/document-service/fields)のドキュメンテーションを参照してください）。
 :::
 
 :::caution
-If the Users & Permissions plugin is installed, the `find` permission must be enabled for the content-types that are being populated. If a role doesn't have access to a content-type it will not be populated.
+Users & Permissionsプラグインがインストールされている場合、populateされているコンテンツタイプに対して`find`権限が有効になっている必要があります。ロールがコンテンツタイプへのアクセス権を持っていない場合、そのコンテンツタイプはpopulateされません。
 :::
 
 <!-- TODO: add link to populate guides (even if REST API, the same logic still applies) -->
 
-## Relations and media fields
+## 関連性とメディアフィールド
 
-Queries can accept a `populate` parameter to explicitly define which fields to populate, with the following syntax option examples.
+クエリは`populate`パラメータを受け入れ、どのフィールドをpopulateするかを明示的に定義できます。以下に構文オプションの例を示します。
 
-### Populate 1 level for all relations
+### すべての関連性に対して1レベルをPopulateする
 
-To populate one-level deep for all relations, use the `*` wildcard in combination with the `populate` parameter:
+すべての関連性に対して1レベル深くpopulateするには、`*`ワイルドカードを`populate`パラメータと組み合わせて使用します：
 
 <ApiCall noSideBySide>
 <Request title="Example request">
@@ -85,9 +85,9 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-### Populate 1 level for specific relations
+### 特定の関連性に対して1レベルをPopulateする
 
-To populate specific relations one-level deep, pass the relation names in a `populate` array:
+特定の関連性に対して1レベル深くpopulateするには、`populate`配列に関連性の名前を渡します：
 
 <ApiCall noSideBySide>
 <Request title="Example request">
@@ -123,12 +123,12 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-### Populate several levels deep for specific relations
+### 特定の関連性に対して複数のレベルをPopulateする
 
-To populate specific relations several levels deep, use the object format with `populate`:
+特定の関連を複数レベル深く充実させるためには、`populate`とともにオブジェクト形式を使用します：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 const documents = await strapi.documents("api::article.article").findMany({
@@ -142,28 +142,28 @@ const documents = await strapi.documents("api::article.article").findMany({
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 [
   {
     "id": "cjld2cjxh0000qzrmn831i7rn",
-    "title": "Test Article",
+    "title": "テスト記事",
     "slug": "test-article",
-    "body": "Test 1",
+    "body": "テスト1",
     // ...
     "categories": {
       "id": 1,
-      "name": "Test Category",
+      "name": "テストカテゴリ",
       "slug": "test-category",
-      "description": "Test 1"
+      "description": "テスト1"
       // ...
       "articles": [
         {
           "id": 1,
-          "title": "Test Article",
+          "title": "テスト記事",
           "slug": "test-article",
-          "body": "Test 1",
+          "body": "テスト1",
           // ...
         }
         // ...
@@ -177,12 +177,12 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-## Components & Dynamic Zones
+## コンポーネントとダイナミックゾーン
 
-Components are populated the same way as relations:
+コンポーネントは関連と同じように充実します：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 const documents = await strapi.documents("api::article.article").findMany({
@@ -192,19 +192,19 @@ const documents = await strapi.documents("api::article.article").findMany({
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 [
   {
     "id": "cjld2cjxh0000qzrmn831i7rn",
-    "title": "Test Article",
+    "title": "テスト記事",
     "slug": "test-article",
-    "body": "Test 1",
+    "body": "テスト1",
     // ...
     "testComp": {
       "id": 1,
-      "name": "Test Component"
+      "name": "テストコンポーネント"
       // ...
     }
   }
@@ -215,10 +215,10 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-Dynamic zones are highly dynamic content structures by essence. To populate a dynamic zone, you must define per-component populate queries using the `on` property.
+ダイナミックゾーンは本質的に高度にダイナミックなコンテンツ構造です。ダイナミックゾーンを充実させるには、`on`プロパティを使用してコンポーネントごとにpopulateクエリを定義する必要があります。
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 const documents = await strapi.documents("api::article.article").findMany({
@@ -237,15 +237,15 @@ const documents = await strapi.documents("api::article.article").findMany({
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 [
   {
     "id": "cjld2cjxh0000qzrmn831i7rn",
-    "title": "Test Article",
+    "title": "テスト記事",
     "slug": "test-article",
-    "body": "Test 1",
+    "body": "テスト1",
     // ...
     "testDZ": [
       {
@@ -266,19 +266,19 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-## Populating with `create()`
+## `create()`での充実
 
-To populate while creating documents:
+ドキュメントを作成しながら充実するには：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 strapi.documents("api::article.article").create({
   data: {
-    title: "Test Article",
+    title: "テスト記事",
     slug: "test-article",
-    body: "Test 1",
+    body: "テスト1",
     headerImage: 2,
   },
   populate: ["headerImage"],
@@ -287,14 +287,14 @@ strapi.documents("api::article.article").create({
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
   "id": "cjld2cjxh0000qzrmn831i7rn",
-  "title": "Test Article",
+  "title": "テスト記事",
   "slug": "test-article",
-  "body": "Test 1",
+  "body": "テスト1",
   "headerImage": {
     "id": 2,
     "name": "17520.jpg"
@@ -306,17 +306,17 @@ strapi.documents("api::article.article").create({
 </Response>
 </ApiCall>
 
-## Populating with `update()`
+## `update()`でのPopulating
 
-To populate while updating documents:
+ドキュメントを更新しながらPopulateする方法：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 strapi.documents("api::article.article").update("cjld2cjxh0000qzrmn831i7rn", {
   data: {
-    title: "Test Article Update",
+    title: "テスト記事の更新",
   },
   populate: ["headerImage"],
 });
@@ -324,14 +324,14 @@ strapi.documents("api::article.article").update("cjld2cjxh0000qzrmn831i7rn", {
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
   "id": "cjld2cjxh0000qzrmn831i7rn",
-  "title": "Test Article Update",
+  "title": "テスト記事の更新",
   "slug": "test-article",
-  "body": "Test 1",
+  "body": "テスト1",
   "headerImage": {
     "id": 2,
     "name": "17520.jpg"
@@ -343,12 +343,12 @@ strapi.documents("api::article.article").update("cjld2cjxh0000qzrmn831i7rn", {
 </Response>
 </ApiCall>
 
-## Populating with `publish()`
+## `publish()`でのPopulating
 
-To populate while publishing documents (same behavior with `unpublish()` and `discardDraft()`):
+ドキュメントを公開しながらPopulateする方法（`unpublish()`や`discardDraft()`でも同じ動作）：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 ```js
 strapi.documents("api::article.article").publish("cjld2cjxh0000qzrmn831i7rn", {
@@ -358,7 +358,7 @@ strapi.documents("api::article.article").publish("cjld2cjxh0000qzrmn831i7rn", {
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {

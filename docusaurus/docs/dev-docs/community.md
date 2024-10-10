@@ -1,40 +1,40 @@
 ---
 tags:
-- contribution
-- community
-- support
-- feature request
-- bug report
-- pull request
+- 貢献
+- コミュニティ
+- サポート
+- 機能リクエスト
+- バグ報告
+- プルリクエスト
 ---
 
 
 
-# Community & Support 
+# コミュニティ & サポート 
 
-Strapi is an open-source project (see [LICENSE](https://github.com/strapi/strapi/blob/master/LICENSE) file for more information). The core project, as well as the documentation and any related tool can be found in the [Strapi](https://github.com/strapi) GitHub organization.
+Strapiはオープンソースプロジェクトです（詳細は[LICENSE](https://github.com/strapi/strapi/blob/master/LICENSE)ファイルを参照してください）。コアプロジェクト、ドキュメンテーション、関連するツールはすべて、[Strapi](https://github.com/strapi)のGitHub組織で見つけることができます。
 
-## Open-source & Contribution
+## オープンソース & 貢献
 
-As it goes hand in hand with the open-source ecosystem, Strapi is open to contributions. The Strapi team appreciates every contribution, be it a feature request, bug report, or pull request. The following GitHub repositories are open-source and contributions-friendly:
+オープンソースエコシステムと一体となっているStrapiは、貢献を歓迎しています。Strapiチームは、機能リクエスト、バグ報告、プルリクエストなど、あらゆる貢献を高く評価しています。以下のGitHubリポジトリはオープンソースで、貢献を歓迎しています：
 
-- [`strapi/strapi`](https://github.com/strapi/strapi): main repository of Strapi, which contains the core of the project. You can find the admin panel, core plugins, plugin providers, and the whole code that runs your Strapi application. Please read the [`CONTRIBUTING.md`](https://github.com/strapi/strapi/blob/master/CONTRIBUTING.md) file to have more information about contributions to the main repository.
-- [`strapi/documentation`](https://github.com/strapi/documentation): contains the whole documentation of Strapi. Please read the [contribution guide](https://github.com/strapi/documentation/blob/main/CONTRIBUTING.md) to have more information about contributions to the Strapi documentation.
-- [`strapi/design-system`](https://github.com/strapi/design-system): is the design system that is used in the admin panel. It brings consistency between the different admin plugins.
-- [`strapi-community/awesome-strapi`](https://github.com/strapi/awesome-strapi): contains everything the community built and all managed plugins. It is used as a central place to find and submit new packages such as plugins, middlewares, hooks, and general enhancements to the core of Strapi.
+- [`strapi/strapi`](https://github.com/strapi/strapi): Strapiのメインリポジトリで、プロジェクトのコア部分が含まれています。ここには管理パネル、コアプラグイン、プラグインプロバイダー、およびStrapiアプリケーションを実行する全てのコードがあります。メインリポジトリへの貢献についての詳細は、[`CONTRIBUTING.md`](https://github.com/strapi/strapi/blob/master/CONTRIBUTING.md)ファイルをご覧ください。
+- [`strapi/documentation`](https://github.com/strapi/documentation): Strapiの全てのドキュメンテーションが含まれています。Strapiドキュメンテーションへの貢献についての詳細は、[貢献ガイド](https://github.com/strapi/documentation/blob/main/CONTRIBUTING.md)をご覧ください。
+- [`strapi/design-system`](https://github.com/strapi/design-system): 管理パネルで使用されるデザインシステムです。これにより、異なる管理プラグイン間で一貫性が保たれます。
+- [`strapi-community/awesome-strapi`](https://github.com/strapi/awesome-strapi): コミュニティが構築し、全ての管理プラグインが含まれています。プラグイン、ミドルウェア、フック、Strapiのコアへの一般的な強化など、新しいパッケージを見つけて提出するための中心的な場所として使用されます。
 
-## Strapi Community
+## Strapiコミュニティ
 
-Strapi is a community-oriented project with an emphasis on transparency. The Strapi team has at heart to share their vision and build the future of Strapi with the Strapi community. This is why the [roadmap](https://feedback.strapi.io) is open: as all insights are very important and will help steer the project in the right direction, any community member is most welcome to share ideas and opinions there.
+Strapiは透明性を重視したコミュニティ指向のプロジェクトです。Strapiチームは、自分たちのビジョンを共有し、Strapiコミュニティと共にStrapiの未来を築くことを心から望んでいます。このため、[ロードマップ](https://feedback.strapi.io)はオープンにされています：全ての洞察が非常に重要であり、プロジェクトを正しい方向に進めるために役立つため、コミュニティのメンバーはそこでアイデアや意見を共有することを歓迎しています。
 
-Community members also take great part in providing the whole community a plethora of resources about Strapi. You can find [tutorials](https://strapi.io/tutorials/) on the Strapi website, where you can also create your own. Also, as an open-source project, the documentation of Strapi is open to contributions (see [Open-source & Contribution](#open-source--contribution)).
+コミュニティのメンバーは、Strapiに関する豊富なリソースを提供することで、全体のコミュニティに大いに貢献しています。Strapiのウェブサイトで[tutorials](https://strapi.io/tutorials/)を見つけることができ、自分自身で作成することもできます。また、オープンソースプロジェクトとして、Strapiのドキュメンテーションは貢献を受け入れています（[オープンソース & 貢献](#open-source--contribution)を参照してください）。
 
-:::strapi Want to join the community?
-You can join [GitHub](https://github.com/strapi/strapi), the [Forum](https://forum.strapi.io/), and the [Discord](https://discord.strapi.io) to share your ideas and opinions with other community members and members of the Strapi team. If you're looking for news and updates about Strapi, [Twitter](https://twitter.com/strapijs) and the [blog](https://strapi.io/blog) are pretty good places to start!
+:::strapi コミュニティに参加しませんか？
+あなたのアイデアや意見を他のコミュニティメンバーやStrapiチームのメンバーと共有するために、[GitHub](https://github.com/strapi/strapi)、[フォーラム](https://forum.strapi.io/)、[Discord](https://discord.strapi.io)に参加することができます。Strapiに関するニュースや最新情報を探しているなら、[Twitter](https://twitter.com/strapijs)や[ブログ](https://strapi.io/blog)が良いスタート地点となるでしょう！
 :::
 
-## Support
+## サポート
 
-Strapi is offered as free and open-source for users who wish to self-host the software. When having an issue or a question, the [forum](https://forum.strapi.io) is great first place to reach out for help. Both the Strapi community and core developers often check this platform and answer posts.
+Strapiは、自己ホスティングを希望するユーザー向けに無料でオープンソースとして提供されています。問題や質問がある場合、[フォーラム](https://forum.strapi.io)は助けを求めるのに最初に利用すべき素晴らしい場所です。Strapiコミュニティとコア開発者の両方がこのプラットフォームを頻繁にチェックし、投稿に回答します。
 
-For enterprise support, please see our [Enterprise Support platform](https://support.strapi.io/support/home). Please note that you will need to have an active <EnterpriseBadge /> license to place tickets.
+エンタープライズサポートについては、[エンタープライズサポートプラットフォーム](https://support.strapi.io/support/home)をご覧ください。チケットを発行するには、有効な<EnterpriseBadge />ライセンスが必要であることに注意してください。

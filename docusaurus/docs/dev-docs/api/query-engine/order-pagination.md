@@ -1,7 +1,7 @@
 ---
 unlisted: true
-title: Ordering & Pagination with the Query Engine API
-description: Use Strapi's Query Engine API to order and paginate the results of your queries.
+title: クエリエンジンAPIを用いた並べ替えとページネーション
+description: StrapiのクエリエンジンAPIを使って、クエリの結果を並べ替え、ページネーションします。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
@@ -13,43 +13,43 @@ tags:
 
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
 
-# Ordering and Paginating with the Query Engine API
+# クエリエンジンAPIでの並べ替えとページネーション
 
 <ConsiderDocumentService />
 
-The [Query Engine API](/dev-docs/api/query-engine) offers the ability to [order](#ordering) and [paginate](#pagination) results.
+[クエリエンジンAPI](/dev-docs/api/query-engine)は、結果を[並べ替え](#ordering)および[ページネーション](#pagination)する機能を提供します。
 
-## Ordering
+## 並べ替え
 
-To order results returned by the Query Engine, use the `orderBy` parameter. Results can be ordered based on a [single](#single) or on [multiple](#multiple) attributes and can also use [relational ordering](#relational-ordering).
+クエリエンジンで返される結果を並べ替えるには、`orderBy`パラメーターを使用します。結果は、[単一](#single)または[複数](#multiple)の属性に基づいて並べ替えることができ、[関連性のある並べ替え](#relational-ordering)も使用できます。
 
-### Single
+### 単一
 
 ```js
 strapi.db.query('api::article.article').findMany({
   orderBy: 'id',
 });
 
-// single with direction
+// 単一の並べ替え方向
 strapi.db.query('api::article.article').findMany({
   orderBy: { id: 'asc' },
 });
 ```
 
-### Multiple
+### 複数
 
 ```js
 strapi.db.query('api::article.article').findMany({
   orderBy: ['id', 'name'],
 });
 
-// multiple with direction
+// 複数の並べ替え方向
 strapi.db.query('api::article.article').findMany({
   orderBy: [{ title: 'asc' }, { publishedAt: 'desc' }],
 });
 ```
 
-### Relational ordering
+### 関連性のある並べ替え
 
 ```js
 strapi.db.query('api::article.article').findMany({
@@ -61,9 +61,9 @@ strapi.db.query('api::article.article').findMany({
 });
 ```
 
-## Pagination
+## ページネーション
 
-To paginate results returned by the Query Engine API, use the `offset` and `limit` parameters:
+クエリエンジンAPIで返される結果をページネーションするには、`offset`と`limit`パラメーターを使用します：
 
 ```js
 strapi.db.query('api::article.article').findMany({

@@ -1,44 +1,44 @@
 ---
-title: Providers
-description: Install and use providers to extend the functionality of available plugins.
+title: プロバイダー
+description: プロバイダーをインストールして使用して、利用可能なプラグインの機能を拡張します。
 tags:
-- environment
-- provider
-- local providers
-- private providers
+- 環境
+- プロバイダー
+- ローカルプロバイダー
+- プライベートプロバイダー
 
 ---
 
-# Providers
+# プロバイダー
 
-Certain [plugins](../../../user-docs/plugins) can be extended via the installation and configuration of additional [providers](../../../user-docs/plugins#providers).
+特定の[プラグイン](../../../user-docs/plugins)は、追加の[プロバイダー](../../../user-docs/plugins#providers)のインストールと設定により拡張できます。
 
-Providers add an extension to the core capabilities of the plugin, for example to upload media files to AWS S3 instead of the local server, or using Amazon SES for emails instead of Sendmail.
+プロバイダーは、プラグインのコア機能を拡張します。例えば、メディアファイルをローカルサーバーではなくAWS S3にアップロードしたり、Sendmailの代わりにAmazon SESをメールに使用したりすることができます。
 
 :::note
-Only the [Upload](/dev-docs/plugins/upload) and [Email](/dev-docs/plugins/email) plugins are currently designed to work with providers. 
+現在、[アップロード](/dev-docs/plugins/upload)と[メール](/dev-docs/plugins/email)のプラグインのみがプロバイダーと連携するように設計されています。
 :::
 
-For the relevant plugins, there are both official providers maintained by Strapi — discoverable via the [Marketplace](../../../user-docs/plugins/installing-plugins-via-marketplace) — and many community maintained providers available via [npm](https://www.npmjs.com/).
+関連するプラグインには、[マーケットプレイス](../../../user-docs/plugins/installing-plugins-via-marketplace)から見つけることができるStrapiによって維持されている公式のプロバイダーと、[npm](https://www.npmjs.com/)から利用できる多数のコミュニティによって維持されているプロバイダーがあります。
 
-A provider can be configured to be [private](#creating-private-providers) to ensure asset URLs will be signed for secure access.
+プロバイダーは、アセットURLが安全なアクセスのために署名されるように、[プライベート](#creating-private-providers)に設定することができます。
 
-## Installing providers
+## プロバイダーのインストール
 
-New providers can be installed using `npm` or `yarn` using the following format `@strapi/provider-<plugin>-<provider> --save`.
+新しいプロバイダーは、以下の形式の`npm`または`yarn`を使用してインストールできます。`@strapi/provider-<plugin>-<provider> --save`。
 
-For example:
+例えば：
 
 <Tabs groupId="yarn-npm">
 
 <TabItem value="yarn" label="yarn">
 
 ```bash
-#Install the AWS S3 provider for the Upload plugin
+#アップロードプラグインのAWS S3プロバイダーをインストールします
 
 yarn add @strapi/provider-upload-aws-s3
 
-# Install the Sendgrid provider for the Email plugin
+# メールプラグインのSendgridプロバイダーをインストールします
 yarn add @strapi/provider-email-sendgrid --save
 
 ```
@@ -48,11 +48,11 @@ yarn add @strapi/provider-email-sendgrid --save
 <TabItem value="npm" label="npm">
 
 ```bash
-#Install the AWS S3 provider for the Upload plugin
+#アップロードプラグインのAWS S3プロバイダーをインストールします
 
 npm install @strapi/provider-upload-aws-s3 --save
 
-# Install the Sendgrid provider for the Email plugin
+# メールプラグインのSendgridプロバイダーをインストールします
 npm install @strapi/provider-email-sendgrid --save
 
 ```
@@ -61,13 +61,13 @@ npm install @strapi/provider-email-sendgrid --save
 
 </Tabs>
 
-## Configuring providers
+## プロバイダーの設定
 
-Newly installed providers are enabled and configured in the `./config/plugins.js` file. If this file does not exist you must create it.
+新しくインストールされたプロバイダーは、`./config/plugins.js`ファイルで有効化され、設定されます。このファイルが存在しない場合は作成する必要があります。
 
-Each provider will have different configuration settings available. Review the respective entry for that provider in the [Marketplace](../../../user-docs/plugins/installing-plugins-via-marketplace) or [npm](https://www.npmjs.com/) to learn more.
+各プロバイダーは、利用可能な設定が異なります。詳細は、そのプロバイダーの[マーケットプレイス](../../../user-docs/plugins/installing-plugins-via-marketplace)または[npm](https://www.npmjs.com/)のエントリを確認してください。
 
-Below are example configurations for the Upload and Email plugins.
+以下に、アップロードとメールのプラグインの設定例を示します。
 
 <Tabs>
 
@@ -77,7 +77,7 @@ Below are example configurations for the Upload and Email plugins.
 
 <TabItem value="javascript" label="JavaScript">
 
-```js title="./config/plugins.js"
+```js title="./config/plugins.js"```
 
 module.exports = ({ env }) => ({
   // ...
@@ -109,6 +109,7 @@ module.exports = ({ env }) => ({
   },
   // ...
 });
+
 ```
 
 </TabItem>
@@ -121,13 +122,13 @@ export default ({ env }) => ({
   // ...
   upload: {
     config: {
-      provider: 'aws-s3', // For community providers pass the full package name (e.g. provider: 'strapi-provider-upload-google-cloud-storage')
+      provider: 'aws-s3', // コミュニティプロバイダーの場合は、完全なパッケージ名を渡します (例: provider: 'strapi-provider-upload-google-cloud-storage')
       providerOptions: {
         accessKeyId: env('AWS_ACCESS_KEY_ID'),
         secretAccessKey: env('AWS_ACCESS_SECRET'),
         region: env('AWS_REGION'),
         params: {
-          ACL: env('AWS_ACL', 'public-read'), // 'private' if you want to make the uploaded files private
+          ACL: env('AWS_ACL', 'public-read'), // アップロードしたファイルをプライベートにしたい場合は 'private'
           Bucket: env('AWS_BUCKET'),
         },
       },
@@ -142,7 +143,7 @@ export default ({ env }) => ({
 </Tabs>
 
 :::note
-Strapi has a default [`security` middleware](/dev-docs/configurations/middlewares#security) that has a very strict `contentSecurityPolicy` that limits loading images and media to `"'self'"` only, see the example configuration on the [provider page](https://www.npmjs.com/package/@strapi/provider-upload-aws-s3) or the [middleware documentation](/dev-docs/configurations/middlewares#security) for more information.
+Strapiにはデフォルトの[`security` ミドルウェア](/dev-docs/configurations/middlewares#security)があり、非常に厳格な `contentSecurityPolicy` が設定されており、画像やメディアの読み込みは `'self'` のみに限定されています。詳細は [provider page](https://www.npmjs.com/package/@strapi/provider-upload-aws-s3) または [middleware documentation](/dev-docs/configurations/middlewares#security) を参照してください。
 :::
 
 </TabItem>
@@ -159,7 +160,7 @@ module.exports = ({ env }) => ({
   // ...
   email: {
     config: {
-      provider: 'sendgrid', // For community providers pass the full package name (e.g. provider: 'strapi-provider-email-mandrill')
+      provider: 'sendgrid', // コミュニティプロバイダーの場合は、完全なパッケージ名を渡します (例: provider: 'strapi-provider-email-mandrill')
       providerOptions: {
         apiKey: env('SENDGRID_API_KEY'),
       },
@@ -180,11 +181,11 @@ module.exports = ({ env }) => ({
 
 ```ts title="./config/plugins.ts"
 
-export default ({ env }) => ({
+デフォルトで ({ env }) => ({
   // ...
   email: {
     config: {
-      provider: 'sendgrid', // For community providers pass the full package name (e.g. provider: 'strapi-provider-email-mandrill')
+      provider: 'sendgrid', // コミュニティプロバイダーの場合は、フルパッケージ名を指定します（例：provider: 'strapi-provider-email-mandrill'）
       providerOptions: {
         apiKey: env('SENDGRID_API_KEY'),
       },
@@ -197,6 +198,7 @@ export default ({ env }) => ({
   },
   // ...
 });
+
 ```
 
 </TabItem>
@@ -205,26 +207,26 @@ export default ({ env }) => ({
 
 :::note
 
-* When using a different provider per environment, specify the correct configuration in `./config/env/${yourEnvironment}/plugins.js` (See [Environments](/dev-docs/configurations/environment)).
-* Only one email provider will be active at a time. If the email provider setting isn't picked up by Strapi, verify the `plugins.js` file is in the correct folder.
-* When testing the new email provider with those two email templates created during strapi setup, the _shipper email_ on the template defaults to `no-reply@strapi.io` and needs to be updated according to your email provider, otherwise it will fail the test (See [Configure templates locally](/user-docs/settings/configuring-users-permissions-plugin-settings#configuring-email-templates)).
+* 環境ごとに異なるプロバイダーを使用する場合は、 `./config/env/${yourEnvironment}/plugins.js` に正しい設定を指定します（[Environments](/dev-docs/configurations/environment)を参照）。
+* 一度にアクティブになるメールプロバイダーは1つだけです。メールプロバイダーの設定がStrapiに反映されない場合は、 `plugins.js` ファイルが正しいフォルダにあることを確認してください。
+* Strapiのセットアップ中に作成された2つのメールテンプレートで新しいメールプロバイダーをテストする場合、テンプレートの _shipper email_ はデフォルトで `no-reply@strapi.io` に設定されており、メールプロバイダーに応じて更新する必要があります。そうしないとテストに失敗します（[Configure templates locally](/user-docs/settings/configuring-users-permissions-plugin-settings#configuring-email-templates)を参照）。
 
 :::
 
 </TabItem>
 </Tabs>
 
-### Configuration per environment
+### 環境ごとの設定
 
-When configuring your provider you might want to change the configuration based on the `NODE_ENV` environment variable or use environment specific credentials.
+プロバイダーを設定する際には、 `NODE_ENV` 環境変数に基づいて設定を変更するか、環境固有の資格情報を使用することがあります。
 
-You can set a specific configuration in the `./config/env/{env}/plugins.js` configuration file and it will be used to overwrite the default configuration.
+`./config/env/{env}/plugins.js` 設定ファイルに特定の設定を設定すると、デフォルトの設定を上書きするために使用されます。
 
-## Creating providers
+## プロバイダーの作成
 
-To implement your own custom provider you must [create a Node.js module](https://docs.npmjs.com/creating-node-js-modules).
+独自のカスタムプロバイダーを実装するには、[Node.jsモジュールを作成する](https://docs.npmjs.com/creating-node-js-modules)必要があります。
 
-The interface that must be exported depends on the plugin you are developing the provider for. Below are templates for the Upload and Email plugins:
+エクスポートする必要があるインターフェースは、プロバイダーを開発しているプラグインによります。以下に、アップロードとメールプラグインのテンプレートを示します：
 
 <Tabs>
 <TabItem value="Upload" title="Upload">
@@ -236,39 +238,40 @@ The interface that must be exported depends on the plugin you are developing the
 ```js
 module.exports = {
   init(providerOptions) {
-    // init your provider if necessary
+    // 必要に応じてプロバイダーを初期化します
 
-    return {
+{
       upload(file) {
-        // upload the file in the provider
-        // file content is accessible by `file.buffer`
+        // プロバイダーにファイルをアップロードする
+        // `file.buffer`でファイルの内容にアクセスできます
       },
       uploadStream(file) {
-        // upload the file in the provider
-        // file content is accessible by `file.stream`
+        // プロバイダーにファイルをアップロードする
+        // `file.stream`でファイルの内容にアクセスできます
       },
       delete(file) {
-        // delete the file in the provider
+        // プロバイダーからファイルを削除する
       },
       checkFileSize(file, { sizeLimit }) {
-        // (optional)
-        // implement your own file size limit logic
+        // （オプション）
+        // 自分でファイルサイズの制限ロジックを実装する
       },
       getSignedUrl(file) {
-        // (optional)
-        // Generate a signed URL for the given file.
-        // The signed URL allows secure access to the file.
-        // Only Content Manager assets will be signed.
-        // Returns an object {url: string}.
+        // （オプション）
+        // 与えられたファイルの署名付きURLを生成する。
+        // 署名付きURLはファイルへのセキュアなアクセスを可能にします。
+        // コンテンツマネージャーの資産だけが署名されます。
+        // オブジェクト {url: string}を返します。
       },
       isPrivate() {
-        // (optional)
-        // if it is private, file urls will be signed
-        // Returns a boolean
+        // （オプション）
+        // プライベートであれば、ファイルのURLに署名が行われます
+        // ブール値を返す
       },
     };
   },
 };
+
 ```
 
 </TabItem>
@@ -278,39 +281,40 @@ module.exports = {
 ```ts
 export default {
   init(providerOptions) {
-    // init your provider if necessary
+    // 必要であればプロバイダーを初期化する
 
     return {
       upload(file) {
-        // upload the file in the provider
-        // file content is accessible by `file.buffer`
+        // プロバイダーにファイルをアップロードする
+        // `file.buffer`でファイルの内容にアクセスできます
       },
       uploadStream(file) {
-        // upload the file in the provider
-        // file content is accessible by `file.stream`
+        // プロバイダーにファイルをアップロードする
+        // `file.stream`でファイルの内容にアクセスできます
       },
       delete(file) {
-        // delete the file in the provider
+        // プロバイダーからファイルを削除する
       },
       checkFileSize(file, { sizeLimit }) {
-        // (optional)
-        // implement your own file size limit logic
+        // （オプション）
+        // 自分でファイルサイズの制限ロジックを実装する
       },
       getSignedUrl(file) {
-        // (optional)
-        // Generate a signed URL for the given file.
-        // The signed URL allows secure access to the file.
-        // Only Content Manager assets will be signed.
-        // Returns an object {url: string}.
+        // （オプション）
+        // 与えられたファイルの署名付きURLを生成する。
+        // 署名付きURLはファイルへのセキュアなアクセスを可能にします。
+        // コンテンツマネージャーの資産だけが署名されます。
+        // オブジェクト {url: string}を返します。
       },
       isPrivate() {
-        // (optional)
-        // if it is private, file urls will be signed
-        // Returns a boolean
+        // （オプション）
+        // プライベートであれば、ファイルのURLに署名が行われます
+        // ブール値を返す
       },
     };
   },
 };
+
 ```
 
 </TabItem>
@@ -333,6 +337,7 @@ module.exports = {
     };
   },
 };
+
 ```
 
 </TabItem>
@@ -347,6 +352,7 @@ export {
     };
   },
 };
+
 ```
 
 </TabItem>
@@ -356,23 +362,23 @@ export {
 </TabItem>
 </Tabs>
 
-In the send function you will have access to:
+send関数では以下にアクセスできます：
 
-* `providerOptions` that contains configurations written in `plugins.js`
-* `settings` that contains configurations written in `plugins.js`
-* `options` that contains options you send when you call the send function from the email plugin service
+* `plugins.js`に記述された設定を含む`providerOptions`
+* `plugins.js`に記述された設定を含む`settings`
+* emailプラグインサービスからsend関数を呼び出すときに送信するオプションを含む`options`
 
-You can review the [Strapi maintained providers](https://github.com/strapi/strapi/tree/master/packages/providers) for example implementations.
+実装例として、[Strapiが維持しているプロバイダー](https://github.com/strapi/strapi/tree/master/packages/providers)を確認できます。
 
-After creating your new provider you can [publish it to npm](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages) to share with the community or [use it locally](#local-providers) for your project only.
+新しいプロバイダを作成した後、それを[npmに公開](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages)してコミュニティと共有したり、プロジェクト専用に[ローカルで使用](#local-providers)することができます。
 
-### Local providers
+### ローカルプロバイダ
 
-If you want to create your own provider without publishing it on npm you can follow these steps:
+npmに公開せずに自分だけのプロバイダを作りたい場合は、以下の手順に従ってください:
 
-1. Create a `providers` folder in your application.
-2. Create your provider (e.g. `./providers/strapi-provider-<plugin>-<provider>`)
-3. Then update your `package.json` to link your `strapi-provider-<plugin>-<provider>` dependency to the [local path](https://docs.npmjs.com/files/package.json#local-paths) of your new provider.
+1. アプリケーションに`providers`フォルダを作成します。
+2. プロバイダを作成します（例：`./providers/strapi-provider-<plugin>-<provider>`）
+3. 次に、`package.json`を更新して、新しいプロバイダの`strapi-provider-<plugin>-<provider>`(https://docs.npmjs.com/files/package.json#local-paths)依存関係を新しいプロバイダのローカルパスにリンクします。
 
 ```json
 {
@@ -385,28 +391,26 @@ If you want to create your own provider without publishing it on npm you can fol
 }
 ```
 
-4. Update your `./config/plugins.js` file to [configure the provider](#configuring-providers).
-5. Finally, run `yarn install` or `npm install` to install your new custom provider.
+4. `./config/plugins.js`ファイルを更新して、[プロバイダを設定](#configuring-providers)します。
+5. 最後に、`yarn install`または`npm install`を実行して、新しいカスタムプロバイダをインストールします。
 
-## Creating private providers
+## プライベートプロバイダの作成
 
-You can set up a private provider, meaning that every asset URL displayed in the Content Manager will be signed for secure access.
+プライベートプロバイダを設定すると、コンテンツマネージャに表示されるすべてのアセットURLが安全なアクセスのために署名されます。
 
-To enable private providers, you must implement the `isPrivate()` method and return `true`.
+プライベートプロバイダを有効にするには、`isPrivate()`メソッドを実装し、`true`を返す必要があります。
 
+バックエンドでは、Strapiはプロバイダで実装された`getSignedUrl(file)`メソッドを使用して、各アセットの署名付きURLを生成します。署名付きURLには、ユーザーがアセットにアクセスできるようにする暗号化された署名が含まれています（ただし、通常は限られた時間と特定の制限があります。プロバイダによります）。
 
+セキュリティ上の理由から、コンテンツAPIは署名付きURLを提供しません。代わりに、APIを使用する開発者は自分でURLに署名する必要があります。
 
-In the backend, Strapi generates a signed URL for each asset using the `getSignedUrl(file)` method implemented in the provider. The signed URL includes an encrypted signature that allows the user to access the asset (but normally only for a limited time and with specific restrictions, depending on the provider).
+**例**
 
-Note that for security reasons, the content API will not provide any signed URLs. Instead, developers using the API should sign the urls themselves.
+プライベートの`aws-s3`プロバイダを作成するには：
 
-**Example**
-
-To create a private `aws-s3` provider:
-
-1. Create a `./providers/aws-s3` folder in your application. See [Local Providers](#local-providers) for more information.
-2. Implement the `isPrivate()` method in the `aws-s3` provider to return `true`.
-3. Implement the `getSignedUrl(file)` method in the `aws-s3` provider to generate a signed URL for the given file.
+1. アプリケーションに`./providers/aws-s3`フォルダを作成します。詳細については、[ローカルプロバイダ](#local-providers)を参照してください。
+2. `aws-s3`プロバイダの`isPrivate()`メソッドを実装し、`true`を返すようにします。
+3. `aws-s3`プロバイダの`getSignedUrl(file)`メソッドを実装し、指定されたファイルの署名付きURLを生成します。
 
 <Tabs groupId="js-ts">
 
@@ -454,17 +458,17 @@ module.exports = {
 ```ts title="./providers/aws-s3/index.ts"
 // aws-s3 provider
 
-export = {
+エクスポート = {
   init: (config) => {
     const s3 = new AWS.S3(config);
 
     return {
       async upload(file) {
-        // code to upload file to S3
+        // S3へのファイルのアップロードコード
       },
 
       async delete(file) {
-        // code to delete file from S3
+        // S3からのファイルの削除コード
       },
 
       async isPrivate() {
@@ -475,7 +479,7 @@ export = {
         const params = {
           Bucket: config.params.Bucket,
           Key: file.path,
-          Expires: 60, // URL expiration time in seconds
+          Expires: 60, // URLの有効期限（秒）
         };
 
         const signedUrl = await s3.getSignedUrlPromise("getObject", params);
@@ -484,6 +488,7 @@ export = {
     };
   },
 };
+
 ```
 
 </TabItem>

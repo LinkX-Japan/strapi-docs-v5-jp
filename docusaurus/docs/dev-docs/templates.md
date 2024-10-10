@@ -1,22 +1,22 @@
 ---
-title: Templates
-description: Use and create pre-made Strapi applications designed for a specific use case.
+title: テンプレート
+description: 特定のユースケースに対応した既製のStrapiアプリケーションを使用し、作成します。
 displayed_sidebar: devDocsSidebar
 tags:
-- installation
-- templates
+- インストール
+- テンプレート
 - CLI
 ---
 
-# Templates
+# テンプレート
 
-Templates in Strapi 5 are standalone, pre-made Strapi applications designed for specific use cases.
+Strapi 5のテンプレートは、特定のユースケースに対応した独立した既製のStrapiアプリケーションです。
 
-Strapi 5 templates are folders that include all files and folders that you would find in a typical Strapi application (see [project structure](/dev-docs/project-structure)).
+Strapi 5のテンプレートは、典型的なStrapiアプリケーションに見つけることができる全てのファイルとフォルダを含むフォルダです（[プロジェクト構造](/dev-docs/project-structure)を参照）。
 
-## Using a template
+## テンプレートの使用
 
-To create a new Strapi project based on a template, run the following command:
+テンプレートに基づいた新しいStrapiプロジェクトを作成するには、以下のコマンドを実行します：
 
 <Tabs groupId="yarn-npm">
 
@@ -38,22 +38,22 @@ npx create-strapi-app@latest my-project --template <template-name-or-url>
 
 </Tabs>
 
-In addition to the mandatory `--template` parameter, you can pass the optional `--template-path` and `--template-branch` options to more precisely define the template to use.
+必須の `--template` パラメータに加えて、オプションの `--template-path` と `--template-branch` オプションを渡して、使用するテンプレートをより正確に定義することができます。
 
-The following table lists all the possible ways to define which template to use:
+以下の表は、使用するテンプレートを定義するための全ての可能な方法をリストしています：
 
-| Syntax | Description |
+| 構文 | 説明 |
 |--------|-------------|
-| `--template website` | Using one of the [Strapi-maintained templates](https://github.com/strapi/strapi/tree/develop/templates) calling it by its (folder) name. |
-| `--template strapi/strapi` | Using the template's GitHub repository shorthand.<br/>This will use the default repository branch. |
-| `--template strapi/strapi/some/sub/path` | Using the template's GitHub repository shorthand and specifying a subpath.<br/>This will use the default repository branch. |
-| `--template strapi/strapi`<br/>`--template-branch=xxx`<br/>`--template-path=some/sub/path` | The most verbose way, explicitly defining a template branch and a subpath. |
-| `--template https://github.com/owner/some-template-repo` | Using a full repository URL.<br/>This will use the default repository branch. |
-| `--template https://github.com/owner/some-template-repo --template-branch=xxx --template-path=sub/path` | Using a full repository URL, and specifying both the branch and the subpath for the template. |
-| `--template https://github.com/strapi/strapi/tree/branch/sub/path` | Using a repository, branch, and subpath directly.<br/><br/>⚠️ _Warning: This won't work with branch names that include a `/`. In such cases, it's best to explicitly define `--template-branch` and `--template-path`._ |
+| `--template website` | [Strapiがメンテナンスしているテンプレート](https://github.com/strapi/strapi/tree/develop/templates)の一つを、その（フォルダ）名前で呼び出す。 |
+| `--template strapi/strapi` | テンプレートのGitHubリポジトリの短縮形を使用します。<br/>これはデフォルトのリポジトリブランチを使用します。 |
+| `--template strapi/strapi/some/sub/path` | テンプレートのGitHubリポジトリの短縮形を使用し、サブパスを指定します。<br/>これはデフォルトのリポジトリブランチを使用します。 |
+| `--template strapi/strapi`<br/>`--template-branch=xxx`<br/>`--template-path=some/sub/path` | 最も詳細な方法で、テンプレートのブランチとサブパスを明示的に定義します。 |
+| `--template https://github.com/owner/some-template-repo` | フルのリポジトリURLを使用します。<br/>これはデフォルトのリポジトリブランチを使用します。 |
+| `--template https://github.com/owner/some-template-repo --template-branch=xxx --template-path=sub/path` | フルのリポジトリURLを使用し、テンプレートのブランチとサブパスの両方を指定します。 |
+| `--template https://github.com/strapi/strapi/tree/branch/sub/path` | リポジトリ、ブランチ、サブパスを直接使用します。<br/><br/>⚠️ _警告: これはブランチ名に `/` が含まれている場合には動作しません。そのような場合、 `--template-branch` と `--template-path` を明示的に定義するのが最善です。_ |
 
-## Creating a template
+## テンプレートの作成
 
-Creating a Strapi 5 template is as simple as creating a Strapi application. Create the application (see [CLI installation](/dev-docs/installation/cli)) and the generated folder containing your Strapi 5 application can serve as a template. You can then pass it to the `--template` flag when creating a new Strapi 5 application to use it as a template.
+Strapi 5のテンプレートを作成することは、Strapiアプリケーションを作成するのと同じくらい簡単です。アプリケーションを作成します（[CLIインストール](/dev-docs/installation/cli)を参照）と、生成されたフォルダにはStrapi 5アプリケーションが含まれ、これがテンプレートとして機能します。新しいStrapi 5アプリケーションを作成する際に、それを `--template` フラグに渡してテンプレートとして使用することができます。
 
-An example of what a template could look like is the [Strapi-maintained `website` template](https://github.com/strapi/strapi/tree/develop/templates/website).
+テンプレートがどのように見えるかの例は、[Strapiがメンテナンスしている `website` テンプレート](https://github.com/strapi/strapi/tree/develop/templates/website)です。

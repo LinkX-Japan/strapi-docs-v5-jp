@@ -1,34 +1,34 @@
 ---
 unlisted: true
-title: Filtering with the Query Engine API
-description: Use Strapi's Query Engine API to filter the results of your queries.
+title: クエリエンジンAPIを使用したフィルタリング
+description: StrapiのクエリエンジンAPIを使用して、クエリ結果をフィルタリングする方法を説明します。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
-- Content API
-- filters
-- logical operators
-- Query Engine API
+- コンテンツAPI
+- フィルタ
+- 論理演算子
+- クエリエンジンAPI
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
 
-# Filtering with the Query Engine API
+# クエリエンジンAPIを使用したフィルタリング
 
 <ConsiderDocumentService />
 
-The [Query Engine API](/dev-docs/api/query-engine/) offers the ability to filter results found with its [findMany()](/dev-docs/api/query-engine/single-operations#findmany) method.
+[クエリエンジンAPI](/dev-docs/api/query-engine/) では、[findMany()](/dev-docs/api/query-engine/single-operations#findmany) メソッドを使用して見つかった結果をフィルタリングすることができます。
 
-Results are filtered with the `where` parameter that accepts [logical operators](#logical-operators) and [attribute operators](#attribute-operators). Every operator should be prefixed with `$`.
+結果は、`where` パラメーターでフィルタリングされ、このパラメーターは[論理演算子](#logical-operators)および[属性演算子](#attribute-operators)を受け入れます。すべての演算子には `$` が付けられる必要があります。
 
-## Logical operators
+## 論理演算子
 
 ### `$and`
 
-All nested conditions must be `true`.
+すべてのネストされた条件が `true` である必要があります。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -45,7 +45,7 @@ const entries = await strapi.db.query('api::article.article').findMany({
 });
 ```
 
-`$and` is used implicitly when passing an object with nested conditions:
+オブジェクトにネストされた条件を渡すと、暗黙的に `$and` が使用されます。
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -58,9 +58,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$or`
 
-One or many nested conditions must be `true`.
+1つまたは複数のネストされた条件が `true` である必要があります。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -79,9 +79,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$not`
 
-Negates the nested conditions.
+ネストされた条件を否定します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -94,27 +94,27 @@ const entries = await strapi.db.query('api::article.article').findMany({
 ```
 
 :::note
-`$not` can be used:
+`$not` は以下の方法で使用できます:
 
-- as a logical operator (e.g. in `where: { $not: { // conditions… }}`)
-- or [as an attribute operator](#not-2) (e.g. in `where: { attribute-name: $not: { … } }`).
+- 論理演算子として（例: `where: { $not: { // 条件… }}`）
+- [属性演算子](#not-2)として（例: `where: { attribute-name: $not: { … } }`）
 :::
 
 :::tip
-`$and`, `$or` and `$not` operators are nestable inside of another `$and`, `$or` or `$not` operator.
+`$and`、`$or`、`$not` 演算子は、他の `$and`、`$or`、`$not` 演算子の内部にネストできます。
 :::
 
-## Attribute Operators
+## 属性演算子
 
 :::caution
-Using these operators may give different results depending on the database's implementation, as the comparison is handled by the database and not by Strapi.
+これらの演算子を使用すると、データベースの実装によって結果が異なる場合があります。比較はStrapiではなく、データベースによって処理されるためです。
 :::
 
 ### `$not`
 
-Negates nested condition(s).
+ネストされた条件を否定します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -130,9 +130,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$eq`
 
-Attribute equals input value.
+属性が入力値と等しいことを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -144,7 +144,7 @@ const entries = await strapi.db.query('api::article.article').findMany({
 });
 ```
 
-`$eq` can be omitted:
+`$eq` は省略可能です:
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -156,9 +156,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$eqi`
 
-Attribute equals input value (case-insensitive).
+属性が入力値と等しいことを確認します（大文字小文字を区別しない）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -172,9 +172,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$ne`
 
-Attribute does not equal input value.
+属性が入力値と等しくないことを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -188,9 +188,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$nei`
 
-Attribute does not equal input value (case-insensitive).
+属性が入力値と等しくないことを確認します（大文字小文字を区別しない）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -204,9 +204,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$in`
 
-Attribute is contained in the input list.
+属性が入力リストに含まれていることを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -218,7 +218,7 @@ const entries = await strapi.db.query('api::article.article').findMany({
 });
 ```
 
-`$in` can be omitted when passing an array of values:
+配列を渡す場合、`$in` は省略可能です:
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -230,9 +230,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$notIn`
 
-Attribute is not contained in the input list.
+属性が入力リストに含まれていないことを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -246,9 +246,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$lt`
 
-Attribute is less than the input value.
+属性が入力値より小さいことを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -262,9 +262,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$lte`
 
-Attribute is less than or equal to the input value.
+属性が入力値以下であることを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -278,9 +278,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$gt`
 
-Attribute is greater than the input value.
+属性が入力値より大きいことを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -294,9 +294,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$gte`
 
-Attribute is greater than or equal to the input value.
+属性が入力値以上であることを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -308,12 +308,11 @@ const entries = await strapi.db.query('api::article.article').findMany({
 });
 ```
 
-
 ### `$between`
 
-Attribute is between the 2 input values, boundaries included (e.g., `$between[1, 3]` will also return `1` and `3`).
+属性が2つの入力値の間にあることを確認します。境界値を含みます（例: `$between[1, 3]` は `1` と `3` も返します）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -325,12 +324,11 @@ const entries = await strapi.db.query('api::article.article').findMany({
 });
 ```
 
-
 ### `$contains`
 
-Attribute contains the input value (case-sensitive).
+属性が入力値を含んでいることを確認します（大文字小文字を区別）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -344,9 +342,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$notContains`
 
-Attribute does not contain the input value (case-sensitive).
+属性が入力値を含んでいないことを確認します（大文字小文字を区別）。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -360,9 +358,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$containsi`
 
-Attribute contains the input value. `$containsi` is not case-sensitive, while [$contains](#contains) is.
+属性が入力値を含んでいることを確認します。`$containsi` は大文字小文字を区別しませんが、[$contains](#contains) は区別します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -376,9 +374,11 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$notContainsi`
 
-Attribute does not contain the input value. `$notContainsi` is not case-sensitive, while [$notContains](#notcontains) is.
+属性が入力値を含んでいないことを確認します。`$notContainsi` は大文字小文字を区別しませんが、[$notContains](
 
-**Example**
+#notcontains) は区別します。
+
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -392,9 +392,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$startsWith`
 
-Attribute starts with input value.
+属性が入力値で始まることを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -408,9 +408,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$endsWith`
 
-Attribute ends with input value.
+属性が入力値で終わることを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -424,9 +424,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$null`
 
-Attribute is `null`.
+属性が `null` であることを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({
@@ -440,9 +440,9 @@ const entries = await strapi.db.query('api::article.article').findMany({
 
 ### `$notNull`
 
-Attribute is not `null`.
+属性が `null` でないことを確認します。
 
-**Example**
+**例**
 
 ```js
 const entries = await strapi.db.query('api::article.article').findMany({

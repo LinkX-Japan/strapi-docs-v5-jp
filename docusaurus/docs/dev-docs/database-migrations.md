@@ -1,47 +1,47 @@
 ---
-title: Database migrations
-description: Strapi database migrations are ways to modify the database
+title: データベースマイグレーション
+description: Strapiのデータベースマイグレーションは、データベースを変更する方法です
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Database migrations
+# データベースマイグレーション
 
 <NotV5 />
 
-Database migrations exist to run one-time queries against the database, typically to modify the tables structure or the data when upgrading the Strapi application. These migrations are run automatically when the application starts and are executed before the automated schema migrations that Strapi also performs on boot.
+データベースマイグレーションは、一度だけデータベースに対してクエリを実行し、通常はStrapiアプリケーションのアップグレード時にテーブル構造やデータを変更するために存在します。これらのマイグレーションは、アプリケーションの起動時に自動的に実行され、Strapiが起動時にも自動的に実行するスキーママイグレーションの前に実行されます。
 
-:::callout 🚧  Experimental feature
-Database migrations are experimental. This feature is still a work in progress and will continue to be updated and improved. In the meantime, feel free to ask for help on the [forum](https://forum.strapi.io/) or on the community [Discord](https://discord.strapi.io).
+:::callout 🚧  実験的な機能
+データベースマイグレーションは実験的な機能です。この機能はまだ作業中であり、引き続き更新と改善が行われます。その間、[フォーラム](https://forum.strapi.io/)やコミュニティの[Discord](https://discord.strapi.io)での助けを求めることができます。
 :::
 
-## Understanding database migration files
+## データベースマイグレーションファイルの理解
 
-Migrations are run using JavaScript migration files stored in `./database/migrations`.
+マイグレーションは、`./database/migrations`に保存されたJavaScriptのマイグレーションファイルを使用して実行されます。
 
-Strapi automatically detects migration files and run them once at the next startup in alphabetical order. Every new file is executed once. Migrations are run before the database tables are synced with the content-types schemas.
+Strapiは自動的にマイグレーションファイルを検出し、次の起動時に一度だけそれらをアルファベット順に実行します。新しいファイルは一度だけ実行されます。マイグレーションは、データベースのテーブルがコンテンツタイプのスキーマと同期される前に実行されます。
 
 :::warning
-* Currently Strapi does not support down migrations. This means that if you need to revert a migration, you will have to do it manually. It is planned to implement down migrations in the future but no timeline is currently available.
+* 現在、Strapiはダウンマイグレーションをサポートしていません。これは、マイグレーションを元に戻す必要がある場合、手動で行う必要があることを意味します。将来的にダウンマイグレーションを実装する予定ですが、現在のところタイムラインはありません。
 
-* Strapi will delete any unknown tables without warning. This means that database migrations can only be used to keep data when changing the Strapi schema. The `forceMigration` and `runMigrations` [database configuration parameters](/dev-docs/configurations/database#settings-configuration-object) can be used to fine-tune the database migrations behavior.
+* Strapiは警告なしに未知のテーブルを削除します。これは、データベースマイグレーションはStrapiのスキーマを変更する際にデータを保持するためにのみ使用できることを意味します。`forceMigration`と`runMigrations`の[データベース設定パラメータ](/dev-docs/configurations/database#settings-configuration-object)を使用して、データベースマイグレーションの挙動を微調整することができます。
 :::
 
-Migration files should export the function `up()`, which is used when upgrading (e.g. adding a new table `my_new_table`).
+マイグレーションファイルは、アップグレード時（例えば、新しいテーブル`my_new_table`を追加する場合）に使用される関数`up()`をエクスポートする必要があります。
 
-The `up()` function runs in a database transaction which means if a query fails during the migration, the whole migration is cancelled, and no changes are applied to the database. If another transaction is created within the migration function, it will act as a nested transaction.
+`up()`関数はデータベーストランザクション内で実行されるため、マイグレーション中にクエリが失敗すると、マイグレーション全体がキャンセルされ、データベースには変更が適用されません。マイグレーション関数内で別のトランザクションが作成された場合、それはネストしたトランザクションとして機能します。
 
 :::note
-There is no CLI to manually execute the database migrations.
+データベースマイグレーションを手動で実行するCLIはありません。
 :::
 
-## Creating a migration file
+## マイグレーションファイルの作成
 
-To create a migration file:
+マイグレーションファイルを作成するには：
 
-1. In the `./database/migrations` folder, create a new file named after the date and the name of the migration (e.g. `2022.05.10T00.00.00.name-of-my-migration.js`). Make sure that the file name follows this naming pattern, because the alphabetical order of the files defines the order in which the migrations have to run.
+1. `./database/migrations`フォルダ内で、日付とマイグレーションの名前をつけた新しいファイルを作成します（例：`2022.05.10T00.00.00.name-of-my-migration.js`）。ファイル名がこの命名パターンに従っていることを確認してください。なぜなら、ファイルのアルファベット順がマイグレーションの実行順序を決定するからです。
 
-2. Copy and paste the following template in the previously created file:
+2. 以下のテンプレートをコピーして、先ほど作成したファイルに貼り付けます：
 
 ```jsx
 'use strict'
@@ -51,27 +51,27 @@ async function up(knex) {}
 module.exports = { up };
 ```
 
-3. Fill in the template by adding actual migration code inside the `up()` function.
-`up()` receives a [Knex instance](https://knexjs.org/), already in a transaction state, that can be used to run the database queries.
+3. `up()`関数内に実際の移行コードを追加してテンプレートを完成させます。
+`up()`は[Knexインスタンス](https://knexjs.org/)を受け取り、すでにトランザクション状態でデータベースクエリを実行することができます。
 
 <details>
-<summary>Example of migration file</summary>
+<summary>移行ファイルの例</summary>
 
 ```jsx title="./database/migrations/2022.05.10T00.00.00.name-of-my-migration.js"
 
 module.exports = {
   async up(knex) {
-    // You have full access to the Knex.js API with an already initialized connection to the database
+    // データベースへの接続がすでに初期化されたKnex.js APIを完全に利用できます
 
-    // Example: renaming a table
+    // 例：テーブルの名前を変更する
     await knex.schema.renameTable('oldName', 'newName');
 
-    // Example: renaming a column
+    // 例：カラムの名前を変更する
     await knex.schema.table('someTable', table => {
       table.renameColumn('oldName', 'newName');
     });
 
-    // Example: updating data
+    // 例：データを更新する
     await knex.from('someTable').update({ columnName: 'newValue' }).where({ columnName: 'oldValue' });
   },
 };
@@ -79,29 +79,29 @@ module.exports = {
 
 </details>
 
-### Using Strapi Instance for migrations
+### 移行のためのStrapiインスタンスの使用
 
 :::danger
-If a user opts not to use Knex directly for migrations and instead utilizes the Strapi instance, it is important to wrap the migration code with `strapi.db.transaction()`. Failure to do so may result in migrations not rolling back if an error occurs.
+ユーザーがKnexを直接使用せずに移行のためにStrapiインスタンスを利用することを選択した場合、移行コードを`strapi.db.transaction()`でラップすることが重要です。これを怠ると、エラーが発生した場合に移行がロールバックされない可能性があります。
 :::
 
 <details>
-<summary>Example of migration file with Strapi instance</summary>
+<summary>Strapiインスタンスを使用した移行ファイルの例</summary>
 
 ```jsx title="./database/migrations/2022.05.10T00.00.00.name-of-my-migration.js"
 module.exports = {
   async up() {
     await strapi.db.transaction(async () => {
-      // Your migration code here
+      // ここに移行コードを記述します
 
-      // Example: creating new entries
+      // 例：新しいエントリを作成する
       await strapi.entityService.create('api::article.article', {
         data: {
           title: 'My Article',
         },
       });
 
-      // Example: custom service method
+      // 例：カスタムサービスメソッド
       await strapi.service('api::article.article').updateRelatedArticles();
     });
   },
@@ -110,4 +110,4 @@ module.exports = {
 
 </details>
 
-Footer
+フッター

@@ -1,7 +1,7 @@
 ---
-title: Testing
+title: テスト
 displayed_sidebar: devDocsSidebar
-description: Learn how to test your Strapi application.
+description: Strapiアプリケーションのテスト方法を学びます。
 unlisted: true
 tags:
 - auth endpoint controller
@@ -10,30 +10,29 @@ tags:
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Unit testing
+# ユニットテスト
 
 <NotV5 />
 
 :::strapi
-The Strapi blog has a tutorial on how to implement [API testing with Jest and Supertest](https://strapi.io/blog/automated-testing-for-strapi-api-with-jest-and-supertest) and [how to add unit tests to your Strapi plugin](https://strapi.io/blog/how-to-add-unit-tests-to-your-strapi-plugin).
+Strapiブログには、[JestとSupertestを用いたAPIテストの実装](https://strapi.io/blog/automated-testing-for-strapi-api-with-jest-and-supertest)や[Strapiプラグインにユニットテストを追加する方法](https://strapi.io/blog/how-to-add-unit-tests-to-your-strapi-plugin)についてのチュートリアルがあります。
 :::
 
-In this guide we will see how you can run basic unit tests for a Strapi application using a testing framework.
+このガイドでは、テストフレームワークを使用してStrapiアプリケーションの基本的なユニットテストを実行する方法を見ていきます。
 
-In this example we will use [Jest](https://jestjs.io/) Testing Framework with a focus on simplicity and
-[Supertest](https://github.com/visionmedia/supertest) Super-agent driven library for testing node.js HTTP servers using a fluent API.
+この例では、シンプルさに重点を置いた[Jest](https://jestjs.io/)テストフレームワークと、フルエントAPIを使用してnode.jsのHTTPサーバーをテストするためのライブラリである[Supertest](https://github.com/visionmedia/supertest)を使用します。
 
 :::caution
-Please note that this guide will not work if you are on Windows using the SQLite database due to how windows locks the SQLite file.
+WindowsでSQLiteデータベースを使用している場合、WindowsがSQLiteファイルをロックする方法により、このガイドは機能しないことに注意してください。
 :::
 
-## Install test tools
+## テストツールのインストール
 
-`Jest` contains a set of guidelines or rules used for creating and designing test cases - a combination of practices and tools that are designed to help testers test more efficiently.
+`Jest`には、テストケースの作成と設計に使用されるガイドラインやルールのセットが含まれています - テスターがより効率的にテストできるように設計された実践とツールの組み合わせです。
 
-`Supertest` allows you to test all the `api` routes as they were instances of [http.Server](https://nodejs.org/api/http.md#http_class_http_server).
+`Supertest`を使用すると、すべての`api`ルートを[http.Server](https://nodejs.org/api/http.md#http_class_http_server)のインスタンスとしてテストできます。
 
-`sqlite3` is used to create an on-disk database that is created and deleted between tests.
+`sqlite3`は、テスト間で作成および削除されるディスク上のデータベースを作成するために使用されます。
 
 <Tabs groupId="yarn-npm">
 
@@ -55,9 +54,9 @@ npm install jest supertest sqlite3 --save-dev
 
 </Tabs>
 
-Once this is done add this to `package.json` file
+これが完了したら、`package.json`ファイルに以下を追加します。
 
-add `test` command to `scripts` section
+`scripts`セクションに`test`コマンドを追加します。
 
 ```json
   "scripts": {
@@ -69,7 +68,7 @@ add `test` command to `scripts` section
   },
 ```
 
-and add those lines at the bottom of file
+そして、ファイルの最後に以下の行を追加します。
 
 ```json
   "jest": {
@@ -82,17 +81,16 @@ and add those lines at the bottom of file
   }
 ```
 
-Those will inform `Jest` not to look for test inside the folder where it shouldn't.
+これらは、`Jest`に対して、テストを探すべきでないフォルダ内でテストを探さないように指示します。
 
-## Set up a testing environment
+## テスト環境のセットアップ
 
-Test framework must have a clean empty environment to perform valid test and also not to interfere with current database.
+テストフレームワークは、有効なテストを実行し、現在のデータベースに干渉しないために、クリーンで空の環境を持つ必要があります。
 
-Once `jest` is running it uses the `test` [environment](/dev-docs/configurations/environment) (switching `NODE_ENV` to `test`)
-so we need to create a special environment setting for this purpose.
-Create a new config for test env `./config/env/test/database.js` and add the following value `"filename": ".tmp/test.db"` - the reason of that is that we want to have a separate sqlite database for tests, so our test will not touch real data.
-This file will be temporary, each time test is finished, we will remove that file that every time tests are run on the clean database.
-The whole file will look like this:
+一度 `jest` が実行されると、`test` [環境](/dev-docs/configurations/environment) ( `NODE_ENV` を `test` に切り替え)を使用するため、この目的のための特別な環境設定を作成する必要があります。
+テスト環境用の新しい設定 `./config/env/test/database.js` を作成し、次の値 `"filename": ".tmp/test.db"` を追加してください。これはテスト用に独立したsqliteデータベースを持ちたいからです。そのため、テストは実際のデータに影響を与えません。
+このファイルは一時的なもので、テストが終了するたびにそのファイルを削除し、テストは常にクリーンなデータベースで実行されます。
+全体のファイルは以下のようになります：
 
 ```js title="path: ./config/env/test/database.js"
 
@@ -108,12 +106,12 @@ module.exports = ({ env }) => ({
 });
 ```
 
-## Create a Strapi instance
+## Strapiインスタンスの作成
 
-In order to test anything we need to have a strapi instance that runs in the testing environment,
-basically we want to get instance of strapi app as object, similar like creating an instance for [process manager](https://forum.strapi.io/t/how-to-use-pm2-process-manager-with-strapi/).
+テストするためには、テスト環境で動作するStrapiインスタンスが必要です。
+基本的には、[プロセスマネージャー](https://forum.strapi.io/t/how-to-use-pm2-process-manager-with-strapi/)のインスタンスを作成するのと同様に、Strapiアプリのインスタンスをオブジェクトとして取得したいと思います。
 
-These tasks require adding some files - let's create a folder `tests` where all the tests will be put and inside it, next to folder `helpers` where main Strapi helper will be in file strapi.js.
+これらのタスクではいくつかのファイルを追加する必要があります - すべてのテストを置く `tests` フォルダを作成し、その中に主要なStrapiヘルパーが入ったファイルstrapi.jsを持つ `helpers` フォルダを作成しましょう。
 
 ```js title="path: ./tests/helpers/strapi.js"
 const Strapi = require("@strapi/strapi");
@@ -152,9 +150,9 @@ async function cleanupStrapi() {
 module.exports = { setupStrapi, cleanupStrapi };
 ```
 
-## Test a Strapi instance
+## Strapiインスタンスのテスト
 
-We need a main entry file for our tests, one that will also test our helper file.
+私たちはテストのメインエントリーファイルが必要です、それはまた私たちのヘルパーファイルをテストします。
 
 ```js title="path: ./tests/app.test.js"
 const fs = require('fs');
@@ -173,7 +171,7 @@ it("strapi is defined", () => {
 });
 ```
 
-Actually this is all we need for writing unit tests. Just run `yarn test` and see a result of your first test
+実際には、これが単体テストを書くために必要なすべてです。 `yarn test` を実行して、最初のテストの結果を確認してください。
 
 ```bash
 yarn run v1.13.0
@@ -181,30 +179,30 @@ $ jest
  PASS  tests/app.test.js
   ✓ strapi is defined (2 ms)
 
-Test Suites: 1 passed, 1 total
-Tests:       1 passed, 1 total
-Snapshots:   0 total
-Time:        4.187 s
-Ran all test suites.
-✨  Done in 5.73s.
+テストスイート: 1が通過し、全1
+テスト:       1が通過し、全1
+スナップショット:   全0
+時間:        4.187秒
+全てのテストスイートを実行しました。
+✨  5.73秒で完了しました。
 ```
 
 :::tip
-If you receive a timeout error for Jest, please add the following line right before the `beforeAll` method in the `app.test.js` file: `jest.setTimeout(15000)` and adjust the milliseconds value as you need.
+Jestでタイムアウトエラーが発生した場合、`app.test.js`ファイルの`beforeAll`メソッドの前に以下の行を追加してください: `jest.setTimeout(15000)` そしてミリ秒の値を必要に応じて調整してください。
 :::
 
-## Test a basic endpoint controller
+## 基本的なエンドポイントコントローラーをテストする
 
 :::tip
-In the example we'll use and example `Hello world` `/hello` endpoint from [controllers](/dev-docs/backend-customization/controllers) section.
-<!-- the link below is reported to have a missing hash by the check-links plugin, but everything is fine 🤷 -->
+この例では、[controllers](/dev-docs/backend-customization/controllers)セクションから`Hello world` `/hello`エンドポイントを使用します。
+<!-- 下のリンクはcheck-linksプラグインによってハッシュが欠落していると報告されていますが、全て問題ありません 🤷 -->
 :::
 
-Some might say that API tests are not unit but limited integration tests, regardless of nomenclature, let's continue with testing first endpoint.
+APIテストはユニットテストではなく、限定的な統合テストであると言う人もいますが、名前に関係なく、最初のエンドポイントのテストを続けましょう。
 
-We'll test if our endpoint works properly and route `/hello` does return `Hello World`
+私たちはエンドポイントが適切に動作し、ルート`/hello`が`Hello World`を返すかどうかをテストします。
 
-Let's create a separate test file where `supertest` will be used to check if endpoint works as expected.
+`supertest`を使用してエンドポイントが期待通りに動作するかどうかを確認するための別のテストファイルを作成しましょう。
 
 ```js title="path: ./tests/hello/index.js"
 
@@ -213,21 +211,21 @@ const request = require('supertest');
 it("should return hello world", async () => {
   await request(strapi.server.httpServer)
     .get("/api/hello")
-    .expect(200) // Expect response http code 200
+    .expect(200) // HTTPコード200を期待
     .then((data) => {
-      expect(data.text).toBe("Hello World!"); // expect the response text
+      expect(data.text).toBe("Hello World!"); // レスポンステキストを期待
     });
 });
 
 ```
 
-Then include this code to `./tests/app.test.js` at the bottom of that file
+その後、このコードを`./tests/app.test.js`のファイルの最後に含めます。
 
 ```js
 require('./hello');
 ```
 
-and run `yarn test` which should return
+そして`yarn test`を実行すると、以下のように表示されます。
 
 ```bash
 ➜  my-project yarn test
@@ -247,21 +245,20 @@ Ran all test suites.
 ```
 
 :::tip
-If you receive an error `Jest has detected the following 1 open handles potentially keeping Jest from exiting` check `jest` version as `26.6.3` works without an issue.
+もしエラー`Jest has detected the following 1 open handles potentially keeping Jest from exiting`が表示された場合は、`jest`のバージョンを確認してみてください。`26.6.3`なら問題なく動作します。
 :::
 
-## Test an `auth` endpoint controller
+## `auth`エンドポイントコントローラーをテストする
 
-In this scenario we'll test authentication login endpoint with two tests
+このシナリオでは、認証ログインエンドポイントを2つのテストでテストします。
 
-1. Test `/auth/local` that should login user and return `jwt` token
-2. Test `/users/me` that should return users data based on `Authorization` header
-
+1. ユーザーをログインし、`jwt`トークンを返すはずの`/auth/local`をテストします。
+2. `Authorization`ヘッダーに基づいてユーザーデータを返すはずの`/users/me`をテストします。
 
 ```js title="path: ./tests/user/index.js"
 const request = require('supertest');
 
-// user mock data
+// ユーザーモックデータ
 const mockUserData = {
   username: "tester",
   email: "tester@strapi.com",
@@ -277,7 +274,7 @@ it("should login user and return jwt token", async () => {
     ...mockUserData,
   });
 
-  await request(strapi.server.httpServer) // app server is an instance of Class: http.Server
+await request(strapi.server.httpServer) // app serverはClass: http.Serverのインスタンスです
     .post("/api/auth/local")
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
@@ -292,13 +289,13 @@ it("should login user and return jwt token", async () => {
     });
 });
 
-it('should return users data for authenticated user', async () => {
-  /** Gets the default user role */
+it('認証済みのユーザーのデータを返すべきです', async () => {
+  /** デフォルトのユーザーロールを取得します */
   const defaultRole = await strapi.query('plugin::users-permissions.role').findOne({}, []);
 
   const role = defaultRole ? defaultRole.id : null;
 
-  /** Creates a new user an push to database */
+  /** 新しいユーザーを作成し、データベースにプッシュします */
   const user = await strapi.plugins['users-permissions'].services.user.add({
     ...mockUserData,
     username: 'tester2',
@@ -310,7 +307,7 @@ it('should return users data for authenticated user', async () => {
     id: user.id,
   });
 
-  await request(strapi.server.httpServer) // app server is an instance of Class: http.Server
+  await request(strapi.server.httpServer) // app serverはClass: http.Serverのインスタンスです
     .get('/api/users/me')
     .set('accept', 'application/json')
     .set('Content-Type', 'application/json')
@@ -326,13 +323,13 @@ it('should return users data for authenticated user', async () => {
 });
 ```
 
-Then include this code to `./tests/app.test.js` at the bottom of that file
+その後、このコードを`./tests/app.test.js`のファイルの最下部に含めます
 
 ```js
 require('./user');
 ```
 
-All the tests above should return an console output like
+上記のすべてのテストは、以下のようなコンソール出力を返すはずです
 
 ```bash
 ➜  my-project git:(master) yarn test
@@ -342,10 +339,10 @@ $ jest --forceExit --detectOpenHandles
 [2020-05-27T08:30:30.811Z] debug GET /hello (10 ms) 200
 [2020-05-27T08:30:31.864Z] debug POST /auth/local (891 ms) 200
  PASS  tests/app.test.js (6.811 s)
-  ✓ strapi is defined (3 ms)
-  ✓ should return hello world (54 ms)
-  ✓ should login user and return jwt token (1049 ms)
-  ✓ should return users data for authenticated user (163 ms)
+  ✓ strapiは定義されています (3 ms)
+  ✓ ハローワールドを返すべきです (54 ms)
+  ✓ ユーザーをログインさせ、jwtトークンを返すべきです (1049 ms)
+  ✓ 認証済みのユーザーのデータを返すべきです (163 ms)
 
 Test Suites: 1 passed, 1 total
 Tests:       4 passed, 4 total

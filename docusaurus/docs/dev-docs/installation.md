@@ -1,19 +1,19 @@
 ---
-title: Installation
-description: Learn many different options to install Strapi and getting started on using it.
+title: インストール
+description: Strapiをインストールし、それを使い始めるためのさまざまなオプションを学びます。
 tags:
-- introduction
-- installation
-- Command Line Interface (CLI)
+- イントロダクション
+- インストール
+- コマンドラインインターフェース（CLI）
 pagination_next: dev-docs/installation/cli
 ---
 
-# Installation
+# インストール
 
-Strapi projects can be installed either locally on a computer or on a remote server. The following installation guide provides step-by-step instructions on how to install and create a new Strapi project on your local machine:
+Strapiプロジェクトは、コンピューターのローカルまたはリモートサーバーにインストールすることができます。以下のインストールガイドは、ローカルマシン上に新しいStrapiプロジェクトをインストールし、作成するためのステップバイステップの指示を提供します：
 
-<CustomDocCard title="CLI" description="Create a project on your local machine using the CLI." link="/dev-docs/installation/cli" />
+<CustomDocCard title="CLI" description="CLIを使用してローカルマシン上にプロジェクトを作成します。" link="/dev-docs/installation/cli" />
 
-If you already have an existing Strapi project on your local machine, the following guide provides step-by-step instructions on creating a custom Docker image for your project:
+すでにローカルマシン上に既存のStrapiプロジェクトがある場合、以下のガイドは、プロジェクトのカスタムDockerイメージを作成するためのステップバイステップの指示を提供します：
 
-<CustomDocCard title="Docker" description="Create a custom Docker container from a local project." link="/dev-docs/installation/docker" />
+<CustomDocCard title="Docker" description="ローカルプロジェクトからカスタムDockerコンテナを作成します。" link="/dev-docs/installation/docker" />

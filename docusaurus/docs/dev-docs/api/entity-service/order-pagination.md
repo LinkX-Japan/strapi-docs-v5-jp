@@ -1,27 +1,27 @@
 ---
-title: Ordering & Pagination with the Entity Service API
-description: Use Strapi's Entity Service API to order and paginate queries results.
+title: Entity Service APIを使用した並べ替えとページネーション
+description: StrapiのEntity Service APIを使用してクエリ結果を並べ替え、ページネーションします。
 displayed_sidebar: devDocsSidebar
 ---
 
 import ESdeprecated from '/docs/snippets/entity-service-deprecated.md'
 
-# Ordering and Paginating with the Entity Service API
+# Entity Service APIを使用した並べ替えとページネーション
 
 <ESdeprecated />
 
-The [Entity Service API](/dev-docs/api/entity-service) offers the ability to [order](#ordering) and [paginate](#pagination) results found with its [findMany()](/dev-docs/api/entity-service/crud#findmany) method.
+[Entity Service API](/dev-docs/api/entity-service)は、[findMany()](/dev-docs/api/entity-service/crud#findmany)メソッドで見つかった結果を[並べ替え](#ordering)および[ページネーション](#pagination)する機能を提供します。
 
-## Ordering
+## 並べ替え
 
-To order results returned by the Entity Service API, use the `sort` parameter. Results can be ordered based on a [single](#single) or on [multiple](#multiple) attribute(s) and can also use [relational ordering](#relational-ordering).
+Entity Service APIで返された結果を並べ替えるには、`sort`パラメータを使用します。結果は、[単一](#single)または[複数](#multiple)の属性に基づいて並べ替えることができ、[関連順序](#relational-ordering)の使用も可能です。
 
-### Single
+### 単一
 
-To order results by a single field, pass it to the `sort` parameter either:
+単一のフィールドで結果を並べ替えるには、以下のいずれかの方法で`sort`パラメータに渡します:
 
-- as a `string` to sort with the default ascending order, or
-- as an `object` to define both the field name and the order (i.e. `'asc'` for ascending order or `'desc'` for descending order)
+- デフォルトの昇順で並べ替えるための`string`
+- フィールド名と順序（つまり、昇順の場合は`'asc'`、降順の場合は`'desc'`）を定義するための`object`
 
 ```js
 strapi.entityService.findMany('api::article.article', {
@@ -34,12 +34,12 @@ strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-### Multiple
+### 複数
 
-To order results by multiple fields, pass the fields as an array to the `sort` parameter either:
+複数のフィールドで結果を並べ替えるには、以下のいずれかの方法で`sort`パラメータにフィールドを配列として渡します:
 
-- as an array of strings to sort multiple fields using the default ascending order, or
-- as an array of objects to define both the field name and the order (i.e. `'asc'` for ascending order or `'desc'` for descending order)
+- デフォルトの昇順で複数のフィールドを並べ替えるための文字列の配列
+- フィールド名と順序（つまり、昇順の場合は`'asc'`、降順の場合は`'desc'`）を定義するためのオブジェクトの配列
 
 ```js
 strapi.entityService.findMany('api::article.article', {
@@ -52,9 +52,9 @@ strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-### Relational ordering
+### 関連順序
 
-Fields can also be sorted based on fields from relations:
+フィールドは、関連フィールドに基づいて並べ替えることもできます：
 
 ```js
 strapi.entityService.findMany('api::article.article', {
@@ -66,9 +66,9 @@ strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-## Pagination
+## ページネーション
 
-To paginate results returned by the Entity Service API, you can use the `start` and `limit` parameters:
+Entity Service APIで返された結果をページネーションするには、`start`と`limit`パラメータを使用できます：
 
 ```js
 strapi.entityService.findMany('api::article.article', {
@@ -77,7 +77,7 @@ strapi.entityService.findMany('api::article.article', {
 });
 ```
 
-You may instead use the `page` and `pageSize` parameters:
+代わりに、`page`と`pageSize`パラメータを使用することもできます：
 
 ```js
 strapi.entityService.findMany('api::article.article', {

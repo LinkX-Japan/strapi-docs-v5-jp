@@ -1,27 +1,27 @@
 ---
-title: Data management system 
-description: Import, export, and transfer data using the Strapi CLI
+title: データ管理システム
+description: Strapi CLIを使用してデータをインポート、エクスポート、転送
 displayed_sidebar: devDocsSidebar
 keywords: 
   - DEITS
 tags:
-- data management system
-- introduction
-- strapi export
-- strapi import
-- strapi transfer
+- データ管理システム
+- イントロダクション
+- strapiエクスポート
+- strapiインポート
+- strapi転送
 ---
 
-# Data Management System
+# データ管理システム
 
-Occasionally, you need to move data out of or into a Strapi instance. This is possible with the data management system which uses CLI-based commands:
+たまに、Strapiインスタンスからデータを移動させるか、またはその中にデータを移動させる必要があります。これはCLIベースのコマンドを使用するデータ管理システムで可能です：
 
-- Use [`strapi export`](/dev-docs/data-management/export) to create a data backup, for archive purposes or to import it in another instance.
-- Use [`strapi import`](/dev-docs/data-management/import) to restore data from a backup.
-- Use [`strapi transfer`](/dev-docs/data-management/transfer) to transfer data between local and/or remote instances.
+- [`strapi export`](/dev-docs/data-management/export) を使用してデータバックアップを作成し、アーカイブ用途または別のインスタンスにインポートするため。
+- [`strapi import`](/dev-docs/data-management/import) を使用してバックアップからデータを復元します。
+- [`strapi transfer`](/dev-docs/data-management/transfer) を使用して、ローカルおよび/またはリモートインスタンス間でデータを転送します。
 
-The following documentation gives explanations and examples for the export, import, and transfer commands, while the [CLI reference documentation](/dev-docs/cli#strapi-export) lists all available flags in a condensed format.
+以下のドキュメンテーションでは、エクスポート、インポート、および転送コマンドの説明と例を提供しています。また、[CLIリファレンスドキュメンテーション](/dev-docs/cli#strapi-export)では、すべての利用可能なフラグを簡潔な形式でリストしています。
 
 :::caution
-Interactive CLI commands do not currently work with the `npm` package manager. For `strapi export` and `strapi import` this means the encryption key prompt is not visible in the CLI. In the meantime consider using the `yarn` package manager.
+インタラクティブCLIコマンドは現在、`npm`パッケージマネージャーで動作しません。`strapi export`と`strapi import`については、これは暗号化キープロンプトがCLIに表示されないことを意味します。その間、`yarn`パッケージマネージャーの使用を検討してください。
 :::

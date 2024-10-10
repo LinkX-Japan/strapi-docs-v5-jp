@@ -1,47 +1,47 @@
 ---
 unlisted: true
-title: Bulk Operations
-description: Use Strapi's Query Engine API to perform operations on multiple entries.
+title: 一括操作
+description: StrapiのクエリエンジンAPIを使用して、複数のエントリに対する操作を行います。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
 - Content API
 - createMany()
 - count()
-- deleting content
-- Query Engine API
+- 内容の削除
+- クエリエンジンAPI
 - updateMany()
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
 
-# Bulk Operations with the Query Engine API
+# クエリエンジンAPIを使用した一括操作
 
 <ConsiderDocumentService />
 
 :::caution
-To avoid performance issues, bulk operations are not allowed on relations.
+パフォーマンスの問題を避けるため、リレーションに対する一括操作は許可されていません。
 :::
 
 ## createMany()
 
-Creates multiple entries.
+複数のエントリを作成します。
 
-Syntax: `createMany(parameters) => { count: number, ids: id[] }`
+構文: `createMany(parameters) => { count: number, ids: id[] }`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type             | Description         |
+| パラメータ | タイプ             | 説明         |
 | --------- | ---------------- | ------------------- |
-| `data`    | Array of objects | Array of input data |
+| `data`    | オブジェクトの配列 | 入力データの配列 |
 
 :::caution
-* MySQL will only return an array of one id containing the last inserted id, not the entire list.
-* Prior to Strapi v4.9.0, `createMany()` only returns the `count`. 
+* MySQLは最後に挿入されたidを含む1つのidの配列のみを返し、リスト全体は返しません。
+* Strapi v4.9.0以前では、`createMany()`は`count`のみを返します。 
 :::
 
-### Example
+### 例
 
 ```js
 await strapi.db.query("api::blog.article").createMany({
@@ -60,18 +60,18 @@ await strapi.db.query("api::blog.article").createMany({
 
 ## updateMany()
 
-Updates multiple entries matching the parameters.
+パラメータに一致する複数のエントリを更新します。
 
-Syntax: `updateMany(parameters) => { count: number }`
+構文: `updateMany(parameters) => { count: number }`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                                                      | Description                                             |
+| パラメータ | タイプ                                                      | 説明                                             |
 | --------- | --------------------------------------------------------- | ------------------------------------------------------- |
-| `where`   | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | [Filters](/dev-docs/api/query-engine/filtering/) to use |
-| `data`    | Object                                                    | Input data                                              |
+| `where`   | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | 使用する[フィルタ](/dev-docs/api/query-engine/filtering/) |
+| `data`    | オブジェクト                                                    | 入力データ                                              |
 
-### Example
+### 例
 
 ```js
 await strapi.db.query("api::shop.article").updateMany({
@@ -88,17 +88,17 @@ await strapi.db.query("api::shop.article").updateMany({
 
 ## deleteMany()
 
-Deletes multiple entries matching the parameters.
+パラメータに一致する複数のエントリを削除します。
 
-Syntax: `deleteMany(parameters) => { count: number }`
+構文: `deleteMany(parameters) => { count: number }`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                                                      | Description                                             |
+| パラメータ | タイプ                                                      | 説明                                             |
 | --------- | --------------------------------------------------------- | ------------------------------------------------------- |
-| `where`   | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | [Filters](/dev-docs/api/query-engine/filtering/) to use |
+| `where`   | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | 使用する[フィルタ](/dev-docs/api/query-engine/filtering/) |
 
-### Example
+### 例
 
 ```js
 await strapi.db.query("api::blog.article").deleteMany({
@@ -112,19 +112,19 @@ await strapi.db.query("api::blog.article").deleteMany({
 // { count: 42 }
 ```
 
-## Aggregations
+## 集計
 
 ### count()
 
-Counts entries matching the parameters.
+パラメータに一致するエントリを数えます。
 
-Syntax: `count(parameters) => number`
+構文: `count(parameters) => number`
 
-#### Parameters
+#### パラメータ
 
-| Parameter | Type                                                      | Description                                             |
+| パラメータ | タイプ                                                      | 説明                                             |
 | --------- | --------------------------------------------------------- | ------------------------------------------------------- |
-| `where`   | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | [Filters](/dev-docs/api/query-engine/filtering/) to use |
+| `where`   | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | 使用する[フィルタ](/dev-docs/api/query-engine/filtering/) |
 
 ```js
 const count = await strapi.db.query("api::blog.article").count({

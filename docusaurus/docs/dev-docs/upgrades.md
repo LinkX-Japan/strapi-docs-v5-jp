@@ -1,48 +1,48 @@
 ---
-title: Upgrades
-description: Learn more about Strapi 5's upgrade process
+title: アップグレード
+description: Strapi 5のアップグレードプロセスについて詳しく学びましょう
 displayed_sidebar: devDocsSidebar
 pagination_prev: dev-docs/plugins
 pagination_next: dev-docs/upgrade-tool
 tags:
-- migration
-- upgrades
-- upgrade tool
-- Strapi version 
+- 移行
+- アップグレード
+- アップグレードツール
+- Strapiバージョン 
 ---
 
 import InstallCommand from '/docs/snippets/install-npm-yarn.md'
 import BuildCommand from '/docs/snippets/build-npm-yarn.md'
 import DevelopCommand from '/docs/snippets/develop-npm-yarn.md'
 
-# Upgrades
+# アップグレード
 
-Strapi periodically releases code improvements through new versions. New Strapi versions are announced in both the terminal and in the administration panel, and [GitHub release notes](https://github.com/strapi/strapi/releases) list what is new with each new version.
+Strapiは定期的に新しいバージョンをリリースし、コードの改善を行います。新しいStrapiのバージョンは、ターミナルと管理パネルの両方で発表され、[GitHubのリリースノート](https://github.com/strapi/strapi/releases)には、新しいバージョンごとの新機能がリストアップされています。
 
-The latest version number of Strapi that was released by the Strapi core team can be found on [npm](https://www.npmjs.com/package/@strapi/strapi) or on [GitHub](https://github.com/strapi/strapi/releases).
+Strapiの最新バージョン番号は、Strapiコアチームがリリースしたもので、[npm](https://www.npmjs.com/package/@strapi/strapi)または[GitHub](https://github.com/strapi/strapi/releases)で確認できます。
 
-When a new version of Strapi is released, you might want to upgrade, and the present page serves as an entry point for information about upgrading.
+新しいバージョンのStrapiがリリースされると、アップグレードしたくなるかもしれません。このページは、アップグレードに関する情報のエントリーポイントとして提供されています。
 
 <details>
-<summary>How can I find my current Strapi version number?</summary>
+<summary>現在のStrapiバージョン番号はどこで確認できますか？</summary>
 
-You can find the current version number of your Strapi application:
+Strapiアプリケーションの現在のバージョン番号は次の方法で確認できます：
 
-- either in the admin panel, by going to _Settings > Global Settings > Overview_ and looking at the Strapi version number printed in the Details section:
+- 管理パネルで、_設定 > グローバル設定 > 概要_に移動し、詳細セクションに表示されているStrapiバージョン番号を確認します：
 
   <ThemedImage
-    alt="Finding your Strapi version number in the admin panel"
+    alt="管理パネルでStrapiバージョン番号を確認する方法"
     sources={{
       light: '/img/assets/migration/strapi-version-number.png',
       dark: '/img/assets/migration/strapi-version-number_DARK.png'
     }}
   />
 
-- or by running `yarn strapi version` or `npm run strapi version` in the terminal, from the folder where your Strapi project is located.
+- または、Strapiプロジェクトが格納されているフォルダから、ターミナルで`yarn strapi version`または`npm run strapi version`を実行します。
 
 </details>
 
-Click on one of the 2 following cards depending on your use case:
+以下の2つのカードのうち、あなたのユースケースに合ったものをクリックしてください：
 
-<CustomDocCard emoji="4️⃣" title="I'm running Strapi v4 and want to upgrade to Strapi 5." description="All you need to know to upgrade to Strapi 5, the latest major version of Strapi." link="/dev-docs/migration/v4-to-v5/introduction-and-faq" />
-<CustomDocCard emoji="5️⃣" title="I'm already running Strapi 5 and want to upgrade to the latest version." description="All you need to know to use the automatic upgrade tool, which upgrades both from Strapi v4 to Strapi 5 or to an existing Strapi 5.x.x version to a more recent one." link="/dev-docs/upgrade-tool" />
+<CustomDocCard emoji="4️⃣" title="私はStrapi v4を使用しており、Strapi 5にアップグレードしたい。" description="Strapi 5、Strapiの最新メジャーバージョンにアップグレードするために知っておくべきすべてのこと。" link="/dev-docs/migration/v4-to-v5/introduction-and-faq" />
+<CustomDocCard emoji="5️⃣" title="私はすでにStrapi 5を使用しており、最新バージョンにアップグレードしたい。" description="Strapi v4からStrapi 5に、または既存のStrapi 5.x.xバージョンからより新しいバージョンにアップグレードするための自動アップグレードツールを使用するために知っておくべきすべてのこと。" link="/dev-docs/upgrade-tool" />

@@ -1,26 +1,26 @@
 ---
 title: TypeScript
-sidebar_label: Introduction
-description: Get started with TypeScript for your Strapi application
+sidebar_label: はじめに
+description: StrapiアプリケーションでTypeScriptを使用するためのガイド
 pagination_next: dev-docs/typescript/development
 tags:
-- introduction
+- はじめに
 - typescript
 ---
 
 # TypeScript 
 
-[TypeScript](https://www.typescriptlang.org/) adds an additional type system layer above JavaScript, which means that any valid JavaScript code is also valid TypeScript code. In the context of Strapi development, TypeScript allows for a more type-safe codebase for your application, and provides you with a set of tools for automatic type generation and autocompletion.
+[TypeScript](https://www.typescriptlang.org/)はJavaScriptの上に追加の型システムレイヤーを追加することで、有効なJavaScriptコードはすべて有効なTypeScriptコードでもあります。Strapi開発の文脈では、TypeScriptはアプリケーションのコードベースをより型安全にするとともに、自動型生成と自動補完のためのツールセットを提供します。
 
-## Getting Started with TypeScript in Strapi
+## StrapiでのTypeScriptの始め方
 
-:::prerequisites Prerequisite
-You're running Strapi version 4.3.0 and above.
+:::prerequisites 前提条件
+Strapiのバージョン4.3.0以上を実行していること。
 :::
 
-There are 2 ways of getting started with TypeScript in Strapi:
+StrapiでTypeScriptを始める方法は2つあります：
 
-- Create a new TypeScript project in Strapi by running the following command in a terminal (additional details can be found in the  [CLI installation](/dev-docs/installation/cli) documentation):
+- ターミナルで次のコマンドを実行して、新しいTypeScriptプロジェクトをStrapiで作成します（詳細は [CLIのインストール](/dev-docs/installation/cli)のドキュメンテーションを参照してください）：
 
   <Tabs groupId="yarn-npm">
 
@@ -42,12 +42,12 @@ There are 2 ways of getting started with TypeScript in Strapi:
 
   </Tabs>
 
-- Add TypeScript support to an existing Strapi project using the provided [conversion](/dev-docs/typescript/adding-support-to-existing-project) steps.
+- 既存のStrapiプロジェクトにTypeScriptのサポートを追加します。方法は提供されている[変換](/dev-docs/typescript/adding-support-to-existing-project)手順を使用します。
 
 <br />
 
-:::strapi What to do next? 
-- Understand the [structure](/dev-docs/project-structure) of a TypeScript-based Strapi project
-- Learn about the [configuration options](/dev-docs/configurations/typescript) options related to TypeScript
-- Deep dive into TypeScript-related development [options and features](/dev-docs/typescript/development)
+:::strapi 次に何をすべきか？
+- TypeScriptベースのStrapiプロジェクトの[構造](/dev-docs/project-structure)を理解する
+- TypeScriptに関連する[設定オプション](/dev-docs/configurations/typescript)について学ぶ
+- TypeScript関連の開発[オプションと機能](/dev-docs/typescript/development)について深く学ぶ
 :::

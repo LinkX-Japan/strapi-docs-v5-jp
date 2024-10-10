@@ -1,75 +1,75 @@
 ---
-title: Custom fields
-description: Learn how you can use custom fields to extend Strapi's content-types capabilities.
+title: カスタムフィールド
+description: Strapiのカスタムフィールドを使用してコンテンツタイプの機能を拡張する方法を学びます。
 displayed_sidebar: devDocsSidebar
 canonicalUrl: https://docs.strapi.io/dev-docs/development/custom-fields.html
 tags:
-- admin panel
-- Components
-- Content-type Builder 
-- Content Manager 
-- custom fields
-- register function
+- 管理パネル
+- コンポーネント
+- コンテンツタイプビルダー
+- コンテンツマネージャー
+- カスタムフィールド
+- register関数
 ---
 
 import CustomFieldRequiresPlugin from '/docs/snippets/custom-field-requires-plugin.md'
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Custom fields
+# カスタムフィールド
 
 <NotV5 />
 
-Custom fields extend Strapi’s capabilities by adding new types of fields to content-types and components. Once created or added to Strapi via plugins, custom fields can be used in the Content-Type Builder and Content Manager just like built-in fields.
+カスタムフィールドは、コンテンツタイプやコンポーネントに新しいフィールドタイプを追加することで、Strapiの機能を拡張します。作成またはプラグイン経由でStrapiに追加されたカスタムフィールドは、標準のフィールドと同様にコンテンツタイプビルダーやコンテンツマネージャーで使用できます。
 
-The present documentation is intended for custom field creators: it describes which APIs and functions developers must use to create a new custom field. The [User Guide](/user-docs/plugins/introduction-to-plugins.md#custom-fields) describes how to add and use custom fields from Strapi's admin panel.
+このドキュメントは、カスタムフィールドの作成者向けです。新しいカスタムフィールドを作成するために開発者が使用するAPIや関数について説明します。Strapiの管理パネルからカスタムフィールドを追加して使用する方法については、[ユーザーガイド](/user-docs/plugins/introduction-to-plugins.md#custom-fields)を参照してください。
 
-It is recommended that you develop a dedicated [plugin](/dev-docs/plugins/developing-plugins) for custom fields. Custom field plugins include both a server and admin panel part. The custom field must be registered in both parts before it is usable in Strapi's admin panel.
+カスタムフィールドには、専用の[プラグイン](/dev-docs/plugins/developing-plugins)を開発することを推奨します。カスタムフィールドプラグインには、サーバー部分と管理パネル部分の両方が含まれており、両方で登録されて初めてStrapiの管理パネルで使用できるようになります。
 
-Once created and used, custom fields are defined like any other attribute in the model's schema. An attribute using a custom field will have its type represented as `customField` (i.e. `type: 'customField'`). Depending on the custom field being used a few additional properties may be present in the attribute's definition (see [models documentation](/dev-docs/backend-customization#custom-fields)).
+カスタムフィールドが作成され使用されると、他の属性と同様にモデルのスキーマに定義されます。カスタムフィールドを使用する属性は、`customField` として型が定義されます（例: `type: 'customField'`）。使用されるカスタムフィールドによっては、属性の定義に追加のプロパティが含まれる場合もあります（[モデルのドキュメント](/dev-docs/backend-customization#custom-fields)を参照してください）。
 
-:::note NOTES
+:::note 注意
 
-- Though the recommended way to add a custom field is through creating a plugin, app-specific custom fields can also be registered within the global `register` [function](/dev-docs/configurations/functions) found in `src/index.js` and `src/admin/app/js` files.
-- Custom fields can only be shared using plugins.
+- カスタムフィールドを追加する推奨方法はプラグインを作成することですが、アプリ固有のカスタムフィールドは `src/index.js` や `src/admin/app/js` ファイルにあるグローバルな `register` [関数](/dev-docs/configurations/functions)内で登録することも可能です。
+- カスタムフィールドはプラグインを使用してのみ共有できます。
 :::
 
-## Registering a custom field on the server
+## サーバー側でカスタムフィールドを登録する
 
 :::prerequisites
 <CustomFieldRequiresPlugin components={props.components} />
 :::
 
-Strapi's server needs to be aware of all the custom fields to ensure that an attribute using a custom field is valid.
+カスタムフィールドを使用する属性が有効であることを確認するために、Strapiのサーバーはすべてのカスタムフィールドを認識する必要があります。
 
-The `strapi.customFields` object exposes a `register()` method on the `Strapi` instance. This method is used to register custom fields on the server during the plugin's server [register lifecycle](/dev-docs/plugins/server-api#register).
+`strapi.customFields` オブジェクトは、`Strapi` インスタンスで `register()` メソッドを公開しています。このメソッドは、プラグインのサーバー[登録ライフサイクル](/dev-docs/plugins/server-api#register)中に、サーバー側でカスタムフィールドを登録するために使用されます。
 
-`strapi.customFields.register()` registers one or several custom field(s) on the server by passing an object (or an array of objects) with the following parameters:
+`strapi.customFields.register()` は、次のパラメーターを含むオブジェクト（またはオブジェクトの配列）を渡すことで、サーバー側で1つまたは複数のカスタムフィールドを登録します:
 
-| Parameter                         | Description                                                                                                                                             | Type     |
-| --------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------------------| -------- |
-| `name`                            | The name of the custom field                                                                                                                            | `String` |
-| `plugin`<br/><br/>(_optional_)    | The name of the plugin creating the custom fields<br/><br/>❗️ If defined, the `pluginId` value on the admin panel registration must have the same value (see [Registering a custom field in the admin panel](#registering-a-custom-field-in-the-admin-panel)) | `String` |
-| `type`                            | The data type the custom field will use                                                                                                                 | `String` |
-| `inputSize`<br/><br/>(_optional_) | Parameters to define the width of a custom field's input in the admin panel                                                                             | `Object` |
+| パラメーター                      | 説明                                                                                                                                                          | 型        |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `name`                           | カスタムフィールドの名前                                                                                                                                       | `String`  |
+| `plugin`<br/><br/>(_任意_)       | カスタムフィールドを作成するプラグインの名前<br/><br/>❗️ 定義されている場合、管理パネルの登録時の `pluginId` 値も同じでなければなりません。 | `String`  |
+| `type`                           | カスタムフィールドが使用するデータ型                                                                                                                          | `String`  |
+| `inputSize`<br/><br/>(_任意_)    | 管理パネルでカスタムフィールドの入力幅を定義するためのパラメーター                                                                                              | `Object`  |
 
-The optional `inputSize` object, when specified, must contain all of the following parameters:
+オプションの `inputSize` オブジェクトを指定する場合、次のすべてのパラメーターを含める必要があります:
 
-| Parameter     | Description                                                                                                                                               | Type      |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `default`     | The default size in columns that the input field will occupy in the 12-column grid in the admin panel.<br/>The value can either be `4`, `6`, `8` or `12`. | `Integer` |
-| `isResizable` | Whether the input can be resized or not                                                                                                                   | `Boolean` |
+| パラメーター    | 説明                                                                                                                                                                   | 型        |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `default`       | 管理パネルの12列グリッドで入力フィールドが占めるデフォルトの列サイズです。<br/>値は `4`、`6`、`8`、または `12` のいずれかです。                                      | `Integer` |
+| `isResizable`   | 入力フィールドがリサイズ可能かどうか                                                                                                                                     | `Boolean` |
 
-:::note Current limitations
-Currently:
-* Custom fields cannot add new data types to Strapi and must use existing, built-in Strapi data types described in the [models' attributes](/dev-docs/backend-customization#model-attributes) documentation. 
-* You also cannot modify an existing data type.
-* Special data types unique to Strapi, such as relation, media, component, or dynamic zone data types, cannot be used in custom fields.
+:::note 現在の制限
+現在のところ:
+* カスタムフィールドはStrapiに新しいデータ型を追加することはできず、既存のStrapiの[データ型](/dev-docs/backend-customization#model-attributes)を使用する必要があります。
+* 既存のデータ型を変更することもできません。
+* リレーション、メディア、コンポーネント、ダイナミックゾーンなどのStrapi独自のデータ型は、カスタムフィールドで使用できません。
 :::
 
 <details>
-<summary>Example: Registering an example "color" custom field on the server:</summary>
+<summary>例: サーバー側で"color"カスタムフィールドを登録する例</summary>
 
-In the following example, the `color-picker` plugin was created using the CLI generator (see [plugins development](/dev-docs/plugins/developing-plugins)):
+以下の例では、`color-picker` プラグインがCLIジェネレーターを使用して作成されています（[プラグイン開発](/dev-docs/plugins/developing-plugins)を参照してください）:
 
 ```js title="./src/plugins/color-picker/server/register.js"
 "use strict";
@@ -80,7 +80,7 @@ module.exports = ({ strapi }) => {
     plugin: "color-picker",
     type: "string",
     inputSize: {
-      // optional
+      // オプション
       default: 4,
       isResizable: true,
     },
@@ -88,7 +88,7 @@ module.exports = ({ strapi }) => {
 };
 ```
 
-The custom field could also be declared directly within the `strapi-server.js` file if you didn't have the plugin code scaffolded by the CLI generator:
+プラグインのコードがCLIジェネレーターで自動生成されていない場合、`strapi-server.js` ファイル内に直接カスタムフィールドを宣言することもできます:
 
 ```js title="./src/plugins/color-picker/strapi-server.js"
 module.exports = {
@@ -98,7 +98,7 @@ module.exports = {
       plugin: "color-picker",
       type: "text",
       inputSize: {
-        // optional
+        // オプション
         default: 4,
         isResizable: true,
       },
@@ -109,55 +109,57 @@ module.exports = {
 
 </details>
 
-## Registering a custom field in the admin panel
+## 管理パネルでカスタムフィールドを登録する
 
 :::prerequisites
 <CustomFieldRequiresPlugin components={props.components} />
 :::
 
-Custom fields must be registered in Strapi's admin panel to be available in the Content-type Builder and the Content Manager.
+カスタムフィールドをコンテンツタイプビルダーやコンテンツマネージャーで使用できるようにするためには、管理パネルでカスタムフィールドを登録する必要があります。
 
-The `app.customFields` object exposes a `register()` method on the `StrapiApp` instance. This method is used to register custom fields in the admin panel during the plugin's admin [register lifecycle](/dev-docs/plugins/admin-panel-api#register).
+`app.customFields` オブジェクトは、`StrapiApp` インスタンスで `register()` メソッドを公開しています。このメソッドは、プラグインの管理パネル[登録ライフサイクル](/dev-docs/plugins/admin-panel-api#register)中にカスタムフィールドを登録するために使用されます。
 
-`app.customFields.register()` registers one or several custom field(s) in the admin panel by passing an object (or an array of objects) with the following parameters:
+`app.customFields.register()` は、次のパラメーターを含むオブジェクト（またはオブジェクトの配列）を渡すことで、管理パネルで1つまたは複数のカスタムフィールドを登録します:
 
-| Parameter                        | Description                                                                                                                                  | Type                                                 |
-| -------------------------------- |----------------------------------------------------------------------------------------------------------------------------------------------| ---------------------------------------------------- |
-| `name`                           | Name of the custom field                                                                                                                     | `String`                                             |
-| `pluginId`<br/><br/>(_optional_) | Name of the plugin creating the custom field<br/><br/>❗️ If defined, the `plugin` value on the server registration must have the same value (see [Registering a custom field on the server](#registering-a-custom-field-on-the-server))  | `String`                                             |
-| `type`                           | Existing Strapi data type the custom field will use<br/><br/>❗️ Relations, media, components, or dynamic zones cannot be used.               | `String`                                             |
-| `icon`<br/><br/>(_optional_)     | Icon for the custom field                                                                                                                    | `React.ComponentType`                                |
-| `intlLabel`                      | Translation for the name                                                                                                                     | [`IntlObject`](https://formatjs.io/docs/react-intl/) |
-| `intlDescription`                | Translation for the description                                                                                                              | [`IntlObject`](https://formatjs.io/docs/react-intl/) |
-| `components`                     | Components needed to display the custom field in the Content Manager (see [components](#components))                                         |
-| `options`<br/><br/>(_optional_)  | Options to be used by the Content-type Builder (see [options](#options))                                                                     | `Object`                                             |
+| パラメーター                      | 説明                                                                                                                                   | 型                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| `name`                           | カスタムフィールドの名前                                                                                                              | `String`                                           |
+| `pluginId`<br/><br/>(_任意_)     | カスタムフィールドを作成するプラグインの名前<br/><br/>❗️ 定義されている場合、サーバー登録時の `plugin` 値と同じでなければなりません。 | `String`                                           |
+| `type`                           | カスタムフィールドが使用する既存のStrapiデータ型<br/><br/>❗️ リレーション、メディア、コンポーネント、またはダイナミックゾーンは使用できません
+
+。 | `String`                                           |
+| `icon`<br/><br/>(_任意_)         | カスタムフィールドのアイコン                                                                                                          | `React.ComponentType`                              |
+| `intlLabel`                      | 名前の翻訳                                                                                                                            | [`IntlObject`](https://formatjs.io/docs/react-intl/) |
+| `intlDescription`                | 説明の翻訳                                                                                                                            | [`IntlObject`](https://formatjs.io/docs/react-intl/) |
+| `components`                     | コンテンツマネージャーでカスタムフィールドを表示するために必要なコンポーネント（[コンポーネント](#components)を参照）                  |                                                    |
+| `options`<br/><br/>(_任意_)      | コンテンツタイプビルダーで使用するオプション（[オプション](#options)を参照）                                                          | `Object`                                           |
 
 <details>
-<summary>Example: Registering an example "color" custom field in the admin panel:</summary>
+<summary>例: 管理パネルで"color"カスタムフィールドを登録する例</summary>
 
-In the following example, the `color-picker` plugin was created using the CLI generator (see [plugins development](/dev-docs/plugins/developing-plugins.md)):
+以下の例では、`color-picker` プラグインがCLIジェネレーターを使用して作成されています（[プラグイン開発](/dev-docs/plugins/developing-plugins.md)を参照してください）:
 
 ```jsx title="./src/plugins/color-picker/admin/src/index.js"
 import ColorPickerIcon from "./components/ColorPicker/ColorPickerIcon";
 
 export default {
   register(app) {
-    // ... app.addMenuLink() goes here
-    // ... app.registerPlugin() goes here
+    // ... app.addMenuLink() などのコードがここに入ります
+    // ... app.registerPlugin() などのコードがここに入ります
 
     app.customFields.register({
       name: "color",
-      pluginId: "color-picker", // the custom field is created by a color-picker plugin
-      type: "string", // the color will be stored as a string
+      pluginId: "color-picker", // このカスタムフィールドはcolor-pickerプラグインによって作成されます
+      type: "string", // colorは文字列として保存されます
       intlLabel: {
         id: "color-picker.color.label",
         defaultMessage: "Color",
       },
       intlDescription: {
         id: "color-picker.color.description",
-        defaultMessage: "Select any color",
+        defaultMessage: "任意の色を選択してください",
       },
-      icon: ColorPickerIcon, // don't forget to create/import your icon component
+      icon: ColorPickerIcon, // アイコンコンポーネントを作成・インポートすることを忘れないでください
       components: {
         Input: async () =>
           import(
@@ -165,25 +167,25 @@ export default {
           ),
       },
       options: {
-        // declare options here
+        // オプションをここで宣言します
       },
     });
   },
 
-  // ... bootstrap() goes here
+  // ... bootstrap() などのコードがここに入ります
 };
 ```
 
 </details>
 
-### Components
+### コンポーネント
 
-`app.customFields.register()` must pass a `components` object with an `Input` React component to use in the Content Manager's edit view.
+`app.customFields.register()` は、コンテンツマネージャーの編集ビューで使用する `Input` Reactコンポーネントを含む `components` オブジェクトを渡す必要があります。
 
 <details>
-<summary>Example: Registering an Input component</summary>
+<summary>例: Inputコンポーネントを登録する</summary>
 
-In the following example, the `color-picker` plugin was created using the CLI generator (see [plugins development](/dev-docs/plugins/developing-plugins.md)):
+以下の例では、`color-picker` プラグインがCLIジェネレーターを使用して作成されています（[プラグイン開発](/dev-docs/plugins/developing-plugins.md)を参照してください）:
 
 ```jsx title="./src/plugins/color-picker/admin/src/index.js"
 export default {
@@ -202,30 +204,30 @@ export default {
 
 </details>
 
-Custom field input components receive the following props:
+カスタムフィールドのInputコンポーネントは、次のpropsを受け取ります:
 
-| Prop             | Description                                                                                                                                                                                                                               | Type                                                                 |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `attribute`      | The attribute object with custom field's underlying Strapi type and options                                                                                                                                                               | `{ type: String, customField: String }`                              |
-| `description`    | The field description set in [configure the view](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view)                                                                                                  | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
-| `placeholder`    | The field placeholder set in [configure the view](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view)                                                                                                  | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
-| `hint`           | The field description set in [configure the view](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view) along with min/max [validation requirements](/dev-docs/backend-customization/models#validations) | `String`                                                             |
-| `name`           | The field name set in the content-type builder                                                                                                                                                                                            | `String`                                                             |
-| `intlLabel`      | The field name set in the content-type builder or configure the view                                                                                                                                                                      | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
-| `onChange`       | The handler for the input change event. The `name` argument references the field name. The `type` argument references the underlying Strapi type                                                                                          | `({ target: { name: String value: unknown type: String } }) => void` |
-| `contentTypeUID` | The content-type the field belongs to                                                                                                                                                                                                     | `String`                                                             |
-| `type`           | The custom field uid, for example `plugin::color-picker.color`                                                                                                                                                                            | `String`                                                             |
-| `value`          | The input value the underlying Strapi type expects                                                                                                                                                                                        | `unknown`                                                            |
-| `required`       | Whether or not the field is required                                                                                                                                                                                                      | `boolean`                                                            |
-| `error`          | Error received after validation                                                                                                                                                                                                           | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
-| `disabled`       | Whether or not the input is disabled                                                                                                                                                                                                      | `boolean`                                                            |
+| Prop             | 説明                                                                                                                                                              | 型                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `attribute`      | カスタムフィールドの基礎となるStrapiの型とオプションを含む属性オブジェクト                                                                                           | `{ type: String, customField: String }`                              |
+| `description`    | [ビューを設定する](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view) で設定されたフィールド説明                                 | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
+| `placeholder`    | [ビューを設定する](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view) で設定されたフィールドプレースホルダー                     | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
+| `hint`           | [ビューを設定する](/user-docs/content-manager/configuring-view-of-content-type#configuring-the-edit-view) で設定されたフィールド説明と、最小/最大の[バリデーション要件](/dev-docs/backend-customization/models#validations) | `String`                                                             |
+| `name`           | コンテンツタイプビルダーで設定されたフィールド名                                                                                                                    | `String`                                                             |
+| `intlLabel`      | コンテンツタイプビルダーまたはビュー設定で設定されたフィールド名                                                                                                    | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
+| `onChange`       | 入力変更イベントのハンドラ。`name` 引数はフィールド名を参照し、`type` 引数はStrapiの基礎となる型を参照します                                                       | `({ target: { name: String value: unknown type: String } }) => void` |
+| `contentTypeUID` | フィールドが属するコンテンツタイプ                                                                                                                                  | `String`                                                             |
+| `type`           | カスタムフィールドのuid、例: `plugin::color-picker.color`                                                                                                           | `String`                                                             |
+| `value`          | 基礎となるStrapi型が期待する入力値                                                                                                                                  | `unknown`                                                            |
+| `required`       | フィールドが必須かどうか                                                                                                                                           | `boolean`                                                            |
+| `error`          | バリデーション後に受け取るエラー                                                                                                                                    | [`IntlObject`](https://formatjs.io/docs/react-intl/)                 |
+| `disabled`       | 入力が無効化されているかどうか                                                                                                                                     | `boolean`                                                            |
 
-As of Strapi v4.13.0, fields in the Content Manager can be auto-focussed via the `URLSearchParam` `field`. It's recommended that your input component is wrapped in React's [`forwardRef`](https://react.dev/reference/react/forwardRef) method; you should pass the corresponding `ref` to the `input` element.
+Strapi v4.13.0以降、コンテンツマネージャー内のフィールドは、`URLSearchParam` の `field` を使用して自動的にフォーカスすることができます。入力コンポーネントはReactの[`forwardRef`](https://react.dev/reference/react/forwardRef)メソッドでラップすることを推奨します。対応する `ref` を `input` 要素に渡す必要があります。
 
 <details>
-<summary>Example: A custom text input</summary>
+<summary>例: カスタムテキスト入力</summary>
 
-In the following example we're providing a custom text input that is controlled. All inputs should be controlled otherwise their data will not be submitted on save.
+以下の例では、コントロールされたカスタムテキスト入力を提供しています。すべての入力はコントロールされたものでなければなりません。そうでないと、データが保存されない可能性があります。
 
 ```jsx title="./src/plugins/<plugin-name>/admin/src/components/Input.js"
 import * as React from "react";
@@ -234,7 +236,7 @@ import { useIntl } from "react-intl";
 
 const Input = React.forwardRef((props, ref) => {
   const { attribute, disabled, intlLabel, name, onChange, required, value } =
-    props; // these are just some of the props passed by the content-manager
+    props; // これらはコンテンツマネージャーから渡されるpropsの一部です
 
   const { formatMessage } = useIntl();
 
@@ -265,76 +267,76 @@ export default Input;
 </details>
 
 :::tip
-For a more detailed view of the props provided to the customFields and how they can be used check out the [`ColorPickerInput` file](https://github.com/strapi/strapi/blob/main/packages/plugins/color-picker/admin/src/components/ColorPickerInput.tsx#L80-L95) in the Strapi codebase.
+カスタムフィールドに提供されるpropsの詳細とその使用方法については、Strapiのコードベースにある [`ColorPickerInput` ファイル](https://github.com/strapi/strapi/blob/main/packages/plugins/color-picker/admin/src/components/ColorPickerInput.tsx#L80-L95) を参照してください。
 :::
 
-### Options
+### オプション
 
-`app.customFields.register()` can pass an additional `options` object with the following parameters:
+`app.customFields.register()` は、次のパラメーターを含む `options` オブジェクトを渡すことができます:
 
-| Options parameter | Description                                                                                                                               | Type                           |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `base`            | Settings available in the _Base settings_ tab of the field in the Content-type Builder                                                    | `Object` or `Array of Objects` |
-| `advanced`        | Settings available in the _Advanced settings_ tab of the field in the Content-type Builder                                                | `Object` or `Array of Objects` |
-| `validator`       | Validator function returning an object, used to sanitize input. Uses a [`yup` schema object](https://github.com/jquense/yup/tree/pre-v1). | `Function`                     |
+| オプションパラメーター | 説明                                                                                                  | 型                             |
+| --------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------ |
+| `base`                | コンテンツタイプビルダーの _ベース設定_ タブで利用可能な設定項目                                        | `Object` または `Objectの配列` |
+| `advanced`            | コンテンツタイプビルダーの _高度な設定_ タブで利用可能な設定項目                                      | `Object` または `Objectの配列` |
+| `validator`           | 入力をサニタイズするために使用するバリデータ関数。[`yup` のスキーマオブジェクト](https://github.com/jquense/yup/tree/pre-v1) を使用します | `Function`                     |
 
-Both `base` and `advanced` settings accept an object or an array of objects, each object being a settings section. Each settings section could include:
+`base` および `advanced` 設定には、オブジェクトまたはオ
 
-- a `sectionTitle` to declare the title of the section as an [`IntlObject`](https://formatjs.io/docs/react-intl/)
-- and a list of `items` as an array of objects.
+ブジェクトの配列を渡すことができ、それぞれのオブジェクトが設定セクションとなります。各設定セクションには以下の項目を含めることができます:
 
-Each object in the `items` array can contain the following parameters:
+- セクションタイトルを[`IntlObject`](https://formatjs.io/docs/react-intl/) として宣言する `sectionTitle`
+- `items` のリストとしてオブジェクトの配列
 
-| Items parameter | Description                                                        | Type                                                 |
-| --------------- | ------------------------------------------------------------------ | ---------------------------------------------------- |
-| `name`          | Label of the input.<br/>Must use the `options.settingName` format. | `String`                                             |
-| `description`   | Description of the input to use in the Content-type Builder        | `String`                                             |
-| `intlLabel`     | Translation for the label of the input                             | [`IntlObject`](https://formatjs.io/docs/react-intl/) |
-| `type`          | Type of the input (e.g., `select`, `checkbox`)                     | `String`                                             |
+`items` 配列内の各オブジェクトには、次のパラメーターを含めることができます:
+
+| 項目パラメーター | 説明                                                                | 型                                                 |
+| --------------- | ------------------------------------------------------------------ | -------------------------------------------------- |
+| `name`          | 入力のラベル。<br/>`options.settingName` 形式を使用する必要があります | `String`                                           |
+| `description`   | コンテンツタイプビルダーで使用する入力の説明                       | `String`                                           |
+| `intlLabel`     | 入力ラベルの翻訳                                                    | [`IntlObject`](https://formatjs.io/docs/react-intl/) |
+| `type`          | 入力のタイプ（例: `select`, `checkbox`）                           | `String`                                           |
 
 <details>
-<summary>Example: Declaring options for an example "color" custom field:</summary>
+<summary>例: "color"カスタムフィールドのオプション宣言</summary>
 
-In the following example, the `color-picker` plugin was created using the CLI generator (see [plugins development](/dev-docs/plugins/developing-plugins.md)):
+以下の例では、`color-picker` プラグインがCLIジェネレーターを使用して作成されています（[プラグイン開発](/dev-docs/plugins/developing-plugins.md)を参照してください）:
 
 ```jsx title="./src/plugins/color-picker/admin/src/index.js"
-// imports go here (ColorPickerIcon, pluginId, yup package…)
+// インポートするもの（ColorPickerIcon、pluginId、yup パッケージなど）
 
 export default {
   register(app) {
-    // ... app.addMenuLink() goes here
-    // ... app.registerPlugin() goes here
+    // ... app.addMenuLink() などのコードがここに入ります
+    // ... app.registerPlugin() などのコードがここに入ります
     app.customFields.register({
       // …
       options: {
         base: [
           /*
-            Declare settings to be added to the "Base settings" section
-            of the field in the Content-Type Builder
+            コンテンツタイプビルダーの"ベース設定"セクションに追加する設定を宣言
           */
           {
             sectionTitle: {
-              // Add a "Format" settings section
+              // "フォーマット" 設定セクションを追加
               id: "color-picker.color.section.format",
-              defaultMessage: "Format",
+              defaultMessage: "フォーマット",
             },
             items: [
-              // Add settings items to the section
+              // セクションに設定項目を追加
               {
                 /*
-                  Add a "Color format" dropdown
-                  to choose between 2 different format options
-                  for the color value: hexadecimal or RGBA
+                  "カラーフォーマット" ドロップダウンを追加
+                  カラー値のフォーマットを選択: 16進数またはRGBA
                 */
                 intlLabel: {
                   id: "color-picker.color.format.label",
-                  defaultMessage: "Color format",
+                  defaultMessage: "カラーフォーマット",
                 },
                 name: "options.format",
                 type: "select",
-                value: "hex", // option selected by default
+                value: "hex", // デフォルトで選択されるオプション
                 options: [
-                  // List all available "Color format" options
+                  // 利用可能な "カラーフォーマット" オプションをすべてリストアップ
                   {
                     key: "hex",
                     defaultValue: "hex",
@@ -342,7 +344,7 @@ export default {
                     metadatas: {
                       intlLabel: {
                         id: "color-picker.color.format.hex",
-                        defaultMessage: "Hexadecimal",
+                        defaultMessage: "16進数",
                       },
                     },
                   },
@@ -363,14 +365,13 @@ export default {
         ],
         advanced: [
           /*
-            Declare settings to be added to the "Advanced settings" section
-            of the field in the Content-Type Builder
+            コンテンツタイプビルダーの"高度な設定"セクションに追加する設定を宣言
           */
         ],
         validator: (args) => ({
           format: yup.string().required({
             id: "options.color-picker.format.error",
-            defaultMessage: "The color format is required",
+            defaultMessage: "カラーフォーマットは必須です",
           }),
         }),
       },
@@ -381,8 +382,6 @@ export default {
 
 </details>
 
-<!-- TODO: replace these tip and links by proper documentation of all the possible shapes and parameters for `options` -->
-
 :::tip
-The Strapi codebase gives an example of how settings objects can be described: check the [`baseForm.ts`](https://github.com/strapi/strapi/blob/main/packages/core/content-type-builder/admin/src/components/FormModal/attributes/baseForm.ts) file for the `base` settings and the [`advancedForm.ts`](https://github.com/strapi/strapi/blob/main/packages/core/content-type-builder/admin/src/components/FormModal/attributes/advancedForm.ts) file for the `advanced` settings. The base form lists the settings items inline but the advanced form gets the items from an [`attributeOptions.js`](https://github.com/strapi/strapi/blob/main/packages/core/content-type-builder/admin/src/components/FormModal/attributes/attributeOptions.js) file.
+オプションのすべての形状とパラメーターについての詳細は、Strapiのコードベースの例を参照してください: `base` 設定は [`baseForm.ts`](https://github.com/strapi/strapi/blob/main/packages/core/content-type-builder/admin/src/components/FormModal/attributes/baseForm.ts) ファイルに、`advanced` 設定は [`advancedForm.ts`](https://github.com/strapi/strapi/blob/main/packages/core/content-type-builder/admin/src/components/FormModal/attributes/advancedForm.ts) ファイルにリストされています。
 :::

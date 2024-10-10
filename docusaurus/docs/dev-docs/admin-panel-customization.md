@@ -1,30 +1,30 @@
 ---
-title: Admin panel customization
-description: The administration panel of Strapi can be customized according to your needs, so you can make it reflect your identity.
+title: 管理パネルのカスタマイズ
+description: Strapiの管理パネルは、あなたのニーズに合わせてカスタマイズすることができ、あなたのアイデンティティを反映させることができます。
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
+- 管理パネル 
+- 管理パネルのカスタマイズ
 ---
 
-# Admin panel customization
+# 管理パネルのカスタマイズ
 
-The front-end part of Strapi is called the admin panel. The admin panel presents a graphical user interface to help you structure and manage the content that will be accessible through the Content API. The admin panel is a React-based single-page application that encapsulates all the features and installed plugins of a Strapi application.
+Strapiのフロントエンド部分は管理パネルと呼ばれています。管理パネルは、Content APIを通じてアクセス可能なコンテンツを構造化し、管理するためのグラフィカルユーザーインターフェースを提供します。管理パネルは、Strapiアプリケーションのすべての機能とインストールされたプラグインを包含するReactベースのシングルページアプリケーションです。
 
-Admin panel customization is a broad topic in Strapi and covers the following aspects:
+Strapiでは、管理パネルのカスタマイズは広範なトピックで、以下のような側面をカバーしています：
 
-- Some parts of the admin panel can be customized to better reflect your brand identity or to modify some default Strapi behaviors.
-- Some other parts of the admin panel, such as the WYSIWYG editor and the bundler, can be replaced.
-- The admin panel can also be extended to add new features or customize the existing user interface.
+- 管理パネルの一部は、あなたのブランドアイデンティティをよりよく反映させるため、またはStrapiのデフォルトの挙動を変更するためにカスタマイズすることができます。
+- WYSIWYGエディターやバンドラーなどの管理パネルの他の部分は、交換することができます。
+- 管理パネルは、新しい機能を追加したり、既存のユーザーインターフェースをカスタマイズしたりするために拡張することもできます。
 
-Depending on what you want to achieve, you might need to update different parts of Strapi, as summarized in the following table:
+あなたが達成したいことによっては、Strapiの異なる部分を更新する必要があるかもしれません。以下の表にまとめています：
 
-| Customization use case | How to customize it | Related documentation |
+| カスタマイズの使用例 | カスタマイズの方法 | 関連するドキュメンテーション |
 |---------------------------|-----------------------|-----------------------|
-| Update the admin panel's host, port, and path  | By updating the code of the <code>config/admin.ts&#124;js</code> file | [ Host, port, and path configuration](/dev-docs/admin-panel-customization/host-port-path) |
-| <ul><li>Replace the logos and favicon</li><li>Disable video tutorials or notifications about new Strapi releases</li><li>Define locales and extend translations</li><li>Extend the theme</li></ul> | By updating the code of the <code>src/admin/app.ts&#124;js</code> file | [Customization options](/dev-docs/admin-panel-customization/options) |
-| Choose and configure a bundler | By writing some code in dedicated configuration files found in the `src/admin` folder | [Bundlers](/dev-docs/admin-panel-customization/bundlers) |
-| Replace or customize the WYSIWYG editor | _(Various strategies available, see related documentation)_ | [WYSIWYG editor](/dev-docs/admin-panel-customization/wysiwyg-editor) |
-| Extend the admin panel | _(Various strategies available, see related documentation)_ | [Extension](/dev-docs/admin-panel-customization/extension) |
-| Deploy the admin panel | _(Various strategies available, see related documentation)_ | [Deployment](/dev-docs/admin-panel-customization/deployment) |
-| Customize the email templates | Directly from the admin panel through the settings for the Users & Permissions plugin | [User Guide for the Users&nbsp;&&nbsp;Permissions plugin](/user-docs/settings/configuring-users-permissions-plugin-settings#configuring-email-templates) |
+| 管理パネルのホスト、ポート、パスを更新する  | <code>config/admin.ts&#124;js</code> ファイルのコードを更新することで | [ホスト、ポート、パスの設定](/dev-docs/admin-panel-customization/host-port-path) |
+| <ul><li>ロゴとファビコンを交換する</li><li>ビデオチュートリアルやStrapiの新リリースに関する通知を無効にする</li><li>ロケールを定義し、翻訳を拡張する</li><li>テーマを拡張する</li></ul> | <code>src/admin/app.ts&#124;js</code> ファイルのコードを更新することで | [カスタマイズオプション](/dev-docs/admin-panel-customization/options) |
+| バンドラーを選択し、設定する | `src/admin` フォルダ内にある専用の設定ファイルにコードを書くことで | [バンドラー](/dev-docs/admin-panel-customization/bundlers) |
+| WYSIWYGエディターを交換またはカスタマイズする | _(様々な戦略があります、関連ドキュメンテーションをご覧ください)_ | [WYSIWYGエディター](/dev-docs/admin-panel-customization/wysiwyg-editor) |
+| 管理パネルを拡張する | _(様々な戦略があります、関連ドキュメンテーションをご覧ください)_ | [拡張](/dev-docs/admin-panel-customization/extension) |
+| 管理パネルをデプロイする | _(様々な戦略があります、関連ドキュメンテーションをご覧ください)_ | [デプロイ](/dev-docs/admin-panel-customization/deployment) |
+| メールテンプレートをカスタマイズする | ユーザーと権限のプラグインの設定を通じて管理パネルから直接 | [ユーザーと権限プラグインのユーザーガイド](/user-docs/settings/configuring-users-permissions-plugin-settings#configuring-email-templates) |

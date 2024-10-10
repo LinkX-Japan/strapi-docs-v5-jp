@@ -1,13 +1,13 @@
 ---
-sidebar_label: 'Quick Start Guide'
+sidebar_label: 'クイックスタートガイド'
 displayed_sidebar: devDocsSidebar
 sidebar_position: 2
-title: Quick Start Guide - Strapi Developer Docs
-description: Get ready to get Strapi, your favorite open-source headless cms up and running in less than 3 minutes.
+title: クイックスタートガイド - Strapi開発者ドキュメント
+description: あなたのお気に入りのオープンソースヘッドレスCMS、Strapiを3分以内にセットアップしてみましょう。
 tags:
- - guides
+ - ガイド
  - Content-type Builder
- - collection type
+ - コレクションタイプ
  - Content Manager
  - Strapi Cloud
 ---
@@ -16,30 +16,30 @@ import InstallPrerequisites from '/docs/snippets/installation-prerequisites.md'
 const detailsStyle = {backgroundColor: 'transparent', border: 'solid 1px #4945ff' }
 const summaryStyle = {fontSize: '18px'}
 
-# Quick Start Guide
+# クイックスタートガイド
 
-Strapi offers a lot of flexibility. Whether you want to go fast and quickly see the final result, or would rather dive deeper into the product, we got you covered. For this tutorial, we'll go for the DIY approach and build a project and data structure from scratch, then deploy your project to Strapi Cloud to add data from there.
+Strapiは非常に柔軟性が高いです。最終結果を素早く確認したい方でも、製品に深く潜り込みたい方でも、どちらでも対応可能です。このチュートリアルでは、DIYアプローチを採用し、プロジェクトとデータ構造をゼロから構築し、そのプロジェクトをStrapi Cloudにデプロイして、そこからデータを追加します。
 
-*Estimated completion time: 5-10 minutes*
+*推定完了時間：5〜10分*
 
 :::prerequisites
 <InstallPrerequisites components={props.components} />
 
-You will also need to [install `git`](https://github.com/git-guides/install-git) and to have a [GitHub](https://github.com) account to deploy your project to Strapi Cloud.
+また、プロジェクトをStrapi Cloudにデプロイするためには、[`git`をインストール](https://github.com/git-guides/install-git)し、[GitHub](https://github.com)のアカウントが必要です。
 :::
 
-## 🚀 Part A: Create a new project with Strapi
+## 🚀 パートA：Strapiで新しいプロジェクトを作成する
 
-We will first create a new Strapi project on your machine by running a command in the terminal, and then register our first local administrator user.
+まず、ターミナルでコマンドを実行してマシン上に新しいStrapiプロジェクトを作成し、最初のローカル管理者ユーザーを登録します。
 
-Follow the steps below by clicking on the togglable content to read more instructions.
+以下の手順に従って、詳しい説明を読むために切り替え可能なコンテンツをクリックしてください。
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 1: Run the installation script and create a Strapi Cloud account</summary>
+<summary style={summaryStyle}>ステップ1：インストールスクリプトを実行し、Strapi Cloudアカウントを作成する</summary>
 
-### Step 1: Run the installation script and create a Strapi Cloud account
+### ステップ1：インストールスクリプトを実行し、Strapi Cloudアカウントを作成する
 
-1. Run the following command in a terminal:
+1. ターミナルで以下のコマンドを実行します：
 
     <TabItem value="npm" label="NPM">
 
@@ -49,52 +49,52 @@ Follow the steps below by clicking on the togglable content to read more instruc
 
     </TabItem>
 
-2. The terminal will invite you to create a Strapi Cloud account and start a free, 14-day trial. Ensure `Login/Sign up` is selected in the terminal, or use arrow keys to select it, and press Enter.
+2. ターミナルがStrapi Cloudアカウントを作成し、無料の14日間の試用期間を開始するように促します。ターミナルで`Login/Sign up`が選択されていることを確認するか、矢印キーを使用して選択し、Enterを押します。
 
-3. In the new browser tab that opens, ensure the confirmation code is the same as in the terminal and click **Confirm**.
+3. 新しく開かれたブラウザタブで、確認コードがターミナルと同じであることを確認し、**Confirm**をクリックします。
 
-4. Still in the browser tab, click **Continue with GitHub**. If you are not already logged in into GitHub with your current browser session, you might be redirected to a GitHub login page.
+4. そのままブラウザタブで、**Continue with GitHub**をクリックします。現在のブラウザセッションでGitHubにすでにログインしていない場合、GitHubのログインページにリダイレクトされる可能性があります。
 
-5. Once logged in, the browser will display a "Congratulations, you're all set!" message and you can safely close the browser tab and get back to the terminal.
+5. ログインしたら、ブラウザに「おめでとうございます、すべての設定が完了しました！」と表示されます。その後、ブラウザタブを安全に閉じてターミナルに戻ることができます。
 
     <ThemedImage
-      alt="Login GIF"
+      alt="ログインGIF"
       sources={{
         light: '/img/assets/quick-start-guide/qsg-cloud-login.gif',
         dark: '/img/assets/quick-start-guide/qsg-cloud-login.gif',
       }}
     />
 
-6. The terminal will now ask you a few questions. Press `Enter` to accept the default answer to all questions.
+6. ターミナルでは、いくつかの質問が表示されます。すべての質問に対してデフォルトの答えを受け入れるには、`Enter`を押します。
 
-    ![Questions and answers from the terminal](/img/assets/quick-start-guide/qsg-questions-answers-terminal.png)
+    ![ターミナルからの質問と回答](/img/assets/quick-start-guide/qsg-questions-answers-terminal.png)
 
-As you will see in the terminal, your project is now building locally.
+ターミナルで見るとおり、あなたのプロジェクトは現在ローカルでビルド中です。
 
 :::info
-* The folder of your project will include a `.strapi-cloud.json` file used to link the local Strapi project on your machine to the Strapi Cloud project.
-* Many more installation options are available. Please refer to the [installation documentation](/dev-docs/installation) for details.
+* プロジェクトのフォルダには、ローカルのStrapiプロジェクトをStrapi Cloudプロジェクトにリンクするための `.strapi-cloud.json` ファイルが含まれます。
+* インストールオプションは他にも多数あります。詳細は[インストールドキュメンテーション](/dev-docs/installation)をご参照ください。
 :::
 
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 2: Register the first local administrator user</summary>
+<summary style={summaryStyle}>ステップ2: 最初のローカル管理者ユーザーの登録</summary>
 
-### Step 2: Register the first local administrator user
+### ステップ2: 最初のローカル管理者ユーザーの登録
 
-Once the installation is complete, you need to start the server. In the terminal, type `cd my-strapi-project && yarn develop` and your browser automatically opens a new tab.
+インストールが完了したら、サーバーを起動する必要があります。ターミナルで `cd my-strapi-project && yarn develop` と入力すると、ブラウザが自動的に新しいタブを開きます。
 
 :::tip
-As long as you stay in the `my-strapi-project` folder, you will just need to run `yarn develop` any time you want to start the Strapi server again.
+`my-strapi-project` フォルダ内にいる限り、Strapiサーバーを再起動するたびに `yarn develop` を実行するだけで済みます。
 :::
 
-By completing the form, you create your own account. Once done, you become the first administrator user of this Strapi application. Welcome aboard, commander!
+フォームを完成させることで、自分自身のアカウントを作成します。それが完了すると、あなたはこのStrapiアプリケーションの最初の管理者ユーザーとなります。ようこそ、指揮官！
 
-You now have access to the [admin panel](http://localhost:1337/admin):
+これで [管理パネル](http://localhost:1337/admin) にアクセスできるようになりました：
 
 <ThemedImage
-alt="Admin panel screenshot: dashboard"
+alt="管理パネルのスクリーンショット: ダッシュボード"
 sources={{
     light: '/img/assets/quick-start-guide/qsg-handson-part1-01-admin_panel-v5.png',
     dark: '/img/assets/quick-start-guide/qsg-handson-part1-01-admin_panel-v5_DARK.png',
@@ -103,42 +103,42 @@ sources={{
 
 </details>
 
-:::callout 🥳 CONGRATULATIONS!
-You have just created a new Strapi project! You can start playing with Strapi and discover the product by yourself using our [User Guide](/user-docs/intro), or proceed to part B below.
+:::callout 🥳 おめでとうございます！
+新しいStrapiプロジェクトを作成しました！あなたはStrapiを使って遊び始めることができ、私たちの[ユーザーガイド](/user-docs/intro)を使って製品を自分で発見するか、以下のパートBに進むことができます。
 :::
 
-## 🛠 Part B: Build your data structure with the Content-type Builder
+## 🛠 パートB: Content-type Builderでデータ構造を構築する
 
-The installation script has just created an empty project. We will now guide you through creating a restaurants directory, inspired by our [FoodAdvisor](https://github.com/strapi/foodadvisor) example application.
+インストールスクリプトは空のプロジェクトを作成しました。ここでは、私たちの[FoodAdvisor](https://github.com/strapi/foodadvisor)の例に触発されたレストランディレクトリを作成する手順をご案内します。
 
-The admin panel of a local Strapi project runs at [http://localhost:1337/admin](http://localhost:1337/admin). This is where you will spend most of your time creating and updating content.
+ローカルのStrapiプロジェクトの管理パネルは [http://localhost:1337/admin](http://localhost:1337/admin) で動作します。ここでほとんどの時間を過ごし、コンテンツの作成と更新を行います。
 
-First we will build a data structure for your content. This can only be done while in development mode, which is the default mode for projects that are created locally.
+まず、コンテンツのデータ構造を構築します。これは開発モードでのみ行うことができ、これはローカルで作成されたプロジェクトのデフォルトモードです。
 
-:::tip TIP
-If the server is not already running, in your terminal, `cd` into the `my-strapi-project` folder and run `npm run develop` (or `yarn develop`) to launch it.
+:::tip ヒント
+サーバーがまだ起動していない場合は、ターミナルで `my-strapi-project` フォルダに `cd` して `npm run develop` （または `yarn develop`）を実行して起動します。
 :::
 
-The Content-Type Builder helps you create your data structure. When creating an empty project with Strapi, this is where to get the party started!
+Content-Type Builderはデータ構造の作成を支援します。Strapiで空のプロジェクトを作成した場合、ここから始めることになります！
 
 <details style={detailsStyle}>
 
-<summary style={summaryStyle}>Step 1: Create a "Restaurant" collection type</summary>
+<summary style={summaryStyle}>ステップ1: "Restaurant" コレクションタイプの作成</summary>
 
-### Step 1: Create a "Restaurant" collection type
+### ステップ1: "Restaurant" コレクションタイプの作成
 
-Your restaurants directory will eventually include many restaurants, so we need to create a "Restaurant" collection type. Then we can describe the fields to display when adding a new restaurant entry:
+あなたのレストランディレクトリには最終的に多くのレストランが含まれることになるので、"Restaurant" コレクションタイプを作成する必要があります。その後、新しいレストランエントリを追加する際に表示するフィールドを記述できます：
 
-1. Click on the **Create your first Content type** button.<br />If it's not showing up, go to ![Content-type Builder icon](//img/assets/icons/v5/Layout.svg) [Content-Type Builder](http://localhost:1337/admin/plugins/content-type-builder) in the main navigation.
-2. Click on **Create new collection type**.
-3. Type `Restaurant` for the _Display name_, and click **Continue**.  
-4. Click the Text field.
-5. Type `Name` in the _Name_ field.
-6. Switch to the _Advanced Settings_ tab, and check the **Required field** and the **Unique field** settings.
-7. Click on **Add another field**.
-8. Choose the Rich text (Blocks) field in the list.
-9. Type `Description` under the _Name_ field, then click **Finish**.
-10. Finally, click **Save** and wait for Strapi to restart.
+1. **最初のコンテンツタイプを作成**ボタンをクリックします。<br />表示されない場合は、メインナビゲーションの![Content-type Builder icon](//img/assets/icons/v5/Layout.svg) [Content-Type Builder](http://localhost:1337/admin/plugins/content-type-builder)に移動してください。
+2. **新しいコレクションタイプを作成**をクリックします。
+3. _表示名_に`Restaurant`と入力し、**続ける**をクリックします。  
+4. テキストフィールドをクリックします。
+5. _名前_フィールドに`Name`と入力します。
+6. _詳細設定_タブに切り替え、**必須フィールド**と**ユニークフィールド**の設定をチェックします。
+7. **別のフィールドを追加**をクリックします。
+8. リストからリッチテキスト（ブロック）フィールドを選択します。
+9. _名前_フィールドに`Description`と入力し、**完了**をクリックします。
+10. 最後に、**保存**をクリックし、Strapiが再起動するのを待ちます。
 
 <ThemedImage
 alt="GIF: Create Restaurant collection type in Content-type Builder"
@@ -148,26 +148,26 @@ sources={{
 }}
 />
 
-Once Strapi has restarted, "Restaurant" is listed under ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types_ in the navigation. Wow, you have just created your very first content-type! It was so cool — let's create another one right now, just for pleasure.
+Strapiが再起動したら、"Restaurant"がナビゲーションの![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types_にリストされます。素晴らしい、あなたは初めてのコンテンツタイプを作成しました！それはとてもクールだった - さあ、すぐにもう一つ作ってみましょう。
 
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 2: Create a "Category" collection type</summary>
+<summary style={summaryStyle}>ステップ2：「Category」コレクションタイプの作成</summary>
 
-### Step 2: Create a "Category" collection type
+### ステップ2：「Category」コレクションタイプの作成
 
-It would help getting a bit more organized if our restaurants directory had some categories. Let's create a "Category" collection type:
+レストランのディレクトリにカテゴリがあると、少し整理されるでしょう。それでは、「Category」コレクションタイプを作成してみましょう：
 
-1. Go to ![Content-type Builder icon](/img/assets/icons/v5/Layout.svg) [Content-type Builder](http://localhost:1337/admin/plugins/content-type-builder) in the main navigation.
-2. Click on **Create new collection type**.
-3. Type `Category` for the _Display name_, and click **Continue**.
-4. Click the Text field.
-5. Type `Name` in the _Name_ field.
-6. Switch to the _Advanced Settings_ tab, and check the **Required field** and the **Unique field** settings.
-7. Click on **Add another field**.
-8. Choose the Relation field.
-9. In the center, select the icon that represents "many-to-many" ![icon many-to-many](/img/assets/icons/v5/ctb_relation_manytomany.svg). The text should read `Categories has and belongs to many Restaurants`.
+1. メインナビゲーションの![Content-type Builder icon](/img/assets/icons/v5/Layout.svg) [Content-type Builder](http://localhost:1337/admin/plugins/content-type-builder)に移動します。
+2. **新しいコレクションタイプを作成**をクリックします。
+3. _表示名_に`Category`と入力し、**続ける**をクリックします。
+4. テキストフィールドをクリックします。
+5. _名前_フィールドに`Name`と入力します。
+6. _詳細設定_タブに切り替え、**必須フィールド**と**ユニークフィールド**の設定をチェックします。
+7. **別のフィールドを追加**をクリックします。
+8. 関連フィールドを選択します。
+9. 中央で、"多対多"を表すアイコンを選択します![icon many-to-many](/img/assets/icons/v5/ctb_relation_manytomany.svg)。テキストは`Categories has and belongs to many Restaurants`と表示されるはずです。
 
 <ThemedImage
 alt="Admin Panel screenshot: relations"
@@ -177,22 +177,22 @@ sources={{
 }}
 />
 
-11. Finally, click **Finish**, then the **Save** button, and wait for Strapi to restart.
+11. 最後に、**完了**をクリックし、**保存**ボタンをクリックし、Strapiが再起動するのを待ちます。
 
 </details>
 
-:::callout 🥳 CONGRATULATIONS!
-You have just created a basic data structure for your Strapi project! You can keep on playing with the [Content-Type Builder](/user-docs/content-type-builder), or proceed to parts C and D below to discover Strapi Cloud and add actual content to your project.
+:::callout 🥳 おめでとうございます！
+あなたはStrapiプロジェクトのための基本的なデータ構造を作成しました！ [Content-Type Builder](/user-docs/content-type-builder)で遊び続けるか、以下のCとDの部分に進んでStrapi Cloudを発見し、実際のコンテンツをプロジェクトに追加することができます。
 :::
 
-## ☁️ Part C: Deploy to Strapi Cloud
+## ☁️ パートC: Strapi Cloudへのデプロイ
 
-Now that your beautiful first Strapi project is working locally, it's time for the world to see it live! The most straightforward way to host your project is to use Strapi Cloud: Deploying your project on Strapi Cloud is done with a single command! 🚀
+あなたの美しい最初のStrapiプロジェクトがローカルで動作しているのであれば、世界に公開する時が来ました！プロジェクトをホストする最も簡単な方法はStrapi Cloudを使用することです：プロジェクトをStrapi Cloudにデプロイするのは一つのコマンドで完了します！🚀
 
-To deploy your project on Strapi Cloud, in your terminal:
+Strapi Cloudにプロジェクトをデプロイするには、ターミナルで以下の手順を実行します：
 
-1. If the server for your local Strapi project is running, which should be the case if you followed this tutorial so far, press `Ctrl-C` to stop the server.
-2. Ensure you are in the folder of your Strapi project (if needed, run for instance `cd my-strapi-project` to reach this folder), and run the following command:
+1. ローカルのStrapiプロジェクトのサーバーが稼働している場合（これまでのチュートリアルに従っていればそうなるはずです）、`Ctrl-C`を押してサーバーを停止します。
+2. Strapiプロジェクトのフォルダ内にいることを確認します（必要であれば、例えば`cd my-strapi-project`を実行してこのフォルダに移動します）、そして次のコマンドを実行します：
 
     <Tabs groupId="yarn-npm">
 
@@ -214,15 +214,15 @@ To deploy your project on Strapi Cloud, in your terminal:
 
     </Tabs>
 
-3. Answer questions in the terminal, giving your project a name (you can press Enter to keep the default name), choosing the recommended NodeJS version, and selecting the region closer to your current place:
+3. ターミナルで質問に答え、プロジェクトに名前を付け（デフォルトの名前を保持するためにEnterを押すこともできます）、推奨されるNodeJSバージョンを選択し、現在の場所に最も近い地域を選択します：
 
     ![Strapi Cloud terminal questions and answers](/img/assets/quick-start-guide/qsg-strapi-cloud-terminal-questions.png)
 
-Within a few moments, your local project will be hosted on Strapi Cloud. 🚀 
+数瞬で、あなたのローカルプロジェクトはStrapi Cloudにホストされます。🚀 
 
-Once it's done, the terminal will provide you a clickable link that starts with `https://cloud.strapi.io/projects`. Click on the link, or copy and paste it in your browser address bar, to visit the page.
+完了したら、ターミナルは`https://cloud.strapi.io/projects`で始まるクリック可能なリンクを提供します。リンクをクリックするか、ブラウザのアドレスバーにコピー＆ペーストしてページを訪れます。
 
-You will see the Strapi Cloud project we've just created, `my-strapi-project`, visible in the Strapi Cloud dashboard. Click the **Visit app** button in the top right corner to access your deployed Strapi project.
+私たちが作成したばかりのStrapi Cloudプロジェクト、`my-strapi-project`がStrapi Cloudダッシュボードに表示されます。デプロイしたStrapiプロジェクトにアクセスするには、右上の**Visit app**ボタンをクリックします。
 
 <ThemedImage
 alt="Visit Strapi Cloud App GIF"
@@ -232,30 +232,30 @@ sources={{
 }}
 />
 
-:::callout 🥳 CONGRATULATIONS!  
-Now your project is hosted on Strapi Cloud and accessible online. Enjoy your 14-day free Strapi Cloud trial! You can learn more about Strapi Cloud by reading [its dedicated documentation](/cloud/intro) or proceed to part D to log in into your online Strapi project and add your first data from there.
+:::callout 🥳 おめでとうございます！  
+あなたのプロジェクトはStrapi Cloudにホストされ、オンラインでアクセス可能になりました。14日間の無料Strapi Cloudトライアルをお楽しみください！Strapi Cloudについては、[専用のドキュメンテーション](/cloud/intro)を読むか、パートDに進んでオンラインのStrapiプロジェクトにログインし、そこから初めてのデータを追加することを学ぶことができます。
 :::
 
 :::tip
-Feel free to play with the Content-Type Builder even further and add more fields to your content-types or create new content-types. Anytime you make such changes, deploy them again on Strapi Cloud, by running the appropriate `deploy` command, and see your hosted project updated within a few minutes. Magical, isn't it? 🪄
+Content-Type Builderでさらに遊んで、コンテンツタイプにさらにフィールドを追加したり、新しいコンテンツタイプを作成したりすることができます。そのような変更をいつでも行うと、適切な`deploy`コマンドを実行して再度Strapi Cloudにデプロイし、ホストされたプロジェクトが数分以内に更新されるのを見ることができます。魔法のようでしょ？🪄
 :::
 
-## 📝 Part D: Add content to your Strapi Cloud project with the Content Manager
+## 📝 パートD: Content Managerを使用してStrapi Cloudプロジェクトにコンテンツを追加する
 
-Now that we have created a basic data structure with 2 collection types, "Restaurant" and "Category", and deployed your project to Strapi Cloud, let's use the Cloud to actually add content by creating new entries.
+基本的なデータ構造を2つのコレクションタイプ、「Restaurant」と「Category」で作成し、プロジェクトをStrapi Cloudにデプロイしたので、今度はCloudを実際に使用して新しいエントリを作成し、コンテンツを追加してみましょう。
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 1: Log in to the admin panel of your new Strapi Cloud project</summary>
+<summary style={summaryStyle}>ステップ1：新しいStrapi Cloudプロジェクトの管理パネルにログインする</summary>
 
-### Step 1: Log in to the admin panel of your new Strapi Cloud project
+### ステップ1：新しいStrapi Cloudプロジェクトの管理パネルにログインする
 
-Now that your Strapi Cloud project is created, let's log in into the project:
+Strapi Cloudプロジェクトが作成されたので、プロジェクトにログインしてみましょう：
 
-1. From your [Strapi Cloud dashboard](https://cloud.strapi.io/projects), click the `my-strapi-project` project.
-3. Click the **Visit app** button.
-4. In the new page that opens, complete the form to create the first administrator user of this Strapi Cloud project.
+1. [Strapi Cloudダッシュボード](https://cloud.strapi.io/projects)から、`my-strapi-project`プロジェクトをクリックします。
+3. **Visit app**ボタンをクリックします。
+4. 新しく開かれたページで、このStrapi Cloudプロジェクトの最初の管理者ユーザーを作成するためのフォームを完成させます。
 
-Logged in into our first Strapi Cloud project, we will now add data from there.
+最初のStrapi Cloudプロジェクトにログインしたら、そこからデータを追加します。
 
 <ThemedImage
 alt=""
@@ -266,14 +266,14 @@ sources={{
 />
 
 <details>
-<summary>ℹ️ Additional information and tips about users and Strapi Cloud projects:</summary>
+<summary>ℹ️ ユーザーやStrapi Cloudプロジェクトに関する追加情報とヒント：</summary>
 
-:::note Note: Local users and Strapi Cloud users are different
-The databases for your Strapi Cloud project and your local project are different. This means that data is not automatically transferred from your local project to Strapi Cloud. This includes users that you previously created locally. That's why you are invited to create a new administrator account when logging in to your Strapi Cloud project for the first time.
+:::note 注意: ローカルユーザーとStrapi Cloudユーザーは異なります
+Strapi Cloudプロジェクトとローカルプロジェクトのデータベースは異なります。これは、データが自動的にローカルプロジェクトからStrapi Cloudに転送されないことを意味します。これには、以前にローカルで作成したユーザーも含まれます。そのため、Strapi Cloudプロジェクトに初めてログインする際に新しい管理者アカウントの作成を求められます。
 :::
 
-:::tip Tip: Directly accessing the admin panel of your Strapi Cloud project
-Any project hosted on Strapi Cloud is accessible from its own URL, something like `https://my-strapi-project-name.strapiapp.com`. To access the admin panel of your online project, simply add `/admin` to the URL, for instance as in `https://my-strapi-project-name.strapiapp.com/admin`. URLs can be found in your Strapi Cloud dashboard and you can also directly access your Strapi Cloud projects from there by clicking on the name of your project then on the **Visit app** button.
+:::tip ヒント: Strapi Cloudプロジェクトの管理パネルに直接アクセスする
+Strapi Cloudでホストされている任意のプロジェクトは、その独自のURLからアクセス可能です。例えば、`https://my-strapi-project-name.strapiapp.com`のような形式です。オンラインプロジェクトの管理パネルにアクセスするには、URLに`/admin`を追加するだけです。例えば、`https://my-strapi-project-name.strapiapp.com/admin`のようにします。URLはStrapi Cloudダッシュボードで見つけることができ、プロジェクトの名前をクリックしてから**Visit app**ボタンをクリックすることで、直接Strapi Cloudプロジェクトにアクセスすることもできます。
 :::
 
 </details>
@@ -281,76 +281,76 @@ Any project hosted on Strapi Cloud is accessible from its own URL, something lik
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 2: Create an entry for the "Restaurant" collection type</summary>
+<summary style={summaryStyle}>ステップ2：「Restaurant」コレクションタイプにエントリを作成する</summary>
 
 
-### Step 2: Create an entry for the "Restaurant" collection type
+### ステップ2：「Restaurant」コレクションタイプにエントリを作成する
 
-1. Go to ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Restaurant_ in the navigation.
-2. Click on **Create new entry**.
-3. Type the name of your favorite local restaurant in the _Name_ field. Let's say it's `Biscotte Restaurant`.
-4. In the _Description_ field, write a few words about it. If you're lacking some inspiration, you can use `Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.`
-5. Click **Save**.
+1. ナビゲーションで ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Restaurant_ に移動します。
+2. **Create new entry**をクリックします。
+3. _Name_フィールドに、お気に入りの地元のレストランの名前を入力します。例えば、`Biscotte Restaurant`とします。
+4. _Description_フィールドに、そのレストランについての短い説明を書きます。もし、何を書くべきか思いつかない場合は、`Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine based on fresh, quality products, often local, organic when possible, and always produced by passionate producers.`という文を使用しても構いません。
+5. **Save**をクリックします。
 
 <ThemedImage
-alt="Screenshot: Biscotte Restaurant in Content Manager"
+alt="スクリーンショット: コンテンツマネージャーのビスコットレストラン"
 sources={{
   light: '/img/assets/quick-start-guide/qsg-handson-part2-03-restaurant-v5.png',
   dark: '/img/assets/quick-start-guide/qsg-handson-part2-03-restaurant-v5_DARK.png',
 }}
 />
 
-The restaurant is now listed in the _Collection types - Restaurant_ view of the ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager_.
+レストランは今、![Content Manager icon](/img/assets/icons/v5/Feather.svg) _コンテンツマネージャー_ の _コレクションタイプ - レストラン_ビューにリストされています。
 
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 3: Add Categories</summary>
+<summary style={summaryStyle}>ステップ3: カテゴリーを追加する</summary>
 
-#### Step 3: Add Categories
+#### ステップ3: カテゴリーを追加する
 
-Let's go to ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Category_ and create 2 categories:
+![Content Manager icon](/img/assets/icons/v5/Feather.svg) _コンテンツマネージャー > コレクションタイプ - カテゴリー_に移動し、2つのカテゴリーを作成しましょう：
 
-1. Click on **Create new entry**.
-2. Type `French Food` in the _Name_ field.
-3. Click **Save**.
-4. Go back to _Collection types - Category_, then click again on **Create new entry**.  
-5. Type `Brunch` in the _Name_ field, then click **Save**.
+1. **新しいエントリーを作成**をクリックします。
+2. _名前_フィールドに`フレンチフード`と入力します。
+3. **保存**をクリックします。
+4. _コレクションタイプ - カテゴリー_に戻り、再度**新しいエントリーを作成**をクリックします。  
+5. _名前_フィールドに`ブランチ`と入力し、**保存**をクリックします。
 
 <ThemedImage
-alt="GIF: Add Categories"
+alt="GIF: カテゴリーを追加する"
 sources={{
   light: '/img/assets/quick-start-guide/qsg-handson-categories-v5.gif',
   dark: '/img/assets/quick-start-guide/qsg-handson-categories-v5_DARK.gif',
 }}/>
 
-The "French Food" and "Brunch" categories are now listed in the _Collection types - Category_ view of the ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager_.
+"フレンチフード"と"ブランチ"のカテゴリーは、今や![Content Manager icon](/img/assets/icons/v5/Feather.svg) _コンテンツマネージャー_の_コレクションタイプ - カテゴリー_ビューにリストされています。
 
-Now, we will add a category to a restaurant:
+次に、レストランにカテゴリーを追加します：
 
-1. Go to ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Restaurant_ in the navigation, and click on "Biscotte Restaurant".
-2. In the **Categories** drop-down list at the bottom of the page, select "French Food". Scroll back to the top of the page and click **Save**.
+1. ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _コンテンツマネージャー > コレクションタイプ - レストラン_に移動し、"Biscotte Restaurant"をクリックします。
+2. ページの下部にある**カテゴリー**のドロップダウンリストから"フレンチフード"を選択します。ページの上部にスクロールし戻り、**保存**をクリックします。
 
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 4: Set Roles & Permissions</summary>
+<summary style={summaryStyle}>ステップ4: 役割と権限を設定する</summary>
 
-### Step 4: Set Roles & Permissions
+### ステップ4: 役割と権限を設定する
 
-We have just added a restaurant and 2 categories. We now have enough content to consume (pun intended). But first, we need to make sure that the content is publicly accessible through the API:
+私たちはただ今、レストランと2つのカテゴリーを追加しました。これでコンテンツを消費するための十分な内容が揃いました（ジョークです）。しかしまず、APIを通じてコンテンツが公開アクセス可能であることを確認する必要があります：
 
-1. Click on _![Settings icon](/img/assets/icons/v5/Cog.svg) Settings_ at the bottom of the main navigation.
-2. Under _Users & Permissions Plugin_, choose _Roles_.
-3. Click the **Public** role.
-4. Scroll down under _Permissions_.
-5. In the _Permissions_ tab, find _Restaurant_ and click on it.
-6. Click the checkboxes next to **find** and **findOne**.
-7. Repeat with _Category_: click the checkboxes next to **find** and **findOne**.
-8. Finally, click **Save**.
+1. メインナビゲーションの下部にある _![Settings icon](/img/assets/icons/v5/Cog.svg) 設定_ をクリックします。
+2. _ユーザー & 権限プラグイン_ の下で _役割_ を選択します。
+3. **パブリック**の役割をクリックします。
+4. _権限_の下にスクロールします。
+5. _権限_タブで _レストラン_を見つけてクリックします。
+6. **find**と**findOne**の隣にあるチェックボックスをクリックします。
+7. _カテゴリー_についても同様に、**find**と**findOne**の隣にあるチェックボックスをクリックします。
+8. 最後に、**保存**をクリックします。
 
 <ThemedImage
-alt="Screenshot: Public Role in Users & Permissions plugin"
+alt="スクリーンショット: ユーザー & 権限プラグインのパブリック役割"
 sources={{
   light: '/img/assets/quick-start-guide/qsg-handson-part2-04-roles-v5.png',
   dark: '/img/assets/quick-start-guide/qsg-handson-part2-04-roles-v5_DARK.png'
@@ -359,21 +359,21 @@ sources={{
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 5: Publish the content</summary>
+<summary style={summaryStyle}>ステップ5: コンテンツを公開する</summary>
 
-### Step 5: Publish the content
+### ステップ5: コンテンツを公開する
 
-By default, any content you create is saved as a draft. Let's publish our categories and restaurant.
+デフォルトでは、作成したコンテンツはすべて下書きとして保存されます。カテゴリーとレストランを公開しましょう。
 
-First, navigate to ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Category_. From there:
+まず、![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Category_ に移動します。そこから：
 
-1. Click the "Brunch" entry.
-2. On the next screen, click **Publish**.
-3. In the _Confirmation_ window, click **Yes, publish**.  
+1. "Brunch"エントリをクリックします。
+2. 次の画面で、**Publish**をクリックします。
+3. _Confirmation_ウィンドウで、**Yes, publish**をクリックします。
 
-Then, go back to the Categories list and repeat for the "French Food" category.
+次に、カテゴリーリストに戻り、"French Food"カテゴリーに対しても同様の操作を行います。
 
-Finally, to publish your favorite restaurant, go to ![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Restaurant_, click the "Biscotte Restaurant" entry, and **Publish** it.
+最後に、あなたのお気に入りのレストランを公開するために、![Content Manager icon](/img/assets/icons/v5/Feather.svg) _Content Manager > Collection types - Restaurant_ に移動し、"Biscotte Restaurant"エントリをクリックして、それを**Publish**します。
 
 <ThemedImage
 alt="GIF: Publish content"
@@ -386,18 +386,18 @@ sources={{
 </details>
 
 <details style={detailsStyle}>
-<summary style={summaryStyle}>Step 6: Use the API</summary>
+<summary style={summaryStyle}>ステップ6: APIの使用</summary>
 
-### Step 6: Use the API
+### ステップ6: APIの使用
 
-OK dear gourmet, we have just finished creating our content and making it accessible through the API. You can give yourself a pat on the back — but you have yet to see the final result of your hard work.
+さて、グルメの皆さん、私たちはちょうどコンテンツの作成とAPIを通じたアクセス可能性の確保を終えました。自分自身を褒めてあげましょう - しかし、あなたの一生懸命の努力の最終結果をまだ見ていません。
 
-There you are: the list of restaurants should be accessible by visting the `/api/restaurants` path of your Strapi Cloud project URL (e.g., `https://beautiful-first-strapi-project.strapiapp.com/api/restaurants`).
+ここにあります：レストランのリストは、あなたのStrapi CloudプロジェクトURLの`/api/restaurants`パスを訪れることでアクセス可能になるはずです（例：`https://beautiful-first-strapi-project.strapiapp.com/api/restaurants`）。
 
-Try it now! The result should be similar to the example response below 👇.
+今すぐ試してみてください！結果は以下の例のレスポンスに似ているはずです👇。
 
 <details>
-<summary>Click me to view an example of API response:</summary>
+<summary>APIレスポンスの例を見るにはクリックしてください：</summary>
 
 ```json
 {
@@ -438,20 +438,20 @@ Try it now! The result should be similar to the example response below 👇.
 
 </details>
 
-:::callout 🥳 CONGRATULATIONS!  
-Now your content is created, published, and you have permissions to request it through the API.
-Keep on creating amazing content!
+:::callout 🥳 おめでとうございます！  
+これであなたのコンテンツが作成され、公開され、APIを通じてそれをリクエストする権限があります。
+すばらしいコンテンツを作り続けてください！
 :::
 
-:::tip Tip: Transfer data between your local and Strapi Cloud projects
-The databases for your Strapi Cloud project and your local project are different. This means that data is not automatically synchronized between your Strapi Cloud and local projects. You can use the [data management system](/dev-docs/data-management) to transfer data between projects.
+:::tip ヒント: ローカルとStrapi Cloudプロジェクト間でデータを転送する
+あなたのStrapi Cloudプロジェクトとローカルプロジェクトのデータベースは異なります。これは、Strapi Cloudとローカルプロジェクト間でデータが自動的に同期されないことを意味します。プロジェクト間でデータを転送するために、[データ管理システム](/dev-docs/data-management)を使用することができます。
 :::
 
-## ⏩ What to do next?
+## ⏩ 次に何をすべきですか？
 
-Now that you know the basics of creating and publishing content with Strapi, we encourage you to explore and dig deeper into some Strapi features:
+あなたがStrapiを使ってコンテンツの作成と公開の基本を理解した今、私たちはあなたにStrapiのいくつかの機能を探求し、より深く掘り下げることをお勧めします：
 
-- 👉 learn how to use Strapi's [REST](/dev-docs/api/rest) API to query the content,
-- 👉 learn more about Strapi features by browsing the [User Guide](/user-docs/intro),
-- 👉 learn more about Strapi Cloud projects by reading the [Cloud Documentation](/cloud/intro),
-- 👉 and [customize your Strapi back end](/dev-docs/backend-customization) and [admin panel](/dev-docs/admin-panel-customization) for advanced use cases.
+- 👉 Strapiの[REST](/dev-docs/api/rest) APIを使ってコンテンツをクエリする方法を学びましょう。
+- 👉 [ユーザーガイド](/user-docs/intro)を閲覧して、Strapiの機能について詳しく学びましょう。
+- 👉 [クラウドドキュメンテーション](/cloud/intro)を読んで、Strapi Cloudプロジェクトについて詳しく学びましょう。
+- 👉 そして、高度なユースケースのために、Strapiのバックエンドと[管理パネル](/dev-docs/admin-panel-customization)を[カスタマイズ](/dev-docs/backend-customization)する方法を学びましょう。

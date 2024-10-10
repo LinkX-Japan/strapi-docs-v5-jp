@@ -1,13 +1,13 @@
 ---
-title: Deployment
+title: デプロイメント
 displayed_sidebar: devDocsSidebar
-description: Learn how to develop locally with Strapi and deploy Strapi with various hosting options.
+description: Strapiをローカルで開発し、さまざまなホスティングオプションでStrapiをデプロイする方法を学びます。
 tags:
-- database deployment
-- deployment
-- project creation
-- hosting provider
-- hosting server
+- データベースのデプロイ
+- デプロイ
+- プロジェクトの作成
+- ホスティングプロバイダー
+- ホスティングサーバー
 ---
 
 import DatabaseRequire from '/docs/snippets/database-require.md'
@@ -15,51 +15,51 @@ import HardwareRequire from '/docs/snippets/hardware-require.md'
 import OperatingSystemRequire from '/docs/snippets/operating-system-require.md'
 import InstallPrereq from '/docs/snippets/installation-prerequisites.md'
 
-# Deployment
+# デプロイメント
 
-Strapi provides many deployment options for your project or application. Your Strapi applications can be deployed on traditional hosting servers or your preferred hosting provider.
+Strapiは、プロジェクトやアプリケーションのための多くのデプロイメントオプションを提供しています。Strapiアプリケーションは、伝統的なホスティングサーバーやお選びのホスティングプロバイダーにデプロイすることができます。
 
-The following documentation covers the basics of how to prepare Strapi for deployment on with several common hosting options.
+以下のドキュメンテーションでは、いくつかの一般的なホスティングオプションでStrapiをデプロイするための準備方法の基本をカバーしています。
 
 :::strapi Strapi Cloud
-You can use [Strapi Cloud](/cloud/intro) to quickly deploy and host your project.
+プロジェクトを迅速にデプロイしホストするために、[Strapi Cloud](/cloud/intro)を使用することができます。
 :::
 
 :::tip
-If you already created a data structure with the Content-Type Builder and added some data through the Content Manager to your local (development) Strapi instance, you can leverage the [data management system](/dev-docs/data-management) to transfer data from a Strapi instance to another one.
+すでにContent-Type Builderでデータ構造を作成し、Content Managerを通じてローカル（開発）Strapiインスタンスにいくつかのデータを追加した場合、[データ管理システム](/dev-docs/data-management)を活用して、Strapiインスタンスから別のインスタンスへデータを転送することができます。
 
-Another possible workflow is to first create the data structure locally, push your project to a git-based repository, deploy the changes to production, and only then add content to the production instance.
+別の可能なワークフローは、まずローカルでデータ構造を作成し、プロジェクトをgitベースのリポジトリにプッシュし、変更を本番環境にデプロイし、その後で本番インスタンスにコンテンツを追加することです。
 :::
 
-## General guidelines
+## 一般的なガイドライン
 
-### Hardware and software requirements
+### ハードウェアとソフトウェアの要件
 
-To provide the best possible environment for Strapi the following requirements apply to development (local) and staging and production workflows.
+Strapiが最適な環境を提供するために、以下の要件が開発（ローカル）とステージング、本番ワークフローに適用されます。
 
 <InstallPrereq />
 
-- Standard build tools for your OS (the `build-essentials` package on most Debian-based systems)
-- Hardware specifications for your server (CPU, RAM, storage):
+- あなたのOSの標準的なビルドツール（ほとんどのDebianベースのシステムでは `build-essentials` パッケージ）
+- サーバーのハードウェア仕様（CPU、RAM、ストレージ）:
 
   <HardwareRequire components={props.components} />
 
-- A supported database version:
+- サポートされているデータベースのバージョン:
 <DatabaseRequire components={props.components} />
 
-:::strapi Database deployment
-Deploying databases along with Strapi is covered in the [databases guide](/dev-docs/configurations/database#databases-installation-guides).
+:::strapi データベースのデプロイ
+Strapiと一緒にデータベースをデプロイする方法は、[データベースガイド](/dev-docs/configurations/database#databases-installation-guides)でカバーされています。
 :::
 
-- A supported operating system:
+- サポートされているオペレーティングシステム:
 
   <OperatingSystemRequire components={props.components} />
 
-### Application Configuration
+### アプリケーションの設定
 
-#### 1. Configure
+#### 1. 設定
 
-We recommend using environment variables to configure your application based on the environment, for example:
+環境に基づいてアプリケーションを設定するために、環境変数の使用を推奨します。例えば：
 
 ```js title="/config/server.js"
 
@@ -69,7 +69,7 @@ module.exports = ({ env }) => ({
 });
 ```
 
-Then you can create a `.env` file or directly set environment variables in your chosen deployment platform:
+次に、`.env` ファイルを作成するか、選択したデプロイメントプラットフォームで直接環境変数を設定できます：
 
 ```
 HOST=10.0.0.1
@@ -77,12 +77,12 @@ PORT=1338
 ```
 
 :::tip
-To learn more about configuration details, see the [configurations](/dev-docs/configurations) documentation.
+設定の詳細については、[設定](/dev-docs/configurations)のドキュメンテーションを参照してください。
 :::
 
-#### 2. Launch the server
+#### 2. サーバーの起動
 
-Before running your server in production you need to build your admin panel for production:
+本番環境でサーバーを実行する前に、管理パネルを本番環境用にビルドする必要があります：
 
 <Tabs groupId="yarn-npm-windows">
 
@@ -108,13 +108,13 @@ NODE_ENV=production npm run build
 npm install cross-env
 ```
 
-Then in your `package.json` scripts section:
+その後、`package.json`のスクリプトセクションに以下を追加します：
 
 ```bash
 "build:win": "cross-env NODE_ENV=production npm run build",
 ```
 
-And run:
+そして実行します：
 
 ```bash
 npm run build:win
@@ -123,7 +123,7 @@ npm run build:win
 </TabItem>
 </Tabs>
 
-Run the server with the `production` settings:
+`production`設定でサーバーを実行します：
 
 <Tabs groupId="yarn-npm">
 
@@ -149,13 +149,13 @@ NODE_ENV=production npm run start
 npm install cross-env
 ```
 
-Then in your `package.json` scripts section:
+その後、`package.json`のスクリプトセクションに以下を追加します：
 
 ```bash
 "start:win": "cross-env NODE_ENV=production npm start",
 ```
 
-And run:
+そして実行します：
 
 ```bash
 npm run start:win
@@ -166,10 +166,10 @@ npm run start:win
 </Tabs>
 
 :::caution
-We highly recommend using [pm2](https://github.com/Unitech/pm2/) to manage your process.
+プロセスを管理するために、[pm2](https://github.com/Unitech/pm2/)の使用を強く推奨します。
 :::
 
-If you need a server.js file to be able to run `node server.js` instead of `npm run start` then create a `./server.js` file as follows:
+`node server.js`の代わりに`npm run start`を実行できるように`server.js`ファイルが必要な場合は、以下のように`./server.js`ファイルを作成します：
 
 ```js title="path: ./server.js"
 
@@ -179,36 +179,35 @@ strapi.createStrapi(/* {...} */).start();
 
 :::caution
 
-If you are developing a `TypeScript`-based project you must provide the `distDir` option to start the server.
-For more information, consult the [TypeScript documentation](/dev-docs/typescript#use-the-strapi-factory).
+`TypeScript`ベースのプロジェクトを開発している場合、サーバーを起動するために`distDir`オプションを提供する必要があります。詳細は[TypeScriptのドキュメンテーション](/dev-docs/typescript#use-the-strapi-factory)を参照してください。
 :::
 
-### Advanced configurations
+### 高度な設定
 
-If you want to host the administration on another server than the API, [please take a look at this dedicated section](/dev-docs/admin-panel-customization/deployment).
+APIとは別のサーバーで管理画面をホストしたい場合は、[この専用セクションをご覧ください](/dev-docs/admin-panel-customization/deployment)。
 
-## Additional resources
+## 追加のリソース
 
 :::prerequisites
-* Your Strapi project is [created](/dev-docs/installation) and its code is hosted on GitHub.
-* You have read the [general deployment guidelines](/dev-docs/deployment#general-guidelines).
+* Strapiプロジェクトが[作成](/dev-docs/installation)され、そのコードがGitHubにホストされています。
+* [一般的なデプロイメントガイドライン](/dev-docs/deployment#general-guidelines)を読んでいます。
 :::
 
-The [integrations page](https://strapi.io/integrations) of the Strapi website include information on how to integrate Strapi with many resources, including how to deploy Strapi on the following 3rd-party platforms:
+Strapiウェブサイトの[統合ページ](https://strapi.io/integrations)には、以下のサードパーティプラットフォームにStrapiをデプロイする方法を含む、Strapiと多くのリソースを統合する方法に関する情報が含まれています：
 
-<CustomDocCard emoji="🔗" small title="Deploy Strapi on AWS"  link="https://strapi.io/integrations/aws" />
+<CustomDocCard emoji="🔗" small title="AWSにStrapiをデプロイする"  link="https://strapi.io/integrations/aws" />
 
-<CustomDocCard emoji="🔗" small title="Deploy Strapi on Azure" link="https://strapi.io/integrations/azure" />
+<CustomDocCard emoji="🔗" small title="AzureにStrapiをデプロイする" link="https://strapi.io/integrations/azure" />
 
-<CustomDocCard emoji="🔗" small title="Deploy Strapi on DigitalOcean App Platform"  link="https://strapi.io/integrations/digital-ocean" />
+<CustomDocCard emoji="🔗" small title="DigitalOcean App PlatformにStrapiをデプロイする"  link="https://strapi.io/integrations/digital-ocean" />
 
-<CustomDocCard emoji="🔗" small title="Deploy Strapi on Heroku" link="https://strapi.io/integrations/heroku" />
+<CustomDocCard emoji="🔗" small title="HerokuにStrapiをデプロイする" link="https://strapi.io/integrations/heroku" />
 
 <br/>
 
-In addition, community-maintained guides for additional providers are available in the [Strapi Forum](https://forum.strapi.io/c/community-guides/28). This includes the following guides:
+さらに、[Strapiフォーラム](https://forum.strapi.io/c/community-guides/28)には、以下のガイドを含む追加のプロバイダーに関するコミュニティによって維持されているガイドがあります：
 
-<CustomDocCard emoji="🔗" small title="Proxying with Caddy" link="https://forum.strapi.io/t/caddy-proxying-with-strapi/" />
-<CustomDocCard emoji="🔗" small title="Proxying with HAProxy" link="https://forum.strapi.io/t/haproxy-proxying-with-strapi/" />
-<CustomDocCard emoji="🔗" small title="Proxying with NGinx" link="https://forum.strapi.io/t/nginx-proxing-with-strapi/" />
-<CustomDocCard emoji="🔗" small title="Using the PM2 process manager" link="https://forum.strapi.io/t/how-to-use-pm2-process-manager-with-strapi/" />
+<CustomDocCard emoji="🔗" small title="Caddyを使用したプロキシ" link="https://forum.strapi.io/t/caddy-proxying-with-strapi/" />
+<CustomDocCard emoji="🔗" small title="HAProxyを使用したプロキシ" link="https://forum.strapi.io/t/haproxy-proxying-with-strapi/" />
+<CustomDocCard emoji="🔗" small title="NGinxを使用したプロキシ" link="https://forum.strapi.io/t/nginx-proxing-with-strapi/" />
+<CustomDocCard emoji="🔗" small title="PM2プロセスマネージャの使用" link="https://forum.strapi.io/t/how-to-use-pm2-process-manager-with-strapi/" />

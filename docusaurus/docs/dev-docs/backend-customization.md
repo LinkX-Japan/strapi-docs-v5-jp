@@ -1,95 +1,104 @@
 ---
-title: Back-end customization
-description: All elements of Strapi's back end, like routes, policies, middlewares, controllers, services, models, requests, responses, and webhooks, can be customized.
+title: バックエンドのカスタマイズ
+description: Strapiのバックエンドのすべての要素、つまりルート、ポリシー、ミドルウェア、コントローラー、サービス、モデル、リクエスト、レスポンス、ウェブフックなどは、カスタマイズ可能です。
 pagination_next: dev-docs/backend-customization/requests-responses
 tags:
-- backend customization
-- backend server
+- バックエンドのカスタマイズ
+- バックエンドサーバー
 - Content-type Builder 
-- controllers
+- コントローラー
 - Document Service API 
-- global middlewares
+- グローバルミドルウェア
 - GraphQL API
-- HTTP server
-- middlewares
+- HTTPサーバー
+- ミドルウェア
 - Query Engine API
 - REST API 
-- route middlewares
+- ルートミドルウェア
 ---
 
 <div className="custom-mermaid-layout">
 
-:::strapi Disambiguation: Strapi back end
-As a headless CMS, the Strapi software as a whole can be considered as the "back end" of your website or application.
-But the Strapi software itself includes 2 different parts:
+:::strapi 曖昧さ解消: Strapiのバックエンド
+ヘッドレスCMSとして、Strapiソフトウェア全体をあなたのウェブサイトやアプリケーションの"バックエンド"と考えることができます。
+しかし、Strapiソフトウェア自体には2つの異なる部分が含まれています：
 
-- The **back-end** part of Strapi is an HTTP server that Strapi runs. Like any HTTP server, the Strapi back end receives requests and send responses. Your content is stored in a database, and the Strapi back end interacts with the database to create, retrieve, update, and delete content.
-- The **front-end** part of Strapi is called the admin panel. The admin panel presents a graphical user interface to help you structure and manage the content.
+- Strapiの**バックエンド**部分は、Strapiが実行するHTTPサーバーです。任意のHTTPサーバーと同様に、Strapiのバックエンドはリクエストを受け取り、レスポンスを送信します。あなたのコンテンツはデータベースに保存され、Strapiのバックエンドはデータベースと対話してコンテンツを作成、取得、更新、削除します。
+- Strapiの**フロントエンド**部分は、管理パネルと呼ばれます。管理パネルは、コンテンツの構造化と管理を支援するためのグラフィカルユーザーインターフェースを提供します。
 
-Throughout this developer documentation, 'back end' refers _exclusively_ to the back-end part of Strapi.
+この開発者向けドキュメンテーション全体で、'バックエンド'は_Strapiのバックエンド部分だけ_を指しています。
 
-The [User Guide](/user-docs/intro) explains how to use the admin panel and the [admin panel customization section](/dev-docs/admin-panel-customization) details the various customization options available for the admin panel.
+[User Guide](/user-docs/intro)では、管理パネルの使用方法と、[管理パネルのカスタマイズセクション](/dev-docs/admin-panel-customization)では、管理パネルのさまざまなカスタマイズオプションについて詳しく説明しています。
 :::
 
-The Strapi back end runs an HTTP server based on [Koa](https://koajs.com/), a back-end JavaScript framework.
+Strapiのバックエンドは、バックエンドJavaScriptフレームワークの[Koa](https://koajs.com/)を基にしたHTTPサーバーを実行します。
 
-Like any HTTP server, the Strapi back end receives requests and send responses. You can send requests to the Strapi back end to create, retrieve, update, or delete data through the [REST](/dev-docs/api/rest) or [GraphQL](/dev-docs/api/graphql) APIs.
+任意のHTTPサーバーと同様に、Strapiのバックエンドはリクエストを受け取り、レスポンスを送信します。[REST](/dev-docs/api/rest)または[GraphQL](/dev-docs/api/graphql)APIを通じて、Strapiのバックエンドにデータの作成、取得、更新、削除のリクエストを送信することができます。
 
-A request can travel through the Strapi back end as follows:
+リクエストは、Strapiのバックエンドを通じて以下のように行き来することができます：
 
-1. The Strapi server receives a [request](/dev-docs/backend-customization/requests-responses).
-2. The request hits [global middlewares](/dev-docs/backend-customization/middlewares) that are run in a sequential order.
-3. The request hits a [route](/dev-docs/backend-customization/routes).<br/>By default, Strapi generates route files for all the content-types that you create (see [REST API documentation](/dev-docs/api/rest)), and more routes can be added and configured.
-4. [Route policies](/dev-docs/backend-customization/policies) act as a read-only validation step that can block access to a route. [Route middlewares](/dev-docs/backend-customization/routes#middlewares) can control the request flow and mutate the request itself before moving forward.
-5. [Controllers](/dev-docs/backend-customization/controllers) execute code once a route has been reached. [Services](/dev-docs/backend-customization/services) are optional, additional code that can be used to build custom logic reusable by controllers.
-6. The code executed by the controllers and services interacts with the [models](/dev-docs/backend-customization/models) that are a representation of the content data structure stored in the database.<br />Interacting with the data represented by the models is handled by the [Document Service](/dev-docs/api/document-service) and [Query Engine](/dev-docs/api/query-engine).
-7. You can implement [Document Service middlewares](/dev-docs/api/document-service/middlewares) to control the data before it's sent to the Query Engine. The Query Engine can also use lifecycle hooks though we recommend you use Document Service middlewares unless you absolutely need to directly interact with the database.
-7. The server returns a [response](/dev-docs/backend-customization/requests-responses). The response can travel back through route middlewares and global middlewares before being sent.
+1. Strapiサーバーは[リクエスト](/dev-docs/backend-customization/requests-responses)を受け取ります。
+2. リクエストは、順序に従って実行される[グローバルミドルウェア](/dev-docs/backend-customization/middlewares)にヒットします。
+3. リクエストは[ルート](/dev-docs/backend-customization/routes)にヒットします。<br/>デフォルトでは、Strapiは作成したすべてのコンテンツタイプのルートファイルを生成し（[REST APIドキュメンテーション](/dev-docs/api/rest)を参照）、さらにルートを追加し、設定することができます。
+4. [ルートポリシー](/dev-docs/backend-customization/policies)は、ルートへのアクセスをブロックできる読み取り専用の検証ステップとして機能します。[ルートミドルウェア](/dev-docs/backend-customization/routes#middlewares)は、リクエストフローを制御し、リクエスト自体を変更してから前に進むことができます。
+5. [コントローラー](/dev-docs/backend-customization/controllers)は、ルートに到達した後にコードを実行します。[サービス](/dev-docs/backend-customization/services)は、コントローラーで再利用できるカスタムロジックを構築するために使用できるオプションの追加コードです。
+6. コントローラーとサービスによって実行されるコードは、データベースに格納されているコンテンツデータ構造の表現である[モデル](/dev-docs/backend-customization/models)と対話します。<br />モデルによって表現されるデータとの対話は、[ドキュメントサービス](/dev-docs/api/document-service)と[クエリエンジン](/dev-docs/api/query-engine)によって処理されます。
+7. [ドキュメントサービスミドルウェア](/dev-docs/api/document-service/middlewares)を実装して、データがクエリエンジンに送信される前にデータを制御することができます。クエリエンジンもライフサイクルフックを使用できますが、データベースと直接対話する必要が絶対にある場合を除き、ドキュメントサービスミドルウェアを使用することをお勧めします。
+7. サーバーは[レスポンス](/dev-docs/backend-customization/requests-responses)を返します。レスポンスは、ルートミドルウェアとグローバルミドルウェアを通じて戻ることができ、送信されます。
 
-Both global and route middlewares include an asynchronous callback function, `await next()`. Depending on what is returned by the middleware, the request will either go through a shorter or longer path through the back end:
+グローバルミドルウェアとルートミドルウェアの両方には非同期のコールバック関数、`await next()`が含まれています。ミドルウェアが返すものによって、リクエストはバックエンドを通じて短いまたは長いパスを通ることになります：
 
-* If a middleware returns nothing, the request will continue travelling through the various core elements of the back end (i.e., controllers, services, and the other layers that interact with the database).
-* If a middleware returns before calling `await next()`, a response will be immediately sent, skipping the rest of the core elements. Then it will go back down the same chain it came up.
+* ミドルウェアが何も返さない場合、リクエストはバックエンドの各コア要素（すなわち、コントローラー、サービス、およびデータベースと対話する他のレイヤー）を通過し続けます。
+* ミドルウェアが`await next()`を呼び出す前に戻る場合、レスポンスはすぐに送信され、残りのコア要素はスキップされます。その後、同じチェーンを下って戻ります。
 
 :::info
-Please note that all customizations described in the pages of this section are only for the REST API. [GraphQL customizations](/dev-docs/plugins/graphql#customization) are described in the GraphQL plugin documentation.
+このセクションのページに記載されているすべてのカスタマイズはREST APIのみに適用されます。[GraphQLのカスタマイズ](/dev-docs/plugins/graphql#customization)はGraphQLプラグインのドキュメンテーションで説明されています。
 :::
 
-<!-- TODO: uncomment this once we have updated the backend examples cookbook for v5 -->
-<!-- :::tip Learn by example
-If you prefer learning by reading examples and understanding how they can be used in real-world use cases, the [Examples cookbook](/dev-docs/backend-customization/examples) section is another way at looking how the Strapi back end customization works.
+<!-- TODO: このコメントを解除するには、バックエンドの例のクックブックがv5に更新されるのを待ちます -->
+<!-- :::tip 例から学ぶ
+実例を読んで理解し、それらが実際のユースケースでどのように使用できるかを学ぶことを好むなら、[例のクックブック](/dev-docs/backend-customization/examples)セクションは、Strapiのバックエンドのカスタマイズがどのように機能するかを見る別の方法です。
 ::: -->
 
-## Interactive diagram
+## インタラクティブな図
 
-The following diagram represents how requests travel through the Strapi back end. You can click on any shape to jump to the relevant page in the documentation.
+以下の図は、リクエストがStrapiのバックエンドを通過する方法を示しています。任意の形状をクリックすると、ドキュメンテーションの関連ページにジャンプします。
+
+<!-- TODO: これをv5のバックエンド例の料理本を更新したらコメントアウト解除してください -->
+<!-- :::tip 例から学ぶ
+実際の使用例を読んで理解することを好む方は、[例の料理本](/dev-docs/backend-customization/examples)セクションもStrapiのバックエンドカスタマイズの動作を理解するための一つの視点です。
+::: -->
+
+## インタラクティブなダイアグラム
+
+以下のダイアグラムは、リクエストがStrapiバックエンドを通過する方法を表しています。任意の形状をクリックすると、関連するドキュメンテーションのページにジャンプします。
 
 ```mermaid
 graph TB
-    request[Request] ---> globalMiddlewareA(("Global middleware<br/>before await next()"))
-    globalMiddlewareA --"Call next()"--> routePolicy{Route policy}
-    globalMiddlewareA --"Returns before next()<br>Goes back up in the middleware chain"-->globalMiddlewareB
-    routePolicy --Returns true--> routeMiddlewareA(("Route middleware<br/>before await next()"))
-    routePolicy --Returns false or an error-->globalMiddlewareB
-    routeMiddlewareA --"Returns before next()<br>Goes back up in the middleware chain"-->routeMiddlewareB
-    routeMiddlewareA --"Call next()"--> controllerA{{Controller}}
-    controllerA --"Call Service(s)"--> serviceA{{Service}}
-    controllerA --"Don't call Service(s)" --> routeMiddlewareB
-    serviceA --"Call Document Service" --> documentService{{Document Service}}
-    serviceA --"Don't call Document Service" --> controllerB
-    documentService --"Call Document Service Middleware"--> dsMiddlewareBefore{{Document Service Middleware}}
-    dsMiddlewareBefore[/"Document Service Middleware"<br> before\]
+    request[リクエスト] ---> globalMiddlewareA(("グローバルミドルウェア<br/>before await next()"))
+    globalMiddlewareA --"next()を呼び出す"--> routePolicy{ルートポリシー}
+    globalMiddlewareA --"next()の前に戻る<br>ミドルウェアチェーンを上に戻る"-->globalMiddlewareB
+    routePolicy --trueを返す--> routeMiddlewareA(("ルートミドルウェア<br/>before await next()"))
+    routePolicy --falseまたはエラーを返す-->globalMiddlewareB
+    routeMiddlewareA --"next()の前に戻る<br>ミドルウェアチェーンを上に戻る"-->routeMiddlewareB
+    routeMiddlewareA --"next()を呼び出す"--> controllerA{{コントローラ}}
+    controllerA --"サービスを呼び出す"--> serviceA{{サービス}}
+    controllerA --"サービスを呼び出さない" --> routeMiddlewareB
+    serviceA --"ドキュメントサービスを呼び出す" --> documentService{{ドキュメントサービス}}
+    serviceA --"ドキュメントサービスを呼び出さない" --> controllerB
+    documentService --"ドキュメントサービスミドルウェアを呼び出す"--> dsMiddlewareBefore{{ドキュメントサービスミドルウェア}}
+    dsMiddlewareBefore[/"ドキュメントサービスミドルウェア"<br> before\]
     dsMiddlewareBefore --> queryEngine
-    dsMiddlewareBefore --"Don't call Query Engine" --> dsMiddlewareAfter
-    queryEngine{{"Query Engine"}} --> lifecyclesBefore[/Lifecycle<br> beforeX\] 
-    lifecyclesBefore[/Lifecycle<br> beforeX\] --> database[(Database)]
-    database --> lifecyclesAfter[\Lifecycle<br> afterX/]
-    lifecyclesAfter --> dsMiddlewareAfter[\"Document Service Middleware"<br> after/]
-    dsMiddlewareAfter --> serviceB{{"Service<br/>after Document Service call"}}
-    serviceB --> controllerB{{"Controller<br/>after service call"}}
-    controllerB --> routeMiddlewareB(("Route middleware<br/>after await next()"))
-    routeMiddlewareB --> globalMiddlewareB(("Global middleware<br/>after await next()"))
-    globalMiddlewareB --> response[Response]
+    dsMiddlewareBefore --"クエリエンジンを呼び出さない" --> dsMiddlewareAfter
+    queryEngine{{"クエリエンジン"}} --> lifecyclesBefore[/ライフサイクル<br> beforeX\] 
+    lifecyclesBefore[/ライフサイクル<br> beforeX\] --> database[(データベース)]
+    database --> lifecyclesAfter[\ライフサイクル<br> afterX/]
+    lifecyclesAfter --> dsMiddlewareAfter[\"ドキュメントサービスミドルウェア"<br> after/]
+    dsMiddlewareAfter --> serviceB{{"サービス<br/>ドキュメントサービス呼び出し後"}}
+    serviceB --> controllerB{{"コントローラ<br/>サービス呼び出し後"}}
+    controllerB --> routeMiddlewareB(("ルートミドルウェア<br/>after await next()"))
+    routeMiddlewareB --> globalMiddlewareB(("グローバルミドルウェア<br/>after await next()"))
+    globalMiddlewareB --> response[レスポンス]
     linkStyle 3 stroke:green,color:green
     linkStyle 4 stroke:red,color:red
     linkStyle 2 stroke:purple,color:purple
