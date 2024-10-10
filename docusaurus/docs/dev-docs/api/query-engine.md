@@ -1,35 +1,35 @@
 ---
 unlisted: true
-title: Query Engine API
-description: Strapi provides a Query Engine API to give unrestricted internal access to the database layer at a lower level.
+title: クエリエンジンAPI
+description: Strapiは、データベースレイヤーへの制限のない内部アクセスをより低いレベルで提供するクエリエンジンAPIを提供しています。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
 - Content API
-- introduction
-- Query Engine API
+- はじめに
+- クエリエンジンAPI
 ---
 
 import EntityQueryKnex from '/docs/snippets/entity-query-knex.md'
 import BackendIntroCrosslink from '/docs/snippets/backend-custom-intro-crosslink.md'
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
 
-# Query Engine API
+# クエリエンジンAPI
 
-The Strapi backend provides a Query Engine API to interact with the database layer at a lower level. 
+Strapiのバックエンドは、データベースレイヤーとより低いレベルで対話するためのクエリエンジンAPIを提供しています。
 
 <ConsiderDocumentService />
 
 :::prerequisites
-Before diving deeper into the Query Engine API documentation, it is recommended that you read the following introductions:
-- the [backend customization introduction](/dev-docs/backend-customization),
-- and the [Content APIs introduction](/dev-docs/api/content-api).
+クエリエンジンAPIのドキュメンテーションを深く掘り下げる前に、以下の紹介を読むことをお勧めします:
+- [バックエンドのカスタマイズの紹介](/dev-docs/backend-customization)、
+- [Content APIsの紹介](/dev-docs/api/content-api)。
 :::
 
 
-## Basic usage
+## 基本的な使用方法
 
-The Query Engine is available through `strapi.db.query`:
+クエリエンジンは `strapi.db.query` を通じて利用できます:
 
 ```js
 strapi.db.query('api::blog.article').findMany({ // uid syntax: 'api::api-name.content-type-name'
@@ -45,14 +45,14 @@ strapi.db.query('api::blog.article').findMany({ // uid syntax: 'api::api-name.co
 });
 ```
 
-## Available operations
+## 利用可能な操作
 
-The Query Engine allows the following operations on database entries:
+クエリエンジンは、データベースエントリーに対して以下の操作を許可します:
 
 <CustomDocCardsWrapper>
-<CustomDocCard emoji="" title="Single operations" description="Create, read, update, and delete single database entries with the Query Engine API." link="/dev-docs/api/query-engine/single-operations" />
-<CustomDocCard emoji="" title="Bulk operations" description="Create, read, update, and delete multiple database entries with the Query Engine API." link="/dev-docs/api/query-engine/bulk-operations" />
-<CustomDocCard emoji="" title="Filters" description="Get exactly what you need by filtering database entries with the Query Engine API." link="/dev-docs/api/query-engine/filtering" />
-<CustomDocCard emoji="" title="Populate" description="Get additional data with your Query Engine API queries by populating relations." link="/dev-docs/api/query-engine/populating" />
-<CustomDocCard emoji="" title="Order & Pagination" description="Sort and paginate the results of your Query Engine API queries." link="/dev-docs/api/query-engine/order-pagination" />
+<CustomDocCard emoji="" title="単一の操作" description="クエリエンジンAPIを使用して、データベースエントリーを作成、読み取り、更新、削除します。" link="/dev-docs/api/query-engine/single-operations" />
+<CustomDocCard emoji="" title="一括操作" description="クエリエンジンAPIを使用して、複数のデータベースエントリを作成、読み取り、更新、削除します。" link="/dev-docs/api/query-engine/bulk-operations" />
+<CustomDocCard emoji="" title="フィルター" description="クエリエンジンAPIを使用してデータベースエントリをフィルタリングし、必要なものを正確に取得します。" link="/dev-docs/api/query-engine/filtering" />
+<CustomDocCard emoji="" title="Populate" description="関係をポピュレートすることで、クエリエンジンAPIのクエリに追加データを取得します。" link="/dev-docs/api/query-engine/populating" />
+<CustomDocCard emoji="" title="順序付けとページネーション" description="クエリエンジンAPIのクエリの結果をソートし、ページネーションします。" link="/dev-docs/api/query-engine/order-pagination" />
 </CustomDocCardsWrapper>

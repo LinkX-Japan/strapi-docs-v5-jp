@@ -1,31 +1,31 @@
 ---
-title: Content API
-description: Learn more about Strapi 5's Content API
+title: コンテンツAPI
+description: Strapi 5のコンテンツAPIについて詳しく学びましょう
 displayed_sidebar: devDocsSidebar
 pagination_prev: dev-docs/setup-deployment
 pagination_next: dev-docs/advanced-features
 tags:
-- concepts
-- Document Service API
+- 概念
+- ドキュメントサービスAPI
 - GraphQL
 - GraphQL API
-- introduction
-- Query Engine API
+- はじめに
+- クエリエンジンAPI
 - Rest API
 ---
 
-# Strapi APIs to access your content
+# Strapi APIを使ってコンテンツにアクセスする
 
-Once you've created and configured a Strapi project, created a data structure with the [Content-Type Builder](/user-docs/content-type-builder) and started adding data through the [Content Manager](/user-docs/content-manager), you likely would like to access your content.
+Strapiプロジェクトを作成、設定し、[コンテンツタイプビルダー](/user-docs/content-type-builder)でデータ構造を作成し、[コンテンツマネージャー](/user-docs/content-manager)でデータを追加したら、コンテンツにアクセスしたいと思うでしょう。
 
-From a front-end application, your content can be accessed through Strapi's Content API, which is exposed:
-- by default through the [REST API](/dev-docs/api/rest)
-- and also through the [GraphQL API](/dev-docs/api/graphql) if you installed the Strapi built-in [GraphQL plugin](/dev-docs/plugins/graphql).
+フロントエンドアプリケーションからは、StrapiのコンテンツAPIを通じてコンテンツにアクセスできます。これは以下のように公開されています:
+- デフォルトでは[REST API](/dev-docs/api/rest)を通じて
+- また、Strapiの組み込みの[GraphQLプラグイン](/dev-docs/plugins/graphql)をインストールした場合は、[GraphQL API](/dev-docs/api/graphql)を通じてもアクセスできます。
 
-REST and GraphQL APIs represent the top-level layers of the Content API exposed to external applications. Strapi also provides 2 lower-level APIs:
+RESTとGraphQLのAPIは、外部アプリケーションに公開されるコンテンツAPIの最上位層を表しています。また、Strapiは以下の2つの下位層のAPIも提供しています:
 
-- The [Document Service API](/dev-docs/api/document-service) is the recommended API to interact with your application's database within the [backend server](/dev-docs/customization) or through [plugins](/dev-docs/plugins). The Document Service is the layer that handles **documents** <DocumentDefinition /> as well as Strapi's complex data structures like components and dynamic zones.
-- The Query Engine API interacts with the database layer at a lower level and is used under the hood to execute database queries. It gives unrestricted internal access to the database layer, but is not aware of any advanced Strapi features that Strapi 5 can handle, like Draft & Publish, Internationalization, Content History, and more.<br/>⚠️ In most, if not all, use cases, you should use the Document Service API instead.
+- [ドキュメントサービスAPI](/dev-docs/api/document-service)は、[バックエンドサーバー](/dev-docs/customization)内や[プラグイン](/dev-docs/plugins)を通じてアプリケーションのデータベースと対話するための推奨APIです。ドキュメントサービスは、**ドキュメント** <DocumentDefinition />やStrapiの複雑なデータ構造（コンポーネントやダイナミックゾーンなど）を処理する層です。
+- クエリエンジンAPIは、データベース層とより低いレベルで対話し、データベースクエリの実行に使用されます。これはデータベース層への制限のない内部アクセスを提供しますが、Strapi 5が扱うことができる高度なStrapi機能（ドラフト＆パブリッシュ、国際化、コンテンツ履歴など）を認識していません。<br/>⚠️ ほとんどの場合、あるいは全ての場合において、ドキュメントサービスAPIを使用するべきです。
 
 ```mermaid
   flowchart BT
@@ -46,18 +46,18 @@ REST and GraphQL APIs represent the top-level layers of the Content API exposed 
 
 <br/>
 
-This documentation section includes reference information about the following Strapi APIs and some integration guides with 3rd party technologies:
+このドキュメンテーションのセクションには、以下のStrapi APIと、いくつかのサードパーティ技術との統合ガイドに関する参考情報が含まれています:
 
 <CustomDocCardsWrapper>
 
-<CustomDocCard emoji="↕️" title="REST API" description="Query the Content API from a front-end application through REST." link="/dev-docs/api/rest" />
+<CustomDocCard emoji="↕️" title="REST API" description="RESTを通じてフロントエンドアプリケーションからコンテンツAPIをクエリします。" link="/dev-docs/api/rest" />
 
-<CustomDocCard emoji="↕️" title="GraphQL API" description="Query the Content API  from a front-end application through GraphQL." link="/dev-docs/api/graphql" />
+<CustomDocCard emoji="↕️" title="GraphQL API" description="GraphQLを通じてフロントエンドアプリケーションからコンテンツAPIをクエリします。" link="/dev-docs/api/graphql" />
 
-<CustomDocCard emoji="🔃" title="Document Service API" description="Query your data through the backend server or plugins." link="/dev-docs/api/document-service" />
+<CustomDocCard emoji="🔃" title="ドキュメントサービスAPI" description="バックエンドサーバーやプラグインを通じてデータを問い合わせます。" link="/dev-docs/api/document-service" />
 
-:::strapi Integrations
-If you're looking for how to integrate Strapi with other platforms, please refer to Strapi's [integrations pages](https://strapi.io/integrations).
+:::strapi インテグレーション
+Strapiを他のプラットフォームと統合する方法を探している場合は、Strapiの[インテグレーションページ](https://strapi.io/integrations)を参照してください。
 :::
 
 </CustomDocCardsWrapper>
