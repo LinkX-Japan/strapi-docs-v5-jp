@@ -1,74 +1,71 @@
 ---
-title: Adding TypeScript support 
-description: Learn how to add TypeScript support to an existing Strapi project.
+title: 既存のStrapiプロジェクトにTypeScriptサポートを追加する
+description: 既存のStrapiプロジェクトにTypeScriptサポートを追加する方法を学びます。
 pagination_previous: dev-docs/typescript/development
 tags:
-- allowJs flag
+- allowJsフラグ
 - typescript
-- tsconfig.json file
-- project structure
+- tsconfig.jsonファイル
+- プロジェクト構造
 ---
 
-# Adding TypeScript support to existing Strapi projects
+# 既存のStrapiプロジェクトにTypeScriptサポートを追加する
 
-Adding TypeScript support to an existing project requires adding 2 `tsconfig.json` files and rebuilding the admin panel. Additionally, the `eslintrc` and `eslintignore` files can be optionally removed.
+既存プロジェクトにTypeScriptサポートを追加するには、2つの`tsconfig.json`ファイルを追加し、管理パネルを再構築する必要があります。また、`eslintrc`および`eslintignore`ファイルをオプションで削除することもできます。
 
-The TypeScript flag `allowJs` should be set to `true` in the root `tsconfig.json` file to incrementally add TypeScript files to existing JavaScript projects. The `allowJs` flag allows `.ts` and `.tsx` files to coexist with JavaScript files.
+既存のJavaScriptプロジェクトに段階的にTypeScriptファイルを追加するためには、ルートの`tsconfig.json`ファイルでTypeScriptフラグの`allowJs`を`true`に設定する必要があります。`allowJs`フラグを使用すると、`.ts`および`.tsx`ファイルがJavaScriptファイルと共存できます。
 
-TypeScript support can be added to an existing Strapi project using the following procedure:
+次の手順で既存のStrapiプロジェクトにTypeScriptサポートを追加できます。
 
-1. Add a `tsconfig.json` file at the project root and copy the following code, with the `allowJs` flag, to the file:
+1. プロジェクトのルートに`tsconfig.json`ファイルを追加し、以下のコードを`allowJs`フラグと共にコピーします。
 
   ```json title="./tsconfig.json"
 
   {
-      "extends": "@strapi/typescript-utils/tsconfigs/server",
-      "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": ".",
-        "allowJs": true //enables the build without .ts files
-      },
-      "include": [
-        "./",
-        "src/**/*.json"
-      ],
-      "exclude": [
-        "node_modules/",
-        "build/",
-        "dist/",
-        ".cache/",
-        ".tmp/",
-        "src/admin/",
-        "**/*.test.ts",
-        "src/plugins/**"
-      ]
-    
-    }
-    
+    "extends": "@strapi/typescript-utils/tsconfigs/server",
+    "compilerOptions": {
+      "outDir": "dist",
+      "rootDir": ".",
+      "allowJs": true // .tsファイルなしでビルドを有効にする
+    },
+    "include": [
+      "./",
+      "src/**/*.json"
+    ],
+    "exclude": [
+      "node_modules/",
+      "build/",
+      "dist/",
+      ".cache/",
+      ".tmp/",
+      "src/admin/",
+      "**/*.test.ts",
+      "src/plugins/**"
+    ]
+  }
   ```
 
-2. Add a `tsconfig.json` file in the `./src/admin/` directory and copy the following code to the file:
+2. `./src/admin/`ディレクトリに`tsconfig.json`ファイルを追加し、以下のコードをコピーします。
 
   ```json title="./src/admin/tsconfig.json"
 
   {
-      "extends": "@strapi/typescript-utils/tsconfigs/admin",
-      "include": [
-        "../plugins/**/admin/src/**/*",
-        "./"
-      ],
-      "exclude": [
-        "node_modules/",
-        "build/",
-        "dist/",
-        "**/*.test.ts"
-      ]
-    }
-    
+    "extends": "@strapi/typescript-utils/tsconfigs/admin",
+    "include": [
+      "../plugins/**/admin/src/**/*",
+      "./"
+    ],
+    "exclude": [
+      "node_modules/",
+      "build/",
+      "dist/",
+      "**/*.test.ts"
+    ]
+  }
   ```
 
-3. _(optional)_ Delete the `.eslintrc` and `.eslintignore` files from the project root.
-4. Add an additional `'..'` to the `filename` property in the `database.ts` configuration file (only required for SQLite databases):
+3. _(任意)_ プロジェクトルートから`.eslintrc`および`.eslintignore`ファイルを削除します。
+4. `database.ts`設定ファイルの`filename`プロパティに追加の`'..'`を追加します（SQLiteデータベースの場合にのみ必要です）。
 
   ```js title="./config/database.ts"
 
@@ -88,10 +85,9 @@ TypeScript support can be added to an existing Strapi project using the followin
       useNullAsDefault: true,
     },
   });
-
   ```
 
-5. Rebuild the admin panel and start the development server:
+5. 管理パネルを再構築し、開発サーバーを開始します。
 
   <Tabs groupId="yarn-npm">
 
@@ -106,13 +102,13 @@ TypeScript support can be added to an existing Strapi project using the followin
 
   <TabItem value='npm' label="NPM">
 
-  ```sh
-  npm run build
-  npm run develop
-  ```
+    ```sh
+    npm run build
+    npm run develop
+    ```
 
   </TabItem>
 
   </Tabs>
 
-A `dist` directory will be added at the project root (see [project structure](/dev-docs/project-structure)) and the project has access to the same TypeScript features as a new TypeScript-supported Strapi project.
+プロジェクトルートに`dist`ディレクトリが追加され、プロジェクトは新しいTypeScript対応のStrapiプロジェクトと同じTypeScript機能にアクセスできるようになります。
