@@ -1,47 +1,46 @@
 ---
-title: Data export
-description: Export data using the Strapi CLI
+title: データのエクスポート
+description: Strapi CLIを使用してデータをエクスポートする方法
 displayed_sidebar: devDocsSidebar
 canonicalUrl: https://docs.strapi.io/dev-docs/data-management/export.html
 tags:
-- configure data encryption
-- data management system
-- data export
-- disable data compression
-- exclude option
-- metadata.json file
-- relations
+- データの暗号化設定
+- データ管理システム
+- データのエクスポート
+- データ圧縮の無効化
+- 除外オプション
+- metadata.json ファイル
+- リレーション
 - strapi export
-- tar.gz.enc file 
+- tar.gz.enc ファイル
 ---
-
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Data export
+# データのエクスポート
 
 <NotV5 />
 
-The `strapi export` command is used to export data from a local Strapi instance. By default, the `strapi export` command exports data as an encrypted and compressed `tar.gz.enc` file which includes:
+`strapi export`コマンドは、ローカルのStrapiインスタンスからデータをエクスポートするために使用されます。デフォルトでは、`strapi export`コマンドは暗号化および圧縮された`tar.gz.enc`ファイルとしてデータをエクスポートし、以下を含みます:
 
-- the project configuration,
-- entities: all of your content,
-- links: relations between your entities,
-- assets: files stored in the uploads folder,
-- schemas,
-- the `metadata.json` file.
+- プロジェクト設定
+- エンティティ: すべてのコンテンツ
+- リンク: エンティティ間のリレーション
+- アセット: アップロードフォルダに保存されたファイル
+- スキーマ
+- `metadata.json`ファイル
 
-The following documentation details the available options to customize your data export. The export command and all of the available options are run using the [Strapi CLI](/dev-docs/cli#strapi-export).
+以下のドキュメントでは、データエクスポートをカスタマイズするためのオプションを説明します。エクスポートコマンドと利用可能なすべてのオプションは、[Strapi CLI](/dev-docs/cli#strapi-export)を使用して実行されます。
 
 :::caution
-* Admin users and API tokens are not exported.
-* Media from a 3rd party provider (e.g., Cloudinary or AWS S3) are not included in the export as those files do not exist in the upload folders.
+* 管理ユーザーやAPIトークンはエクスポートされません。
+* サードパーティのプロバイダー（例: CloudinaryやAWS S3）からのメディアは、アップロードフォルダにファイルが存在しないため、エクスポートに含まれません。
 :::
 
-## Name the export file
+## エクスポートファイルの命名
 
-Exported data are contained in a `.tar` file that is automatically named using the format `export_YYYYMMDDHHMMSS`. You can optionally name the exported file by passing the `--file` or `-f` option with the `strapi export` command. Do not include a file extension as one will be set automatically depending on options provided.
+エクスポートされたデータは、`export_YYYYMMDDHHMMSS`形式の`.tar`ファイルに自動的に保存されます。`--file`または`-f`オプションを使用して、`strapi export`コマンドでエクスポートファイル名を指定することも可能です。ファイル拡張子は、指定したオプションに応じて自動的に設定されます。
 
-### Example: Export data with a custom filename
+### 例: カスタムファイル名でデータをエクスポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -63,12 +62,12 @@ npm run strapi export -- --file my-strapi-export
 
 </Tabs>
 
-## Configure data encryption
+## データ暗号化の設定
 
-The default `strapi export` command encrypts your project data using `aes-128-ecb` encryption and adds the file extension `.enc`. To use encryption you need to pass an encryption key using the `-k` or `--key` option or enter an encryption key when prompted. The encryption key is a `string` with no minimum character count.
+デフォルトの`strapi export`コマンドは、`aes-128-ecb`暗号化を使用してプロジェクトデータを暗号化し、ファイル拡張子`.enc`を追加します。暗号化を使用するには、`-k`または`--key`オプションで暗号化キーを渡すか、プロンプトで入力します。暗号化キーは文字数に制限がない`string`です。
 
-:::tip Encryption keys
-Strong encryption keys are encouraged to protect sensitive data in your project. [OpenSSL](https://www.openssl.org/) is a resource for generating encryption keys. The following example commands generate encryption keys in a terminal:
+:::tip 暗号化キー
+強力な暗号化キーの使用が推奨されます。暗号化キーの生成には[OpenSSL](https://www.openssl.org/)などのリソースが役立ちます。以下は、ターミナルで暗号化キーを生成するための例です:
 
 <Tabs>
 
@@ -92,9 +91,9 @@ node -p "require('crypto').randomBytes(48).toString('base64');"
 
 :::
 
-To disable encryption, pass the `--no-encrypt` option with the `strapi export` command.
+暗号化を無効にするには、`--no-encrypt`オプションを`strapi export`コマンドで使用します。
 
-### Example: Export data without encryption
+### 例: 暗号化なしでデータをエクスポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -116,7 +115,7 @@ npm run strapi export -- --no-encrypt
 
 </Tabs>
 
-### Example: Export data with the encryption `--key` option
+### 例: `--key`オプションで暗号化キーを指定してデータをエクスポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -138,13 +137,13 @@ npm run strapi export -- --key my-encryption-key
 
 </Tabs>
 
-## Disable data compression
+## データ圧縮の無効化
 
-The default `strapi export` command compresses your project data using `gzip` compression and adds the `.gz` file extension.
+デフォルトの`strapi export`コマンドは、`gzip`圧縮を使用してプロジェクトデータを圧縮し、`.gz`ファイル拡張子を追加します。
 
-To disable compression, pass the `--no-compress` option with the `strapi export` command.
+圧縮を無効にするには、`--no-compress`オプションを`strapi export`コマンドで使用します。
 
-### Example: Export data without compression
+### 例: 圧縮なしでデータをエクスポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -166,16 +165,15 @@ npm run strapi export -- --no-compress
 
 </Tabs>
 
-## Export only selected types of data
+## 特定のデータタイプのみをエクスポートする
 
-The default `strapi export` command exports your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to export only the listed items by passing a comma-separated string  with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always exported, as schema matching is used for `strapi import`.
+デフォルトの`strapi export`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、スキーマをエクスポートします。`--only`オプションを使用すると、コンマで区切られた文字列で指定された項目のみをエクスポートできます（スペースなし）。利用可能な値は、`content`、`files`、および`config`です。スキーマは常にエクスポートされます（`strapi import`ではスキーマの一致が使用されます）。
 
 :::note
-Media such as images consist of the file (asset) and the entity in the database. If you use the `--only` flag to export `content`, the asset database records are still included, and could render as broken links.
+画像などのメディアは、ファイル（アセット）とデータベースのエンティティで構成されています。`--only`フラグを使用して`content`をエクスポートする場合、アセットのデータベースレコードは含まれますが、リンク切れが発生する可能性があります。
 :::
 
-### Example: Export only entities and relations
-<br/>
+### 例: エンティティとリレーションのみをエクスポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -197,15 +195,15 @@ npm run strapi export -- --only content
 
 </Tabs>
 
-## Exclude items from export
+## エクスポートから項目を除外する
 
-The default `strapi export` command exports your content (entities and relations), files (assets), project configuration, and schemas. The `--exclude` option allows you to exclude content, files, and the project configuration by passing these items in a comma-separated string with no spaces between the types. You can't exclude the schemas, as schema matching is used for `strapi import`.
+デフォルトの`strapi export`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、スキーマをエクスポートします。`--exclude`オプションを使用すると、コンテンツ、ファイル、およびプロジェクト設定を除外できます。除外する項目をコンマで区切った文字列として渡します（スペースなし）。スキーマは除外できません（`strapi import`ではスキーマの一致が使用されます）。
 
 :::note
-Media such as images consist of the file (asset) and the entity in the database. If you use the `--exclude` flag to remove assets, the database records are still included, and could render as broken links.
+画像などのメディアは、ファイル（アセット）とデータベースのエンティティで構成されています。アセットを除外するフラグを使用すると、データベースレコードは含まれますが、リンク切れが発生する可能性があります。
 :::
 
-### Example: Export data excluding assets, entities, and relations
+### 例: アセット、エンティティ、リレーションを除外してデータをエクスポートする
 
 <Tabs groupId="yarn-npm">
 
