@@ -1,60 +1,54 @@
 ---
-title: Docker
+title: DockerでStrapiを実行する
 displayed_sidebar: devDocsSidebar
-description: Quickly create a Docker container from a local project.
+description: ローカルプロジェクトからDockerコンテナを迅速に作成する方法を学びます。
 tags:
-- installation
-- environment 
+- インストール
+- 環境
 - MySQL
 ---
 
-import DockerEnvTable from '/docs/snippets/docker-env-table.md'
-
-# Running Strapi in a Docker container
+# DockerコンテナでStrapiを実行する
 
 :::caution
-Strapi does not build any official container images. The following instructions are provided as a courtesy to the community. If you have any questions please reach out on [Discord](https://discord.strapi.io).
+Strapiは公式のコンテナイメージを提供していません。以下の手順はコミュニティへの参考情報として提供されています。質問があれば[Discord](https://discord.strapi.io)でお問い合わせください。
 :::
 
 :::danger
- Strapi applications are not meant to be connected to a pre-existing database, not created by a Strapi application, nor connected to a Strapi v3 database. The Strapi team will not support such attempts. Attempting to connect to an unsupported database may, and most likely will, result in lost data such as dropped tables.
+Strapiアプリケーションは、Strapiが作成していない既存のデータベースやStrapi v3のデータベースに接続することを意図していません。そのような試みはサポートされず、データの消失（テーブルの削除など）が発生する可能性が非常に高いです。
 :::
 
-The following documentation will guide you through building a custom [Docker](https://www.docker.com/) container with an existing Strapi project.
+このドキュメントでは、既存のStrapiプロジェクトを使用してカスタム[Docker](https://www.docker.com/)コンテナを構築する方法を説明します。
 
-Docker is an open platform that allows developing, shipping, and running applications by using containers (i.e. packages containing all the parts an application needs to function, such as libraries and dependencies). Containers are isolated from each other and bundle their own software, libraries, and configuration files; they can communicate with each other through well-defined channels.
+Dockerは、ライブラリや依存関係など、アプリケーションが機能するために必要なすべての要素を含むコンテナを使用して、開発、配布、実行を可能にするオープンプラットフォームです。コンテナは互いに隔離されており、独自のソフトウェア、ライブラリ、設定ファイルをバンドルしますが、定義済みのチャネルを通じて通信できます。
 
 :::prerequisites
-
-- [Docker](https://www.docker.com/) installed on your machine
-- A [supported version of Node.js](./cli.md#step-1-make-sure-requirements-are-met)
-- An **existing Strapi 5 project**, or a new one created with the [Quick Start guide](/dev-docs/quick-start.md)
-- (_optional_) [Yarn](https://yarnpkg.com/) installed on your machine
-- (_optional_) [Docker Compose](https://docs.docker.com/compose/) installed on your machine
-
+- [Docker](https://www.docker.com/)がインストールされていること
+- [Node.jsのサポートバージョン](./cli.md#step-1-make-sure-requirements-are-met)がインストールされていること
+- **既存のStrapi 5プロジェクト**、または[Quick Startガイド](/dev-docs/quick-start.md)で作成された新しいプロジェクト
+- (_オプション_) [Yarn](https://yarnpkg.com/)がインストールされていること
+- (_オプション_) [Docker Compose](https://docs.docker.com/compose/)がインストールされていること
 :::
 
-## Development and/or Staging environments
+## 開発環境およびステージング環境
 
-For working with Strapi locally on your host machine you can use the [Dockerfile](https://docs.docker.com/engine/reference/builder/), and if needed the [docker-compose.yml](https://docs.docker.com/compose/compose-file/) can also be used to start up a database container.
+ローカルでStrapiを実行する場合、[Dockerfile](https://docs.docker.com/engine/reference/builder/)を使用して開発用のDockerイメージを作成できます。必要に応じて、[docker-compose.yml](https://docs.docker.com/compose/compose-file/)を使用してデータベースコンテナを起動することもできます。
 
-Both methods require an existing Strapi project or a new one created (see [Quick Start guide](/dev-docs/quick-start.md)).
+いずれの方法も、既存のStrapiプロジェクト、または[Quick Startガイド](/dev-docs/quick-start.md)を参照して作成した新しいプロジェクトが必要です。
 
-### Development Dockerfile
+### 開発用Dockerfile
 
-The following `Dockerfile` can be used to build a non-production Docker image for a Strapi project.
+次の`Dockerfile`は、Strapiプロジェクト用の非本番環境用Dockerイメージを作成するために使用できます。
 
 :::note
-
-If you are using `docker-compose`, you can skip setting the environment variables manually, as they will be set in the `docker-compose.yml` file or a `.env` file.
-
+`docker-compose`を使用している場合、環境変数は`docker-compose.yml`または`.env`ファイルで設定されるため、手動で設定する必要はありません。
 :::
 
 <DockerEnvTable components={props.components} />
 
-For more information on the `Dockerfile` and its commands, please refer to the [official Docker documentation](https://docs.docker.com/engine/reference/commandline/cli/).
+`Dockerfile`とそのコマンドに関する詳細は、[Docker公式ドキュメント](https://docs.docker.com/engine/reference/commandline/cli/)を参照してください。
 
-Sample `Dockerfile`:
+サンプルの`Dockerfile`:
 
 <Tabs groupId="yarn-npm">
 
@@ -62,7 +56,7 @@ Sample `Dockerfile`:
 
 ```dockerfile title="./Dockerfile"
 FROM node:18-alpine3.18
-# Installing libvips-dev for sharp Compatibility
+# sharpライブラリの互換性のためlibvips-devをインストール
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
@@ -88,7 +82,7 @@ CMD ["yarn", "develop"]
 
 ```dockerfile title="./Dockerfile"
 FROM node:18-alpine3.18
-# Installing libvips-dev for sharp Compatibility
+# sharpライブラリの互換性のためlibvips-devをインストール
 RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev nasm bash vips-dev git
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
@@ -106,22 +100,21 @@ USER node
 RUN ["npm", "run", "build"]
 EXPOSE 1337
 CMD ["npm", "run", "develop"]
-
 ```
 
 </TabItem>
 
 </Tabs>
 
-### (Optional) Docker Compose
+### （オプション）Docker Compose
 
-The following `docker-compose.yml` can be used to start up a database container and a Strapi container along with a shared network for communication between the two.
+次の`docker-compose.yml`を使用して、データベースコンテナとStrapiコンテナを起動し、両者間で通信するための共有ネットワークを作成できます。
 
 :::note
-For more information about running Docker compose and its commands, please refer to the [Docker Compose documentation](https://docs.docker.com/compose/).
+Docker Composeおよびそのコマンドの詳細については、[Docker Composeドキュメント](https://docs.docker.com/compose/)を参照してください。
 :::
 
-Sample `docker-compose.yml`:
+サンプルの`docker-compose.yml`:
 
 <Tabs groupId="databases">
 
@@ -163,7 +156,7 @@ services:
 
   strapiDB:
     container_name: strapiDB
-    platform: linux/amd64 #for platform error on Apple M1 chips
+    platform: linux/amd64 # Apple M1チップのプラットフォームエラー対策
     restart: unless-stopped
     env_file: .env
     image: mysql:5.7
@@ -175,7 +168,7 @@ services:
       MYSQL_DATABASE: ${DATABASE_NAME}
     volumes:
       - strapi-data:/var/lib/mysql
-      #- ./data:/var/lib/mysql # if you want to use a bind folder
+      #- ./data:/var/lib/mysql # バインドフォルダを使用する場合
     ports:
       - "3306:3306"
     networks:
@@ -228,9 +221,11 @@ services:
     depends_on:
       - strapiDB
 
-  strapiDB:
+ 
+
+ strapiDB:
     container_name: strapiDB
-    platform: linux/amd64 #for platform error on Apple M1 chips
+    platform: linux/amd64 # Apple M1チップのプラットフォームエラー対策
     restart: unless-stopped
     env_file: .env
     image: mariadb:latest
@@ -241,7 +236,7 @@ services:
       MYSQL_DATABASE: ${DATABASE_NAME}
     volumes:
       - strapi-data:/var/lib/mysql
-      #- ./data:/var/lib/mysql # if you want to use a bind folder
+      #- ./data:/var/lib/mysql # バインドフォルダを使用する場合
     ports:
       - "3306:3306"
     networks:
@@ -296,7 +291,7 @@ services:
 
   strapiDB:
     container_name: strapiDB
-    platform: linux/amd64 #for platform error on Apple M1 chips
+    platform: linux/amd64 # Apple M1チップのプラットフォームエラー対策
     restart: unless-stopped
     env_file: .env
     image: postgres:12.0-alpine
@@ -305,9 +300,8 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
-      - strapi-data:/var/lib/postgresql/data/ #using a volume
-      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
-
+      - strapi-data:/var/lib/postgresql/data/ # ボリューム使用
+      #- ./data:/var/lib/postgresql/data/ # バインドフォルダを使用する場合
     ports:
       - "5432:5432"
     networks:
@@ -326,118 +320,31 @@ networks:
 
 </Tabs>
 
-## Production Environments
+## 本番環境
 
-The Docker image in production is different from the one used in development/staging environments because of the differences in the admin build process in addition to the command used to run the application. Typical production environments will use a reverse proxy to serve the application and the admin panel. The Docker image is built with the production build of the admin panel and the command used to run the application is `strapi start`.
+本番環境で使用されるDockerイメージは、開発環境/ステージング環境とは異なります。これは、管理パネルのビルドプロセスとアプリケーションを実行するためのコマンドの違いによるものです。本番環境では、通常、リバースプロキシを使用してアプリケーションと管理パネルを提供します。Dockerイメージは、管理パネルの本番ビルドで作成され、アプリケーションを実行するために`strapi start`コマンドが使用されます。
 
-Once the [Dockerfile](#production-dockerfile) is created, the [production container](#building-the-production-container) can be built. Optionally, the container can be published to a [registry](#optional-publishing-the-container-to-a-registry) to make it available to the community. [Community tools](#community-tools) can help you
-in the process of building a production Docker image and deploying it to a production environment.
+`Dockerfile`が作成された後、[本番用コンテナ](#building-the-production-container)を構築できます。
 
-### Production Dockerfile
+## 本番用Dockerイメージのビルド
 
-The following `Dockerfile` can be used to build a production Docker image for a Strapi project.
-
-<Tabs groupId="yarn-npm">
-
-<TabItem value="yarn" label="yarn">
-
-```dockerfile title="./Dockerfile.prod"
-# Creating multi-stage build for production
-FROM node:18-alpine as build
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
-ENV NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /opt/
-COPY package.json yarn.lock ./
-RUN yarn global add node-gyp
-RUN yarn config set network-timeout 600000 -g && yarn install --production
-ENV PATH=/opt/node_modules/.bin:$PATH
-WORKDIR /opt/app
-COPY . .
-RUN yarn build
-
-# Creating final production image
-FROM node:18-alpine
-RUN apk add --no-cache vips-dev
-ENV NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-WORKDIR /opt/
-COPY --from=build /opt/node_modules ./node_modules
-WORKDIR /opt/app
-COPY --from=build /opt/app ./
-ENV PATH=/opt/node_modules/.bin:$PATH
-
-RUN chown -R node:node /opt/app
-USER node
-EXPOSE 1337
-CMD ["yarn", "start"]
-```
-
-</TabItem>
-
-<TabItem value="npm" label="npm">
-
-```dockerfile title="./Dockerfile.prod"
-# Creating multi-stage build for production
-FROM node:18-alpine as build
-RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /opt/
-COPY package.json package-lock.json ./
-RUN npm install -g node-gyp
-RUN npm config set fetch-retry-maxtimeout 600000 -g && npm install --only=production
-ENV PATH=/opt/node_modules/.bin:$PATH
-WORKDIR /opt/app
-COPY . .
-RUN npm run build
-
-# Creating final production image
-FROM node:18-alpine
-RUN apk add --no-cache vips-dev
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-WORKDIR /opt/
-COPY --from=build /opt/node_modules ./node_modules
-WORKDIR /opt/app
-COPY --from=build /opt/app ./
-ENV PATH=/opt/node_modules/.bin:$PATH
-
-RUN chown -R node:node /opt/app
-USER node
-EXPOSE 1337
-CMD ["npm", "run", "start"]
-
-```
-
-</TabItem>
-
-</Tabs>
-
-### Building the production container
-
-Building production Docker images can have several options. The following example uses the `docker build` command to build a production Docker image for a Strapi project. However, it is recommended you review the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/) for more information on building Docker images with more advanced options.
-
-To build a production Docker image for a Strapi project, run the following command:
+Strapiプロジェクト用の本番用Dockerイメージをビルドするには、以下のコマンドを実行します:
 
 ```bash
 docker build \
   --build-arg NODE_ENV=production \
-  # --build-arg STRAPI_URL=https://api.example.com \ # Uncomment to set the Strapi Server URL
-  -t mystrapiapp:latest \ # Replace with your image name
+  # --build-arg STRAPI_URL=https://api.example.com \ # StrapiサーバーURLを設定する場合はコメント解除
+  -t mystrapiapp:latest \ # イメージ名を置き換え
   -f Dockerfile.prod .
 ```
 
-### (Optional) Publishing the container to a registry
+## （オプション）コンテナをレジストリに公開
 
-After you have built a production Docker image for a Strapi project, you can publish the image to a Docker registry. Ideally for production usage this should be a private registry as your Docker image will contain sensitive information.
+Strapiプロジェクト用の本番Dockerイメージをビルドした後、Dockerレジストリに公開できます。セキュリティ上の理由から、本番環境で使用する際はプライベートレジストリを使用することが推奨されます。
 
-Depending on your hosting provider you may need to use a different command to publish your image. It is recommended you review the [Docker documentation](https://docs.docker.com/engine/reference/commandline/push/) for more information on publishing Docker images with more advanced options.
+ホスティングプロバイダに応じて、イメージを公開するために異なるコマンドが必要な場合があります。詳細は、[Dockerのドキュメント](https://docs.docker.com/engine/reference/commandline/push/)を参照してください。
 
-Some popular hosting providers are:
-
+### 人気のあるホスティングプロバイダ:
 - [AWS ECR](https://aws.amazon.com/ecr/)
 - [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
 - [GCP Container Registry](https://cloud.google.com/container-registry)
@@ -446,38 +353,34 @@ Some popular hosting providers are:
 - [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
 - [Gitlab Container Registry](https://docs.gitlab.com/ee/user/packages/container_registry/)
 
-## Community tools
+## コミュニティツール
 
-Several community tools are available to assist you in deploying Strapi to various cloud providers and setting up Docker in a development or production environment.
-
-We strongly support our community efforts and encourage you to check out the following tools, please help support them by contributing to their development.
-
-If you would like to add your tool to this list, please open a pull request on the [Strapi documentation repository](https://github.com/strapi/documentation).
+Strapiをさまざまなクラウドプロバイダにデプロイしたり、Docker環境を開発または本番環境で設定する際に役立つコミュニティツールがいくつかあります。
 
 ### @strapi-community/dockerize
 
-The `@strapi-community/dockerize` package is a CLI tool that can be used to generate a `Dockerfile` and `docker-compose.yml` file for a Strapi project.
+`@strapi-community/dockerize`パッケージは、Strapiプロジェクト用の`Dockerfile`と`docker-compose.yml`ファイルを生成するCLIツールです。
 
-To get started run `npx @strapi-community/dockerize@latest` within an existing Strapi project folder and follow the CLI prompts.
+開始するには、既存のStrapiプロジェクトフォルダ内で`npx @strapi-community/dockerize@latest`を実行し、CLIプロンプトに従ってください。
 
-For more information please see the official [GitHub repository](https://github.com/strapi-community/strapi-tool-dockerize) or the [npm package](https://www.npmjs.com/package/@strapi-community/dockerize).
+詳細は[GitHubリポジトリ](https://github.com/strapi-community/strapi-tool-dockerize)または[npmパッケージ](https://www.npmjs.com/package/@strapi-community/dockerize)を参照してください。
 
 ### @strapi-community/deployify
 
-The `@strapi-community/deployify` package is a CLI tool that can be used to deploy your application to various cloud providers and hosting services. Several of these also support deploying a Strapi project with a Docker container and will call on the `@strapi-community/dockerize` package to generate the required files if they don't already exist.
+`@strapi-community/deployify`パッケージは、さまざまなクラウドプロバイダやホスティングサービスにアプリケーションをデプロイするためのCLIツールです。多くのプロバイダが、StrapiプロジェクトをDockerコンテナでデプロイする機能をサポートしており、必要に応じて`@strapi-community/dockerize`パッケージを呼び出して必要なファイルを生成します。
 
-To get started run `npx @strapi-community/deployify@latest` within an existing Strapi project folder and follow the CLI prompts.
+開始するには、既存のStrapiプロジェクトフォルダ内で`npx @strapi-community/deployify@latest`を実行し、CLIプロンプトに従ってください。
 
-For more information please see the official [GitHub repository](https://github.com/strapi-community/strapi-tool-deployify) or the [npm package](https://www.npmjs.com/package/@strapi-community/deployify).
+詳細は[GitHubリポジトリ](https://github.com/strapi-community/strapi-tool-deployify)または[npmパッケージ](https://www.npmjs.com/package/@strapi-community/deployify)を参照してください。
 
 ## Docker FAQ
 
-### Why doesn't Strapi provide official Docker images?
+### Strapiが公式のDockerイメージを提供していない理由は何ですか？
 
-Strapi is a framework that can be used to build many different types of applications. As such, it is not possible to provide a single Docker image that can be used for all use cases.
+Strapiは、さまざまな種類のアプリケーションを構築できるフレームワークです。そのため、すべてのユースケースで使用できる単一のDockerイメージを提供することは不可能です。
 
-### Why do we have different Dockerfiles for development and production?
+### なぜ開発用と本番用のDockerfileが異なるのですか？
 
-The primary reason for various Docker images is due to the way our Admin panel is built. The Admin panel is built using React and is bundled into the Strapi application during the build process. This means that the Strapi backend is acting as a web server to serve the Admin panel and thus certain environment variables are statically compiled into the built Admin panel.
+管理パネルのビルド方法が主な理由です。管理パネルはReactで構築され、ビルドプロセス中にStrapiアプリケーションにバンドルされます。このため、Strapiのバックエンドは管理パネルを提供するWebサーバーとして機能し、特定の環境変数が管理パネルに静的にコンパイルされます。
 
-It is generally considered a best practice with Strapi to build different Docker images for development and production environments. This is because the development environment is not optimized for performance and is not intended to be exposed to the public internet.
+開発環境はパフォーマンス最適化が行われておらず、公開インターネットに露出することを意図していないため、開発環境と本番環境で異なるDockerイメージをビルドすることが一般的に推奨されます。

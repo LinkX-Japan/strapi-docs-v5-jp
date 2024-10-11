@@ -1,43 +1,41 @@
 ---
-title: CLI
+title: CLIでのインストール
 displayed_sidebar: devDocsSidebar
-description: Fast-track local install for getting Strapi running on your computer in less than a minute.
+description: 1分以内でStrapiをローカル環境で動作させるためのインストールガイドです。
 tags:
-- installation
-- Command Line Interface (CLI)
-- database
+- インストール
+- コマンドラインインターフェース (CLI)
+- データベース
 - MySQL
 - PostgreSQL
 ---
 
-import InstallPrerequisites from '/docs/snippets/installation-prerequisites.md'
+# CLIでのインストール
 
-# Installing from CLI
+StrapiのCLI（コマンドラインインターフェース）を使用したインストールスクリプトは、ローカルでStrapiをすばやく動作させるための最も高速な方法です。以下のガイドは、Strapiで最も推奨されるインストールオプションを説明します。
 
-Strapi CLI (Command Line Interface) installation scripts are the fastest way to get Strapi running locally. The following guide is the installation option most recommended by Strapi.
-
-## Preparing the installation
+## インストールの準備
 
 <InstallPrerequisites components={props.components} />
 
-A supported database is also required for any Strapi project:
+また、すべてのStrapiプロジェクトにはサポートされているデータベースが必要です。
 
-| Database   | Recommended | Minimum |
-| ---------- | ----------- | ------- |
-| MySQL      | 8.0         | 8.0     |
-| MariaDB    | 10.6        | 10.5    |
-| PostgreSQL | 14.0        | 12.0    |
-| SQLite     | 3           | 3       |
+| データベース   | 推奨バージョン | 最低バージョン |
+| ------------- | -------------- | -------------- |
+| MySQL         | 8.0            | 8.0            |
+| MariaDB       | 10.6           | 10.5           |
+| PostgreSQL    | 14.0           | 12.0           |
+| SQLite        | 3              | 3              |
 
 :::caution
-Strapi does not support MongoDB.
+StrapiはMongoDBをサポートしていません。
 :::
 
-## Creating a Strapi project
+## Strapiプロジェクトの作成
 
-Follow the steps below to create a new Strapi project, being sure to use the appropriate command for your installed package manager:
+以下の手順に従って、新しいStrapiプロジェクトを作成します。インストールしたパッケージマネージャーに応じて適切なコマンドを使用してください。
 
-1. In a terminal, run the following command:
+1. ターミナルで次のコマンドを実行します。
 
     <Tabs groupId="yarn-npm">
 
@@ -48,30 +46,29 @@ Follow the steps below to create a new Strapi project, being sure to use the app
     ```
 
     <details>
-    <summary>Additional explanations for the command:</summary>
+    <summary>コマンドの詳細説明:</summary>
 
-    * `npx` runs a command from a npm package
-    * `create-strapi` is the Strapi package
-    * `@latest` indicates that the latest version of Strapi is used
-    
+    * `npx` はnpmパッケージからコマンドを実行するためのものです。
+    * `create-strapi` はStrapiのパッケージです。
+    * `@latest` は最新バージョンのStrapiを使用することを示します。
+
     <br/>
 
-    Instead of npx, the traditional npm command can be used too, with `npm create strapi@latest`.
+    `npx`の代わりに、従来のnpmコマンド`npm create strapi@latest`も使用できます。
 
-    Please note the additional dash between create and strapi when using npx: `npx create-strapi` vs. `npm create strapi`.
+    `npx create-strapi`と`npm create strapi`では`create-strapi`の間にダッシュがあることに注意してください。
     </details>
-    
+
     </TabItem>
 
     <TabItem value="yarn" label="Yarn">
 
     ```bash
     yarn create strapi
-   
     ```
 
     :::note
-    Yarn does not support passing the version tag such as `@latest`, as opposed to npm. If you experience unexpected results with yarn and the latest version of Strapi is not installed, you might need to [run the `yarn cache clean` command](https://yarnpkg.com/cli/cache/clean) to clean your Yarn cache.
+    Yarnは`@latest`のようなバージョンタグを渡すことをサポートしていません。Yarnで最新バージョンのStrapiがインストールされない場合は、[`yarn cache clean`コマンド](https://yarnpkg.com/cli/cache/clean)を実行してYarnキャッシュをクリアする必要があります。
     :::
 
     </TabItem>
@@ -81,97 +78,99 @@ Follow the steps below to create a new Strapi project, being sure to use the app
     ```bash
     pnpm create strapi
     ```
-    
+
     </TabItem>
 
     </Tabs>
 
-2. The terminal will ask you whether you want to `Login/Signup` to Strapi Cloud (and start using your free 14-day trial projects), or `Skip` this step. Use arrow keys and press `Enter` to make your choice. If you choose to skip this step, you will need to [host the project yourself](#skipping-the-strapi-cloud-login-step).
+2. ターミナルは、Strapi Cloudに`ログイン/サインアップ`するか（無料の14日間トライアルプロジェクトを開始）、このステップを`スキップ`するか尋ねます。矢印キーで選択し、`Enter`キーを押して選択します。スキップを選択した場合、[自分でプロジェクトをホストする](#skipping-the-strapi-cloud-login-step)必要があります。
 
-2. The terminal will ask you a few questions. For each of them, if you press `Enter` instead of typing something, the default answer (Yes) will be used:
+3. ターミナルはさらにいくつか質問します。何も入力せずに`Enter`を押すと、デフォルトの回答（通常は「Yes」）が使用されます。
 
-  ![Terminal prompts at installation](/img/assets/installation/prompts.png)
+   ![インストール時のターミナルプロンプト](/img/assets/installation/prompts.png)
 
-  :::tip
-  You can skip these questions using various options passed to the installation command. Please refer to the [table](#cli-installation-options) for the full list of available options.
-  :::
+   :::tip
+   これらの質問をスキップするために、インストールコマンドにオプションを渡すことができます。使用可能なオプションの全リストは、[こちらの表](#cli-installation-options)を参照してください。
+   :::
 
-3. _(optional)_ If you answered `n` for "no" to the default (SQLite) database question, the CLI will ask for more questions about the database:
+4. _(任意)_ SQLiteのデフォルトデータベースに対して`n`（いいえ）を選択した場合、CLIは追加の質問を行います。
 
-    * Use arrow keys to select the database type you want, then press `Enter`.
-    * Give the database a name, define the database host address and port, define the database admin username and password, and define whether the database will use a SSL connection.<br/>For any of these questions, if you press `Enter` without typing anything, the default value (indicated in parentheses in the terminal output) will be used.
+    * 矢印キーを使用してデータベースの種類を選択し、`Enter`を押します。
+    * データベース名、データベースホストアドレス、ポート、データベース管理者のユーザー名とパスワード、SSL接続の使用有無を定義します。どの質問でも、何も入力せずに`Enter`を押すと、ターミナル出力内に表示されているデフォルト値が使用されます。
 
-Once all questions have been answered, the script will start creating the Strapi project.
+質問にすべて答えると、スクリプトがStrapiプロジェクトの作成を開始します。
 
-### CLI installation options
+### CLIインストールオプション
 
-The above installation guide only covers the basic installation option using the CLI. There are other options that can be used when creating a new Strapi project, for example:
+上記のインストールガイドは、CLIを使用した基本的なインストールオプションのみをカバーしていますが、新しいStrapiプロジェクトを作成する際に使用できる他のオプションもあります。
 
-| Option | Description |
-|--------|---------------------------------------------------------|
-| `--no-run` | Do not start the application after it is created |
-| `--ts`<br/>`--typescript` | Initialize the project with TypeScript (default) |
-| `--js`<br/>`--javascript` | Initialize the project with JavaScript  |
-| `--use-npm` | Force the usage of [npm](https://www.npmjs.com/) as the project package manager |
-| `--use-yarn` | Force the usage of [yarn](https://yarnpkg.com/) as the project package manager |
-| `--use-pnpm` | Force the usage of [pnpm](https://pnpm.io/) as the project package manager |
-| `--install`  | Install all dependencies, skipping the related CLI prompt |
-| `--no-install`  | Do not install all dependencies, skipping the related CLI prompt |
-| `--git-init` | Initialize a git repository, skipping the related CLI prompt |
-| `--no-git-init` | Do not initialize a git repository, skipping the related CLI prompt |
-| `--example`  | Add example data, skipping the related CLI prompt |
-| `--no-example`  | Do not add example data, skipping the related CLI prompt |
-| `--skip-cloud` |  Skip [Strapi Cloud login and project creation steps](#skipping-the-strapi-cloud-login-step) |
-| `--skip-db` | Skip all database-related prompts and create a project with the default (SQLite) database |
-| `--template <template-name-or-url>` | Create the application based on a given template.<br/>Additional options for templates are available, see the [templates documentation](/dev-docs/templates) for details. |
-| `--dbclient <dbclient>` | Define the database client to use by replacing `<dbclient>` in the command by one of the these values:<ul><li>`sql` for a SQLite database (default)</li><li>`postgres` for a PostgreSQL database</li><li>`mysql` for a MySQL database</li></ul> |
-| `--dbhost <dbhost>` | Define the database host to use by replacing `<dbclient>` in the command by the value of your choice |
-| `--dbport <dbport>` | Define the database port to use by replacing `<dbclient>` in the command by the value of your choice |
-| `--dbname <dbname>` | Define the database name to use by replacing `<dbclient>` in the command by the value of your choice |
-| `--dbusername <dbusername>` | Define the database username to use by replacing `<dbclient>` in the command by the value of your choice |
-| `--dbpassword <dbpassword>` | Define the database password to use by replacing `<dbclient>` in the command by the value of your choice |
-| `--dbssl <dbssl>` | Define that SSL is used with the database, by passing `--dbssl=true` (No SSL by default) |
-| `--dbfile <dbfile>` | For SQLite databases, define the database file path to use by replacing `<dbclient>` in the command by the value of your choice |
-| `--quickstart` | (**Deprecated in Strapi 5**)<br/>Directly create the project in quickstart mode. |
+| オプション          | 説明                                                |
+|--------------------|---------------------------------------------------|
+| `--no-run`         | アプリケーションの作成後に自動的に起動しない           |
+| `--ts`<br/>`--typescript` | TypeScriptでプロジェクトを初期化（デフォルト）     |
+| `--js`<br/>`--javascript` | JavaScriptでプロジェクトを初期化               |
+| `--use-npm`        | npmをプロジェクトのパッケージマネージャーとして使用する   |
+| `--use-yarn`       | yarnをプロジェクトのパッケージマネージャーとして使用する |
+| `--use-pnpm`       | pnpmをプロジェクトのパッケージマネージャーとして使用する |
+| `--install`        | 依存関係をインストールし、関連するCLIプロンプトをスキップする |
+| `--no-install`     | 依存関係をインストールしない                           |
+| `--git-init`       | gitリポジトリを初期化し、関連するCLIプロンプトをスキップする |
+| `--no-git-init`    | gitリポジトリを初期化しない                           |
+| `--example`        | サンプルデータを追加し、関連するCLIプロンプトをスキップする |
+| `--no-example`     | サンプルデータを追加しない                             |
+| `--skip-cloud`     | [Strapi Cloudログインおよびプロジェクト作成ステップ](#skipping-the-strapi-cloud-login-step)をスキップする |
+| `--skip-db`        | データベースに関するすべてのプロンプトをスキップし、デフォルトのSQLiteデータベースでプロジェクトを作成する |
+| `--template <template-name-or-url>` | 特定のテンプレートに基づいてアプリケーションを作成する。テンプレートに関する追加オプションについては、[テンプレートドキュメント](/dev-docs/templates)を参照してください。 |
+| `--dbclient <dbclient>` | 使用するデータベースクライアントを定義する。値には次のいずれかを指定します。<ul><li>`sql` SQLiteデータベース（デフォルト）</li><li>`postgres` PostgreSQLデータベース</li><li>`mysql` MySQLデータベース</li></ul> |
+| `--dbhost <dbhost>` | 使用するデータベースホストを定義する                 |
+| `--dbport <dbport>` | 使用するデータベースポートを定義する                 |
+| `--dbname <dbname>` | 使用するデータベース名を定義する                    |
+| `--dbusername <dbusername>` | 使用するデータベースユーザー名を定義する       |
+| `--dbpassword <dbpassword>` | 使用するデータベースパスワードを定義する       |
+| `--dbssl <dbssl>` | データベースにSSLを使用するかを定義する（デフォルトではSSLなし） |
+| `--dbfile <dbfile>` | SQLiteデータベースの場合、使用するデータベースファイルパスを定義する |
+| `--quickstart`     | (**Strapi 5では非推奨**) <br/>クイックスタートモードでプロジェクトを直接作成
 
-:::note Notes
-* If you do not pass a `--use-yarn|npm|pnpm` option, the installation script will use whatever package manager was used with the create command to install all dependencies (e.g., `npm create strapi` will install all the project's dependencies with npm).
-* For additional information about database configuration, please refer to the [database configuration documentation](/dev-docs/configurations/database#configuration-structure).
-* Experimental Strapi versions are released every Tuesday through Saturday at midnight GMT. You can create a new Strapi application based on the latest experimental release using `npx create-strapi@experimental`. Please use these experimental builds at your own risk. It is not recommended to use them in production.
+する |
+
+:::note
+* `--use-yarn|npm|pnpm`オプションを指定しない場合、インストールスクリプトは作成コマンドに使用されたパッケージマネージャーを使用してすべての依存関係をインストールします（例: `npm create strapi`はすべての依存関係をnpmでインストールします）。
+* データベース構成に関する追加情報は、[データベース構成ドキュメント](/dev-docs/configurations/database#configuration-structure)を参照してください。
+* Strapiの実験的バージョンは毎週火曜日から土曜日の午前0時（GMT）にリリースされます。`npx create-strapi@experimental`を使用して、最新の実験的リリースに基づいて新しいStrapiアプリケーションを作成できます。これらの実験的ビルドは自己責任で使用してください。本番環境での使用は推奨されていません。
 :::
 
-### Skipping the Strapi Cloud login step
+### Strapi Cloudログインステップをスキップする
 
-When the installation script runs, the terminal will first ask you if you want to login/signup. Choosing `Login/signup` will create a free, 14-day trial [Strapi Cloud](/cloud/intro#what-is-strapi-cloud) project as described in the [Quick Start Guide](/dev-docs/quick-start).
+インストールスクリプトを実行すると、ターミナルは最初にログイン/サインアップを希望するかどうかを尋ねます。`Login/signup`を選択すると、[Quick Start Guide](/dev-docs/quick-start)で説明されているように、無料の14日間トライアルの[Strapi Cloud](/cloud/intro#what-is-strapi-cloud)プロジェクトが作成されます。
 
-If you prefer skipping this Strapi Cloud login part, use the arrow keys to select `Skip`. The script will resume and create a local project. To deploy this project and host it online, you could later choose to:
+Strapi Cloudログイン部分をスキップしたい場合は、矢印キーで`Skip`を選択してください。スクリプトはローカルプロジェクトを作成し、再開します。このプロジェクトをオンラインでホストするためには、後で次のいずれかの方法を選択できます。
 
-- host it yourself by pushing the project's code to a repository (e.g., on GitHub) before following the [deployment guide](/dev-docs/deployment),
-- or use the [Cloud CLI](/cloud/cli/cloud-cli#) commands to login to Strapi Cloud and deploy your project there.
+- プロジェクトのコードをリポジトリにプッシュし（例: GitHubにプッシュ）、[デプロイガイド](/dev-docs/deployment)に従ってホストする。
+- または、[Cloud CLI](/cloud/cli/cloud-cli#)コマンドを使用してStrapi Cloudにログインし、プロジェクトをそこにデプロイする。
 
-If you want to host your project yourself and are not already familiar with GitHub, the following togglable content should get you started👇.
+GitHubに不慣れな場合は、以下の手順が役立ちます👇。
 
 <details>
-<summary>Steps required to push your Strapi project code to GitHub:</summary>
+<summary>StrapiプロジェクトコードをGitHubにプッシュするための手順:</summary>
 
-1. In the terminal, ensure you are still in the folder that hosts the Strapi project you created.
-2. Run the `git init` command to initialize git for this folder.
-3. Run the `git add .` command to add all modified files to the git index.
-4. Run the `git commit -m "Initial commit"` command to create a commit with all the added changes.
-5. Log in to your GitHub account and [create a new repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories). Give the new repository a name, for instance `my-first-strapi-project`, and remember this name.
-6. Go back to the terminal and push your local repository to GitHub:
+1. ターミナルで、作成したStrapiプロジェクトが存在するフォルダにいることを確認します。
+2. `git init` コマンドを実行して、このフォルダ用にgitを初期化します。
+3. `git add .` コマンドを実行して、すべての変更されたファイルをgitインデックスに追加します。
+4. `git commit -m "Initial commit"` コマンドを実行して、追加された変更を含むコミットを作成します。
+5. GitHubにログインし、[新しいリポジトリを作成](https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories)します。新しいリポジトリに名前を付けます（例: `my-first-strapi-project`）。この名前を覚えておきます。
+6. ターミナルに戻り、ローカルリポジトリをGitHubにプッシュします。
 
-  a. Run a command similar to the following: `git remote add origin git@github.com:yourname/my-first-strapi-project.git`, ensuring you replace `yourname` by your own GitHub profile name, and `my-first-strapi-project` by the actual name you used at step 4.
+  a. 次のようなコマンドを実行します: `git remote add origin git@github.com:yourname/my-first-strapi-project.git`。`yourname`を自分のGitHubプロフィール名に、`my-first-strapi-project`を手順4で使用した名前に置き換えます。
 
-  b. Run the `git push --set-upstream origin main` command to finally push the commit to your GitHub repository.
+  b. `git push --set-upstream origin main` コマンドを実行して、コミットをGitHubリポジトリにプッシュします。
 
-Additional information about using git with the command line interface can be found in the [official GitHub documentation](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github#adding-a-local-repository-to-github-using-git).
+コマンドラインインターフェースを使用したgitの使用方法に関する追加情報は、[公式GitHubドキュメント](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github#adding-a-local-repository-to-github-using-git)を参照してください。
 
 </details>
 
-## Running Strapi
+## Strapiの実行
 
-To start the Strapi application, run the following command in the project folder:
+Strapiアプリケーションを開始するには、プロジェクトフォルダで次のコマンドを実行します。
 
 <Tabs groupId="yarn-npm">
 
