@@ -1,27 +1,25 @@
 ---
-title: How to store and access data from a Strapi plugin
-description: Learn how to store and access data from a Strapi plugin
-sidebar_label: Store and access data
+title: Strapiプラグインでデータを保存・アクセスする方法
+description: Strapiプラグインでデータを保存・アクセスする方法を学びます。
+sidebar_label: データの保存とアクセス
 displayed_sidebar: devDocsSidebar
 tags:
-- content-type
-- guides
-- plugins
-- plugins development
-- plugins development guides
+- コンテンツタイプ
+- ガイド
+- プラグイン
+- プラグイン開発
+- プラグイン開発ガイド
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
-
-# How to store and access data from a Strapi plugin
+# Strapiプラグインでデータを保存・アクセスする方法
 
 <NotV5/>
 
-To store data with a Strapi [plugin](/dev-docs/plugins/developing-plugins), use a plugin content-type. Plugin content-types work exactly like other [content-types](/dev-docs/backend-customization/models). Once the content-type is [created](#create-a-content-type-for-your-plugin), you can start [interacting with the data](#interact-with-data-from-the-plugin).
+Strapiの[プラグイン](/dev-docs/plugins/developing-plugins)でデータを保存するには、プラグインのコンテンツタイプを使用します。プラグインのコンテンツタイプは、他の[コンテンツタイプ](/dev-docs/backend-customization/models)とまったく同じように機能します。コンテンツタイプを[作成](#create-a-content-type-for-your-plugin)したら、データとの[やり取りを開始](#interact-with-data-from-the-plugin)できます。
 
-## Create a content-type for your plugin
+## プラグイン用のコンテンツタイプを作成する
 
-To create a content-type with the CLI generator, run the following command in a terminal:
+CLIジェネレーターを使用してコンテンツタイプを作成するには、ターミナルで次のコマンドを実行します。
 
 <Tabs groupId="yarn-npm">
 <TabItem value="yarn" label="Yarn">
@@ -41,29 +39,29 @@ npm run strapi generate content-type
 </TabItem>
 </Tabs>
 
-The generator CLI is interactive and asks a few questions about the content-type and the attributes it will contain. Answer the first questions, then for the `Where do you want to add this model?` question, choose the `Add model to existing plugin` option and type the name of the related plugin when asked.
+CLIジェネレーターは対話形式で、コンテンツタイプとその属性に関するいくつかの質問を行います。最初の質問に答えた後、`Where do you want to add this model?`という質問に対して、`Add model to existing plugin`オプションを選択し、関連するプラグインの名前を入力します。
 
 <figure style={{width: '100%', margin: '0' }}>
-  <img src="/img/assets/development/generate-plugin-content-type.png" alt="Generating a content-type plugin with the CLI" />
-  <em><figcaption style={{fontSize: '12px'}}>The <code>strapi generate content-type</code> CLI generator is used to create a basic content-type for a plugin.</figcaption></em>
+  <img src="/img/assets/development/generate-plugin-content-type.png" alt="CLIを使ってプラグインコンテンツタイプを生成する" />
+  <em><figcaption style={{fontSize: '12px'}}>CLIジェネレーターの<code>strapi generate content-type</code>コマンドを使ってプラグイン用の基本的なコンテンツタイプを作成します。</figcaption></em>
 </figure>
 
 <br />
 
-The CLI will generate some code required to use your plugin, which includes the following:
+CLIは、次のようなコードを含むプラグイン用のコンテンツタイプを使用するために必要なファイルを生成します。
 
-- the [content-type schema](/dev-docs/backend-customization/models#model-schema)
-- and a basic [controller](/dev-docs/backend-customization/controllers), [service](/dev-docs/backend-customization/services), and [route](/dev-docs/backend-customization/routes) for the content-type
+- [コンテンツタイプスキーマ](/dev-docs/backend-customization/models#model-schema)
+- 基本的な[コントローラー](/dev-docs/backend-customization/controllers)、[サービス](/dev-docs/backend-customization/services)、および[ルート](/dev-docs/backend-customization/routes)
 
 :::tip
-You may want to create the whole structure of your content-types either entirely with the CLI generator or by directly creating and editing `schema.json` files. We recommend you first create a simple content-type with the CLI generator and then leverage the [Content-Type Builder](/user-docs/content-type-builder) in the admin panel to edit your content-type.
+CLIジェネレーターを使用してシンプルなコンテンツタイプを最初に作成し、その後[コンテンツタイプビルダー](/user-docs/content-type-builder)を使用してコンテンツタイプを編集することをお勧めします。
 
-If your content-type is not visible in the admin panel, you might need to set the `content-manager.visible` and `content-type-builder.visible` parameters to `true` in the `pluginOptions` object of the content-type schema:
+もしコンテンツタイプが管理パネルに表示されない場合は、コンテンツタイプスキーマの`pluginOptions`オブジェクト内で`content-manager.visible`および`content-type-builder.visible`のパラメーターを`true`に設定する必要があるかもしれません。
 
 <details>
-<summary>Making a plugin content-type visible in the admin panel:</summary>
+<summary>プラグインコンテンツタイプを管理パネルに表示する:</summary>
 
-The following highlighted lines in an example `schema.json` file show how to make a plugin content-type visible to the Content-Type Builder and Content-Manager:
+次の例では、`schema.json`ファイルの特定の行を強調表示し、プラグインのコンテンツタイプをコンテンツタイプビルダーとコンテンツマネージャーで表示可能にする方法を示しています。
 
 ```json title="/server/content-types/my-plugin-content-type/schema.json" {13-20} showLineNumbers
 {
@@ -92,17 +90,16 @@ The following highlighted lines in an example `schema.json` file show how to mak
     }
   }
 }
-
 ```
 
 </details>
 :::
 
-### Ensure plugin content-types are imported
+### プラグインのコンテンツタイプがインポートされているか確認する
 
-The CLI generator might not have imported all the related content-type files for your plugin, so you might have to make the following adjustments after the `strapi generate content-type` CLI command has finished running:
+CLIジェネレーターは、プラグインに関連するすべてのコンテンツタイプファイルをインポートしていない可能性があるため、`strapi generate content-type`コマンドの実行後に次の調整が必要になることがあります。
 
-1. In the `/server/index.js` file, import the content-types:
+1. `/server/index.js` ファイルでコンテンツタイプをインポートします。
 
   ```js {7,22} showLineNumbers title="/server/index.js"
   'use strict';
@@ -130,24 +127,22 @@ The CLI generator might not have imported all the related content-type files for
     policies,
     middlewares,
   };
-
   ```
 
-2. In the `/server/content-types/index.js` file, import the content-type folder:
+2. `/server/content-types/index.js` ファイルでコンテンツタイプフォルダをインポートします。
 
   ```js title="/server/content-types/index.js"
   'use strict';
 
   module.exports = {
-    // In the line below, replace my-plugin-content-type
-    // with the actual name and folder path of your content type
+    // 以下の行では、my-plugin-content-typeを実際の名前とフォルダパスに置き換えます
     "my-plugin-content-type": require('./my-plugin-content-type'),
   };
   ```
 
-3. Ensure that the `/server/content-types/[your-content-type-name]` folder contains not only the `schema.json` file generated by the CLI, but also an `index.js` file that exports the content-type with the following code:
+3. `/server/content-types/[your-content-type-name]` フォルダに、CLIで生成された`schema.json`ファイルだけでなく、次のコードを含む`index.js`ファイルが存在することを確認します。
 
-  ```js title="/server/content-types/my-plugin-content-type/index.js
+  ```js title="/server/content-types/my-plugin-content-type/index.js"
   'use strict';
 
   const schema = require('./schema');
@@ -157,30 +152,30 @@ The CLI generator might not have imported all the related content-type files for
   };
   ```
 
-## Interact with data from the plugin
+## プラグインからデータとやり取りする
 
-Once you have created a content-type for your plugin, you can create, read, update, and delete data.
+コンテンツタイプを作成したら、データの作成、読み取り、更新、削除が可能になります。
 
 :::note
-A plugin can only interact with data from the `/server` folder. If you need to update data from the admin panel, please refer to the [passing data guide](/dev-docs/plugins/guides/pass-data-from-server-to-admin).
+プラグインは`/server`フォルダからのみデータを操作できます。管理パネルからデータを更新する必要がある場合は、[サーバーから管理パネルへのデータ送信に関するガイド](/dev-docs/plugins/guides/pass-data-from-server-to-admin)を参照してください。
 :::
 
-To create, read, update, and delete data, you can use either the [Entity Service API](/dev-docs/api/entity-service) or the [Query Engine API](/dev-docs/api/query-engine). While it's recommended to use the Entity Service API, especially if you need access to components or dynamic zones, the Query Engine API is useful if you need unrestricted access to the underlying database.
+データの作成、読み取り、更新、削除には、[エンティティサービスAPI](/dev-docs/api/entity-service)または[クエリエンジンAPI](/dev-docs/api/query-engine)を使用できます。特にコンポーネントやダイナミックゾーンにアクセスする必要がある場合はエンティティサービスAPIの使用が推奨されますが、基盤となるデータベースへの制限のないアクセスが必要な場合はクエリエンジンAPIが便利です。
 
-Use the `plugin::your-plugin-slug.the-plugin-content-type-name` syntax for content-type identifiers in Entity Service and Query Engine API queries.
+エンティティサービスAPIやクエリエンジンAPIのクエリでは、コンテンツタイプ識別子として`plugin::your-plugin-slug.the-plugin-content-type-name`という構文を使用します。
 
-**Example:**
+**例:**
 
-Here is how to find all the entries for the `my-plugin-content-type` collection type created for a plugin called `my-plugin`:
+以下は、`my-plugin`というプラグイン用に作成された`my-plugin-content-type`コレクションタイプのすべてのエントリを取得する方法です。
 
 ```js
-// Using the Entity Service API
+// エンティティサービスAPIを使用
 let data = await strapi.entityService.findMany('plugin::my-plugin.my-plugin-content-type');
 
-// Using the Query Engine API
+// クエリエンジンAPIを使用
 let data = await strapi.db.query('plugin::my-plugin.my-plugin-content-type').findMany();
-````
+```
 
 :::tip
-You can access the database via the `strapi` object which can be found in `middlewares`, `policies`, `controllers`, `services`, as well as from the `register`, `boostrap`, `destroy` lifecycle functions.
+データベースには、`middlewares`、`policies`、`controllers`、`services`、および`register`、`bootstrap`、`destroy`ライフサイクル関数からアクセスできます。
 :::
