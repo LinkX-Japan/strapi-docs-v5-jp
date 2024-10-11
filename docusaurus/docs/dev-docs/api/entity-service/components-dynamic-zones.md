@@ -1,21 +1,21 @@
 ---
-title: Components and Dynamic Zones
-description: Use Strapi's Entity Service to create and update components and dynamic zones.
+title: コンポーネントとダイナミックゾーン
+description: Strapiのエンティティサービスを使用して、コンポーネントとダイナミックゾーンを作成、更新します。
 displayed_sidebar: devDocsSidebar
 unlisted: true
 ---
 
 import ESdeprecated from '/docs/snippets/entity-service-deprecated.md'
 
-# Creating components and dynamic zones with the Entity Service API
+# Entity Service APIを使用したコンポーネントとダイナミックゾーンの作成
 
 <ESdeprecated />
 
-The [Entity Service](/dev-docs/api/entity-service) is the layer that handles [components](/dev-docs/backend-customization/models#components) and [dynamic zones](/dev-docs/backend-customization/models#dynamic-zones) logic. With the Entity Service API, components and dynamic zones can be [created](#creation) and [updated](#update) while creating or updating entries.
+[Entity Service](/dev-docs/api/entity-service)は、[コンポーネント](/dev-docs/backend-customization/models#components)と[ダイナミックゾーン](/dev-docs/backend-customization/models#dynamic-zones)のロジックを処理する層です。Entity Service APIを使用すると、エントリの作成や更新時に、コンポーネントとダイナミックゾーンを[作成](#creation)および[更新](#update)することができます。
 
-## Creation
+## 作成
 
-A [component](/dev-docs/backend-customization/models#components) can be created while creating an entry with the Entity Service API:
+Entity Service APIを使用してエントリを作成する際に、[コンポーネント](/dev-docs/backend-customization/models#components)を作成することができます：
 
 ```js
 strapi.entityService.create('api::article.article', {
@@ -27,7 +27,7 @@ strapi.entityService.create('api::article.article', {
 });
 ```
 
-A [dynamic zone](/dev-docs/backend-customization/models#dynamic-zones) (i.e. a list of components) can be created while creating an entry with the Entity Service API:
+Entity Service APIを使用してエントリを作成する際に、[ダイナミックゾーン](/dev-docs/backend-customization/models#dynamic-zones)（すなわち、コンポーネントのリスト）を作成することができます：
 
 ```js
 strapi.entityService.create('api::article.article', {
@@ -46,35 +46,35 @@ strapi.entityService.create('api::article.article', {
 });
 ```
 
-## Update
+## 更新
 
-A [component](/dev-docs/backend-customization/models#components) can be updated while updating an entry with the Entity Service API. If a component `id` is specified, the component is updated, otherwise the old one is deleted and a new one is created:
+Entity Service APIを使用してエントリを更新する際に、[コンポーネント](/dev-docs/backend-customization/models#components)を更新することができます。コンポーネントの`id`が指定されていれば、そのコンポーネントが更新されます。指定されていなければ、古いものが削除され、新しいものが作成されます：
 
 ```js
 strapi.entityService.update('api::article.article', 1, {
   data: {
     myComponent: {
-      id: 1, // will update component with id: 1 (if not specified, would have deleted it and created a new one)
+      id: 1, // id: 1のコンポーネントを更新します（指定されていなければ、削除して新しいものを作成します）
       foo: 'bar',
     },
   },
 });
 ```
 
-A [dynamic zone](/dev-docs/backend-customization/models#dynamic-zones) (i.e. a list of components) can be updated while updating an entry with the Entity Service API. If a component `id` is specified, the component is updated, otherwise the old one is deleted and a new one is created:
+Entity Service APIを使用してエントリを更新する際に、[ダイナミックゾーン](/dev-docs/backend-customization/models#dynamic-zones)（すなわち、コンポーネントのリスト）を更新することができます。コンポーネントの`id`が指定されていれば、そのコンポーネントが更新されます。指定されていなければ、古いものが削除され、新しいものが作成されます：
 
 ```js
 strapi.entityService.update('api::article.article', 1, {
   data: {
     myDynamicZone: [
       {
-        // will update
+        // 更新します
         id: 2,
         __component: 'compo.type',
         foo: 'bar',
       },
       {
-        // will add a new & delete old ones
+        // 新しいものを追加し、古いものを削除します
         __component: 'compo.type2',
         foo: 'bar2',
       },

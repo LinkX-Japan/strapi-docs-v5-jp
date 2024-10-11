@@ -1,53 +1,53 @@
 ---
-title: REST API reference
-description: Interact with your Content-Types using the REST API endpoints Strapi generates for you.
+title: REST APIリファレンス
+description: Strapiが生成するREST APIエンドポイントを使用して、Content-Typesと対話します。
 displayed_sidebar: restApiSidebar
 tags:
 - API
 - Content API
 - documentId
 - Documents
-- plural API ID
+- 複数形のAPI ID
 - REST API
-- singular API ID
+- 単数形のAPI ID
 ---
 
-# REST API reference
+# REST APIリファレンス
 
-The REST API allows accessing the [content-types](/dev-docs/backend-customization/models) through API endpoints. Strapi automatically creates [API endpoints](#endpoints) when a content-type is created. [API parameters](/dev-docs/api/rest/parameters) can be used when querying API endpoints to refine the results.
+REST APIは、APIエンドポイントを通じて[content-types](/dev-docs/backend-customization/models)にアクセスすることを可能にします。Strapiは、content-typeが作成されると自動的に[APIエンドポイント](#endpoints)を作成します。[APIパラメータ](/dev-docs/api/rest/parameters)は、APIエンドポイントをクエリする際に結果を絞り込むために使用することができます。
 
-This section of the documentation is for the REST API reference. We also have [guides](/dev-docs/api/rest/guides/intro) available for specific use cases.
+このドキュメンテーションのセクションは、REST APIリファレンスのためのものです。また、特定のユースケースに対応する[ガイド](/dev-docs/api/rest/guides/intro)も用意しています。
 
 :::prerequisites
-All content types are private by default and need to be either made public or queries need to be authenticated with the proper permissions. See the [Quick Start Guide](/dev-docs/quick-start#step-3-set-roles--permissions), the user guide for the [Users & Permissions plugin](/user-docs/users-roles-permissions/configuring-end-users-roles), and [API tokens configuration documentation](/dev-docs/configurations/api-tokens) for more details.
+すべてのコンテンツタイプはデフォルトでプライベートであり、公開するか、適切な権限を持つ認証が必要です。詳細は[クイックスタートガイド](/dev-docs/quick-start#step-3-set-roles--permissions)、[Users & Permissionsプラグインのユーザーガイド](/user-docs/users-roles-permissions/configuring-end-users-roles)、および[APIトークン設定ドキュメンテーション](/dev-docs/configurations/api-tokens)をご覧ください。
 :::
 
 :::note
-By default, the REST API responses only include top-level fields and does not populate any relations, media fields, components, or dynamic zones. Use the [`populate` parameter](/dev-docs/api/rest/populate-select) to populate specific fields. Ensure that the find permission is given to the field(s) for the relation(s) you populate.
+デフォルトでは、REST APIのレスポンスはトップレベルのフィールドのみを含み、関連性、メディアフィールド、コンポーネント、またはダイナミックゾーンは展開されません。特定のフィールドを展開するには、[`populate` パラメータ](/dev-docs/api/rest/populate-select)を使用してください。展開する関連性のフィールドに対してfind権限が与えられていることを確認してください。
 :::
 
 :::strapi Upload plugin API
-The Upload plugin (which handles media found in the [Media Library](/user-docs/media-library)) has a specific API described in the [Upload plugin documentation](/dev-docs/plugins/upload).
+Uploadプラグイン（[Media Library](/user-docs/media-library)で見つかるメディアを処理する）は、[Uploadプラグインドキュメンテーション](/dev-docs/plugins/upload)で説明されている特定のAPIを持っています。
 :::
 
-## Endpoints
+## エンドポイント
 
-For each Content-Type, the following endpoints are automatically generated:
+各Content-Typeに対して、以下のエンドポイントが自動的に生成されます：
 
 <details>
-<summary>Plural API ID vs. Singular API ID:</summary>
-In the following tables:
+<summary>複数形のAPI IDと単数形のAPI ID:</summary>
+以下の表では：
 
-- `:singularApiId` refers to the value of the "API ID (Singular)" field of the content-type,
-- and `:pluralApiId` refers to the value of the "API ID (Plural)" field of the content-type.
+- `:singularApiId`はcontent-typeの"API ID (Singular)"フィールドの値を指します。
+- `:pluralApiId`はcontent-typeの"API ID (Plural)"フィールドの値を指します。
 
-These values are defined when creating a content-type in the Content-Type Builder, and can be found while editing a content-type in the admin panel (see [User Guide](/user-docs/content-type-builder/creating-new-content-type)). For instance, by default, for an "Article" content-type:
+これらの値は、Content-Type Builderでcontent-typeを作成する際に定義され、管理パネルでcontent-typeを編集する際に見つけることができます（[ユーザーガイド](/user-docs/content-type-builder/creating-new-content-type)を参照してください）。例えば、デフォルトでは、"Article" content-typeでは：
 
-- `:singularApiId` will be `article`
-- `:pluralApiId` will be `articles`
+- `:singularApiId`は `article`になります
+- `:pluralApiId`は `articles`になります
 
 <ThemedImage
-alt="Screenshot of the Content-Type Builder to retrieve singular and plural API IDs"
+alt="単数形と複数形のAPI IDを取得するためのContent-Type Builderのスクリーンショット"
 sources={{
   light: '/img/assets/rest-api/plural-api-id.png',
   dark: '/img/assets/rest-api/plural-api-id_DARK.png'
@@ -58,25 +58,25 @@ sources={{
 
 <Tabs groupId="collection-single">
 
-<TabItem value="collection" label="Collection type">
+<TabItem value="collection" label="コレクションタイプ">
 
-| Method   | URL                             | Description                           |
+| メソッド   | URL                             | 説明                           |
 | -------- | ------------------------------- | ------------------------------------- |
-| `GET`    | `/api/:pluralApiId`             | [Get a list of document](#get-all) |
-| `POST`   | `/api/:pluralApiId`             | [Create a document](#create)   |
-| `GET`    | `/api/:pluralApiId/:documentId` | [Get a document](#get)         |
-| `PUT`    | `/api/:pluralApiId/:documentId` | [Update a document](#update)   |
-| `DELETE` | `/api/:pluralApiId/:documentId` | [Delete a document](#delete)   |
+| `GET`    | `/api/:pluralApiId`             | [ドキュメントのリストを取得する](#get-all) |
+| `POST`   | `/api/:pluralApiId`             | [ドキュメントを作成する](#create)   |
+| `GET`    | `/api/:pluralApiId/:documentId` | [ドキュメントを取得する](#get)         |
+| `PUT`    | `/api/:pluralApiId/:documentId` | [ドキュメントを更新する](#update)   |
+| `DELETE` | `/api/:pluralApiId/:documentId` | [ドキュメントを削除する](#delete)   |
 
 </TabItem>
 
-<TabItem value="single" label="Single type">
+<TabItem value="single" label="シングルタイプ">
 
-| Method   | URL                   | Description                                |
+| メソッド   | URL                   | 説明                                |
 | -------- | --------------------- | ------------------------------------------ |
-| `GET`    | `/api/:singularApiId` | [Get a document](#get-an-entry)              |
-| `PUT`    | `/api/:singularApiId` | [Update/Create a document](#update-an-entry) |
-| `DELETE` | `/api/:singularApiId` | [Delete a document](#delete-an-entry)        |
+| `GET`    | `/api/:singularApiId` | [ドキュメントを取得する](#get-an-entry)              |
+| `PUT`    | `/api/:singularApiId` | [ドキュメントを更新/作成する](#update-an-entry) |
+| `DELETE` | `/api/:singularApiId` | [ドキュメントを削除する](#delete-an-entry)        |
 
 </TabItem>
 
@@ -84,84 +84,84 @@ sources={{
 
 <details>
 
-<summary>Real-world examples of endpoints:</summary>
+<summary>エンドポイントの実際の例：</summary>
 
-The following endpoint examples are taken from the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application.
+以下のエンドポイントの例は、[FoodAdvisor](https://github.com/strapi/foodadvisor)のサンプルアプリケーションから取得されています。
 
 <Tabs groupId="collection-single">
 
-<TabItem value="collection" label="Collection type">
+<TabItem value="collection" label="コレクションタイプ">
 
-`Restaurant` **Content type**
+`Restaurant` **コンテンツタイプ**
 
-| Method | URL                      | Description               |
+| メソッド | URL                      | 説明               |
 | ------ | ------------------------ | ------------------------- |
-| GET    | `/api/restaurants`       | Get a list of restaurants |
-| POST   | `/api/restaurants`       | Create a restaurant       |
-| GET    | `/api/restaurants/:documentId`   | Get a specific restaurant |
-| DELETE | `/api/restaurants/:documentId`   | Delete a restaurant       |
-| PUT    | `/api/restaurants/:documentId`   | Update a restaurant       |
+| GET    | `/api/restaurants`       | レストランのリストを取得する |
+| POST   | `/api/restaurants`       | レストランを作成する       |
+| GET    | `/api/restaurants/:documentId`   | 特定のレストランを取得する |
+| DELETE | `/api/restaurants/:documentId`   | レストランを削除する       |
+| PUT    | `/api/restaurants/:documentId`   | レストランを更新する       |
 
 </TabItem>
 
-<TabItem value="single" label="Single type">
+<TabItem value="single" label="シングルタイプ">
 
-`Homepage` **Content type**
+`Homepage` **コンテンツタイプ**
 
-| Method | URL             | Description                        |
+| メソッド | URL             | 説明                        |
 | ------ | --------------- | ---------------------------------- |
-| GET    | `/api/homepage` | Get the homepage content           |
-| PUT    | `/api/homepage` | Update/create the homepage content |
-| DELETE | `/api/homepage` | Delete the homepage content        |
+| GET    | `/api/homepage` | ホームページのコンテンツを取得する           |
+| PUT    | `/api/homepage` | ホームページのコンテンツを更新/作成する |
+| DELETE | `/api/homepage` | ホームページのコンテンツを削除する        |
 
 </TabItem>
 </Tabs>
 </details>
 
 :::note
-[Components](/dev-docs/backend-customization/models#components) don't have API endpoints.
+[コンポーネント](/dev-docs/backend-customization/models#components)はAPIエンドポイントを持っていません。
 :::
 
-## Requests
+## リクエスト
 
 :::strapi Strapi 5 vs. Strapi v4
-Strapi 5's Content API includes 2 major differences with Strapi v4:
+Strapi 5のContent APIには、Strapi v4と比べて2つの主な違いがあります：
 
-- The response format has been flattened, which means attributes are no longer nested in a `data.attributes` object and are directly accessible at the first level of the `data` object (e.g., a content-type's "title" attribute is accessed with `data.title`).
-- Strapi 5 now uses **documents** <DocumentDefinition/> and documents are accessed by their `documentId`.
+- レスポンスフォーマットがフラット化され、属性はもはや`data.attributes`オブジェクト内にネストされていないため、`data`オブジェクトの最初のレベルで直接アクセスできます（例えば、コンテンツタイプの"title"属性は`data.title`でアクセスします）。
+- Strapi 5では、**ドキュメント** <DocumentDefinition/>を使用し、ドキュメントはその`documentId`でアクセスされます。
 :::
 
-Requests return a response as an object which usually includes the following keys:
+リクエストは、通常以下のキーを含むオブジェクトとしてレスポンスを返します：
 
-- `data`: the response data itself, which could be:
-  - a single document, as an object with the following keys:
-    - `id` (integer)
-    - `documentId` (string), which is the unique identifier to use when querying a given document,
-    - the attributes (each attribute's type depends on the attribute, see [models attributes](/dev-docs/backend-customization/models#model-attributes) documentation for details)
-    - `meta` (object)
-  - a list of documents, as an array of objects
-  - a custom response
+- `data`：レスポンスデータそのもので、以下のいずれかとなります：
+  - 単一のドキュメント。以下のキーを持つオブジェクト：
+    - `id`（整数）
+    - `documentId`（文字列）、これは特定のドキュメントを問い合わせる際に使用する一意の識別子です。
+    - 属性（各属性のタイプは属性によります、詳細は[モデル属性](/dev-docs/backend-customization/models#model-attributes)のドキュメンテーションを参照してください）
+    - `meta`（オブジェクト）
+  - ドキュメントのリスト。オブジェクトの配列
+  - カスタムレスポンス
 
-- `meta` (object): information about pagination, publication state, available locales, etc.
+- `meta`（オブジェクト）：ページネーション、公開状態、利用可能なロケールなどについての情報。
 
-- `error` (object, _optional_): information about any [error](/dev-docs/error-handling) thrown by the request
+- `error`（オブジェクト、_オプション_）：リクエストによってスローされた[エラー](/dev-docs/error-handling)に関する情報。
 
 :::note
-Some plugins (including Users & Permissions and Upload) may not follow this response format.
+一部のプラグイン（Users & PermissionsやUploadを含む）はこのレスポンス形式に従わない場合があります。
 :::
 
 <SideBySideContainer>
 
 <SideBySideColumn>
 
-### Get documents {#get-all}
+### ドキュメントの取得 {#get-all}
 
-Returns documents matching the query filters (see [API parameters](/dev-docs/api/rest/parameters) documentation).
+クエリフィルタに一致するドキュメントを返します（[APIパラメータ](/dev-docs/api/rest/parameters)のドキュメンテーションを参照）。
 
-:::tip Tip: Strapi 5 vs. Strapi 4
-In Strapi 5 the response format has been flattened, and attributes are directly accessible from the `data` object instead of being nested in `data.attributes`.
+:::tip ヒント：Strapi 5 vs. Strapi 4
+Strapi 5ではレスポンス形式がフラット化され、属性は`data.attributes`にネストされる代わりに、`data`オブジェクトから直接アクセスできます。
 
-You can pass an optional header while you're migrating to Strapi 5 (see the [related breaking change](/dev-docs/migration/v4-to-v5/breaking-changes/new-response-format)).
+Strapi 5に移行する際には、オプションのヘッダーを渡すことができます（[関連する破壊的変更](/dev-docs/migration/v4-to-v5/breaking-changes/new-response-format)を参照）。
 :::
 
 </SideBySideColumn>
@@ -235,12 +235,12 @@ You can pass an optional header while you're migrating to Strapi 5 (see the [rel
 
 <SideBySideColumn>
 
-### Get a document {#get}
+### ドキュメントの取得 {#get}
 
-Returns a document by `documentId`.
+`documentId`によるドキュメントの取得。
 
 :::strapi Strapi 5 vs. Strapi v4
-In Strapi 5, a specific document is reached by its `documentId`.
+Strapi 5では、特定のドキュメントはその`documentId`でアクセスされます。
 :::
 
 </SideBySideColumn>
@@ -249,13 +249,13 @@ In Strapi 5, a specific document is reached by its `documentId`.
 
 <ApiCall>
 
-<Request title="Example request">
+<Request title="例：リクエスト">
 
 `GET http://localhost:1337/api/restaurants/j964065dnjrdr4u89weh79xl`
 
 </Request>
 
-<Response title="Example response">
+<レスポンス title="例のレスポンス">
 
 ```json
 {
@@ -269,7 +269,7 @@ In Strapi 5, a specific document is reached by its `documentId`.
         "children": [
           {
             "type": "text",
-            "text": "Welcome to Biscotte restaurant! Restaurant Biscotte offers a cuisine bassics, such as 4 Formaggi or Calzone, and our original creations such as Do Luigi or Nduja."
+            "text": "Biscotte レストランへようこそ！レストラン Biscotte では、4 Formaggi や Calzone などの基本的な料理や、Do Luigi や Nduja などのオリジナルクリエーションを提供しています。"
           }
         ]
       }
@@ -284,7 +284,7 @@ In Strapi 5, a specific document is reached by its `documentId`.
 
 ```
 
-</Response>
+</レスポンス>
 
 </ApiCall>
 
@@ -296,16 +296,16 @@ In Strapi 5, a specific document is reached by its `documentId`.
 
 <SideBySideColumn>
 
-### Create a document {#create}
+### ドキュメントの作成 {#create}
 
-Creates a document and returns its value.
+ドキュメントを作成し、その値を返します。
 
-By default, a document is created with a published status. To create a document as a draft, pass the [`status`](/dev-docs/api/rest/filters-locale-publication#status) query parameter with the value `draft` (e.g., `?status=draft`).
+デフォルトでは、ドキュメントは公開ステータスで作成されます。ドラフトとしてドキュメントを作成するには、[`status`](/dev-docs/api/rest/filters-locale-publication#status) クエリパラメータを `draft` の値で渡します（例：`?status=draft`）。
 
-If the Internationalization (i18n) feature is enabled on the content-type, it's possible to use POST requests to the REST API to [create localized documents](/dev-docs/i18n#creating-a-new-localized-entry).
+コンテンツタイプで国際化（i18n）機能が有効化されている場合、REST APIへのPOSTリクエストを使用して[ローカライズされたドキュメントを作成](/dev-docs/i18n#creating-a-new-localized-entry)することが可能です。
 
 :::note
-While creating a document, you can define its relations and their order (see [Managing relations through the REST API](/dev-docs/api/rest/relations.md) for more details).
+ドキュメントを作成する際、その関連性と順序を定義することができます（詳細は [REST APIを通じた関連性の管理](/dev-docs/api/rest/relations.md)を参照してください）。
 :::
 
 </SideBySideColumn>
@@ -314,7 +314,7 @@ While creating a document, you can define its relations and their order (see [Ma
 
 <ApiCall>
 
-<Request title="Example request">
+<リクエスト title="例のリクエスト">
 
 `POST http://localhost:1337/api/restaurants`
 
@@ -322,13 +322,13 @@ While creating a document, you can define its relations and their order (see [Ma
 { 
   "data": {
     "Name": "Restaurant D",
-    "Description": [ // uses the "Rich text (blocks)" field type
+    "Description": [ // "リッチテキスト（ブロック）"フィールドタイプを使用
       {
         "type": "paragraph",
         "children": [
           {
             "type": "text",
-            "text": "A very short description goes here."
+            "text": "ここに非常に短い説明を入力します。"
           }
         ]
       }
@@ -337,9 +337,9 @@ While creating a document, you can define its relations and their order (see [Ma
 }
 ```
 
-</Request>
+</リクエスト>
 
-<Response title="Example response">
+<レスポンス title="例のレスポンス">
 
 ```json
 {
@@ -352,7 +352,7 @@ While creating a document, you can define its relations and their order (see [Ma
         "children": [
           {
             "type": "text",
-            "text": "A very short description goes here."
+            "text": "ここに非常に短い説明を入力します。"
           }
         ]
       }
@@ -366,7 +366,7 @@ While creating a document, you can define its relations and their order (see [Ma
 }
 ```
 
-</Response>
+</レスポンス>
 
 </ApiCall>
 
@@ -378,16 +378,16 @@ While creating a document, you can define its relations and their order (see [Ma
 
 <SideBySideColumn>
 
-### Update a document {#update}
+### ドキュメントの更新 {#update}
 
-Partially updates a document by `id` and returns its value.
+`id`によってドキュメントを部分的に更新し、その値を返します。
 
-Send a `null` value to clear fields.
+フィールドをクリアするには `null` 値を送信します。
 
-:::note NOTES
-* Even unmodified fields must be included in the request's body.
-* Even with the [Internationalization (i18n) plugin](/dev-docs/i18n) installed, it's currently not possible to [update the locale of a document](/dev-docs/i18n#rest-update).
-* While updating a document, you can define its relations and their order (see [Managing relations through the REST API](/dev-docs/api/rest/relations) for more details).
+:::note ノート
+* 変更されていないフィールドもリクエストのボディに含める必要があります。
+* [国際化（i18n）プラグイン](/dev-docs/i18n)をインストールしていても、現在は[ドキュメントのロケールを更新する](/dev-docs/i18n#rest-update)ことはできません。
+* ドキュメントを更新する際に、その関連性と順序を定義することができます（詳細は[REST APIを通じた関連性の管理](/dev-docs/api/rest/relations)を参照してください）。
 :::
 
 </SideBySideColumn>
@@ -396,15 +396,15 @@ Send a `null` value to clear fields.
 
 <ApiCall>
 
-<Request title="Example request">
+<Request title="リクエスト例">
 
 `PUT http://localhost:1337/api/restaurants/hgv1vny5cebq2l3czil1rpb3`
 
 ```json
 { 
   "data": {
-    "Name": "BMK Paris Bamako", // we didn't change this field but still need to include it
-    "Description": [ // uses the "Rich text (blocks)" field type
+    "Name": "BMK Paris Bamako", // このフィールドは変更していませんが、それでも含める必要があります
+    "Description": [ // "Rich text (blocks)" フィールドタイプを使用
       {
         "type": "paragraph",
         "children": [
@@ -421,7 +421,7 @@ Send a `null` value to clear fields.
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンス例">
 
 ```json
 {
@@ -460,18 +460,18 @@ Send a `null` value to clear fields.
 
 <SideBySideColumn>
 
-### Delete a document {#delete}
+### ドキュメントの削除 {#delete}
 
-Deletes a document.
+ドキュメントを削除します。
 
-`DELETE` requests only send a 204 HTTP status code on success and do not return any data in the response body.
+`DELETE`リクエストは成功時にのみ204のHTTPステータスコードを送信し、レスポンスボディにはデータを返しません。
 
 </SideBySideColumn>
 
 <SideBySideColumn>
 <ApiCall>
 
-<Request title="Example request">
+<Request title="リクエスト例">
 
 `DELETE http://localhost:1337/api/restaurants/bw64dnu97i56nq85106yt4du`
 

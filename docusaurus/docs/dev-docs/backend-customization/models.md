@@ -1,75 +1,75 @@
 ---
-title: Models
-description: Strapi models (i.e. content-types, components, and dynamic zones) define a representation of the data structure.
+title: モデル
+description: Strapiのモデル（つまり、コンテンツタイプ、コンポーネント、ダイナミックゾーン）はデータ構造の表現を定義します。
 toc_max_heading_level: 4
 tags:
-- admin panel
-- backend customization
-- backend server
-- content-type
-- Content-type Builder
-- models
-- model schema
-- lifecycle hooks
+- 管理パネル
+- バックエンドのカスタマイズ
+- バックエンドサーバー
+- コンテンツタイプ
+- コンテンツタイプビルダー
+- モデル
+- モデルスキーマ
+- ライフサイクルフック
 - REST API 
 ---
 
-# Models
+# モデル
 
-As Strapi is a headless Content Management System (CMS), creating a data structure for the content is one of the most important aspects of using the software. Models define a representation of the data structure.
+Strapiはヘッドレスのコンテンツ管理システム（CMS）であるため、コンテンツのデータ構造を作成することは、このソフトウェアを使用する上で最も重要な側面の一つです。モデルはデータ構造の表現を定義します。
 
-There are 2 different types of models in Strapi:
+Strapiには2種類のモデルがあります：
 
-- content-types, which can be collection types or single types, depending on how many entries they manage,
-- and components that are data structures re-usable in multiple content-types.
+- コンテンツタイプは、管理するエントリーの数により、コレクションタイプまたはシングルタイプになります。
+- コンポーネントは、複数のコンテンツタイプで再利用可能なデータ構造です。
 
-If you are just starting out, it is convenient to generate some models with the [Content-type Builder](/user-docs/content-type-builder) directly in the admin panel. The user interface takes over a lot of validation tasks and showcases all the options available to create the content's data structure. The generated model mappings can then be reviewed at the code level using this documentation.
+初めての方は、管理パネル内の[Content-type Builder](/user-docs/content-type-builder)でいくつかのモデルを生成するのが便利です。ユーザーインターフェースは多くの検証タスクを引き受け、コンテンツのデータ構造を作成するためのすべてのオプションを提示します。生成されたモデルマッピングは、このドキュメンテーションを使用してコードレベルでレビューすることができます。
 
-## Model creation
+## モデルの作成
 
-Content-types and components models are created and stored differently.
+コンテンツタイプとコンポーネントモデルはそれぞれ異なる方法で作成および保存されます。
 
-### Content-types
+### コンテンツタイプ
 
-Content-types in Strapi can be created:
+Strapiのコンテンツタイプは次の方法で作成できます：
 
-- with the [Content-type Builder in the admin panel](/user-docs/content-type-builder/introduction-to-content-types-builder.md),
-- or with [Strapi's interactive CLI `strapi generate`](/dev-docs/cli#strapi-generate) command.
+- 管理パネルの[Content-type Builder](/user-docs/content-type-builder/introduction-to-content-types-builder.md)を使用する
+- または、[StrapiのインタラクティブCLI `strapi generate`](/dev-docs/cli#strapi-generate) コマンドを使用する。
 
-The content-types use the following files:
+コンテンツタイプでは以下のファイルが使用されます：
 
-- `schema.json` for the model's [schema](#model-schema) definition. (generated automatically, when creating content-type with either method)
-- `lifecycles.js` for [lifecycle hooks](#lifecycle-hooks). This file must be created manually.
+- モデルの[スキーマ](#model-schema)定義のための `schema.json`（どちらの方法でコンテンツタイプを作成しても自動的に生成されます）
+- [ライフサイクルフック](#lifecycle-hooks)のための `lifecycles.js`。このファイルは手動で作成する必要があります。
 
-These models files are stored in `./src/api/[api-name]/content-types/[content-type-name]/`, and any JavaScript or JSON file found in these folders will be loaded as a content-type's model (see [project structure](/dev-docs/project-structure)).
+これらのモデルファイルは `./src/api/[api-name]/content-types/[content-type-name]/` に保存され、これらのフォルダ内にあるJavaScriptまたはJSONファイルはすべてコンテンツタイプのモデルとしてロードされます（[プロジェクト構造](/dev-docs/project-structure)を参照してください）。
 
 :::note
-In [TypeScript](/dev-docs/typescript.md)-enabled projects, schema typings can be generated using the `ts:generate-types` command.
+[TypeScript](/dev-docs/typescript.md)を有効にしたプロジェクトでは、`ts:generate-types`コマンドを使用してスキーマの型定義を生成できます。
 :::
 
-### Components
+### コンポーネント
 
-Component models can't be created with CLI tools. Use the [Content-type Builder](/user-docs/content-type-builder) or create them manually.
+コンポーネントモデルはCLIツールで作成することはできません。[Content-type Builder](/user-docs/content-type-builder)を使用するか、手動で作成してください。
 
-Components models are stored in the `./src/components` folder. Every component has to be inside a subfolder, named after the category the component belongs to (see [project structure](/dev-docs/project-structure)).
+コンポーネントモデルは `./src/components` フォルダに保存されます。各コンポーネントは、そのコンポーネントが所属するカテゴリーに名前をつけたサブフォルダ内になければなりません（[プロジェクト構造](/dev-docs/project-structure)を参照してください）。
 
-## Model schema
+## モデルスキーマ
 
-The `schema.json` file of a model consists of:
+モデルの `schema.json` ファイルは以下から構成されます：
 
-- [settings](#model-settings), such as the kind of content-type the model represents or the table name in which the data should be stored,
-- [information](#model-information), mostly used to display the model in the admin panel and access it through the REST and GraphQL APIs,
-- [attributes](#model-attributes), which describe the data structure of the model,
-- and [options](#model-options) used to defined specific behaviors on the model.
+- [設定](#model-settings)、モデルが表現するコンテンツタイプの種類や、データが保存されるべきテーブル名など、
+- [情報](#model-information)、主に管理パネルでモデルを表示したり、RESTおよびGraphQL APIを通じてアクセスするために使用されます、
+- [属性](#model-attributes)、モデルのデータ構造を記述します、
+- そして[オプション](#model-options)は、モデルに特定の振る舞いを定義するために使用されます。
 
-### Model settings
+### モデル設定
 
-General settings for the model can be configured with the following parameters:
+モデルの一般的な設定は、以下のパラメータで設定できます：
 
-| Parameter                                          | Type   | Description                                                                                                            |
+| パラメータ                                          | タイプ   | 説明                                                                                                            |
 | -------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------- |
-| `collectionName`                                  | String | Database table name in which the data should be stored                                                    |
-| `kind`<br /><br />_Optional,<br/>only for content-types_ | String | Defines if the content-type is:<ul><li>a collection type (`collectionType`)</li><li>or a single type (`singleType`)</li></ul> |
+| `collectionName`                                  | String | データが保存されるべきデータベースのテーブル名                                                    |
+| `kind`<br /><br />_オプション、<br/>コンテンツタイプのみ_ | String | コンテンツタイプが：<ul><li>コレクションタイプ (`collectionType`)</li><li>またはシングルタイプ (`singleType`)</li></ul>であることを定義します |
 
 ```json
 // ./src/api/[api-name]/content-types/restaurant/schema.json
@@ -80,18 +80,18 @@ General settings for the model can be configured with the following parameters:
 }
 ```
 
-### Model information
+### モデル情報
 
-The `info` key in the model's schema describes information used to display the model in the admin panel and access it through the Content API. It includes the following parameters:
+モデルのスキーマの`info`キーは、管理パネルでモデルを表示し、Content APIを通じてアクセスするために使用される情報を記述します。以下のパラメータを含みます：
 
 <!-- ? with the new design system, do we still use FontAwesome?  -->
 
-| Parameter            | Type   | Description                                                                                                                                 |
+| パラメータ            | タイプ   | 説明                                                                                                                                 |
 | -------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `displayName`  | String | Default name to use in the admin panel                                                                                                      |
-| `singularName` | String | Singular form of the content-type name.<br />Used to generate the API routes and databases/tables collection.<br /><br />Should be kebab-case. |
-| `pluralName`   | String | Plural form of the content-type name.<br />Used to generate the API routes and databases/tables collection.<br /><br />Should be kebab-case.    |
-| `description`  | String | Description of the model                                                                                                                   |
+| `displayName`  | String | 管理パネルで使用するデフォルトの名前                                                                                                      |
+| `singularName` | String | コンテンツタイプ名の単数形。<br />APIルートとデータベース/テーブルコレクションの生成に使用されます。<br /><br />ケバブケースであるべきです。 |
+| `pluralName`   | String | コンテンツタイプ名の複数形。<br />APIルートとデータベース/テーブルコレクションの生成に使用されます。<br /><br />ケバブケースであるべきです。    |
+| `description`  | String | モデルの説明                                                                                                                   |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
 
@@ -103,45 +103,45 @@ The `info` key in the model's schema describes information used to display the m
   },
 ```
 
-### Model attributes
+### モデル属性
 
-The data structure of a model consists of a list of attributes. Each attribute has a `type` parameter, which describes its nature and defines the attribute as a simple piece of data or a more complex structure used by Strapi.
+モデルのデータ構造は、属性のリストで構成されています。各属性には `type` パラメータがあり、これはその性質を記述し、属性を単純なデータピースまたはStrapiによって使用されるより複雑な構造として定義します。
 
-Many types of attributes are available:
+利用可能な属性のタイプは多岐にわたります：
 
-- scalar types (e.g. strings, dates, numbers, booleans, etc.),
-- Strapi-specific types, such as:
-  - `media` for files uploaded through the [Media library](/user-docs/content-type-builder/configuring-fields-content-type.md#media)
-  - `relation` to describe a [relation](#relations) between content-types
-  - `customField` to describe [custom fields](#custom-fields) and their specific keys
-  - `component` to define a [component](#components-1) (i.e. a data structure usable in multiple content-types)
-  - `dynamiczone` to define a [dynamic zone](#dynamic-zones) (i.e. a flexible space based on a list of components)
-  - and the `locale` and `localizations` types, only used by the [Internationalization (i18n) plugin](/dev-docs/i18n)
+- スカラータイプ（例：文字列、日付、数値、ブーリアンなど），
+- Strapi特有のタイプ、例えば：
+  - ファイルを[メディアライブラリ](/user-docs/content-type-builder/configuring-fields-content-type.md#media)を通じてアップロードするための `media`
+  - コンテンツタイプ間の[関連](#relations)を記述するための `relation`
+  - [カスタムフィールド](#custom-fields)とその特定のキーを記述するための `customField`
+  - [コンポーネント](#components-1)（つまり、複数のコンテンツタイプで使用可能なデータ構造）を定義するための `component`
+  - [ダイナミックゾーン](#dynamic-zones)（つまり、コンポーネントのリストに基づく柔軟なスペース）を定義するための `dynamiczone`
+  - そして `locale` と `localizations` のタイプは、[国際化（i18n）プラグイン](/dev-docs/i18n)にのみ使用されます。
 
-The `type` parameter of an attribute should be one of the following values:
+属性の `type` パラメータは、以下の値のいずれかであるべきです：
 
-| Type categories | Available types |
+| タイプのカテゴリ | 利用可能なタイプ |
 |------|-------|
-| String types | <ul><li>`string`</li> <li>`text`</li> <li>`richtext`</li><li>`enumeration`</li> <li>`email`</li><li>`password`</li><li>[`uid`](#uid-type)</li></ul> |
-| Date types | <ul><li>`date`</li> <li>`time`</li> <li>`datetime`</li> <li>`timestamp`</li></ul> |
-| Number types | <ul><li>`integer`</li><li>`biginteger`</li><li>`float`</li> <li>`decimal`</li></ul> |
-| Other generic types |<ul><li>`boolean`</li><li>`json`</li></ul> |
-| Special types unique to Strapi |<ul><li>`media`</li><li>[`relation`](#relations)</li><li>[`customField`](#custom-fields)</li><li>[`component`](#components)</li><li>[`dynamiczone`](#dynamic-zones)</li></ul> |
-| Internationalization (i18n)-related types<br /><br />_Can only be used if the [i18n](/dev-docs/i18n) is enabled on the content-type_|<ul><li>`locale`</li><li>`localizations`</li></ul> |
+| 文字列タイプ | <ul><li>`string`</li> <li>`text`</li> <li>`richtext`</li><li>`enumeration`</li> <li>`email`</li><li>`password`</li><li>[`uid`](#uid-type)</li></ul> |
+| 日付タイプ | <ul><li>`date`</li> <li>`time`</li> <li>`datetime`</li> <li>`timestamp`</li></ul> |
+| 数値タイプ | <ul><li>`integer`</li><li>`biginteger`</li><li>`float`</li> <li>`decimal`</li></ul> |
+| その他の汎用タイプ |<ul><li>`boolean`</li><li>`json`</li></ul> |
+| Strapi固有の特別なタイプ |<ul><li>`media`</li><li>[`relation`](#relations)</li><li>[`customField`](#custom-fields)</li><li>[`component`](#components)</li><li>[`dynamiczone`](#dynamic-zones)</li></ul> |
+| 国際化（i18n）関連タイプ<br /><br />_コンテンツタイプで[i18n](/dev-docs/i18n)が有効になっている場合のみ使用可能_|<ul><li>`locale`</li><li>`localizations`</li></ul> |
 
-#### Validations
+#### バリデーション
 
-Basic validations can be applied to attributes using the following parameters:
+基本的なバリデーションは、以下のパラメータを使用して属性に適用することができます：
 
-| Parameter | Type    | Description                                                                                               | Default |
+| パラメータ | タイプ    | 説明                                                                                               | デフォルト |
 | -------------- | ------- | --------------------------------------------------------------------------------------------------------- | ------- |
-| `required`     | Boolean | If `true`, adds a required validator for this property                                                     | `false` |
-| `max`          | Integer | Checks if the value is greater than or equal to the given maximum                                        | -       |
-| `min`          | Integer | Checks if the value is less than or equal to the given minimum                                           | -       |
-| `minLength`    | Integer | Minimum number of characters for a field input value                                                      | -       |
-| `maxLength`    | Integer | Maximum number of characters for a field input value                                                      | -       |
-| `private`      | Boolean | If `true`, the attribute will be removed from the server response.<br/><br/>💡 This is useful to hide sensitive data. | `false` |
-| `configurable` | Boolean | If `false`, the attribute isn't configurable from the Content-type Builder plugin.                         | `true`  |
+| `required`     | Boolean | `true`の場合、このプロパティに必須のバリデータを追加します                                                     | `false` |
+| `max`          | Integer | 値が指定した最大値以上であるかチェックします                                        | -       |
+| `min`          | Integer | 値が指定した最小値以下であるかチェックします                                           | -       |
+| `minLength`    | Integer | フィールド入力値の最小文字数                                                      | -       |
+| `maxLength`    | Integer | フィールド入力値の最大文字数                                                      | -       |
+| `private`      | Boolean | `true`の場合、属性はサーバーの応答から削除されます。<br/><br/>💡これは、機密データを隠すのに便利です。 | `false` |
+| `configurable` | Boolean | `false`の場合、属性はContent-type Builderプラグインから設定できません。                         | `true`  |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
 
@@ -168,23 +168,23 @@ Basic validations can be applied to attributes using the following parameters:
 }
 ```
 
-#### Database validations and settings
+#### データベースの検証と設定
 
-:::caution 🚧 This API is considered experimental.
-These settings should be reserved to an advanced usage, as they might break some features. There are no plans to make these settings stable.
+:::caution 🚧 このAPIは実験的なものと考えられています。
+これらの設定は高度な使用に予約されており、一部の機能を壊す可能性があります。これらの設定を安定したものにする計画はありません。
 :::
 
-Database validations and settings are custom options passed directly onto the `tableBuilder` Knex.js function during schema migrations. Database validations allow for an advanced degree of control for setting custom column settings. The following options are set in a `column: {}` object per attribute:
+データベースの検証と設定は、スキーマ移行中に`tableBuilder` Knex.js関数に直接渡されるカスタムオプションです。データベースの検証を使用すると、カスタム列設定を設定するための高度な制御が可能になります。以下のオプションは、属性ごとに`column: {}`オブジェクトで設定されます:
 
-| Parameter     | Type    | Description                                                                                   | Default |
+| パラメータ     | タイプ    | 説明                                                                                   | デフォルト |
 | ------------- | ------- | --------------------------------------------------------------------------------------------- | ------- |
-| `name`        | string  | Changes the name of the column in the database                                                | -       |
-| `defaultTo`   | string  | Sets the database `defaultTo`, typically used with `notNullable`                              | -       |
-| `notNullable` | boolean | Sets the database `notNullable`, ensures that columns cannot be null                          | `false` |
-| `unsigned`    | boolean | Only applies to number columns, removes the ability to go negative but doubles maximum length | `false` |
-| `unique`      | boolean | Enforces database level unique, caution when using with draft & publish feature               | `false` |
-| `type`        | string  | Changes the database type, if `type` has arguments, you should pass them in `args`            | -       |
-| `args`        | array   | Arguments passed into the Knex.js function that changes things like `type`                    | `[]`    |
+| `name`        | 文字列  | データベースのカラムの名前を変更します                                                | -       |
+| `defaultTo`   | 文字列  | データベースの `defaultTo` を設定します。通常は `notNullable` と一緒に使用します                              | -       |
+| `notNullable` | ブーリアン | データベースの `notNullable` を設定します。これにより、カラムが null になることがないようにします                          | `false` |
+| `unsigned`    | ブーリアン | 数値のカラムにのみ適用され、負の値を取ることができないようにしますが、最大長は2倍になります | `false` |
+| `unique`      | ブーリアン | データベースレベルでユニークを強制します。ドラフト＆公開機能と一緒に使用するときは注意が必要です               | `false` |
+| `type`        | 文字列  | データベースのタイプを変更します。`type` に引数がある場合、それらは `args` に渡す必要があります            | -       |
+| `args`        | 配列   | `type` などを変更するための Knex.js 関数に渡される引数                    | `[]`    |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
 
@@ -197,7 +197,7 @@ Database validations and settings are custom options passed directly onto the `t
       "maxLength": 99,
       "unique": true,
       "column": {
-        "unique": true // enforce database unique also
+        "unique": true // データベースでもユニークを強制
       }
     },
     "description": {
@@ -205,8 +205,8 @@ Database validations and settings are custom options passed directly onto the `t
       "type": "text",
       "required": true,
       "column": {
-        "defaultTo": "My description", // set database level default
-        "notNullable": true // enforce required at database level, even for drafts
+        "defaultTo": "My description", // データベースレベルでのデフォルトを設定
+        "notNullable": true // データベースレベルで必須を強制、ドラフトでも
       }
     },
     "rating": {
@@ -214,9 +214,9 @@ Database validations and settings are custom options passed directly onto the `t
       "default": 0,
       "column": {
         "defaultTo": 0,
-        "type": "decimal", // using the native decimal type but allowing for custom precision
+        "type": "decimal", // ネイティブの decimal タイプを使用しつつ、カスタム精度を許可
         "args": [
-          6,1 // using custom precision and scale
+          6,1 // カスタム精度とスケールを使用
         ]
       }
     }
@@ -225,37 +225,37 @@ Database validations and settings are custom options passed directly onto the `t
 }
 ```
 
-#### `uid` type
+#### `uid` タイプ
 
-The `uid` type is used to automatically prefill the field value in the admin panel with a unique identifier (UID) (e.g. slugs for articles) based on 2 optional parameters:
+`uid` タイプは、管理パネルでフィールドの値をユニークな識別子 (UID)（例えば、記事のスラッグ）で自動的にプリフィルするために使用されます。これは2つのオプションパラメータに基づいています：
 
-- `targetField` (string): If used, the value of the field defined as a target is used to auto-generate the UID.
-- `options` (string): If used, the UID is generated based on a set of options passed to [the underlying `uid` generator](https://github.com/sindresorhus/slugify). The resulting `uid` must match the following regular expression pattern: `/^[A-Za-z0-9-_.~]*$`.
+- `targetField` (文字列): 使用される場合、ターゲットとして定義されたフィールドの値がUIDの自動生成に使用されます。
+- `options` (文字列): 使用される場合、UIDは[基礎となる `uid` ジェネレータ](https://github.com/sindresorhus/slugify)に渡された一連のオプションに基づいて生成されます。結果として得られる `uid` は次の正規表現パターンに一致する必要があります：`/^[A-Za-z0-9-_.~]*$`。
 
-#### Relations
+#### 関係
 
-Relations link content-types together. Relations are explicitly defined in the [attributes](#model-attributes)  of a model with `type: 'relation'`  and accept the following additional parameters:
+関係はコンテンツタイプを互いにリンクします。関係はモデルの [属性](#model-attributes) で `type: 'relation'` として明示的に定義され、以下の追加パラメータを受け入れます：
 
-| Parameter                         | Description                                                                                                                                     |
+| パラメータ                         | 説明                                                                                                                                     |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `relation`                  | The type of relation among these values:<ul><li>`oneToOne`</li><li>`oneToMany`</li><li>`manyToOne`</li><li>`manyToMany`</li></ul>                   |
-| `target`                    | Accepts a string value as the name of the target content-type                                                                                   |
-| `mappedBy` and `inversedBy`<br /><br />_Optional_ | In bidirectional relations, the owning side declares the `inversedBy` key while the inversed side declares the `mappedBy` key |
+| `relation`                  | これらの値の間の関係のタイプ:<ul><li>`oneToOne`</li><li>`oneToMany`</li><li>`manyToOne`</li><li>`manyToMany`</li></ul>                   |
+| `target`                    | ターゲットのコンテンツタイプの名前を文字列値として受け入れます                                                                                   |
+| `mappedBy` と `inversedBy`<br /><br />_オプション_ | 双方向の関係では、所有側が `inversedBy` キーを宣言し、逆側が `mappedBy` キーを宣言します |
 
 <Tabs>
 
-<TabItem value="one-to-one" label="One-to-one">
+<TabItem value="one-to-one" label="一対一">
 
-One-to-One relationships are useful when one entry can be linked to only one other entry.
+一対一の関係は、1つのエントリが他の1つのエントリにのみリンクできる場合に便利です。
 
-They can be unidirectional or bidirectional. In unidirectional relationships, only one of the models can be queried with its linked item.
+これらは一方向または双方向の関係性を持つことができます。一方向の関係では、モデルのうちの1つだけがそのリンクされたアイテムと共に問い合わせることができます。
 
 <details>
-<summary>Unidirectional use case example:</summary>
+<summary>一方向のユースケース例:</summary>
 
-  - A blog article belongs to a category.
-  - Querying an article can retrieve its category,
-  - but querying a category won't retrieve the owned article.
+  - ブログ記事はカテゴリに所属しています。
+  - 記事を問い合わせるとそのカテゴリを取得できますが、
+  - カテゴリを問い合わせてもその所有記事は取得できません。
 
   ```json title="./src/api/[api-name]/content-types/article/schema.json"
 
@@ -273,11 +273,11 @@ They can be unidirectional or bidirectional. In unidirectional relationships, on
 </details>
 
 <details>
-<summary>Bidirectional use case example:</summary>
+<summary>双方向のユースケース例:</summary>
 
-  - A blog article belongs to a category.
-  - Querying an article can retrieve its category,
-  - and querying a category also retrieves its owned article.
+  - ブログ記事はカテゴリに所属しています。
+  - 記事を問い合わせるとそのカテゴリを取得できますし、
+  - カテゴリを問い合わせるとその所有記事も取得できます。
 
   ```json title="./src/api/[api-name]/content-types/article/schema.json"
 
@@ -313,18 +313,18 @@ They can be unidirectional or bidirectional. In unidirectional relationships, on
 
 </TabItem>
 
-<TabItem value="one-to-many" label="One-to-Many">
+<TabItem value="one-to-many" label="一対多">
 
-One-to-Many relationships are useful when:
+一対多の関係は、以下の場合に便利です：
 
-- an entry from a content-type A is linked to many entries of another content-type B,
-- while an entry from content-type B is linked to only one entry of content-type A.
+- コンテンツタイプAからのエントリが別のコンテンツタイプBの多くのエントリにリンクされている場合、
+- コンテンツタイプBからのエントリがコンテンツタイプAからの1つのエントリにのみリンクされている場合。
 
-One-to-many relationships are always bidirectional, and are usually defined with the corresponding Many-to-One relationship:
+一対多の関係は常に双方向であり、通常は対応する多対一の関係と共に定義されます：
 
 <details>
-<summary>Example:</summary>
-A person can own many plants, but a plant is owned by only one person.
+<summary>例:</summary>
+一人の人が多くの植物を所有することができますが、一つの植物は一人の人にのみ所有されます。
 
 ```json title="./src/api/[api-name]/content-types/plant/schema.json"
 
@@ -359,16 +359,16 @@ A person can own many plants, but a plant is owned by only one person.
 
 </TabItem>
 
-<TabItem value="many-to-one" label="Many-to-One">
+<TabItem value="many-to-one" label="多対一">
 
-Many-to-One relationships are useful to link many entries to one entry.
+多対一の関係は、多数のエントリを1つのエントリにリンクするのに便利です。
 
-They can be unidirectional or bidirectional. In unidirectional relationships, only one of the models can be queried with its linked item.
+これらは一方向または双方向の関係性を持つことができます。一方向の関係では、モデルのうち1つだけがリンクされたアイテムと共にクエリを実行できます。
 
 <details>
-<summary>Unidirectional use case example:</summary>
+<summary>一方向の使用ケース例:</summary>
 
-  A book can be written by many authors.
+  1冊の本は多数の著者によって書かれることができます。
 
   ```json title="./src/api/[api-name]/content-types/book/schema.json"
 
@@ -387,9 +387,9 @@ They can be unidirectional or bidirectional. In unidirectional relationships, on
 </details>
 
 <details>
-<summary>Bidirectional use case example:</summary>
+<summary>双方向の使用ケース例:</summary>
 
-  An article belongs to only one category but a category has many articles.
+  記事は1つのカテゴリーにしか属せず、カテゴリーは多数の記事を持つことができます。
 
   ```json title="./src/api/[api-name]/content-types/article/schema.json"
 
@@ -423,17 +423,17 @@ They can be unidirectional or bidirectional. In unidirectional relationships, on
 
 </TabItem>
 
-<TabItem value="many-to-many" label="Many-to-Many">
+<TabItem value="many-to-many" label="多対多">
 
-Many-to-Many relationships are useful when:
+多対多の関係は以下の場合に便利です：
 
-- an entry from content-type A is linked to many entries of content-type B,
-- and an entry from content-type B is also linked to many entries from content-type A.
+- コンテンツタイプAのエントリがコンテンツタイプBの多数のエントリにリンクされている場合、
+- そして、コンテンツタイプBのエントリもコンテンツタイプAの多数のエントリにリンクされている場合。
 
-Many-to-many relationships can be unidirectional or bidirectional. In unidirectional relationships, only one of the models can be queried with its linked item.
+多対多の関係は一方向または双方向の関係性を持つことができます。一方向の関係では、モデルのうち1つだけがリンクされたアイテムと共にクエリを実行できます。
 
 <details>
-<summary>Unidirectional use case example:</summary>
+<summary>一方向の使用ケース例:</summary>
 
   ```json
     // …
@@ -450,9 +450,9 @@ Many-to-many relationships can be unidirectional or bidirectional. In unidirecti
 </details>
 
 <details>
-<summary>Bidirectional use case example:</summary>
+<summary>双方向の使用ケース例:</summary>
 
-An article can have many tags and a tag can be assigned to many articles.
+記事は多数のタグを持つことができ、タグは多数の記事に割り当てることができます。
 
   ```json title="/src/api/[api-name]/content-types/article/schema.json"
 
@@ -470,7 +470,7 @@ An article can have many tags and a tag can be assigned to many articles.
 
   ```json title="./src/api/[api-name]/content-types/tag/schema.json"
 
-    // …
+// …
     attributes: {
       articles: {
         type: 'relation',
@@ -484,12 +484,12 @@ An article can have many tags and a tag can be assigned to many articles.
 
 </details>
 
-<!-- ? not sure what to do with this note and the following example, that's why I commented them for now -->
-<!-- :::tip NOTE
-The `tableName` key defines the name of the join table. It has to be specified once. If it is not specified, Strapi will use a generated default one. It is useful to define the name of the join table when the name generated by Strapi is too long for the database you use.
+<!-- ? この注釈と次の例に何をすべきかわからないので、とりあえずコメントアウトしています -->
+<!-- :::tip 注意
+`tableName`キーは結合テーブルの名前を定義します。これは一度だけ指定する必要があります。指定されていない場合、Strapiはデフォルトのものを使用します。Strapiによって生成された名前が使用しているデータベースにとって長すぎる場合、結合テーブルの名前を定義するのに便利です。
 :::
 
-**Path —** `./src/api/category/models/Category.settings.json`.
+**パス —** `./src/api/category/models/Category.settings.json`.
 
 ```js
 {
@@ -506,24 +506,24 @@ The `tableName` key defines the name of the join table. It has to be specified o
 
 </Tabs>
 
-#### Custom fields
+#### カスタムフィールド
 
-[Custom fields](/dev-docs/custom-fields.md) extend Strapi’s capabilities by adding new types of fields to content-types. Custom fields are explicitly defined in the [attributes](#model-attributes) of a model with `type: customField`.
-Custom fields' attributes also accept:
+[カスタムフィールド](/dev-docs/custom-fields.md)は、新しいタイプのフィールドをコンテンツタイプに追加することでStrapiの機能を拡張します。カスタムフィールドは、モデルの[属性](#model-attributes)で`type: customField`と明示的に定義されます。
+カスタムフィールドの属性は以下も受け入れます:
 
-Custom fields' attributes also show the following specificities:
+カスタムフィールドの属性は以下の特性を示します:
 
-- a `customField` attribute whose value acts as a unique identifier to indicate which registered custom field should be used. Its value follows:
-   - either the `plugin::plugin-name.field-name` format if a plugin created the custom field 
-   - or the `global::field-name` format for a custom field specific to the current Strapi application
-- and additional parameters depending on what has been defined when registering the custom field (see [custom fields documentation](/dev-docs/custom-fields.md)).
+- `customField`属性は、どの登録済みのカスタムフィールドを使用するべきかを示す一意の識別子として機能します。その値は以下に従います:
+   - プラグインがカスタムフィールドを作成した場合は`plugin::plugin-name.field-name`形式
+   - 現在のStrapiアプリケーション特有のカスタムフィールドの場合は`global::field-name`形式
+- そして、カスタムフィールドを登録する際に定義されたものに応じて追加のパラメータ（[カスタムフィールドのドキュメンテーション](/dev-docs/custom-fields.md)を参照）。
 
 ```json title="./src/api/[apiName]/[content-type-name]/content-types/schema.json"
 
 {
   // …
   "attributes": {
-    "attributeName": { // attributeName would be replaced by the actual attribute name
+    "attributeName": { // attributeNameは実際の属性名に置き換えられます
       "type": "customField",
       "customField": "plugin::color-picker.color",
       "options": {
@@ -535,14 +535,14 @@ Custom fields' attributes also show the following specificities:
 }
 ```
 
-#### Components
+#### コンポーネント
 
-Component fields create a relation between a content-type and a component structure. Components are explicitly defined in the [attributes](#model-attributes) of a model with `type: 'component'` and accept the following additional parameters:
+コンポーネントフィールドは、コンテンツタイプとコンポーネント構造との間の関係を作り出します。コンポーネントは、モデルの[属性](#model-attributes)で`type: 'component'`と明示的に定義され、以下の追加パラメータを受け入れます:
 
-| Parameter    | Type    | Description                                                                              |
+| パラメータ    | タイプ    | 説明                                                                              |
 | ------------ | ------- | ---------------------------------------------------------------------------------------- |
-| `repeatable` | Boolean | Could be `true` or `false` depending on whether the component is repeatable or not       |
-| `component`  | String  | Define the corresponding component, following this format:<br/>`<category>.<componentName>`  |
+| `repeatable` | Boolean | コンポーネントが繰り返し可能かどうかにより、`true`または`false`になります       |
+| `component`  | String  | 対応するコンポーネントを定義し、この形式に従います:<br/>`<category>.<componentName>`  |
 
 ```json title="./src/api/[apiName]/restaurant/content-types/schema.json"
 
@@ -557,11 +557,11 @@ Component fields create a relation between a content-type and a component struct
 }
 ```
 
-#### Dynamic zones
+#### ダイナミックゾーン
 
-Dynamic zones create a flexible space in which to compose content, based on a mixed list of [components](#components-2).
+ダイナミックゾーンは、[コンポーネント](#components-2)の混在リストに基づいてコンテンツを構成するための柔軟なスペースを作成します。
 
-Dynamic zones are explicitly defined in the [attributes](#model-attributes)  of a model with `type: 'dynamiczone'`. They also accept a `components` array, where each component should be named following this format: `<category>.<componentName>`.
+ダイナミックゾーンは、モデルの[属性](#model-attributes)で `type: 'dynamiczone'`と明示的に定義されています。また、`components`配列を受け入れ、各コンポーネントはこの形式に従って名前付けされるべきです：`<category>.<componentName>`。
 
 ```json title="./src/api/[api-name]/content-types/article/schema.json"
 
@@ -575,15 +575,15 @@ Dynamic zones are explicitly defined in the [attributes](#model-attributes)  of 
 }
 ```
 
-### Model options
+### モデルオプション
 
-The `options` key is used to define specific behaviors and accepts the following parameter:
+`options`キーは特定の動作を定義するために使用され、以下のパラメータを受け入れます：
 
-| Parameter           | Type             | Description                                                                                                                                                                                                                                                                                                        |
+| パラメータ           | タイプ             | 説明                                                                                                                                                                                                                                                                                                        |
 |---------------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `privateAttributes` | Array of strings | Allows treating a set of attributes as private, even if they're not actually defined as attributes in the model. It could be used to remove them from API responses timestamps. <br /><br /> The `privateAttributes` defined in the model are merged with the `privateAttributes` defined in the global Strapi configuration. |
-| `draftAndPublish`   | Boolean          | Enables the draft and publish feature. <br /><br /> Default value: `true` (`false` if the content-type is created from the interactive CLI).                                                                                                                                                                                    |
-| `populateCreatorFields` | Boolean | Populates `createdBy` and `updatedBy` fields in responses returned by the REST API (see [guide](/dev-docs/api/rest/guides/populate-creator-fields) for more details).<br/><br/>Default value: `false`. |
+| `privateAttributes` | 文字列の配列 | モデルの属性として実際に定義されていない一連の属性をプライベートとして扱うことができます。これは、APIのレスポンスからタイムスタンプを削除するために使用できます。<br /><br /> モデルで定義された`privateAttributes`は、グローバルなStrapi設定で定義された`privateAttributes`とマージされます。 |
+| `draftAndPublish`   | ブーリアン          | 下書きと公開の機能を有効にします。<br /><br /> デフォルト値: `true`（コンテンツタイプがインタラクティブなCLIから作成された場合は`false`）。                                                                                                                                                                                    |
+| `populateCreatorFields` | ブーリアン | REST APIによって返されるレスポンスに`createdBy`と`updatedBy`フィールドを埋め込みます（詳細は[ガイド](/dev-docs/api/rest/guides/populate-creator-fields)を参照してください）。<br/><br/>デフォルト値: `false`。 |
 
 ```json title="./src/api/[api-name]/content-types/restaurant/schema.json"
 
@@ -595,23 +595,23 @@ The `options` key is used to define specific behaviors and accepts the following
 }
 ```
 
-## Lifecycle hooks
+## ライフサイクルフック
 
-Lifecycle hooks are functions that get triggered when Strapi queries are called. They are triggered automatically when managing content through the administration panel or when developing custom code using `queries`·
+ライフサイクルフックは、Strapiクエリが呼び出されるときにトリガーされる関数です。これらは、管理パネルを通じてコンテンツを管理したり、`queries`を使用してカスタムコードを開発したりするときに自動的にトリガーされます。
 
-Lifecycle hooks can be customized declaratively or programmatically.
+ライフサイクルフックは、宣言的にまたはプログラム的にカスタマイズすることができます。
 
 :::caution
-Lifecycles hooks are not triggered when using directly the [knex](https://knexjs.org/) library instead of Strapi functions.
+Strapiの関数ではなく[knex](https://knexjs.org/)ライブラリを直接使用すると、ライフサイクルフックはトリガーされません。
 :::
 
-:::strapi Document Service API: lifecycles and middlewares
-The Document Service API triggers various database lifecycle hooks based on which method is called. For a complete reference, see [Document Service API: Lifecycle hooks](/dev-docs/migration/v4-to-v5/breaking-changes/lifecycle-hooks-document-service#table). Bulk actions lifecycles (`createMany`, `updateMany`, `deleteMany`) will never be triggered by a Document Service API method. [Document Service middlewares](/dev-docs/api/document-service/middlewares) can be implemented too.
+:::strapi ドキュメントサービスAPI：ライフサイクルとミドルウェア
+ドキュメントサービスAPIは、呼び出されるメソッドに基づいてさまざまなデータベースライフサイクルフックをトリガーします。完全なリファレンスについては、[ドキュメントサービスAPI：ライフサイクルフック](/dev-docs/migration/v4-to-v5/breaking-changes/lifecycle-hooks-document-service#table)を参照してください。バルクアクションのライフサイクル（`createMany`、`updateMany`、`deleteMany`）は、ドキュメントサービスAPIメソッドによってトリガーされることはありません。[ドキュメントサービスミドルウェア](/dev-docs/api/document-service/middlewares)も実装することができます。
 :::
 
-### Available lifecycle events
+### 利用可能なライフサイクルイベント
 
-The following lifecycle events are available:
+以下のライフサイクルイベントが利用可能です：
 
 - `beforeCreate`
 - `beforeCreateMany`
@@ -632,24 +632,24 @@ The following lifecycle events are available:
 - `beforeFindMany`
 - `afterFindMany`
 
-### Hook `event` object
+### フック `event` オブジェクト
 
-Lifecycle hooks are functions that take an `event` parameter, an object with the following keys:
+ライフサイクルフックは、以下のキーを持つオブジェクトである `event` パラメータを取る関数です：
 
-| Key      | Type              | Description                                                                                                                                                      |
+| キー      | タイプ              | 説明                                                                                                                                                      |
 | -------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `action` | String            | Lifecycle event that has been triggered (see [list](#available-lifecycle-events))                                                                                |
-| `model`  | Array of strings (uid)            | An array of uids of the content-types whose events will be listened to.<br />If this argument is not supplied, events are listened on all content-types. |
-| `params` | Object            | Accepts the following parameters:<ul><li>`data`</li><li>`select`</li><li>`where`</li><li>`orderBy`</li><li>`limit`</li><li>`offset`</li><li>`populate`</li></ul> |
-| `result` | Object            | _Optional, only available with `afterXXX` events_<br /><br />Contains the result of the action.                                                                      |
-| `state`  | Object            | Query state, can be used to share state between `beforeXXX` and `afterXXX` events of a query.                                                               |
-<!-- TODO: `state` has not been implemented yet, ask for more info once done -->
+| `action` | String            | トリガーされたライフサイクルイベント（[リスト](#available-lifecycle-events)を参照）                                                                                |
+| `model`  | 文字列の配列（uid）            | イベントがリッスンされるコンテンツタイプのuidの配列。<br />この引数が指定されていない場合、すべてのコンテンツタイプでイベントがリッスンされます。 |
+| `params` | Object            | 以下のパラメータを受け入れます：<ul><li>`data`</li><li>`select`</li><li>`where`</li><li>`orderBy`</li><li>`limit`</li><li>`offset`</li><li>`populate`</li></ul> |
+| `result` | Object            | _オプション、`afterXXX`イベントでのみ利用可能_<br /><br />アクションの結果を含みます。                                                                      |
+| `state`  | Object            | クエリの状態で、`beforeXXX`と`afterXXX`のクエリイベントの間で状態を共有するために使用できます。                                                               |
+<!-- TODO: `state`はまだ実装されていません、詳細が分かり次第お問い合わせください -->
 
-### Declarative and programmatic usage
+### 宣言的およびプログラム的な使用法
 
-To configure a content-type lifecycle hook, create a `lifecycles.js` file in the `./src/api/[api-name]/content-types/[content-type-name]/` folder.
+コンテンツタイプのライフサイクルフックを設定するには、`./src/api/[api-name]/content-types/[content-type-name]/`フォルダに`lifecycles.js`ファイルを作成します。
 
-Each event listener is called sequentially. They can be synchronous or asynchronous.
+各イベントリスナーは順番に呼び出されます。それらは同期的または非同期的にすることができます。
 
 <Tabs groupdId="js-ts">
 
@@ -661,14 +661,14 @@ module.exports = {
   beforeCreate(event) {
     const { data, where, select, populate } = event.params;
 
-    // let's do a 20% discount everytime
+    // 毎回20%の割引をしましょう
     event.params.data.price = event.params.data.price * 0.8;
   },
 
   afterCreate(event) {
     const { result, params } = event;
 
-    // do something to the result;
+    // 結果に何かを行う;
   },
 };
 ```
@@ -683,14 +683,14 @@ export default {
   beforeCreate(event) {
     const { data, where, select, populate } = event.params;
 
-    // let's do a 20% discount everytime
+    // 毎回20%の割引をしましょう
     event.params.data.price = event.params.data.price * 0.8;
   },
 
   afterCreate(event) {
     const { result, params } = event;
 
-    // do something to the result;
+    // 結果に何かを行う;
   },
 };
 ```
@@ -698,14 +698,14 @@ export default {
 </TabItem>
 </Tabs>
 
-Using the database layer API, it's also possible to register a subscriber and listen to events programmatically:
+データベースレイヤーAPIを使用すると、サブスクライバーを登録し、プログラム的にイベントをリッスンすることも可能です：
 
 ```js title="./src/index.js"
 module.exports = {
   async bootstrap({ strapi }) {
-// registering a subscriber
+// サブスクライバーを登録する
     strapi.db.lifecycles.subscribe({
-      models: [], // optional;
+      models: [], // 任意;
 
       beforeCreate(event) {
         const { data, where, select, populate } = event.params;
@@ -719,14 +719,14 @@ module.exports = {
 
         const { result, params } = event;
 
-        // do something to the result
+        // 結果に何かを行う
       },
     });
 
-    // generic subscribe for generic handling
+    // 一般的な処理のための一般的なサブスクライブ
     strapi.db.lifecycles.subscribe((event) => {
       if (event.action === 'beforeCreate') {
-        // do something
+        // 何かを行う
       }
     });
   }

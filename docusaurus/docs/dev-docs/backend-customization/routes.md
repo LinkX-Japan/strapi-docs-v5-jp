@@ -1,69 +1,78 @@
----
-title: Routes
-description: Strapi routes handle requests to your content and are auto-generated for your content-types. Routes can be customized according to your needs.
-displayed_sidebar: devDocsSidebar
-tags:
-- backend customization
-- backend server
-- controllers
-- core routers
-- custom routers
-- ctx
-- middlewares
-- policies
-- public routes
-- REST API 
-- routes
+Here's the translated content maintaining the Markdown format:
+
 ---
 
-# Routes
+title: Routes  
+description: Strapiのルートは、コンテンツへのリクエストを処理し、コンテンツタイプに対して自動生成されます。ルートはあなたのニーズに合わせてカスタマイズすることができます。  
+displayed_sidebar: devDocsSidebar  
+tags:  
+- バックエンドのカスタマイズ  
+- バックエンドサーバー  
+- コントローラー  
+- コアルーター  
+- カスタムルーター  
+- ctx  
+- ミドルウェア  
+- ポリシー  
+- パブリックルート  
+- REST API  
+- ルート  
+---
 
-Requests sent to Strapi on any URL are handled by routes. By default, Strapi generates routes for all the content-types (see [REST API documentation](/dev-docs/api/rest)). Routes can be [added](#implementation) and configured:
+# ルート
 
-- with [policies](#policies), which are a way to block access to a route,
-- and with [middlewares](#middlewares), which are a way to control and change the request flow and the request itself.
+Strapiに送られる任意のURLのリクエストは、ルートによって処理されます。デフォルトでは、Strapiはすべてのコンテンツタイプに対してルートを生成します（[REST API documentation](/dev-docs/api/rest)を参照）。ルートは[追加](#実装)や設定が可能です。
 
-Once a route exists, reaching it executes some code handled by a controller (see [controllers documentation](/dev-docs/backend-customization/controllers)). To view all existing routes and their hierarchal order, you can run `yarn strapi routes:list` (see [CLI reference](/dev-docs/cli)).
+- [ポリシー](#ポリシー)を使用して、ルートへのアクセスをブロックすることができます。  
+- [ミドルウェア](#ミドルウェア)を使用して、リクエストフローとリクエスト自体を制御し、変更することができます。
+
+ルートが一度存在すると、それに到達するとコントローラーによって処理されるコードが実行されます（[コントローラーのドキュメンテーション](/dev-docs/backend-customization/controllers)を参照）。すべての既存のルートとその階層順序を表示するには、`yarn strapi routes:list`を実行します（[CLI reference](/dev-docs/cli)を参照）。
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-routes.png" alt="Simplified Strapi backend diagram with routes highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with routes highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-routes.png" alt="ルートが強調表示されたStrapiバックエンドの簡略化されたダイアグラム" />
+  <em><figcaption style={{fontSize: '12px'}}>このダイアグラムは、リクエストがStrapiのバックエンドを通過する様子を簡略化したもので、ルートが強調表示されています。バックエンドカスタマイズの導入ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブなダイアグラム</a>が含まれています。</figcaption></em>
 </figure>
 
-## Implementation
+## 実装
 
-Implementing a new route consists in defining it in a router file within the `./src/api/[apiName]/routes` folder (see [project structure](/dev-docs/project-structure)).
+新しいルートの実装は、`./src/api/[apiName]/routes`フォルダ内のルーターファイルにそれを定義することで行います（[プロジェクト構造](/dev-docs/project-structure)を参照）。
 
-There are 2 different router file structures, depending on the use case:
+使用ケースにより、2つの異なるルーターファイル構造があります：
 
-- configuring [core routers](#configuring-core-routers)
-- or creating [custom routers](#creating-custom-routers).
+- [ルート](#ルート)
+  - [実装](#実装)
+    - [コアルーターの設定](#コアルーターの設定)
+    - [カスタムルータの作成](#カスタムルータの作成)
+  - [設定](#設定)
+    - [ポリシー](#ポリシー)
+    - [ミドルウェア](#ミドルウェア)
+    - [パブリックルート](#パブリックルート)
 
-### Configuring core routers
+### コアルーターの設定
 
-Core routers (i.e. `find`, `findOne`, `create`, `update`, and `delete`) correspond to [default routes](/dev-docs/api/rest#endpoints) automatically created by Strapi when a new [content-type](/dev-docs/backend-customization/models#model-creation) is created.
+コアルーター（すなわち、`find`、`findOne`、`create`、`update`、および`delete`）は、新しい[コンテンツタイプ](/dev-docs/backend-customization/models#model-creation)が作成されたときにStrapiによって自動的に作成される[デフォルトのルート](/dev-docs/api/rest#endpoints)に対応します。
 
-Strapi provides a `createCoreRouter` factory function that automatically generates the core routers and allows:
+Strapiは`createCoreRouter`ファクトリ関数を提供しており、これによりコアルーターが自動的に生成され、次のことが可能になります：
 
-- passing in configuration options to each router
-- and disabling some core routers to [create custom ones](#creating-custom-routers).
+- 各ルーターに設定オプションを渡す  
+- 一部のコアルーターを無効にして[カスタムルーターを作成する](#カスタムルータの作成)。
 
-A core router file is a JavaScript file exporting the result of a call to `createCoreRouter` with the following parameters:
+コアルーターファイルは、以下のパラメーターを使用して`createCoreRouter`の呼び出し結果をエクスポートするJavaScriptファイルです：
 
-| Parameter | Description                                                                                  | Type     |
-| ----------| -------------------------------------------------------------------------------------------- | -------- |
-| `prefix`  | Allows passing in a custom prefix to add to all routers for this model (e.g. `/test`)        | `String` |
-| `only`    | Core routes that will only be loaded<br /><br/>Anything not in this array is ignored.        | `Array` | -->
-| `except`  | Core routes that should not be loaded<br/><br />This is functionally the opposite of the `only` parameter. | `Array` |
-| `config`  | Configuration to handle [policies](#policies), [middlewares](#middlewares) and [public availability](#public-routes) for the route | `Object` |
+| パラメータ  | 説明                                                                                   | タイプ      |  
+| ---------- | --------------------------------------------------------------------------------------- | ---------- |  
+| `prefix`   | このモデルのすべてのルータに追加するカスタムプレフィックスを指定することができます（例：`/test`）| `String`   |  
+| `only`     | 読み込むだけのコアルート<br /><br/>この配列にないものは無視されます。                 | `Array`    |  
+| `except`   | 読み込まれるべきでないコアルート<br/><br />これは機能的に`only`パラメータの逆です。   | `Array`    |  
+| `config`   | ルートの[policies](#policies)、[middlewares](#middlewares)、および[public availability](#public-routes)を処理する設定 | `Object`   |  
 
-<br/>
+<br />
 
 <Tabs groupId="js-ts">
 
 <TabItem value="js" label="JavaScript">
 
-```js title="./src/api/[apiName]/routes/[routerName].js (e.g './src/api/restaurant/routes/restaurant.js')"
+```js title="./src/api/[apiName]/routes/[routerName].js (例 './src/api/restaurant/routes/restaurant.js')"
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
@@ -89,7 +98,7 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 
 <TabItem value="ts" label="TypeScript">
 
-```js title="./src/api/[apiName]/routes/[routerName].ts (e.g './src/api/restaurant/routes/restaurant.ts')"
+```js title="./src/api/[apiName]/routes/[routerName].ts (例 './src/api/restaurant/routes/restaurant.ts')"
 
 import { factories } from '@strapi/strapi'; 
 
@@ -116,7 +125,7 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
 
 <br />
 
-Generic implementation example:
+一般的な実装例：
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -160,32 +169,34 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
 </TabItem>
 </Tabs>
 
-This only allows a `GET` request on the `/restaurants` path from the core `find` [controller](/dev-docs/backend-customization/controllers) without authentication.
+これにより、認証なしでコアの `find` [controller](/dev-docs/backend-customization/controllers)から `/restaurants` パスに `GET` リクエストを許可します。
 
-### Creating custom routers
+### カスタムルータの作成
 
-Creating custom routers consists in creating a file that exports an array of objects, each object being a route with the following parameters:
+カスタムルータを作成するとは、各オブジェクトが以下のパラメータを持つルートであるオブジェクトの配列をエクスポートするファイルを作成することです：
 
-| Parameter                  | Description                                                                      | Type     |
+| パラメータ                  | 説明                                                                      | タイプ     |
 | -------------------------- | -------------------------------------------------------------------------------- | -------- |
-| `method`                   | Method associated to the route (i.e. `GET`, `POST`, `PUT`, `DELETE` or `PATCH`)  | `String` |
-| `path`                     | Path to reach, starting with a forward-leading slash (e.g. `/articles`)| `String` |
-| `handler`                  | Function to execute when the route is reached.<br/>Should follow this syntax: `<controllerName>.<actionName>` | `String` |
-| `config`<br /><br />_Optional_ | Configuration to handle [policies](#policies), [middlewares](#middlewares) and [public availability](#public-routes) for the route<br/><br/>           | `Object` |
+| `method`                   | ルートに関連するメソッド（例：`GET`、`POST`、`PUT`、`DELETE`、`PATCH`）  | `String` |
+| `path`                     | フォワードリーディングスラッシュで始まる到達するパス（例：`/articles`）| `String` |
+| `handler`                  | ルートに到達したときに実行する関数。<br/>この構文に従うべきです：`<controllerName>.<actionName>` | `String` |
+| `config`<br /><br />_オプション_ | ルートの[policies](#policies)、[middlewares](#middlewares)、[public availability](#public-routes)を処理する設定<br/><br/>           | `Object` |
 
-<br/>
+<br />
 
-Dynamic routes can be created using parameters and regular expressions. These parameters will be exposed in the `ctx.params` object. For more details, please refer to the [PathToRegex](https://github.com/pillarjs/path-to-regexp) documentation.
+動的な
+
+ルートはパラメータと正規表現を使用して作成することができます。これらのパラメータは`ctx.params`オブジェクトで公開されます。詳細については、[PathToRegex](https://github.com/pillarjs/path-to-regexp)のドキュメンテーションを参照してください。
 
 :::caution
-Routes files are loaded in alphabetical order. To load custom routes before core routes, make sure to name custom routes appropriately (e.g. `01-custom-routes.js` and `02-core-routes.js`).
+ルートファイルはアルファベット順にロードされます。カスタムルートをコアルートの前にロードするには、カスタムルートの名前を適切に設定してください（例：`01-custom-routes.js`および`02-core-routes.js`）。
 :::
 
 <details>
 
-<summary>Example of a custom router using URL parameters and regular expressions for routes</summary>
+<summary>URLパラメータと正規表現を使用したカスタムルーターの例</summary>
 
-In the following example, the custom routes file name is prefixed with `01-` to make sure the route is reached before the core routes.
+次の例では、カスタムルートファイルの名前に`01-`がプレフィックスとして付けられています。これにより、ルートはコアルートの前に到達します。
 
 <Tabs groupId="js-ts">
 
@@ -195,14 +206,14 @@ In the following example, the custom routes file name is prefixed with `01-` to 
 
 module.exports = {
   routes: [
-    { // Path defined with an URL parameter
+    { // URLパラメータで定義されたパス
       method: 'POST',
       path: '/restaurants/:id/review', 
       handler: 'restaurant.review',
     },
-    { // Path defined with a regular expression
+    { // 正規表現で定義されたパス
       method: 'GET',
-      path: '/restaurants/:category([a-z]+)', // Only match when the URL parameter is composed of lowercase letters
+      path: '/restaurants/:category([a-z]+)', // URLパラメータが小文字の文字で構成されている場合のみマッチします
       handler: 'restaurant.findByCategory',
     }
   ]
@@ -217,14 +228,14 @@ module.exports = {
 
 export default {
   routes: [
-    { // Path defined with a URL parameter
+    { // URLパラメータで定義されたパス
       method: 'GET',
       path: '/restaurants/:category/:id',
       handler: 'Restaurant.findOneByCategory',
     },
-    { // Path defined with a regular expression
+    { // 正規表現で定義されたパス
       method: 'GET',
-      path: '/restaurants/:region(\\d{2}|\\d{3})/:id', // Only match when the first parameter contains 2 or 3 digits.
+      path: '/restaurants/:region(\\d{2}|\\d{3})/:id', // 最初のパラメータが2または3桁の数字を含んでいる場合のみマッチします。
       handler: 'Restaurant.findOneByRegion',
     }
   ]
@@ -236,20 +247,20 @@ export default {
 
 </details>
 
-## Configuration
+## 設定
 
-Both [core routers](#configuring-core-routers) and [custom routers](#creating-custom-routers) have the same configuration options. The routes configuration is defined in a `config` object that can be used to handle [policies](#policies) and [middlewares](#middlewares) or to [make the route public](#public-routes).
+[コアルータ](#configuring-core-routers)と[カスタムルータ](#creating-custom-routers)の両方が同じ設定オプションを持っています。ルートの設定は、[ポリシー](#policies)と[ミドルウェア](#middlewares)を処理したり、[ルートを公開する](#public-routes)ために使用できる`config`オブジェクトで定義されます。
 
-### Policies
+### ポリシー
 
-[Policies](/dev-docs/backend-customization/policies) can be added to a route configuration:
+[ポリシー](/dev-docs/backend-customization/policies)はルート設定に追加できます：
 
-- by pointing to a policy registered in `./src/policies`, with or without passing a custom configuration
-- or by declaring the policy implementation directly, as a function that takes `policyContext` to extend [Koa's context](https://koajs.com/#context) (`ctx`) and the `strapi` instance as arguments (see [policies documentation](/dev-docs/backend-customization/routes))
+- `./src/policies`に登録されたポリシーを指定することで、カスタム設定を渡すことなく追加する  
+- または、ポリシーの実装を直接宣言し、[Koaのコンテキスト](https://koajs.com/#context) (`ctx`)と`strapi`インスタンスを引数として取る関数として追加します（[ポリシーのドキュメンテーション](/dev-docs/backend-customization/routes)を参照）
 
 <Tabs groupId="core-vs-custom-router">
 
-<TabItem value="core-router" label="Core router policy">
+<TabItem value="core-router" label="コアルータポリシー">
 
 <Tabs  groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -262,13 +273,13 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
       policies: [
-        // point to a registered policy
+        // 登録されたポリシーを指定
         'policy-name',
 
-        // point to a registered policy with some custom configuration
+        // カスタム設定を渡して登録されたポリシーを指定
         { name: 'policy-name', config: {} }, 
         
-        // pass a policy implementation directly
+        // ポリシーの実装を直接渡す
         (policyContext, config, { strapi }) => {
           return true;
         },
@@ -290,13 +301,13 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
       policies: [
-        // point to a registered policy
+        // 登録されたポリシーを指定
         'policy-name',
 
-        // point to a registered policy with some custom configuration
+        // カスタム設定を渡して登録されたポリシーを指定
         { name: 'policy-name', config: {} }, 
         
-        // pass a policy implementation directly
+        // ポリシーの実装を直接渡す
         (policyContext, config, { strapi }) => {
           return true;
         },
@@ -311,7 +322,7 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
 
 </TabItem>
 
-<TabItem value="custom-router" label="Custom router policy">
+<TabItem value="custom-router" label="カスタムルータポリシー">
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -326,13 +337,13 @@ module.exports = {
       handler: 'api::api-name.controllerName.functionName', // or 'plugin::plugin-name.controllerName.functionName' for a plugin-specific controller
       config: {
         policies: [
-          // point to a registered policy
+          // 登録されたポリシーを指定
           'policy-name',
 
-          // point to a registered policy with some custom configuration
-          { name: 'policy-name', config: {} }, 
+          // カスタム設定を渡して登録されたポリシーを指定
+          { name: 'policy-name', config: {} },
 
-          // pass a policy implementation directly
+// ポリシーの実装を直接渡す
           (policyContext, config, { strapi }) => {
             return true;
           },
@@ -341,6 +352,7 @@ module.exports = {
     },
   ],
 };
+
 ```
 
 </TabItem>
@@ -354,16 +366,16 @@ export default {
     {
       method: 'GET',
       path: '/articles/customRoute',
-      handler: 'api::api-name.controllerName.functionName', // or 'plugin::plugin-name.controllerName.functionName' for a plugin-specific controller
+      handler: 'api::api-name.controllerName.functionName', // または 'plugin::plugin-name.controllerName.functionName' プラグイン固有のコントローラーの場合
       config: {
         policies: [
-          // point to a registered policy
+          // 登録済みのポリシーを指定
           'policy-name',
 
-          // point to a registered policy with some custom configuration
+          // カスタム設定を持つ登録済みのポリシーを指定
           { name: 'policy-name', config: {} }, 
 
-          // pass a policy implementation directly
+          // ポリシーの実装を直接渡す
           (policyContext, config, { strapi }) => {
             return true;
           },
@@ -381,12 +393,12 @@ export default {
 
 </Tabs>
 
-### Middlewares
+### ミドルウェア
 
-[Middlewares](/dev-docs/backend-customization/middlewares) can be added to a route configuration:
+[ミドルウェア](/dev-docs/backend-customization/middlewares)は、ルート設定に追加することができます：
 
-- by pointing to a middleware registered in `./src/middlewares`, with or without passing a custom configuration
-- or by declaring the middleware implementation directly, as a function that takes [Koa's context](https://koajs.com/#context) (`ctx`) and the `strapi` instance as arguments:
+- `./src/middlewares`に登録されているミドルウェアを指定することで、カスタム設定を渡すことなく追加することができます。  
+- または、[Koaのコンテキスト](https://koajs.com/#context)（`ctx`）と`strapi`インスタンスを引数に取る関数としてミドルウェアの実装を直接宣言します。
 
 <Tabs groupId="core-vs-custom-router">
 
@@ -404,13 +416,13 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
       middlewares: [
-        // point to a registered middleware
+        // 登録済みのミドルウェアを指定
         'middleware-name', 
 
-        // point to a registered middleware with some custom configuration
+        // カスタム設定を持つ登録済みのミドルウェアを指定
         { name: 'middleware-name', config: {} }, 
 
-        // pass a middleware implementation directly
+        // ミドルウェアの実装を直接渡す
         (ctx, next) => {
           return next();
         },
@@ -432,14 +444,16 @@ export default factories.createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
       middlewares: [
-        // point to a registered middleware
+        // 登録済みのミドルウェアを指定
         'middleware-name', 
 
-        // point to a registered middleware with some custom configuration
+        // カスタム設定を持つ登録済みのミドルウェアを指定
         { name: 'middleware-name', config: {} }, 
 
-        // pass a middleware implementation directly
-        (ctx, next) => {
+        // ミドルウェアの実装を直接渡す
+       
+
+ (ctx, next) => {
           return next();
         },
       ]
@@ -468,6 +482,7 @@ module.exports = {
       path: '/articles/customRoute',
       handler: 'api::api-name.controllerName.functionName', // or 'plugin::plugin-name.controllerName.functionName' for a plugin-specific controller
       config: {
+        auth: false,
         middlewares: [
           // point to a registered middleware
           'middleware-name', 
@@ -499,6 +514,7 @@ export default  {
       path: '/articles/customRoute',
       handler: 'api::api-name.controllerName.functionName', // or 'plugin::plugin-name.controllerName.functionName' for a plugin-specific controller
       config: {
+        auth: false,
         middlewares: [
           // point to a registered middleware
           'middleware-name', 
@@ -524,15 +540,15 @@ export default  {
 
 </Tabs>
 
-### Public routes
+### パブリックルート
 
-By default, routes are protected by Strapi's authentication system, which is based on [API tokens](/dev-docs/configurations/api-tokens) or on the use of the [Users & Permissions plugin](/user-docs/plugins/strapi-plugins#users-permissions-plugin).
+デフォルトでは、ルートはStrapiの認証システムによって保護されています。これは[APIトークン](/dev-docs/configurations/api-tokens)に基づいているか、[ユーザー＆パーミッションプラグイン](/user-docs/plugins/strapi-plugins#users-permissions-plugin)の使用に基づいています。
 
-In some scenarios, it can be useful to have a route publicly available and control the access outside of the normal Strapi authentication system. This can be achieved by setting the `auth` configuration parameter of a route to `false`:
+一部のシナリオでは、ルートを公開し、通常のStrapi認証システムの外部でアクセスを制御することが役立ちます。これは、ルートの`auth`設定パラメータを`false`に設定することで達成できます：
 
 <Tabs groupId="core-vs-custom-router">
 
-<TabItem value="core-router" label="Core router with a public route">
+<TabItem value="core-router" label="パブリックルート付きコアルータ">
 
 <Tabs groupId="js-ts">
 
@@ -559,7 +575,7 @@ module.exports = createCoreRouter('api::restaurant.restaurant', {
 
 import { factories } from '@strapi/strapi';
 
-export default  factories.createCoreRouter('api::restaurant.restaurant', {
+export default factories.createCoreRouter('api::restaurant.restaurant', {
   config: {
     find: {
       auth: false
@@ -573,7 +589,7 @@ export default  factories.createCoreRouter('api::restaurant.restaurant', {
 
 </TabItem>
 
-<TabItem value="custom-router" label="Custom router with a public route">
+<TabItem value="custom-router" label="パブリックルート付きカスタムルータ">
 
 <Tabs groupId="js-ts">
 
@@ -589,6 +605,18 @@ module.exports = {
       handler: 'api::api-name.controllerName.functionName', // or 'plugin::plugin-name.controllerName.functionName' for a plugin-specific controller
       config: {
         auth: false,
+        middlewares: [
+          // point to a registered middleware
+          'middleware-name', 
+
+          // point to a registered middleware with some custom configuration
+          { name: 'middleware-name', config: {} }, 
+
+          // pass a middleware implementation directly
+          (ctx, next) => {
+            return next();
+          },
+        ],
       },
     },
   ],
@@ -609,6 +637,18 @@ export default  {
       handler: 'api::api-name.controllerName.functionName', // or 'plugin::plugin-name.controllerName.functionName' for a plugin-specific controller
       config: {
         auth: false,
+        middlewares: [
+          // point to a registered middleware
+          'middleware-name', 
+
+          // point to a registered middleware with some custom configuration
+          { name: 'middleware-name', config: {} }, 
+
+          // pass a middleware implementation directly
+          (ctx, next) => {
+            return next();
+          },
+        ],
       },
     },
   ],
@@ -621,3 +661,4 @@ export default  {
 </TabItem>
 
 </Tabs>
+

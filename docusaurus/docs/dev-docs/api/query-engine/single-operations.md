@@ -1,13 +1,13 @@
 ---
 unlisted: true
-title: Single Operations
-description: Use Strapi's Query Engine API to perform operations on single entries.
+title: 単一のオペレーション
+description: StrapiのQuery Engine APIを使用して、単一のエントリに対する操作を行います。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
 - Content API
 - create()
-- deleting content
+- コンテンツの削除
 - findOne()
 - findMany()
 - findWithCount()
@@ -18,30 +18,30 @@ tags:
 import ManagingRelations from '/docs/snippets/managing-relations.md'
 import ConsiderDocumentService from '/docs/snippets/consider-document-service.md'
 
-# Single Operations with the Query Engine API
+# Query Engine APIによる単一のオペレーション
 
 <ConsiderDocumentService />
 
 ## findOne()
 
 :::note
- Only use the Query Engine's `findOne()` method if the [Document Service's `findOne()`](/dev-docs/api/document-service#findone) method can't cover your use case.
+ [Document Serviceの`findOne()`](/dev-docs/api/document-service#findone) メソッドがあなたのユースケースをカバーできない場合のみ、Query Engineの`findOne()`メソッドを使用してください。
 :::
-Finds the first entry matching the parameters.
+パラメータに一致する最初のエントリを見つけます。
 
-Syntax: `findOne(parameters) ⇒ Entry`
+構文: `findOne(parameters) ⇒ Entry`
 
-### Parameters
+### パラメータ
 
-| Parameter  | Type   | Description   |
+| パラメータ  | タイプ   | 説明   |
 | ---------- | -------------- | --------- |
-| `select`   | String, or Array of strings | [Attributes](/dev-docs/backend-customization/models#model-attributes) to return |
-| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | [Filters](/dev-docs/api/query-engine/filtering/) to use   |
-| `offset`   | Integer   | Number of entries to skip   |
-| `orderBy`  | [`OrderByParameter`](/dev-docs/api/query-engine/order-pagination/) | [Order](/dev-docs/api/query-engine/order-pagination/) definition |
-| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/) | Relations to [populate](/dev-docs/api/query-engine/populating/) |
+| `select`   | 文字列、または文字列の配列 | 返す[属性](/dev-docs/backend-customization/models#model-attributes) |
+| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/) | 使用する[フィルタ](/dev-docs/api/query-engine/filtering/)   |
+| `offset`   | 整数   | スキップするエントリの数   |
+| `orderBy`  | [`OrderByParameter`](/dev-docs/api/query-engine/order-pagination/) | [順序](/dev-docs/api/query-engine/order-pagination/)の定義 |
+| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/) | [populate](/dev-docs/api/query-engine/populating/)する関係 |
 
-### Example
+### 例
 
 ```js
 const entry = await strapi.db.query('api::blog.article').findOne({
@@ -54,25 +54,25 @@ const entry = await strapi.db.query('api::blog.article').findOne({
 ## findMany()
 
 :::note
- Only use the Query Engine's `findMany()` method if the [Document Service `findMany()`](/dev-docs/api/document-service#findmany) method can't cover your use case.
+ [Document Serviceの`findMany()`](/dev-docs/api/document-service#findmany) メソッドがあなたのユースケースをカバーできない場合のみ、Query Engineの`findMany()`メソッドを使用してください。
 :::
 
-Finds entries matching the parameters.
+パラメータに一致するエントリを見つけます。
 
-Syntax: `findMany(parameters) ⇒ Entry[]`
+構文: `findMany(parameters) ⇒ Entry[]`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                           | Description                                |
+| パラメータ | タイプ                           | 説明                                |
 | --------- | ------------------------------ | ------------------------------------------ |
-| `select`   | String, or Array of strings | [Attributes](/dev-docs/backend-customization/models#model-attributes) to return |
-| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)  | [Filters](/dev-docs/api/query-engine/filtering/) to use |
-| `limit`   | Integer  | Number of entries to return  |
-| `offset`   | Integer  | Number of entries to skip |
-| `orderBy`  | [`OrderByParameter`](/dev-docs/api/query-engine/order-pagination/) | [Order](/dev-docs/api/query-engine/order-pagination/) definition |
-| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | Relations to [populate](/dev-docs/api/query-engine/populating/) |
+| `select`   | 文字列、または文字列の配列 | 返す[属性](/dev-docs/backend-customization/models#model-attributes) |
+| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)  | 使用する[フィルタ](/dev-docs/api/query-engine/filtering/) |
+| `limit`   | 整数  | 返すエントリの数  |
+| `offset`   | 整数  | スキップするエントリの数 |
+| `orderBy`  | [`OrderByParameter`](/dev-docs/api/query-engine/order-pagination/) | [順序](/dev-docs/api/query-engine/order-pagination/)の定義 |
+| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | [populate](/dev-docs/api/query-engine/populating/)する関係 |
 
-### Example
+### 例
 
 ```js
 const entries = await strapi.db.query('api::blog.article').findMany({
@@ -85,22 +85,22 @@ const entries = await strapi.db.query('api::blog.article').findMany({
 
 ## findWithCount()
 
-Finds and counts entries matching the parameters.
+パラメータに一致するエントリを検索し、その数を数えます。
 
-Syntax: `findWithCount(parameters) => [Entry[], number]`
+構文: `findWithCount(parameters) => [Entry[], number]`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                           | Description                                |
+| パラメータ | タイプ                           | 説明                                |
 | --------- | ------------------------------ | ------------------------------------------ |
-| `select`   | String, or Array of strings | [Attributes](/dev-docs/backend-customization/models#model-attributes) to return |
-| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)          | [Filters](/dev-docs/api/query-engine/filtering/) to use |
-| `limit`     | Integer    | Number of entries to return    |
-| `offset`   | Integer  | Number of entries to skip  |
-| `orderBy`  | [`OrderByParameter`](/dev-docs/api/query-engine/order-pagination/) | [Order](/dev-docs/api/query-engine/order-pagination/) definition |
-| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | Relations to [populate](/dev-docs/api/query-engine/populating/) |
+| `select`   | 文字列、または文字列の配列 | 返すべき[属性](/dev-docs/backend-customization/models#model-attributes) |
+| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)          | 使用する[フィルタ](/dev-docs/api/query-engine/filtering/) |
+| `limit`     | 整数    | 返すエントリの数    |
+| `offset`   | 整数  | スキップするエントリの数  |
+| `orderBy`  | [`OrderByParameter`](/dev-docs/api/query-engine/order-pagination/) | [順序](/dev-docs/api/query-engine/order-pagination/)定義 |
+| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | [populate](/dev-docs/api/query-engine/populating/)する関連 |
 
-### Example
+### 例
 
 ```js
 const [entries, count] = await strapi.db.query('api::blog.article').findWithCount({
@@ -114,22 +114,22 @@ const [entries, count] = await strapi.db.query('api::blog.article').findWithCoun
 ## create()
 
 :::note
- Only use the Query Engine's `create()` method if the [Document Service `create()` method](/dev-docs/api/document-service#create) can't cover your use case.
+[Document Serviceの `create()` メソッド](/dev-docs/api/document-service#create)でカバーできない場合にのみ、Query Engineの `create()` メソッドを使用してください。
 :::
 
-Creates one entry and returns it.
+一つのエントリを作成し、それを返します。
 
-Syntax: `create(parameters) => Entry`
+構文: `create(parameters) => Entry`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                           | Description                                |
+| パラメータ | タイプ                           | 説明                                |
 | --------- | ------------------------------ | ------------------------------------------ |
-| `select`   | String, or Array of strings | [Attributes](/dev-docs/backend-customization/models#model-attributes) to return |
-| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)  | Relations to [populate](/dev-docs/api/query-engine/populating/) |
-| `data`  | Object   | Input data  |
+| `select`   | 文字列、または文字列の配列 | 返すべき[属性](/dev-docs/backend-customization/models#model-attributes) |
+| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)  | [populate](/dev-docs/api/query-engine/populating/)する関連 |
+| `data`  | オブジェクト   | 入力データ  |
 
-### Example
+### 例
 
 ```js
 const entry = await strapi.db.query('api::blog.article').create({
@@ -144,23 +144,23 @@ const entry = await strapi.db.query('api::blog.article').create({
 ## update()
 
 :::note
- Only use the Query Engine's `update()` method if the [Document Service `update()`](/dev-docs/api/document-service#update) method can't cover your use case.
+[Document Serviceの `update()` メソッド](/dev-docs/api/document-service#update)でカバーできない場合にのみ、Query Engineの `update()` メソッドを使用してください。
 :::
 
-Updates one entry and returns it.
+一つのエントリを更新し、それを返します。
 
-Syntax: `update(parameters) => Entry`
+構文: `update(parameters) => Entry`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                           | Description                                |
+| パラメータ | タイプ                           | 説明                                |
 | --------- | ------------------------------ | ------------------------------------------ |
-| `select`   | String, or Array of strings | [Attributes](/dev-docs/backend-customization/models#model-attributes) to return |
-| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | Relations to [populate](/dev-docs/api/query-engine/populating/)
-| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)          | [Filters](/dev-docs/api/query-engine/filtering/) to use  |
-| `data`  | Object     | Input data   |
+| `select`   | String, または文字列の配列 | 返すべき[属性](/dev-docs/backend-customization/models#model-attributes) |
+| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | [populate](/dev-docs/api/query-engine/populating/)する関係 |
+| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)          | 使用する[フィルター](/dev-docs/api/query-engine/filtering/)  |
+| `data`  | オブジェクト     | 入力データ   |
 
-### Example
+### 例
 
 ```js
 const entry = await strapi.db.query('api::blog.article').update({
@@ -176,22 +176,22 @@ const entry = await strapi.db.query('api::blog.article').update({
 ## delete()
 
 :::note
- Only use the Query Engine's `delete()` method if the [Document Service `delete()`](/dev-docs/api/document-service#delete) method can't cover your use case.
+ [Document Service `delete()`](/dev-docs/api/document-service#delete) メソッドがあなたのユースケースをカバーできない場合にのみ、Query Engineの`delete()`メソッドを使用してください。
 :::
 
-Deletes one entry and returns it.
+1つのエントリを削除し、それを返します。
 
-Syntax: `delete(parameters) => Entry`
+構文: `delete(parameters) => Entry`
 
-### Parameters
+### パラメータ
 
-| Parameter | Type                           | Description                                |
+| パラメータ | タイプ                           | 説明                                |
 | --------- | ------------------------------ | ------------------------------------------ |
-| `select`   | String, or Array of strings | [Attributes](/dev-docs/backend-customization/models#model-attributes) to return |
-| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | Relations to [populate](/dev-docs/api/query-engine/populating/)
-| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)          | [Filters](/dev-docs/api/query-engine/filtering/) to use    |
+| `select`   | String, または文字列の配列 | 返すべき[属性](/dev-docs/backend-customization/models#model-attributes) |
+| `populate` | [`PopulateParameter`](/dev-docs/api/query-engine/populating/)      | [populate](/dev-docs/api/query-engine/populating/)する関係 |
+| `where`    | [`WhereParameter`](/dev-docs/api/query-engine/filtering/)          | 使用する[フィルター](/dev-docs/api/query-engine/filtering/)  |
 
-### Example
+### 例
 
 ```js
 const entry = await strapi.db.query('api::blog.article').delete({

@@ -1,28 +1,28 @@
 ---
-title: Admin panel bundlers
-description: Learn more about configuring Vite and webpack with Strapi 5.
-sidebar_label: Bundlers
+title: 管理パネルバンドラー
+description: ViteとwebpackのStrapi 5での設定方法について学びましょう。
+sidebar_label: バンドラー
 toc_max_heading_level: 4
 tags:
 - admin panel 
-- admin panel customization
+- 管理パネルカスタマイズ
 - webpack
 - Vite
 ---
 
 import FeedbackCallout from '/docs/snippets/backend-customization-feedback-cta.md'
 
-Strapi's admin panel is a React-based single-page application that encapsulates all the features and installed plugins of a Strapi application. 2 different bundlers can be used with your Strapi 5 application, [Vite](#vite) (the default one) and [webpack](#webpack). Both bundlers can be configured to suit your needs.
+Strapiの管理パネルは、Strapiアプリケーションのすべての機能とインストールされたプラグインを統合する、Reactベースのシングルページアプリケーションです。Strapi 5アプリケーションでは、2つの異なるバンドラーが使用可能で、デフォルトは[Vite](#vite)ですが、[webpack](#webpack)も利用できます。どちらのバンドラーも、ニーズに合わせて設定可能です。
 
 :::info
-For simplification, the following documentation mentions the `strapi develop` command, but in practice you will probably use its alias by running either `yarn develop` or `npm run develop` depending on your package manager of choice.
+簡単のため、このドキュメンテーションでは`strapi develop`コマンドを使用していますが、実際には使用するパッケージマネージャに応じて、`yarn develop`または`npm run develop`コマンドを実行することが多いでしょう。
 :::
 
 ## Vite
 
-In Strapi 5, [Vite](https://vitejs.dev/) is the default bundler that Strapi uses to build the admin panel. Vite will therefore be used by default when you run the `strapi develop` command.
+Strapi 5では、管理パネルのビルドにデフォルトで[Vite](https://vitejs.dev/)が使用されます。そのため、`strapi develop`コマンドを実行すると、デフォルトでViteが使用されます。
 
-To extend the usage of Vite, define a function that extends its configuration inside `/src/admin/vite.config.[js|ts]`:
+Viteの設定を拡張するには、`/src/admin/vite.config.[js|ts]`内に設定を拡張する関数を定義します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -31,7 +31,7 @@ To extend the usage of Vite, define a function that extends its configuration in
 const { mergeConfig } = require("vite");
 
 module.exports = (config) => {
-  // Important: always return the modified config
+  // 重要: 常に変更したconfigを返す
   return mergeConfig(config, {
     resolve: {
       alias: {
@@ -50,7 +50,7 @@ module.exports = (config) => {
 import { mergeConfig } from "vite";
 
 export default (config) => {
-  // Important: always return the modified config
+  // 重要: 常に変更したconfigを返す
   return mergeConfig(config, {
     resolve: {
       alias: {
@@ -66,29 +66,29 @@ export default (config) => {
 
 ## Webpack
 
-In Strapi 5, the default bundler is Vite. To use [webpack](https://webpack.js.org/) as a bundler you will need to pass it as an option to the `strapi develop` command:
+Strapi 5では、デフォルトのバンドラーはViteです。[webpack](https://webpack.js.org/)をバンドラーとして使用するには、`strapi develop`コマンドにオプションとして渡す必要があります。
 
 ```bash
 strapi develop --bundler=webpack
 ```
 
 :::prerequisites
-Make sure to rename the default `webpack.config.example.js` file into `webpack.config.[js|ts]` before customizing webpack.
+webpackをカスタマイズする前に、デフォルトの`webpack.config.example.js`ファイルの名前を`webpack.config.[js|ts]`に変更してください。
 :::
 
-In order to extend the usage of webpack v5, define a function that extends its configuration inside `/src/admin/webpack.config.[js|ts]`:
+webpack v5の使用を拡張するには、`/src/admin/webpack.config.[js|ts]`内に設定を拡張する関数を定義します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
 
 ```js title="/src/admin/webpack.config.js"
 module.exports = (config, webpack) => {
-  // Note: we provide webpack above so you should not `require` it
+  // 注: webpackは上記で提供されているため、`require`する必要はありません
 
-  // Perform customizations to webpack config
+  // webpack設定にカスタマイズを適用
   config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
 
-  // Important: return the modified config
+  // 重要: 変更したconfigを返す
   return config;
 };
 ```
@@ -99,16 +99,16 @@ module.exports = (config, webpack) => {
 
 ```ts title="/src/admin/webpack.config.ts"
 export default (config, webpack) => {
-  // Note: we provide webpack above so you should not `require` it
+  // 注: webpackは上記で提供されているため、`require`する必要はありません
 
-  // Perform customizations to webpack config
+  // webpack設定にカスタマイズを適用
   config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
 
-  // Important: return the modified config
+  // 重要: 変更したconfigを返す
   return config;
 };
 ```
 
 </TabItem>
 </Tabs>
-
+```

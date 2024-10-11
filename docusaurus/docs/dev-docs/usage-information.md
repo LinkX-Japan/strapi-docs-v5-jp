@@ -1,60 +1,60 @@
 ---
-title: Usage information
-description: We are committed to providing a solution, with Strapi, that exceeds the expectations of the users and community. We are also committed to continuing to develop and make Strapi even better than it is today.
+title: 利用情報
+description: 私たちは、Strapiを使用したソリューションを提供し、ユーザーやコミュニティの期待を超えることに全力を尽くしています。また、Strapiを今以上に進化させ続けることにも全力を尽くしています。
 sidebarDepth: 0
 tags:
-- collected data
-- telemetry
+- 収集データ
+- テレメトリー
 - GDPR
 - UUID
 ---
 
-# Collected Usage Information
+# 収集される利用情報
 
-We are committed to providing a solution, with Strapi, that exceeds the expectations of the users and community. We are also committed to continuing to develop and make Strapi even better than it is today. To that end, Strapi contains a feature in which non-sensitive data is collected. This data is collectively aggregated for all our users, which when taken together give us a better global understanding of how users are interacting and using Strapi. We will never share the data collected in any way that would identify our Customers or their users; if shared, this data will always be anonymous.
+私たちは、Strapiを使用したソリューションを提供し、ユーザーやコミュニティの期待を超えることに全力を尽くしています。また、Strapiを今以上に進化させ続けることにも全力を尽くしています。そのために、Strapiには非センシティブなデータを収集する機能が含まれています。このデータはすべてのユーザーで集約され、全体として見ることで、ユーザーがStrapiとどのように関わり、利用しているかについての全体的な理解を深めることができます。私たちは、顧客やそのユーザーを特定する形でデータを共有することはありません。共有される場合でも、このデータは常に匿名です。
 
-## Context
+## コンテキスト
 
-The number of developers using Strapi is growing significantly. As mentioned earlier, we are committed to providing the best experience to our users. We will always continue to do hands-on UI/UX testing, surveys, issue tracking, roadmap votes, etc... and otherwise talk with the Strapi Community while striving to understand and deliver what is being asked for and what is needed, by any means available.
+Strapiを利用する開発者の数は大幅に増加しています。前述の通り、私たちはユーザーに最高の体験を提供することに全力を尽くしています。UI/UXのテスト、アンケート、問題追跡、ロードマップの投票などを行い、Strapiコミュニティと対話しながら、求められているもの、必要とされているものを理解し、提供するために全力を尽くします。
 
-However, these above actions alone are often insufficient to maintain an overall picture of some aspects of the global usage of Strapi and its features. Globally aggregated data helps us answer and make choices around questions like these:
+しかし、これらの行動だけでは、Strapiやその機能の全体的な利用状況の一部を把握するのはしばしば不十分です。全体的に集約されたデータは、以下のような質問に対する答えを見つけたり、選択を行うのに役立ちます。
 
-- Are our users using a particular feature or not? For those who are using it, what do they use it for? Is it activated and used alongside another plugin? Which specific plugin? Or something else, like, only in development/production?
-- How long does setting up a project take? If the global install time increases, does it mean that users are encountering issues or the process is simply too complicated?
-- What type of errors our users are facing?
-- What are the most used plugins?
-- Should we focus our efforts on being compatible with Node 16? Maybe our community uses version 16 in greater percentages than the global Node.js community?
-- And more...
+- ユーザーは特定の機能を使っているか？使っている人たちはそれを何に使っているのか？それは他のプラグインと一緒に活用されているのか？具体的にはどのプラグイン？それとも、開発/運用だけで何かをしているのか？
+- プロジェクトの設定にどのくらいの時間がかかるのか？全体のインストール時間が増えると、ユーザーが問題に直面しているのか、プロセスが単純に複雑すぎるのかを意味するのか？
+- ユーザーが直面しているエラーの種類は？
+- 最も使用されているプラグインは？
+- Node 16との互換性を保つための努力を集中すべきか？もしかしたら、私たちのコミュニティは全体のNode.jsコミュニティよりも大きな割合でバージョン16を使用しているかもしれない？
+- その他...
 
-Without these metrics, we wouldn't be able to make the right choices as we continue to move forward with the roadmap and provide what you, the community and users, are asking for.
+これらのメトリクスがなければ、私たちはロードマップを進め、コミュニティやユーザーが求めているものを提供するための正しい選択をすることはできません。
 
-## Collected data
+## 収集されるデータ
 
-The following data is collected:
+以下のデータが収集されます：
 
-- Unique project ID (generated with UUID)
-- Unique machine ID (generated with [node-machine-id](https://www.npmjs.com/package/node-machine-id))
-- Environment state (development, staging, production)
-- System information (OS)
-- Build configurations
+- ユニークなプロジェクトID（UUIDで生成）
+- ユニークなマシンID（[node-machine-id](https://www.npmjs.com/package/node-machine-id)で生成）
+- 環境状態（開発、ステージング、本番）
+- システム情報（OS）
+- ビルド設定
 
 :::caution GDPR
-Any identifiable data collected and aggregated is of a non-sensitive nature. We are compliant with the European GDPR recommendations (see our [Privacy Policy](https://strapi.io/privacy)). We do not collect databases configurations, password or custom variables. Any data collected (as above) is secured, encrypted and then anonymized.
+収集および集約される特定可能なデータは、非敏感性のものです。私たちはヨーロッパのGDPRの推奨に準拠しています（私たちの[プライバシーポリシー](https://strapi.io/privacy)を参照してください）。データベースの設定、パスワード、カスタム変数は収集しません。収集されたデータ（上記のもの）は安全に、暗号化され、その後匿名化されます。
 :::
 
 :::note
-If you check the box "Keep me updated about new features & upcoming improvements (by doing this, you accept the terms and the privacy policy)" on the first registration screen, your email address, first name, and role in the company will be sent to our marketing team.
+最初の登録画面で「新機能や今後の改善について更新を保つ（これを行うことで、利用規約とプライバシーポリシーに同意する）」のチェックボックスをチェックすると、あなたのメールアドレス、名前、会社での役割が私たちのマーケティングチームに送信されます。
 
-These data are used for marketing-related purposes only (e.g., the Strapi newsletter) and are not sent to Strapi's telemetry system. This collected usage information is opt-out by default: the data aren't sent if you don't check the box.
+これらのデータはマーケティング関連の目的のみに使用され（例えば、Strapiのニュースレター）、Strapiのテレメトリーシステムには送信されません。この収集された使用情報はデフォルトでオプトアウトです：あなたがボックスをチェックしない限り、データは送信されません。
 :::
 
-### Opt-out
+### オプトアウト
 
 :::caution
-Strapi previously recommended disabling data collection by removing the `uuid` property in the `package.json` file located in the project root. While this method will still work it is discouraged since the `uuid` might be required for certain project functionality and adding a `uuid` at a later date would re-enable data collection without informing the user.
+Strapiは以前、プロジェクトのルートにある`package.json`ファイル内の`uuid`プロパティを削除することでデータ収集を無効にすることを推奨していました。この方法はまだ機能しますが、`uuid`は特定のプロジェクト機能に必要な場合があり、後日`uuid`を追加すると、ユーザーに通知せずにデータ収集が再度有効になる可能性があるため、推奨されません。
 :::
 
-The default data collection feature can be disabled using the following CLI command:
+デフォルトのデータ収集機能は、以下のCLIコマンドを使用して無効にすることができます：
 
 <Tabs groupId="yarn-npm">
 
@@ -76,10 +76,10 @@ npm run strapi telemetry:disable
 
 </Tabs>
 
-Alternatively, the `strapi.telemetryDisabled: true` flag in the project `package.json` file will also disable data collection.
+または、プロジェクトの`package.json`ファイル内の`strapi.telemetryDisabled: true`フラグもデータ収集を無効にします。
 
-Data collection can later be re-enabled by deleting the flag or setting it to false, or by using the `telemetry:enable` command.
+データ収集は、フラグを削除するかfalseに設定する、または`telemetry:enable`コマンドを使用することで後から再度有効にすることができます。
 
 :::note
-If you have any questions or concerns regarding data collection, please contact us at the following email address [privacy@strapi.io](mailto:privacy@strapi.io).
+データ収集に関して質問や懸念がある場合は、次のメールアドレス[privacy@strapi.io](mailto:privacy@strapi.io)までご連絡ください。
 :::

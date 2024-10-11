@@ -1,35 +1,35 @@
 ---
-title: TypeScript development
-description: Learn more about TypeScript usage with Strapi 5
+title: TypeScript開発
+description: Strapi 5でのTypeScriptの使用方法について学びます
 tags:
-- strapi() factory
-- strapi.compile() function
+- strapi()ファクトリー
+- strapi.compile()関数
 - typescript
-- plugins development
+- プラグイン開発
 
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# TypeScript Development with Strapi 
+# Strapiを使用したTypeScript開発
 
 <NotV5/>
 
-While developing a [TypeScript](/dev-docs/typescript)-based application with Strapi, you can:
+[TypeScript](/dev-docs/typescript)を使用したStrapiアプリケーション開発中に以下のことが可能です：
 
-- access [typings for the `Strapi`](#use-strapi-typescript-typings) class with autocompletion,
-- [generate typings](#generate-typings-for-content-types-schemas) for your project's content-types,
-- [start Strapi programmatically](#start-strapi-programmatically),
-- and follow some TypeScript-specific instructions for [plugins development](#develop-a-plugin-using-typescript).
+- [Strapiクラスの型定義](#use-strapi-typescript-typings)にアクセスしてオートコンプリート機能を使用する、
+- プロジェクトのコンテンツタイプの[型を生成する](#generate-typings-for-content-types-schemas)、
+- [プログラムでStrapiを起動する](#start-strapi-programmatically)、
+- [プラグイン開発](#develop-a-plugin-using-typescript)に関するTypeScript特有の指示に従う。
 
-## Use `Strapi` TypeScript typings
+## `Strapi` TypeScript型定義の使用
 
-Strapi provides typings on the `Strapi` class to enhance the TypeScript development experience. These typings come with an autocomplete feature that automatically offers suggestions while developing.
+Strapiは、TypeScript開発の体験を向上させるために`Strapi`クラスの型定義を提供しています。これにより、開発中にオートコンプリート機能が利用可能です。
 
-To experience TypeScript-based autocomplete while developing Strapi applications, you could try the following:
+TypeScriptベースのオートコンプリートをStrapiアプリケーションの開発中に体験するには、次の手順を試してください。
 
-1. Open the `./src/index.ts` file from your code editor.
-2. Declare the `strapi` argument as type `Strapi` within the global `register` method:
+1. コードエディタで `./src/index.ts` ファイルを開きます。
+2. グローバルの `register` メソッド内で、`strapi` 引数を `Strapi` 型として宣言します。
 
     ```typescript title="./src/index.ts"
     import { Strapi } from '@strapi/strapi';
@@ -41,23 +41,21 @@ To experience TypeScript-based autocomplete while developing Strapi applications
     };
     ```
 
-3. Within the body of the `register` method, start typing `strapi.` and use keyboard arrows to browse the available properties.
+3. `register` メソッドの本文内で `strapi.` と入力し、キーボードの矢印キーで利用可能なプロパティを選択します。
+4. リストから `runLifecyclesFunctions` を選択します。
+5. `strapi.runLifecyclesFunctions` メソッドが追加されると、利用可能なライフサイクル（`register`、`bootstrap`、`destroy`）のリストがエディタに表示されます。矢印キーを使って1つ選択すると、コードが自動補完されます。
 
-4. Choose `runLifecyclesFunctions` from the list.
+## コンテンツタイプスキーマの型を生成する
 
-5. When the `strapi.runLifecyclesFunctions` method is added, a list of available lifecycle types (i.e. `register`, `bootstrap` and `destroy`) are returned by the code editor. Use keyboard arrows to choose one of the lifecycles and the code will autocomplete.
+プロジェクトスキーマの型を生成するには、[`ts:generate-types` CLIコマンド](/dev-docs/cli#strapi-tsgenerate-types)を使用します。このコマンドはプロジェクトルートに`types`フォルダを作成し、プロジェクトの型を格納します。オプションの`--debug`フラグを使用すると、生成されたスキーマの詳細な表が表示されます。
 
-## Generate typings for content-types schemas
-
-To generate typings for your project schemas use the [`ts:generate-types` CLI command](/dev-docs/cli#strapi-tsgenerate-types). The `ts:generate-types` command creates the folder `types`, at the project root, which stores the typings for your project. The optional `--debug` flag returns a detailed table of the generated schemas.
-
-To use `ts:generate-types`run the following code in a terminal at the project root:
+次のコードをプロジェクトルートのターミナルで実行します。
 
 <Tabs groupId="yarn-npm">
 <TabItem value="npm">
 
 ```sh
-npm run strapi ts:generate-types --debug #optional flag to display additional logging
+npm run strapi ts:generate-types --debug #オプションフラグで追加のログを表示
 ```
 
 </TabItem>
@@ -65,55 +63,55 @@ npm run strapi ts:generate-types --debug #optional flag to display additional lo
 <TabItem value="yarn">
 
 ```sh
-yarn strapi ts:generate-types --debug #optional flag to display additional logging
+yarn strapi ts:generate-types --debug #オプションフラグで追加のログを表示
 ```
 
 </TabItem>
 </Tabs>
 
-:::tip Tip: Automatically generate types
-Types can be automatically generated on server restart by adding `autogenerate: true` to [the `config/typescript.js|ts` configuration file](/dev-docs/configurations/typescript#strapi-specific-configuration-for-typescript).
+:::tip 自動的に型を生成する
+サーバーの再起動時に型を自動生成するには、[`config/typescript.js|ts` 設定ファイル](/dev-docs/configurations/typescript#strapi-specific-configuration-for-typescript)に `autogenerate: true` を追加します。
 :::
 
-:::tip Tip: Using types in your front-end application
-To use Strapi types in your front-end application, you can [use a workaround](https://github.com/strapi-community/strapi-typed-fronend) until Strapi implements an official solution.
+:::tip フロントエンドアプリケーションでの型の使用
+Strapiの型をフロントエンドアプリケーションで使用するには、Strapiが公式の解決策を提供するまで、[こちらの回避策](https://github.com/strapi-community/strapi-typed-fronend)を使用できます。
 :::
 
-### Fix build issues with the generated types
+### 生成された型によるビルドの問題を修正する
 
-The generated types can be excluded so that the Entity Service doesn't use them and falls back on looser types that don't check the actual properties available in the content types.
+生成された型を除外して、エンティティサービスがそれらを使用せず、実際のプロパティをチェックしない緩やかな型にフォールバックさせることができます。
 
-To do that, edit the `tsconfig.json` of the Strapi project and add `types/generated/**` to the `exclude` array:
+そのためには、Strapiプロジェクトの`tsconfig.json`を編集し、`exclude`配列に`types/generated/**`を追加します。
 
 ```json title="./tsconfig.json"
-  // ...
-  "exclude": [
-    "node_modules/",
-    "build/",
-    "dist/",
-    ".cache/",
-    ".tmp/",
-    "src/admin/",
-    "**/*.test.ts",
-    "src/plugins/**",
-    "types/generated/**"
-  ]
-  // ...
+// ...
+"exclude": [
+  "node_modules/",
+  "build/",
+  "dist/",
+  ".cache/",
+  ".tmp/",
+  "src/admin/",
+  "**/*.test.ts",
+  "src/plugins/**",
+  "types/generated/**"
+]
+// ...
 ```
 
-However, if you still want to use the generated types on your project, but don't want Strapi to use them, a workaround could be to copy those generated types and paste them outside of the `generated` directory (so that they aren't overwritten when the types are regenerated) and remove the `declare module '@strapi/types'` from the bottom of the file.
+ただし、生成された型をプロジェクトで使用しつつもStrapiには使用させたくない場合は、生成された型を`generated`ディレクトリの外にコピーし、型を再生成する際に上書きされないようにします。また、ファイルの下部にある`declare module '@strapi/types'`を削除します。
 
 :::warning
-Types should only be imported from `@strapi/strapi` to avoid breaking changes. The types in `@strapi/types` are for internal use only and may change without notice.
+型は必ず`@strapi/strapi`からインポートしてください。そうしないと、破壊的変更が発生する可能性があります。`@strapi/types`内の型は内部使用のみを目的としており、通知なしに変更されることがあります。
 :::
 
-## Start Strapi programmatically
+## プログラムでStrapiを起動する
 
-To start Strapi programmatically in a TypeScript project the Strapi instance requires the compiled code location. This section describes how to set and indicate the compiled code directory.
+TypeScriptプロジェクトでプログラム的にStrapiを起動するには、Strapiインスタンスにコンパイル済みコードの場所を指定する必要があります。このセクションでは、コンパイル済みコードのディレクトリを設定する方法について説明します。
 
-### Use the `createStrapi()` factory
+### `createStrapi()`ファクトリーの使用
 
-Strapi can be run programmatically by using the `strapi.createStrapi()` factory. Since the code of TypeScript projects is compiled in a specific directory, the parameter `distDir` should be passed to the factory to indicate where the compiled code should be read:
+Strapiは`strapi.createStrapi()`ファクトリーを使用してプログラム的に起動できます。TypeScriptプロジェクトのコードは特定のディレクトリにコンパイルされるため、コンパイルされたコードを読み取るディレクトリを示す`distDir`パラメーターをファクトリーに渡す必要があります。
 
 ```js title="./server.js"
 
@@ -122,9 +120,9 @@ const app = strapi.createStrapi({ distDir: './dist' });
 app.start(); 
 ```
 
-### Use the `strapi.compile()` function
+### `strapi.compile()`関数の使用
 
-The `strapi.compile()` function should be mostly used for developing tools that need to start a Strapi instance and detect whether the project includes TypeScript code. `strapi.compile()` automatically detects the project language. If the project code contains any TypeScript code, `strapi.compile()` compiles the code and returns a context with specific values for the directories that Strapi requires:
+`strapi.compile()`関数は、ツール開発時にStrapiインスタンスを起動し、プロジェクトにTypeScriptコードが含まれているかどうかを検出するために使用されます。`strapi.compile()`はプロジェクトの言語を自動検出します。プロジェクトコードにTypeScriptコードが含まれている場合、`strapi.compile()`はコードをコンパイルし、Strapiが必要とするディレクトリに関する特定の値を持つコンテキストを返します。
 
 ```js
 const strapi = require('@strapi/strapi');
@@ -132,15 +130,15 @@ const strapi = require('@strapi/strapi');
 strapi.compile().then(appContext => strapi(appContext).start());
 ```
 
-## Develop a plugin using TypeScript
+## TypeScriptを使用したプラグインの開発
 
-New plugins can be generated following the [plugins development documentation](/dev-docs/plugins/developing-plugins), ensuring you select "TypeScript" when prompted by the CLI tool.
+新しいプラグインは[プラグイン開発ドキュメント](/dev-docs/plugins/developing-plugins)に従って生成できます。この際、CLIツールのプロンプトで「TypeScript」を選択します。
 
-There are 2 important distinctions for TypeScript applications:
+TypeScriptアプリケーションには2つの重要な違いがあります。
 
-- After creating the plugin, run `yarn` or `npm install` in the plugin directory `src/admin/plugins/[my-plugin-name]` to install the dependencies for the plugin.
-- Run `yarn build` or `npm run build` in the plugin directory `src/admin/plugins/[my-plugin-name]` to build the admin panel including the plugin.
+- プラグイン作成後に、プラグインディレクトリ`src/admin/plugins/[my-plugin-name]`で`yarn`または`npm install`を実行して、プラグインの依存関係をインストールします。
+- プラグインディレクトリ`src/admin/plugins/[my-plugin-name]`で`yarn build`または`npm run build`を実行して、プラグインを含む管理パネルをビルドします。
 
 :::note
-It is not necessary to repeat the `yarn` or `npm install` command after the initial installation. The `yarn build` or `npm run build` command is necessary to implement any plugin development that affects the admin panel.
+初回インストール後は`yarn`または`npm install`コマンドを再実行する必要はありません。管理パネルに影響を与えるプラグイン開発を行った場合は、`yarn build`または`npm run build`コマンドを実行する必要があります。
 :::

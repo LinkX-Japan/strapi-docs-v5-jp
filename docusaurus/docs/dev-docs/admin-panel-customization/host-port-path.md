@@ -1,35 +1,35 @@
 ---
-title: Admin panel customization - URL, host, and path configuration
-description: Learn more about configuring the URL, host, and path to access Strapi's admin panel.
-sidebar_label: URL, host, and port configuration
+title: 管理パネルのカスタマイズ - URL、ホスト、パスの設定
+description: Strapiの管理パネルにアクセスするためのURL、ホスト、パスの設定方法について学びましょう。
+sidebar_label: URL、ホスト、ポートの設定
 toc_max_heading_level: 4
 tags:
-- admin panel 
-- admin panel customization
+- 管理パネル 
+- 管理パネルのカスタマイズ
 
 ---
 
-# Admin panel customization: Host, port, and path configuration
+# 管理パネルのカスタマイズ: ホスト、ポート、パスの設定
 
-By default, Strapi's [admin panel](/dev-docs/admin-panel-customization) is exposed via [http://localhost:1337/admin](http://localhost:1337/admin). For security reasons, the host, port, and path can be updated.
+デフォルトでは、Strapiの[管理パネル](/dev-docs/admin-panel-customization)は[http://localhost:1337/admin](http://localhost:1337/admin)で公開されています。セキュリティ上の理由から、ホスト、ポート、パスを更新することができます。
 
-## Update the admin panel's path only
+## 管理パネルのパスのみを更新する
 
-Unless you chose to deploy Strapi's back-end server and admin panel server on different servers (see [deployment](/dev-docs/admin-panel-customization/deployment)), by default:
+Strapiのバックエンドサーバーと管理パネルサーバーを異なるサーバーにデプロイしない限り（[デプロイ](/dev-docs/admin-panel-customization/deployment)を参照）、デフォルトでは次のようになります。
 
-- The back-end server and the admin panel server of Strapi both run on the same host and port, which is `http://localhost:1337/`.
-- The admin panel is accessible at the `/admin` path while the back-end server is accessible at the `/api` path.
+- Strapiのバックエンドサーバーと管理パネルサーバーは同じホストとポートで動作しており、`http://localhost:1337/`でアクセスできます。
+- 管理パネルは`/admin`パスでアクセスでき、バックエンドサーバーは`/api`パスでアクセスできます。
 
-To make the admin panel accessible at another path, for instance at `http://localhost:1337/dashboard`, define or update the `url` property in the [admin panel configuration file](/dev-docs/configurations/admin-panel) as follows:
+たとえば、管理パネルを`http://localhost:1337/dashboard`でアクセス可能にするには、[管理パネル設定ファイル](/dev-docs/configurations/admin-panel)で`url`プロパティを次のように定義または更新します。
 
 ```js title="/config/admin.js"
 module.exports = ({ env }) => ({
-  // … other configuration properties
+  // 他の設定プロパティ
   url: "/dashboard",
 });
 ```
 
-Since by default the back-end server and the admin panel server run on the same host and port, only updating the `config/admin.[ts|js]` file should work if you left the `host` and `port` property values untouched in the [server configuration](/dev-docs/configurations/server) file, which should be as follows:
+デフォルトでは、バックエンドサーバーと管理パネルサーバーは同じホストとポートで動作しているため、[サーバー設定](/dev-docs/configurations/server)ファイルの`host`および`port`プロパティの値を変更せずに、`config/admin.[ts|js]`ファイルを更新するだけで動作します。サーバー設定ファイルは次のようになっているはずです。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -55,11 +55,11 @@ export default ({ env }) => ({
 </TabItem>
 </Tabs>
 
-## Update the admin panel's host and port
+## 管理パネルのホストとポートを更新する
 
-If the admin panel and the back-end server of Strapi are not hosted on the same server (see [deployment](/dev-docs/admin-panel-customization/deployment)), you will need to update the host and port of the admin panel.
+管理パネルとStrapiのバックエンドサーバーが同じサーバーでホストされていない場合（[デプロイ](/dev-docs/admin-panel-customization/deployment)を参照）、管理パネルのホストとポートを更新する必要があります。
 
-This is done in the admin panel configuration file, for example to host the admin panel on `my-host.com:3000` properties should be updated follows:
+これは管理パネルの設定ファイルで行います。たとえば、管理パネルを`my-host.com:3000`でホストする場合、プロパティを次のように更新します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -68,7 +68,7 @@ This is done in the admin panel configuration file, for example to host the admi
 module.exports = ({ env }) => ({
   host: "my-host.com",
   port: 3000,
-  // Additionally you can define another path instead of the default /admin one 👇
+  // デフォルトの /admin パスの代わりに別のパスを定義することもできます👇
   // url: '/dashboard' 
 });
 ```
@@ -81,7 +81,7 @@ module.exports = ({ env }) => ({
 export default ({ env }) => ({
   host: "my-host.com",
   port: 3000,
-  // Additionally you can define another path instead of the default /admin one 👇
+  // デフォルトの /admin パスの代わりに別のパスを定義することもできます👇
   // url: '/dashboard'
 });
 ```
@@ -91,6 +91,6 @@ export default ({ env }) => ({
 
 <br/>
 
-:::strapi Other admin panel configurations
-The `/config/admin.[ts|js]` file can be used to configure many other aspects. Please refer to the [admin panel configuration](/dev-docs/configurations/admin-panel) documentation for details.
+:::strapi 他の管理パネル設定
+`/config/admin.[ts|js]`ファイルは、他の多くの側面を設定するためにも使用できます。詳細については、[管理パネル設定](/dev-docs/configurations/admin-panel)ドキュメントを参照してください。
 :::

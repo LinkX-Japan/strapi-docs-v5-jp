@@ -1,42 +1,40 @@
 ---
-title: How to pass data from server to admin panel with a Strapi plugin
-description: Learn how to pass data from server to admin panel with a Strapi plugin
-sidebar_label: Pass data from server to admin
+title: サーバーから管理パネルにデータを渡す方法（Strapiプラグイン）
+description: Strapiプラグインでサーバーから管理パネルにデータを渡す方法を学びます。
+sidebar_label: サーバーから管理パネルにデータを渡す
 displayed_sidebar: devDocsSidebar
 tags:
-- admin panel
-- admin routes 
-- content-type
-- guides
-- plugins
-- plugins development guides
+- 管理パネル
+- 管理ルート
+- コンテンツタイプ
+- ガイド
+- プラグイン
+- プラグイン開発ガイド
 ---
 
-import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
-
-# How to pass data from server to admin panel with a Strapi plugin
+# サーバーから管理パネルにデータを渡す方法（Strapiプラグイン）
 
 <NotV5 />
 
-Strapi is **headless** <HeadlessCms />. The admin panel is completely separate from the server.
+Strapiは**ヘッドレスCMS**です。管理パネルとサーバーは完全に分離されています。
 
-When [developing a Strapi plugin](/dev-docs/plugins/developing-plugins) you might want to pass data from the `/server` to the `/admin` folder. Within the `/server` folder you have access to the Strapi object and can do database queries whereas in the `/admin` folder you can't.
+[Strapiプラグインを開発しているとき](/dev-docs/plugins/developing-plugins)、サーバー側の`/server`フォルダから管理パネル側の`/admin`フォルダにデータを渡したい場合があります。`/server`フォルダではStrapiオブジェクトにアクセスでき、データベースクエリを実行できますが、`/admin`フォルダではそれができません。
 
-Passing data from the `/server` to the `/admin` folder can be done using the admin panel's Axios instance:
+サーバーから管理パネルにデータを渡すには、管理パネルのAxiosインスタンスを使用します。
 
 ```mermaid
 graph LR
-    A{Server} -->|Axios instance| B{Admin Panel}
+    A{サーバー} -->|Axiosインスタンス| B{管理パネル}
     B --> A
 ```
 
-To pass data from the `/server` to `/admin` folder you would first [create a custom admin route](#create-a-custom-admin-route) and then [get the data returned in the admin panel](#get-the-data-in-the-admin-panel).
+サーバーから管理パネルにデータを渡すには、まず[カスタム管理ルートを作成](#create-a-custom-admin-route)し、その後[管理パネルでデータを取得](#get-the-data-in-the-admin-panel)します。
 
-## Create a custom admin route
+## カスタム管理ルートを作成する
 
-Admin routes are like the routes that you would have for any controller, except that the `type: 'admin'` declaration hides them from the general API router, and allows you to access them from the admin panel.
+管理ルートは、通常のコントローラー用ルートと似ていますが、`type: 'admin'`の宣言によって一般的なAPIルーターから隠され、管理パネルからアクセスできるようになります。
 
-The following code will declare a custom admin route for the `my-plugin` plugin:
+次のコードは、`my-plugin`プラグイン用のカスタム管理ルートを宣言します。
 
 ```js title="/my-plugin/server/routes/index.js"
 module.exports = {
@@ -58,9 +56,9 @@ module.exports = {
 };
 ```
 
-This route will call the `index` method of the `myPluginContentType` controller when you send a GET request to the `/my-plugin/pass-data` URL endpoint.
+このルートは、`/my-plugin/pass-data`エンドポイントにGETリクエストを送信した際に、`myPluginContentType`コントローラーの`index`メソッドを呼び出します。
 
-Let's create a basic custom controller that simply returns a simple text:
+次に、シンプルなテキストを返すカスタムコントローラーを作成します。
 
 ```js title="/my-plugin/server/controllers/my-plugin-content-type.js"
 'use strict';
@@ -72,13 +70,13 @@ module.exports = {
 }
 ```
 
-This means that when sending a GET request to the `/my-plugin/pass-data` URL endpoint, you should get the `You are in the my-plugin-content-type controller!` text returned with the response.
+これにより、`/my-plugin/pass-data`エンドポイントにGETリクエストを送信すると、`You are in the my-plugin-content-type controller!`というテキストがレスポンスとして返されます。
 
-## Get the data in the admin panel
+## 管理パネルでデータを取得する
 
-Any request sent from an admin panel component to the endpoint for which we defined the custom route `/my-plugin/pass-data` should now return the text message returned by the custom controller.
+`/my-plugin/pass-data`に定義したカスタムルートに対して管理パネルのコンポーネントからリクエストを送信すると、カスタムコントローラーから返されるテキストメッセージが取得されます。
 
-So for instance, if you create an `/admin/src/api/foobar.js` file and copy and paste the following code example:
+例えば、`/admin/src/api/foobar.js`ファイルを作成し、次のコード例をコピーして貼り付けます。
 
 ```js title="/my-plugin/admin/src/api/foobar.js"
 import axios from 'axios';
@@ -92,9 +90,9 @@ const foobarRequests = {
 export default foobarRequests;
 ```
 
-You will be able to use `foobarRequests.getFoobar()` in the code of an admin panel component and have it return the `You are in the my-plugin-content-type controller!` text with the data.
+これで、管理パネルのコンポーネントのコード内で `foobarRequests.getFoobar()` を使用して、`You are in the my-plugin-content-type controller!` というテキストをデータとして取得できるようになります。
 
-For instance, within a React component, you could use `useEffect` to get the data after the component initializes:
+例えば、Reactコンポーネント内で `useEffect` を使用して、コンポーネントが初期化された後にデータを取得する場合は、次のように記述します。
 
 ```js title="/my-plugin/admin/src/components/MyComponent/index.js"
 import foobarRequests from "../../api/foobar";
@@ -109,4 +107,4 @@ useEffect(() => {
 // …
 ```
 
-This would set the `You are in the my-plugin-content-type controller!` text within the `foobar` data of the component's state.
+これにより、コンポーネントの状態に `You are in the my-plugin-content-type controller!` というテキストが `foobar` データとして設定されます。

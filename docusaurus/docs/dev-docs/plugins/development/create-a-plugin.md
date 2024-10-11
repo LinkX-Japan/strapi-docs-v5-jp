@@ -1,41 +1,41 @@
 ---
-title: Plugin creation & setup
-description: Learn how to use the Plugin SDK to build and publish a Strapi plugin
+title: プラグインの作成とセットアップ
+description: Plugin SDKを使用してStrapiプラグインを構築し、公開する方法を学びます。
 pagination_next: dev-docs/plugins/development/plugin-structure
 tags:
-  - guides
-  - plugins
+  - ガイド
+  - プラグイン
   - Plugin SDK
-  - plugins development
+  - プラグイン開発
 ---
 
-# Plugin creation
+# プラグインの作成
 
-There are many ways to create a Strapi 5 plugin, but the fastest and recommended way is to use the Plugin SDK.
+Strapi 5 プラグインを作成する方法はいくつかありますが、最も迅速で推奨される方法はPlugin SDKを使用することです。
 
-The Plugin SDK is a set of commands orientated around developing plugins to use them as local plugins or to publish them on NPM and/or submit them to the Marketplace.
+Plugin SDKは、ローカルプラグインとして使用したり、NPMに公開したり、Marketplaceに提出したりするためのプラグインを開発するためのコマンドセットです。
 
-With the Plugin SDK, you do not need to set up a Strapi project before creating a plugin.
+Plugin SDKを使用すると、プラグインを作成する前にStrapiプロジェクトを設定する必要はありません。
 
-The present guide covers creating a plugin from scratch, linking it to an existing Strapi project, and publishing the plugin. If you already have an existing plugin, you can instead retrofit the plugin setup to utilise the Plugin SDK commands (please refer to the [Plugin SDK reference](/dev-docs/plugins/development/plugin-sdk) for a full list of available commands).
+このガイドでは、ゼロからプラグインを作成し、既存のStrapiプロジェクトにリンクし、プラグインを公開するまでの手順を説明します。既にプラグインを持っている場合は、プラグインのセットアップをPlugin SDKコマンドに適応させることができます（利用可能なコマンドの完全なリストについては、[Plugin SDKのリファレンス](/dev-docs/plugins/development/plugin-sdk)を参照してください）。
 
 :::note
-This guide assumes you want to develop a plugin external to your Strapi project. However, the steps largely remain the same if you want to develop a plugin within your existing project. If you are not [using a monorepo](#working-with-the-plugin-cli-in-a-monorepo-environment) the steps are exactly the same.
+このガイドは、Strapiプロジェクトとは別にプラグインを開発することを前提としています。ただし、既存のプロジェクト内でプラグインを開発する場合も手順はほぼ同じです。[モノレポ](#working-with-the-plugin-cli-in-a-monorepo-environment)を使用しない限り、手順は全く同じです。
 :::
 
 :::prerequisites
-[yalc](https://www.npmjs.com/package/yalc) must be installed globally (with `npm install -g yalc` or `yarn global add yalc`).
+[yalc](https://www.npmjs.com/package/yalc) がグローバルにインストールされている必要があります（`npm install -g yalc` または `yarn global add yalc` を実行）。
 :::
 
-## Getting started with the Plugin SDK
+## Plugin SDKの使用を開始する
 
-The Plugin SDK helps you creating a plugin, linking it to an existing Strapi project, and building it for publishing.
+Plugin SDKは、プラグインの作成、既存のStrapiプロジェクトへのリンク、および公開のためのビルドを支援します。
 
-The full list of commands and their parameters are available in the [Plugin SDK reference](/dev-docs/plugins/development/plugin-sdk). The present page will guide on using the main ones.
+コマンドとそのパラメーターの完全なリストは[Plugin SDKのリファレンス](/dev-docs/plugins/development/plugin-sdk)にあります。このページでは、主なコマンドの使用方法を説明します。
 
-### Creating the plugin
+### プラグインの作成
 
-To create your plugin, ensure you are in the parent directory of where you want it to be created and run the following command:
+プラグインを作成するには、作成先の親ディレクトリにいることを確認し、次のコマンドを実行します。
 
 <Tabs groupId="yarn-npm">
 
@@ -57,17 +57,17 @@ npx @strapi/sdk-plugin init my-strapi-plugin
 
 </Tabs>
 
-The path `my-strapi-plugin` can be replaced with whatever you want to call your plugin, including the path to where it should be created (e.g., `code/strapi-plugins/my-new-strapi-plugin`).
+`my-strapi-plugin`のパスは、プラグインに付けたい名前や、作成先のパス（例: `code/strapi-plugins/my-new-strapi-plugin`）に置き換えることができます。
 
-You will be ran through a series of prompts to help you setup your plugin. If you selected yes to all options the final structure will be similar to the default [plugin structure](/dev-docs/plugins/development/plugin-structure).
+一連のプロンプトが表示され、プラグインのセットアップが進められます。すべてのオプションに「はい」を選択すると、最終的な構造はデフォルトの[プラグイン構造](/dev-docs/plugins/development/plugin-structure)に似たものになります。
 
-### Linking the plugin to your project
+### プロジェクトへのプラグインのリンク
 
-In order to test your plugin during its development, the recommended approach is to link it to a Strapi project.
+開発中のプラグインをテストするために、既存のStrapiプロジェクトにリンクすることが推奨されます。
 
-Linking your plugin to a project is done with the `watch:link` command. The command will output explanations on how to link your plugin to a Strapi project.
+プラグインをプロジェクトにリンクするには、`watch:link` コマンドを使用します。このコマンドは、プラグインをStrapiプロジェクトにリンクする方法についての説明を出力します。
 
-In a new terminal window, run the following commands:
+新しいターミナルウィンドウで、次のコマンドを実行します。
 
 <Tabs groupId="yarn-npm">
 
@@ -92,18 +92,18 @@ npx yalc add --link my-strapi-plugin && npm install
 </Tabs>
 
 :::note
-In the above examples we use the name of the plugin (`my-strapi-plugin`) when linking it to the project. This is the name of the package, not the name of the folder.
+上記の例では、プロジェクトにリンクする際にプラグイン名（`my-strapi-plugin`）を使用しています。これはフォルダ名ではなく、パッケージ名です。
 :::
 
-Because this plugin is installed via `node_modules` you won't need to explicity add it to your `plugins` [configuration file](/dev-docs/configurations/plugins), so running the [`develop command`](../../cli.md#strapi-develop) to start your Strapi project will automatically pick up your plugin.
+このプラグインは`node_modules`経由でインストールされるため、`plugins` [設定ファイル](/dev-docs/configurations/plugins)に明示的に追加する必要はありません。Strapiプロジェクトを開始するために[`develop`コマンド](../../cli.md#strapi-develop)を実行すると、自動的にプラグインが認識されます。
 
-Now that your plugin is linked to a project, run `yarn develop` or `npm run develop` to start the Strapi application.
+プラグインがプロジェクトにリンクされたら、`yarn develop` または `npm run develop` を実行してStrapiアプリケーションを開始します。
 
-You are now ready to develop your plugin how you see fit! If you are making server changes, you will need to restart your server for them to take effect.
+これで、プラグインを自由に開発できるようになります。サーバー側の変更を行う場合は、変更を適用するためにサーバーを再起動する必要があります。
 
-### Building the plugin for publishing
+### プラグインを公開するためのビルド
 
-When you are ready to publish your plugin, you will need to build it. To do this, run the following command:
+プラグインを公開する準備ができたら、ビルドを行う必要があります。次のコマンドを実行します。
 
 <Tabs groupId="yarn-npm">
 
@@ -125,13 +125,13 @@ npm run build && npm run verify
 
 </Tabs>
 
-The above commands will not only build the plugin, but also verify that the output is valid and ready to be published. You can then publish your plugin to NPM as you would any other package.
+上記のコマンドは、プラグインをビルドするだけでなく、出力が有効であり、公開する準備ができていることを確認します。プラグインは、他のパッケージと同様にNPMに公開することができます。
 
-## Working with the Plugin SDK in a monorepo environment
+## モノレポ環境でのPlugin SDKの使用
 
-If you are working with a monorepo environment to develop your plugin, you don't need to use the `watch:link` command because the monorepo workspace setup will handle the symlink. You can use the `watch` command instead.
+モノレポ環境でプラグインを開発している場合、`watch:link`コマンドを使用する必要はありません。モノレポワークスペースのセットアップがシンボリックリンクを処理します。その代わりに、`watch`コマンドを使用できます。
 
-However, if you are writing admin code, you might add an `alias` that targets the source code of your plugin to make it easier to work with within the context of the admin panel:
+ただし、管理パネルのコードを記述している場合は、管理パネルのコンテキストでプラグインのソースコードを操作しやすくするために、プラグインのソースコードをターゲットにした`alias`を追加することができます。
 
 ```ts
 import path from 'node:path';
@@ -141,7 +141,7 @@ export default (config, webpack) => {
     ...config.resolve.alias,
     'my-strapi-plugin': path.resolve(
       __dirname,
-      // We've assumed the plugin is local.
+      // プラグインがローカルにあると仮定しています。
       '../plugins/my-strapi-plugin/admin/src'
     ),
   };
@@ -151,5 +151,5 @@ export default (config, webpack) => {
 ```
 
 :::caution
-Because the server looks at the `server/src/index.ts|js` file to import your plugin code, you must use the `watch` command otherwise the code will not be transpiled and the server will not be able to find your plugin.
+サーバーはプラグインコードをインポートするために`server/src/index.ts|js`ファイルを参照します。そのため、`watch`コマンドを使用しないとコードがトランスパイルされず、サーバーがプラグインを見つけることができません。
 :::

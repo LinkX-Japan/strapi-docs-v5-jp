@@ -1,7 +1,7 @@
 ---
-title: Error handling
+title: エラーハンドリング
 displayed_sidebar: devDocsSidebar
-description: With Strapi's error handling feature it's easy to send and receive errors in your application.
+description: Strapiのエラーハンドリング機能を使用すると、アプリケーションでエラーを送受信するのが容易になります。
 tags:
 - ctx
 - GraphQL API
@@ -16,54 +16,54 @@ tags:
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Error handling
+# エラーハンドリング
 
 <NotV5 />
 
-Strapi is natively handling errors with a standard format.
+Strapiは、標準フォーマットでエラーをネイティブに処理します。
 
-There are 2 use cases for error handling:
+エラーハンドリングには2つの使用ケースがあります：
 
-- As a developer querying content through the [REST](/dev-docs/api/rest) or [GraphQL](/dev-docs/api/graphql) APIs, you might [receive errors](#receiving-errors) in response to the requests.
-- As a developer customizing the backend of your Strapi application, you could use controllers and services to [throw errors](#throwing-errors).
+- [REST](/dev-docs/api/rest)または[GraphQL](/dev-docs/api/graphql) APIを通じてコンテンツをクエリする開発者として、リクエストの応答で[エラーを受け取る](#エラーの受信)可能性があります。
+- Strapiアプリケーションのバックエンドをカスタマイズする開発者として、コントローラーやサービスを使用して[エラーをスローする](#エラーのスロー)ことができます。
 
-## Receiving errors
+## エラーの受信
 
-Errors are included in the response object with the `error` key and include information such as the HTTP status code, the name of the error, and additional information.
+エラーは`error`キーでレスポンスオブジェクトに含まれ、HTTPステータスコード、エラーの名前、追加情報などを含みます。
 
-### REST errors
+### RESTエラー
 
-Errors thrown by the REST API are included in the [response](/dev-docs/api/rest#requests) that has the following format:
+REST APIによってスローされたエラーは、次の形式を持つ[レスポンス](/dev-docs/api/rest#requests)に含まれます：
 
 ```json
 {
   "data": null,
   "error": {
-    "status": "", // HTTP status
-    "name": "", // Strapi error name ('ApplicationError' or 'ValidationError')
-    "message": "", // A human readable error message
+    "status": "", // HTTPステータス
+    "name": "", // Strapiエラー名 ('ApplicationError'または'ValidationError')
+    "message": "", // 人間が読めるエラーメッセージ
     "details": {
-      // error info specific to the error type
+      // エラータイプに特有のエラー情報
     }
   }
 }
 ```
 
-### GraphQL errors
+### GraphQLエラー
 
-Errors thrown by the GraphQL API are included in the [response](/dev-docs/api/graphql#unified-response-format) that has the following format:
+GraphQL APIによってスローされたエラーは、次の形式を持つ[レスポンス](/dev-docs/api/graphql#unified-response-format)に含まれます：
 
 ```json
 { "errors": [
     {
-      "message": "", // A human reable error message
+      "message": "", // 人間が読めるエラーメッセージ
       "extensions": {
         "error": {
-          "name": "", // Strapi error name ('ApplicationError' or 'ValidationError'),
-          "message": "", // A human reable error message (same one as above);
-          "details": {}, // Error info specific to the error type
+          "name": "", // Strapiエラー名 ('ApplicationError'または'ValidationError'),
+          "message": "", // 人間が読めるエラーメッセージ（上記と同じ）;
+          "details": {}, // エラータイプに特有のエラー情報
         },
-        "code": "" // GraphQL error code (ex: BAD_USER_INPUT)
+        "code": "" // GraphQLエラーコード (例: BAD_USER_INPUT)
       }
     }
   ],
@@ -73,42 +73,42 @@ Errors thrown by the GraphQL API are included in the [response](/dev-docs/api/gr
 }
 ```
 
-## Throwing errors
+## エラーのスロー
 
-### Controllers and middlewares
+### コントローラーとミドルウェア
 
-The recommended way to throw errors when developing any custom logic with Strapi is to have the [controller](/dev-docs/backend-customization/controllers) or [middleware](/dev-docs/backend-customization/middlewares) respond with the correct status and body.
+Strapiでカスタムロジックを開発する際にエラーをスローする推奨方法は、[コントローラー](/dev-docs/backend-customization/controllers)または[ミドルウェア](/dev-docs/backend-customization/middlewares)が正しいステータスとボディで応答するようにすることです。
 
-This can be done by calling an error function on the context (i.e. `ctx`). Available error functions are listed in the [http-errors documentation](https://github.com/jshttp/http-errors#list-of-all-constructors) but their name should be lower camel-cased to be used by Strapi (e.g. `badRequest`).
+これは、コンテキスト（つまり、`ctx`）上のエラー関数を呼び出すことで行うことができます。使用可能なエラー関数は[http-errorsドキュメンテーション](https://github.com/jshttp/http-errors#list-of-all-constructors)にリストされていますが、Strapiで使用するには名前をローワーキャメルケースにする必要があります（例：`badRequest`）。
 
-Error functions accept 2 parameters that correspond to the `error.message` and `error.details` attributes [received](#receiving-errors) by a developer querying the API:
+エラー関数は、APIをクエリする開発者が[受信](#エラーの受信)する`error.message`と`error.details`属性に対応する2つのパラメータを受け入れます：
 
-- the first parameter of the function is the error `message`
-- and the second one is the object that will be set as `details` in the response received
+- 関数の最初のパラメータはエラーの `message` です
+- そして、二番目のものはレスポンスで `details` として設定されるオブジェクトです
 
 <Tabs groupId="js-ts">
 
 <TabItem value="javascript" label="JavaScript">
 
 ```js
-// path: ./src/api/[api-name]/controllers/my-controller.js
+// パス: ./src/api/[api-name]/controllers/my-controller.js
 
 module.exports = {
   renameDog: async (ctx, next) => {
     const newName = ctx.request.body.name;
     if (!newName) {
-      return ctx.badRequest('name is missing', { foo: 'bar' })
+      return ctx.badRequest('名前が欠けています', { foo: 'bar' })
     }
     ctx.body = strapi.service('api::dog.dog').rename(newName);
   }
 }
 
-// path: ./src/api/[api-name]/middlewares/my-middleware.js
+// パス: ./src/api/[api-name]/middlewares/my-middleware.js
 
 module.exports = async (ctx, next) => {
   const newName = ctx.request.body.name;
   if (!newName) {
-    return ctx.badRequest('name is missing', { foo: 'bar' })
+    return ctx.badRequest('名前が欠けています', { foo: 'bar' })
   }
   await next();
 }
@@ -119,24 +119,24 @@ module.exports = async (ctx, next) => {
 <TabItem value="typescript" label="TypeScript">
 
 ```ts
-// path: ./src/api/[api-name]/controllers/my-controller.ts
+// パス: ./src/api/[api-name]/controllers/my-controller.ts
 
 export default {
   renameDog: async (ctx, next) => {
     const newName = ctx.request.body.name;
     if (!newName) {
-      return ctx.badRequest('name is missing', { foo: 'bar' })
+      return ctx.badRequest('名前が欠けています', { foo: 'bar' })
     }
     ctx.body = strapi.service('api::dog.dog').rename(newName);
   }
 }
 
-// path: ./src/api/[api-name]/middlewares/my-middleware.ts
+// パス: ./src/api/[api-name]/middlewares/my-middleware.ts
 
 export default async (ctx, next) => {
   const newName = ctx.request.body.name;
   if (!newName) {
-    return ctx.badRequest('name is missing', { foo: 'bar' })
+    return ctx.badRequest('名前が欠けています', { foo: 'bar' })
   }
   await next();
 }
@@ -146,19 +146,19 @@ export default async (ctx, next) => {
 
 </Tabs>
 
-### Services and models lifecycles
+### サービスとモデルのライフサイクル
 
-Once you are working at a deeper layer than the controllers or middlewares there are dedicated error classes that can be used to throw errors. These classes are extensions of [Node `Error` class](https://nodejs.org/api/errors.html#errors_class_error) and are specifically targeted for certain use-cases.
+コントローラーやミドルウェアよりも深いレイヤーで作業している場合、エラーをスローするための専用のエラークラスがあります。これらのクラスは[Node `Error` class](https://nodejs.org/api/errors.html#errors_class_error)の拡張で、特定のユースケースに特化しています。
 
-These error classes are imported through the `@strapi/utils` package and can be called from several different layers. The following examples use the service layer but error classes are not just limited to services and model lifecycles. When throwing errors in the model lifecycle layer, it's recommended to use the `ApplicationError` class so that proper error messages are shown in the admin panel.
+これらのエラークラスは `@strapi/utils` パッケージを通じてインポートされ、いくつかの異なるレイヤーから呼び出すことができます。以下の例ではサービスレイヤーを使用していますが、エラークラスはサービスやモデルのライフサイクルに限定されているわけではありません。モデルのライフサイクルレイヤーでエラーをスローする場合、管理パネルに適切なエラーメッセージが表示されるように、`ApplicationError` クラスを使用することを推奨します。
 
 :::note
-See the [default error classes](#default-error-classes) section for more information on the error classes provided by Strapi.
+Strapiによって提供されるエラークラスの詳細については、[デフォルトのエラークラス](#default-error-classes)セクションを参照してください。
 :::
 
 <details>
-<summary>Example: Throwing an error in a service</summary>
-This example shows wrapping a [core service](/dev-docs/backend-customization/services#extending-core-services) and doing a custom validation on the `create` method:
+<summary>例：サービスでエラーをスローする</summary>
+この例では、[コアサービス](/dev-docs/backend-customization/services#extending-core-services)をラップし、`create`メソッドにカスタムバリデーションを行う方法を示しています：
 
 <Tabs groupId="js-ts">
 
@@ -174,9 +174,9 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
   async create(params) {
     let okay = false;
 
-    // Throwing an error will prevent the restaurant from being created
+// レストランの作成を防ぐエラーをスローする
     if (!okay) {
-      throw new ApplicationError('Something went wrong', { foo: 'bar' });
+      throw new ApplicationError('何か問題が発生しました', { foo: 'bar' });
     }
   
     const result = await super.create(params);
@@ -184,6 +184,7 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
     return result;
   }
 });
+
 ```
 
 </TabItem>
@@ -201,9 +202,9 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
   async create(params) {
     let okay = false;
 
-    // Throwing an error will prevent the restaurant from being created
+    // レストランの作成を防ぐエラーをスローする
     if (!okay) {
-      throw new ApplicationError('Something went wrong', { foo: 'bar' });
+      throw new ApplicationError('何か問題が発生しました', { foo: 'bar' });
     }
   
     const result = await super.create(params);
@@ -222,9 +223,9 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
 </details>
 
 <details>
-<summary>Example: Throwing an error in a model lifecycle</summary>
+<summary>例：モデルライフサイクルでのエラースロー</summary>
 
-This example shows building a [custom model lifecycle](/dev-docs/backend-customization/models#lifecycle-hooks) and being able to throw an error that stops the request and will return proper error messages to the admin panel. Generally you should only throw an error in `beforeX` lifecycles, not `afterX` lifecycles.
+この例は、[カスタムモデルライフサイクル](/dev-docs/backend-customization/models#lifecycle-hooks)の構築と、リクエストを停止し、管理パネルに正しいエラーメッセージを返すエラーをスローすることを示しています。一般的には、`beforeX`ライフサイクルでのみエラーをスローし、`afterX`ライフサイクルではエラーをスローしないようにすべきです。
 
 <Tabs groupId="js-ts">
 
@@ -239,9 +240,9 @@ module.exports = {
   beforeCreate(event) {
     let okay = false;
 
-    // Throwing an error will prevent the entity from being created
+    // エンティティの作成を防ぐエラーをスローする
     if (!okay) {
-      throw new ApplicationError('Something went wrong', { foo: 'bar' });
+      throw new ApplicationError('何か問題が発生しました', { foo: 'bar' });
     }
   },
 };
@@ -261,9 +262,9 @@ export default {
   beforeCreate(event) {
     let okay = false;
 
-    // Throwing an error will prevent the entity from being created
+    // エンティティの作成を防ぐエラーをスローする
     if (!okay) {
-      throw new ApplicationError('Something went wrong', { foo: 'bar' });
+      throw new ApplicationError('何か問題が発生しました', { foo: 'bar' });
     }
   },
 };
@@ -275,19 +276,19 @@ export default {
 
 </details>
 
-### Policies
+### ポリシー
 
-[Policies](/dev-docs/backend-customization/policies) are a special type of middleware that are executed before a controller. They are used to check if the user is allowed to perform the action or not. If the user is not allowed to perform the action and a `return false` is used then a generic error will be thrown. As an alternative, you can throw a custom error message using a nested class extensions from the Strapi `ForbiddenError` class, `ApplicationError` class (see [Default error classes](#default-error-classes) for both classes), and finally the [Node `Error` class](https://nodejs.org/api/errors.html#errors_class_error).
+[ポリシー](/dev-docs/backend-customization/policies)は、コントローラの前に実行される特殊なタイプのミドルウェアです。これらは、ユーザーがアクションを実行することを許可されているかどうかを確認するために使用されます。ユーザーがアクションを実行することが許可されておらず、`return false`が使用された場合、一般的なエラーがスローされます。代わりに、Strapiの`ForbiddenError`クラス、`ApplicationError`クラス（両クラスについては[デフォルトのエラークラス](#default-error-classes)を参照）、最後に[Node `Error`クラス](https://nodejs.org/api/errors.html#errors_class_error)からのネストされたクラス拡張を使用して、カスタムエラーメッセージをスローすることができます。
 
-The `PolicyError` class is available from `@strapi/utils` package and accepts 2 parameters:
+`PolicyError`クラスは`@strapi/utils`パッケージから利用可能で、2つのパラメータを受け取ります：
 
-- the first parameter of the function is the error `message`
-- (optional) the second parameter is the object that will be set as `details` in the response received; a best practice is to set a `policy` key with the name of the policy that threw the error.
+- 関数の最初のパラメータはエラー`message`です
+- （オプション）二番目のパラメータは、受信したレスポンスで`details`として設定されるオブジェクトです。ベストプラクティスとして、エラーをスローしたポリシーの名前を`policy`キーに設定することが推奨されます。
 
 <details>
-<summary>Example: Throwing a PolicyError in a custom policy</summary>
+<summary>例：カスタムポリシーでPolicyErrorをスローする</summary>
 
-This example shows building a [custom policy](/dev-docs/backend-customization/policies) that will throw a custom error message and stop the request.
+この例では、カスタムエラーメッセージをスローし、リクエストを停止する[カスタムポリシー](/dev-docs/backend-customization/policies)を作成する方法を示しています。
 
 <Tabs groupId="js-ts">
 
@@ -342,20 +343,20 @@ export default (policyContext, config, { strapi }) => {
 
 </details>
 
-### Default error classes
+### デフォルトのエラークラス
 
-The default error classes are available from the `@strapi/utils` package and can be imported and used in your code. Any of the default error classes can be extended to create a custom error class. The custom error class can then be used in your code to throw errors.
+デフォルトのエラークラスは`@strapi/utils`パッケージから利用可能で、コード内でインポートして使用できます。デフォルトのエラークラスのいずれかを拡張してカスタムエラークラスを作成できます。カスタムエラークラスは、コード内でエラーをスローするために使用できます。
 
 <Tabs> 
 
 <TabItem value="Application" label="Application">
 
-The `ApplicationError` class is a generic error class for application errors and is generally recommended as the default error class. This class is specifically designed to throw proper error messages that the admin panel can read and show to the user. It accepts the following parameters:
+`ApplicationError`クラスは、アプリケーションエラーのための一般的なエラークラスで、デフォルトのエラークラスとして推奨されています。このクラスは、管理パネルが読み取り、ユーザーに表示できる適切なエラーメッセージをスローするように特別に設計されています。以下のパラメータを受け取ります：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `An application error occured` |
-| `details` | `object` | Object to define additional details | `{}` |
+| `message` | `string` | エラーメッセージ | `An application error occured` |
+| `details` | `object` | 追加の詳細を定義するオブジェクト | `{}` |
 
 ```js
 throw new ApplicationError('Something went wrong', { foo: 'bar' });
@@ -363,87 +364,87 @@ throw new ApplicationError('Something went wrong', { foo: 'bar' });
 
 </TabItem>
 
-<!-- Not sure if it's worth keeping this tab or not as it's very specific to Strapi internal use-cases -->
-<!-- ::: tab Validation
+<!-- Strapiの内部使用ケースに非常に特化しているため、このタブを保持する価値があるかどうかは不確かです -->
+<!-- ::: tab Validation -->
 
-The `ValidationError` and `YupValidationError` classes are specific error classes designed to be used with the built in validations system and specifically format the errors coming from [Yup](https://www.npmjs.com/package/yup). The `ValidationError` does not accept any parameters but the `YupValidationError` accepts the following parameters:
+`ValidationError`および`YupValidationError`クラスは、組み込みの検証システムとともに使用するために設計された特定のエラークラスであり、特に[Yup](https://www.npmjs.com/package/yup)からのエラーを特定の形式で整形します。 `ValidationError`はパラメータを受け付けませんが、`YupValidationError`は以下のパラメータを受け付けます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | - |
-| `details` | `object` | Object to define additional details | `{ yupErrors }` |
+| `message` | `string` | エラーメッセージ | - |
+| `details` | `object` | 追加の詳細を定義するオブジェクト | `{ yupErrors }` |
 
 ```js
 
 ```js
-throw new PolicyError('Something went wrong', { policy: 'my-policy' });
+throw new PolicyError('何か問題が発生しました', { policy: 'my-policy' });
 ```
 
 ::: -->
 
 <TabItem value="Pagination" label="Pagination">
 
-The `PaginationError` class is a specific error class that is typically used when parsing the pagination information from [REST](/dev-docs/api/rest/sort-pagination#pagination), [GraphQL](/dev-docs/api/graphql#pagination), or the [Document Service](/dev-docs/api/document-service). It accepts the following parameters:
+`PaginationError`クラスは、特定のエラークラスで、通常は[REST](/dev-docs/api/rest/sort-pagination#pagination)、[GraphQL](/dev-docs/api/graphql#pagination)、または[Document Service](/dev-docs/api/document-service)からのページネーション情報を解析する際に使用されます。以下のパラメータを受け付けます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `Invalid pagination` |
+| `message` | `string` | エラーメッセージ | `Invalid pagination` |
 
 ```js
-throw new PaginationError('Exceeded maximum pageSize limit');
+throw new PaginationError('最大pageSize制限を超えました');
 ```
 
 </TabItem>
 
 <TabItem value="NotFound" label="NotFound">
 
-The `NotFoundError` class is a generic error class for throwing `404` status code errors. It accepts the following parameters:
+`NotFoundError`クラスは、`404`ステータスコードエラーをスローするための一般的なエラークラスです。以下のパラメータを受け付けます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `Entity not found` |
+| `message` | `string` | エラーメッセージ | `Entity not found` |
 
 ```js
-throw new NotFoundError('These are not the droids you are looking for');
+throw new NotFoundError('これらはあなたが探しているドロイドではありません');
 ```
 
 </TabItem>
 
 <TabItem value="Forbidden" label="Forbidden">
 
-The `ForbiddenError` class is a specific error class used when a user either doesn't provide any or the correct authentication credentials. It accepts the following parameters:
+`ForbiddenError`クラスは、ユーザーが認証資格を提供しないか、または正しい認証資格を提供しない場合に使用される特定のエラークラスです。以下のパラメータを受け付けます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `Forbidden access` |
+| `message` | `string` | エラーメッセージ | `Forbidden access` |
 
 ```js
-throw new ForbiddenError('Ah ah ah, you didn\'t say the magic word');
+throw new ForbiddenError('あああ、あなたは魔法の言葉を言いませんでした');
 ```
 
 </TabItem>
 
 <TabItem value="Unauthorized" label="Unauthorized">
 
-The `UnauthorizedError` class is a specific error class used when a user doesn't have the proper role or permissions to perform a specific action, but has properly authenticated. It accepts the following parameters:
+`UnauthorizedError`クラスは、ユーザーが特定のアクションを実行するための適切なロールや権限を持っていないが、適切に認証されている場合に使用される特定のエラークラスです。以下のパラメータを受け付けます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `Unauthorized` |
+| `message` | `string` | エラーメッセージ | `Unauthorized` |
 
 ```js
-throw new UnauthorizedError('You shall not pass!');
+throw new UnauthorizedError('あなたは通過してはならない！');
 ```
 
 </TabItem>
 
 <TabItem value="NotImplemented" label="NotImplemented">
 
-The `NotImplementedError` class is a specific error class used when the incoming request is attempting to use a feature that is not currently implemented or configured. It accepts the following parameters:
+`NotImplementedError`クラスは、着信リクエストが現在実装されていないか設定されていない機能を使用しようとしている場合に使用される特定のエラークラスです。以下のパラメータを受け付けます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `This feature isn't implemented` |
+| `message` | `string` | エラーメッセージ | `This feature isn't implemented` |
 
 ```js
 throw new NotImplementedError('This isn\'t implemented', { feature: 'test', implemented: false });
@@ -453,11 +454,11 @@ throw new NotImplementedError('This isn\'t implemented', { feature: 'test', impl
 
 <TabItem value="PayloadTooLarge" label="PayloadTooLarge">
 
-The `PayloadTooLargeError` class is a specific error class used when the incoming request body or attached files exceed the limits of the server. It accepts the following parameters:
+`PayloadTooLargeError`クラスは、着信リクエストボディや添付ファイルがサーバーの制限を超えた場合に使用される特定のエラークラスです。以下のパラメータを受け入れます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `Entity too large` |
+| `message` | `string` | エラーメッセージ | `Entity too large` |
 
 ```js
 throw new PayloadTooLargeError('Uh oh, the file too big!');
@@ -467,12 +468,12 @@ throw new PayloadTooLargeError('Uh oh, the file too big!');
 
 <TabItem value="Policy" label="Policy">
 
-The `PolicyError` class is a specific error designed to be used with [route policies](/dev-docs/backend-customization/policies). The best practice recommendation is to ensure the name of the policy is passed in the `details` parameter. It accepts the following parameters:
+`PolicyError`クラスは、[ルートポリシー](/dev-docs/backend-customization/policies)と共に使用するために設計された特定のエラーです。ベストプラクティスの推奨事項は、ポリシーの名前が`details`パラメータに渡されることを確認することです。以下のパラメータを受け入れます：
 
-| Parameter | Type | Description | Default |
+| パラメータ | タイプ | 説明 | デフォルト |
 | --- | --- | --- | --- |
-| `message` | `string` | The error message | `Policy Failed` |
-| `details` | `object` | Object to define additional details | `{}` |
+| `message` | `string` | エラーメッセージ | `Policy Failed` |
+| `details` | `object` | 追加の詳細を定義するオブジェクト | `{}` |
 
 ```js
 throw new PolicyError('Something went wrong', { policy: 'my-policy' });

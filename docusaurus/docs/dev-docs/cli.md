@@ -1,9 +1,9 @@
 ---
-title: Command Line Interface
+title: コマンドラインインターフェース
 displayed_sidebar: devDocsSidebar
-description: Strapi comes with a full featured Command Line Interface (CLI) which lets you scaffold and manage your project in seconds.
+description: Strapiには、プロジェクトを数秒でスキャフォールド化し、管理することができるフル機能のコマンドラインインターフェース（CLI）が付属しています。
 tags:
-  - Command Line Interface (CLI)
+  - コマンドラインインターフェース（CLI）
   - strapi develop
   - strapi start
   - strapi build
@@ -15,46 +15,46 @@ tags:
 
 import NotV5 from '/docs/snippets/\_not-updated-to-v5.md'
 
-# Command Line Interface (CLI)
+# コマンドラインインターフェース（CLI）
 
 <NotV5 />
 
-Strapi comes with a full featured Command Line Interface (CLI) which lets you scaffold and manage your project in seconds. The CLI works with both the `yarn` and `npm` package managers.
+Strapiには、プロジェクトを数秒でスキャフォールド化し、管理することができるフル機能のコマンドラインインターフェース（CLI）が付属しています。CLIは、`yarn`および`npm`パッケージマネージャーの両方で動作します。
 
 :::caution
-Interactive commands such as `strapi admin:create-user` don't display prompts with `npm`. A fix for the `npm` package manager is anticipated by March 2023. In the meantime, consider using the `yarn` package manager.
+`strapi admin:create-user`のようなインタラクティブなコマンドは、`npm`ではプロンプトが表示されません。`npm`パッケージマネージャーの修正は2023年3月までに予定されています。それまでは、`yarn`パッケージマネージャーの使用を検討してください。
 :::
 
 :::note
-It is recommended to install Strapi locally only, which requires prefixing all of the following `strapi` commands with the package manager used for the project setup (e.g `npm run strapi help` or `yarn strapi help`) or a dedicated node package executor (e.g. `npx strapi help`).
+Strapiのインストールは、ローカルのみを推奨します。これには、以下のすべての`strapi`コマンドにプロジェクトのセットアップに使用したパッケージマネージャーをプレフィックスとして付けることが必要です（例：`npm run strapi help`または`yarn strapi help`）または専用のノードパッケージエグゼキューター（例：`npx strapi help`）。
 
-To pass options with `npm` use the syntax: `npm run strapi <command> -- --<option>`.
+`npm`でオプションを渡すには、次の構文を使用します：`npm run strapi <command> -- --<option>`。
 
-To pass options with `yarn` use the syntax: `yarn strapi <command> --<option>`
+`yarn`でオプションを渡すには、次の構文を使用します：`yarn strapi <command> --<option>`
 :::
 
 <details>
-<summary>ℹ️ Strapi v4 CLI commands removed from Strapi 5:</summary>
+<summary>ℹ️ Strapi 5で削除されたStrapi v4のCLIコマンド:</summary>
 
-The `strapi install`, `strapi uninstall`, `strapi new`, and `strapi watch-admin` commands from Strapi v4 have been removed in Strapi 5:
+Strapi v4の`strapi install`、`strapi uninstall`、`strapi new`、`strapi watch-admin`コマンドはStrapi 5で削除されました：
 
-| Strapi v4 command         | Strapi 5 equivalent                                                                                                                                                                                |
+| Strapi v4 コマンド         | Strapi 5 相当                                                                                                                                                                                |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `strapi install [plugin]` | Use the npx command corresponding to the plugin (found on the Marketplace, see [User Guide](/user-docs/plugins/installing-plugins-via-marketplace))                                                |
-| `strapi new`              | Use the equivalent yarn or npx command to create a new Strapi project (see [CLI installation guide](/dev-docs/installation/cli))                                                                   |
-| `strapi watch-admin`      | `yarn develop` or `npm run develop` always starts the Strapi server in "watch-admin" mode. To disable this in Strapi 5, run `yarn develop --no-watch-admin` or `npm run develop --no-watch-admin`. |
+| `strapi install [plugin]` | プラグインに対応するnpxコマンドを使用します（マーケットプレイスで見つけることができます、詳細は[ユーザーガイド](/user-docs/plugins/installing-plugins-via-marketplace)を参照）                                                |
+| `strapi new`              | 新しいStrapiプロジェクトを作成するための相当するyarnまたはnpxコマンドを使用します（詳細は[CLIインストールガイド](/dev-docs/installation/cli)を参照）                                                                   |
+| `strapi watch-admin`      | `yarn develop`または`npm run develop`は常にStrapiサーバーを"watch-admin"モードで起動します。これをStrapi 5で無効にするには、`yarn develop --no-watch-admin`または`npm run develop --no-watch-admin`を実行します。 |
 
 </details>
 
 ## strapi develop
 
-**Alias**: `dev`
+**エイリアス**：`dev`
 
-Start a Strapi application with auto-reloading enabled.
+自動リロード機能を有効にした状態でStrapiアプリケーションを起動します。
 
-Strapi modifies/creates files at runtime and needs to restart when new files are created. To achieve this, `strapi develop` adds a file watcher and restarts the application when necessary.
+Strapiはランタイムでファイルを変更/作成し、新しいファイルが作成されると再起動が必要です。これを実現するために、`strapi develop`はファイルウォッチャを追加し、必要に応じてアプリケーションを再起動します。
 
-Strapi also adds middlewares to support HMR (Hot Module Replacement) for the administration panel. This allows you to customize the administration panel without having to restart the application or run a separate server.
+また、Strapiは管理パネルのHMR（Hot Module Replacement）をサポートするミドルウェアも追加します。これにより、アプリケーションを再起動したり別のサーバーを実行したりすることなく、管理パネルをカスタマイズすることができます。
 
 ```shell
 strapi develop
@@ -62,132 +62,132 @@ options: [--no-build |--no-watch-admin |--browser |--debug |--silent]
 ```
 
 - **strapi develop --open**<br/>
-  Starts your application with auto-reloading enabled & open your default browser with the administration panel running.
+  自動リロードが有効になった状態でアプリケーションを起動し、デフォルトのブラウザで管理パネルを開きます。
 - **strapi develop --no-watch-admin**<br/>
-  Prevents the server from auto-reload when changes are made to the admin panel code.
-- [DEPRECATED] **strapi develop --no-build**<br/>
-  Starts your application with the auto-reloading enabled and skip the administration panel build process
-- [DEPRECATED] **strapi develop --watch-admin**<br/>
-  Starts your application with the auto-reloading enabled and the front-end development server. It allows you to customize the administration panel.
-- [DEPRECATED] **strapi develop --watch-admin --browser 'google chrome'**<br/>
-  Starts your application with the auto-reloading enabled and the front-end development server. It allows you to customize the administration panel. Provide a browser name to use instead of the default one, `false` means stop opening the browser.
+  管理パネルのコードに変更が加えられたときに、サーバーが自動リロードしないようにします。
+- [非推奨] **strapi develop --no-build**<br/>
+  自動リロードが有効になった状態でアプリケーションを起動し、管理パネルのビルドプロセスをスキップします。
+- [非推奨] **strapi develop --watch-admin**<br/>
+  自動リロードが有効になった状態でアプリケーションを起動し、フロントエンドの開発サーバーを起動します。これにより、管理パネルをカスタマイズすることができます。
+- [非推奨] **strapi develop --watch-admin --browser 'google chrome'**<br/>
+  自動リロードが有効になった状態でアプリケーションを起動し、フロントエンドの開発サーバーを起動します。これにより、管理パネルをカスタマイズすることができます。デフォルトのブラウザの代わりに使用するブラウザの名前を指定します。`false`はブラウザを開くのを停止することを意味します。
 
 :::warning
-You should never use this command to run a Strapi application in production.
+このコマンドはStrapiアプリケーションを本番環境で実行するためには決して使用しないでください。
 :::
 
 ## strapi start
 
-Start a Strapi application with auto-reloading disabled.
+自動リロードを無効にした状態でStrapiアプリケーションを起動します。
 
-This command is to run a Strapi application without restarts and file writes, primarily for use in production.
-Certain features such as the Content-type Builder are disabled in the `strapi start` mode because they require application restarts. The `start` command can be prefaced with [environment variables](/dev-docs/configurations/environment.md#strapi-s-environment-variables) to customize the application start.
+このコマンドは、再起動やファイル書き込みなしにStrapiアプリケーションを実行するためのもので、主に本番環境での使用を想定しています。
+Content-type Builderのような一部の機能は、`strapi start`モードでは無効になっています。これは、これらの機能がアプリケーションの再起動を必要とするためです。`start`コマンドは、アプリケーションの起動をカスタマイズするために[環境変数](/dev-docs/configurations/environment.md#strapi-s-environment-variables)を先行させることができます。
 
 ## strapi build
 
-Builds your admin panel.
+管理パネルをビルドします。
 
 ```bash
 strapi build
 ```
 
-| Option              | Type | Description                                              |
+| オプション              | タイプ | 説明                                              |
 | ------------------- | :--: | -------------------------------------------------------- |
-| `-d, --debug`       |  -   | Enable debugging mode with verbose logs (default: false) |
-| `--minify`          |  -   | Minify the output (default: true)                        |
-| `--no-optimization` |  -   | [DEPRECATED]: use minify instead                         |
-| `--silent`          |  -   | Don't log anything (default: false)                      |
-| `--sourcemaps`      |  -   | Produce sourcemaps (default: false)                      |
-| `--stats`           |  -   | Print build statistics to the console (default: false)   |
+| `-d, --debug`       |  -   | 詳細なログを出力するデバッグモードを有効にします (デフォルト: false) |
+| `--minify`          |  -   | 出力を最小化します (デフォルト: true)                        |
+| `--no-optimization` |  -   | [非推奨]: 代わりにminifyを使用してください                         |
+| `--silent`          |  -   | 何もログを出力しません (デフォルト: false)                      |
+| `--sourcemaps`      |  -   | ソースマップを生成します (デフォルト: false)                      |
+| `--stats`           |  -   | ビルド統計をコンソールに出力します (デフォルト: false)   |
 
 ## strapi login
 
-Logs in to Strapi Cloud (see [Cloud CLI](/cloud/cli/cloud-cli#strapi-login) documentation).
+Strapi Cloudにログインします（[Cloud CLI](/cloud/cli/cloud-cli#strapi-login)のドキュメンテーションを参照してください）。
 
 ## strapi logout
 
-Logs out from Strapi Cloud (see [Cloud CLI](/cloud/cli/cloud-cli#strapi-logout) documentation).
+Strapi Cloudからログアウトします（[Cloud CLI](/cloud/cli/cloud-cli#strapi-logout) のドキュメンテーションを参照）。
 
 ## strapi deploy
 
-Deploys to Strapi Cloud (see [Cloud CLI](/cloud/cli/cloud-cli#strapi-deploy) documentation).
+Strapi Cloudにデプロイします（[Cloud CLI](/cloud/cli/cloud-cli#strapi-deploy) のドキュメンテーションを参照）。
 
 ## strapi export
 
-[Exports your project data](/dev-docs/data-management). The default settings create a `.tar` file, compressed using `gzip` and encrypted using `aes-128-ecb`.
+[プロジェクトのデータをエクスポート](/dev-docs/data-management)します。デフォルトの設定では、`.tar`ファイルを作成し、`gzip`で圧縮し、`aes-128-ecb`で暗号化します。
 
 ```bash
 strapi export
 ```
 
-The exported file is automatically named using the format `export_YYYYMMDDHHMMSS` with the current date and timestamp. Alternately, you can specify the filename using the `-f` or `--file` flag. The following table provides all of the available options as command line flags:
+エクスポートされたファイルは、現在の日付とタイムスタンプを使用して自動的に`export_YYYYMMDDHHMMSS`という形式で名前が付けられます。また、`-f`または`--file`フラグを使用してファイル名を指定することもできます。以下の表は、コマンドラインフラグとして利用可能なすべてのオプションを提供します：
 
-| Option              |  Type  | Description                                                                                                                |
+| オプション              |  タイプ  | 説明                                                                                                                |
 | ------------------- | :----: | -------------------------------------------------------------------------------------------------------------------------- |
-| `‑‑no‑encrypt`      |   -    | Disables file encryption and disables the `key` option.                                                                    |
-| `‑‑no‑compress`     |   -    | Disables file compression.                                                                                                 |
-| `-k`, <br/>`--key`  | string | Passes the encryption key as part of the `export` command. <br/> The `--key` option can't be combined with `--no-encrypt`. |
-| `-f`, <br/>`--file` | string | Specifies the export filename. Do not include a file extension.                                                            |
-| `--exclude`         | string | Exclude data using comma-separated data types. The available types are: `content`, `files`, and `config`.                  |
-| `--only`            | string | Include only these data. The available types are: `content`, `files`, and `config`.                                        |
-| `-h`, <br/>`--help` |   -    | Displays help for the `strapi export` command.                                                                             |
+| `‑‑no‑encrypt`      |   -    | ファイルの暗号化を無効にし、`key`オプションも無効にします。                                                                    |
+| `‑‑no‑compress`     |   -    | ファイルの圧縮を無効にします。                                                                                                 |
+| `-k`, <br/>`--key`  | string | 暗号化キーを`export`コマンドの一部として渡します。<br/> `--key`オプションは`--no-encrypt`と一緒に使用することはできません。 |
+| `-f`, <br/>`--file` | string | エクスポートするファイル名を指定します。ファイル拡張子は含めないでください。                                                            |
+| `--exclude`         | string | カンマ区切りのデータタイプを使用してデータを除外します。利用可能なタイプは次のとおりです：`content`、`files`、`config`。                  |
+| `--only`            | string | これらのデータのみを含めます。利用可能なタイプは次のとおりです：`content`、`files`、`config`。                                        |
+| `-h`, <br/>`--help` |   -    | `strapi export`コマンドのヘルプを表示します。                                                                             |
 
-**Examples**
+**例**
 
-```bash title="Examples of strapi export:"
-# export your data with the default options and the filename myData, which results in a file named myData.tar.gz.enc.
+```bash title="strapi exportの例:"
+# デフォルトのオプションとファイル名myDataでデータをエクスポートします。結果としてmyData.tar.gz.encというファイル名になります。
 strapi export -f myData
 
-# export your data without encryption.
+# 暗号化せずにデータをエクスポートします。
 strapi export --no-encrypt
 ```
 
 ## strapi import
 
-[Imports data](/dev-docs/data-management) into your project. The imported data must originate from another Strapi application. You must pass the `--file` option to specify the filename and location for the import action.
+[データをインポート](/dev-docs/data-management)します。インポートされるデータは、別のStrapiアプリケーションから来る必要があります。インポートアクションのファイル名と場所を指定するために、`--file`オプションを渡す必要があります。
 
 ```bash
 strapi import
 ```
 
-| Option         | Type   | Description                                                               |
+| オプション         | タイプ   | 説明                                                               |
 | -------------- | ------ | ------------------------------------------------------------------------- |
-| `-k,` `--key`  | string | Provide the encryption key in the command instead of a subsequent prompt. |
-| `-f`, `--file` | string | Path and filename with extension for the data to be imported.             |
-| `-h`, `--help` | -      | Display the `strapi import` help commands.                                |
+| `-k,` `--key`  | 文字列 | コマンドの代わりに後続のプロンプトで暗号化キーを提供します。 |
+| `-f`, `--file` | 文字列 | インポートするデータのパスとファイル名（拡張子付き）。             |
+| `-h`, `--help` | -      | `strapi import`のヘルプコマンドを表示します。                                |
 
-**Examples**
+**例**
 
-```bash title="Example of strapi import:"
+```bash title="strapi importの例:"
 
-# import your data with the default parameters and pass an encryption key:
-strapi import -f your-filepath-and-filename --key my-key
+# デフォルトのパラメーターでデータをインポートし、暗号化キーを渡します：
+strapi import -f あなたのファイルパスとファイル名 --key my-key
 ```
 
 ## strapi transfer
 
-[Transfers data](/dev-docs/data-management/transfer) between 2 Strapi instances. This command is primarily intended for use between a local instance and a remote instance or 2 remote instances. The `transfer` command requires a Transfer token, which is generated in the destination instance Admin panel. See the [User Guide](/user-docs/settings/transfer-tokens) for detailed documentation on creating Transfer tokens.
+[データを転送](/dev-docs/data-management/transfer)します。このコマンドは主にローカルインスタンスとリモートインスタンス、または2つのリモートインスタンス間で使用することを目的としています。`transfer`コマンドはTransferトークンが必要で、これは目的のインスタンスの管理パネルで生成されます。Transferトークンの作成に関する詳細なドキュメンテーションについては、[ユーザーガイド](/user-docs/settings/transfer-tokens)をご覧ください。
 
 :::caution
-The destination Strapi instance should be running with the `start` command and not the `develop` command.
+目的地のStrapiインスタンスは`start`コマンドで、`develop`コマンドではなく実行する必要があります。
 :::
 
-| Option                       | Description                                                                                                                                       |
+| オプション                       | 説明                                                                                                                                       |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--to [destinationURL]`      | Full URL of the `/admin` endpoint on the destination Strapi instance<br />(e.g. `--to https://my-beautiful-strapi-website/admin`)                 |
-| `--to-token [transferToken]` | Transfer token for the remote Strapi destination                                                                                                  |
-| `--from [sourceURL]`         | Full URL of the `/admin` endpoint of the remote Strapi instance to pull data from<br />(e.g., `--from https://my-beautiful-strapi-website/admin`) |
-| `‑‑from‑token`               | Transfer token from the Strapi source instance.                                                                                                   |
-| `--force`                    | Automatically answer "yes" to all prompts, including potentially destructive requests, and run non-interactively.                                 |
-| `--exclude`                  | Exclude data using comma-separated data types. The available types are: `content`, `files`, and `config`.                                         |
-| `--only`                     | Include only these data. The available types are: `content`, `files`, and `config`.                                                               |
-| `-h`, `--help`               | Displays the commands for `strapi transfer`.                                                                                                      |
+| `--to [destinationURL]`      | 宛先Strapiインスタンスの`/admin`エンドポイントのフルURL<br />(例： `--to https://my-beautiful-strapi-website/admin`)                 |
+| `--to-token [transferToken]` | リモートのStrapi宛先の転送トークン                                                                                                  |
+| `--from [sourceURL]`         | データを取得するリモートStrapiインスタンスの`/admin`エンドポイントのフルURL<br />(例： `--from https://my-beautiful-strapi-website/admin`) |
+| `‑‑from‑token`               | Strapiソースインスタンスからの転送トークン。                                                                                                   |
+| `--force`                    | すべてのプロンプトに自動的に「はい」を答え、破壊的なリクエストも含めて、対話的に実行しない。                                 |
+| `--exclude`                  | コンマで区切られたデータタイプを使用してデータを除外します。利用可能なタイプは：`content`、`files`、`config`。                                         |
+| `--only`                     | これらのデータのみを含めます。利用可能なタイプは：`content`、`files`、`config`。                                                               |
+| `-h`, `--help`               | `strapi transfer`のコマンドを表示します。                                                                                                      |
 
 :::caution
-Either `--to` or `--from` is required, but it's not currently allowed to enter both or neither.
+`--to`または`--from`のいずれかが必要ですが、現在は両方またはどちらも入力することは許可されていません。
 :::
 
-**Example**
+**例**
 
 ```bash
 strapi transfer --to http://example.com/admin --to-token my-transfer-token
@@ -195,23 +195,23 @@ strapi transfer --to http://example.com/admin --to-token my-transfer-token
 
 ## strapi report
 
-Prints out debug information useful for debugging and required when reporting an issue.
+デバッグに役立つ情報を出力し、問題を報告する際に必要とされます。
 
-| Option                 | Description                   |
+| オプション                 | 説明                   |
 | ---------------------- | ----------------------------- |
-| `-u`, `--uuid`         | Includes the project UUID     |
-| `-d`, `--dependencies` | Includes project dependencies |
-| `--all`                | Logs all the data             |
+| `-u`, `--uuid`         | プロジェクトのUUIDを含めます     |
+| `-d`, `--dependencies` | プロジェクトの依存関係を含めます |
+| `--all`                | すべてのデータをログに記録します             |
 
-**Examples**
+**例**
 
-To include the project UUID and dependencies in the output:
+プロジェクトのUUIDと依存関係を出力に含めるには：
 
 ```bash
 strapi report --uuid --dependencies
 ```
 
-To log everything, use the `--all` option:
+すべてをログに記録するには、`--all`オプションを使用します：
 
 ```bash
 strapi report --all
@@ -219,122 +219,121 @@ strapi report --all
 
 ## strapi configuration:dump
 
-**Alias**: `config:dump`
+**エイリアス**: `config:dump`
 
-Dumps configurations to a file or stdout to help you migrate to production.
+プロダクションへの移行を支援するために、設定をファイルまたはstdoutにダンプします。
 
-The dump format will be a JSON array.
+ダンプ形式はJSON配列になります。
 
 ```bash title="strapi configuration:dump"
 
-Options:
-  -f, --file <file>  Output file, default output is stdout
-  -p, --pretty       Format the output JSON with indentation and line breaks (default: false)
+オプション：
+  -f, --file <file>  出力ファイル。デフォルトの出力はstdoutです。
+  -p, --pretty       出力JSONをインデントと改行でフォーマットする（デフォルト：false）
 ```
 
-**Examples**
+**例**
 
 - `strapi configuration:dump -f dump.json`
 - `strapi config:dump --file dump.json`
 - `strapi config:dump > dump.json`
 
-All these examples are equivalent.
+これらの例はすべて同等です。
 
 :::caution
-When configuring your application you often enter credentials for third party services (e.g authentication providers). Be aware that those credentials will also be dumped into the output of this command.
-In case of doubt, you should avoid committing the dump file into a versioning system. Here are some methods you can explore:
+アプリケーションを設定する際には、しばしば第三者サービス（例えば認証プロバイダ）の資格情報を入力します。これらの資格情報もこのコマンドの出力にダンプされることに注意してください。
+疑問がある場合は、ダンプファイルをバージョニングシステムにコミットすることを避けるべきです。以下にいくつかの方法を探ることができます：
 
-- Copy the file directly to the environment you want and run the restore command there.
-- Put the file in a secure location and download it at deploy time with the right credentials.
-- Encrypt the file before committing and decrypt it when running the restore command.
+- ファイルを直接希望の環境にコピーし、そこでリストアコマンドを実行します。
+- ファイルを安全な場所に置き、適切な資格情報でデプロイ時にダウンロードします。
+- コミット前にファイルを暗号化し、リストアコマンドを実行するときに復号化します。
 
 :::
 
 ## strapi configuration:restore
 
-**Alias**: `config:restore`
+**エイリアス**：`config:restore`
 
-Restores a configuration dump into your application.
+設定ダンプをアプリケーションに復元します。
 
-The input format must be a JSON array.
+入力フォーマットはJSON配列でなければなりません。
 
 ```bash
 strapi configuration:restore
 
 Options:
-  -f, --file <file>          Input file, default input is stdin
-  -s, --strategy <strategy>  Strategy name, one of: "replace", "merge", "keep". Defaults to: "replace"
+  -f, --file <file>          入力ファイル。デフォルトの入力はstdinです。
+  -s, --strategy <strategy>  戦略名。"replace"、"merge"、"keep"のいずれか。デフォルトは："replace"
 ```
 
-**Examples**
+**例**
 
 - `strapi configuration:restore -f dump.json`
 - `strapi config:restore --file dump.json -s replace`
 - `cat dump.json | strapi config:restore`
 - `strapi config:restore < dump.json`
 
-All these examples are equivalent.
+これらの例はすべて同等です。
 
-**Strategies**
+**戦略**
 
-When running the restore command, you can choose from three different strategies:
+リストアコマンドを実行する際には、以下の3つの異なる戦略から選択することができます：
 
-- **replace**: Will create missing keys and replace existing ones.
-- **merge**: Will create missing keys and merge existing keys with their new value.
-- **keep**: Will create missing keys and keep existing keys as is.
+- **replace**：存在しないキーを作成し、既存のものを置換します。
+- **merge**：存在しないキーを作成し、既存のキーを新しい値とマージします。
+- **keep**：存在しないキーを作成し、既存のキーをそのまま保持します。
 
 ## strapi admin:create-user
 
-**Alias** `admin:create`
+**エイリアス** `admin:create`
 
-Creates an administrator.
-Administrator's first name, last name, email, and password can be:
+管理者を作成します。
+管理者の名前、姓、メール、パスワードは次のように設定できます：
 
-- passed as options
-- or set interactively if you call the command without passing any option.
+- オプションとして渡す
+- または、任意のオプションを渡さずにコマンドを呼び出すと対話的に設定できます。
 
-**Example**
+**例**
 
 ```bash
 
 strapi admin:create-user --firstname=Kai --lastname=Doe --email=chef@strapi.io --password=Gourmet1234
 ```
 
-**Options**
+**オプション**
 
-| Option          | Type   | Description                        | Required |
+| オプション        | タイプ   | 説明                            | 必須 |
 | --------------- | ------ | ---------------------------------- | -------- |
-| -f, --firstname | string | The administrator's first name     | Yes      |
-| -l, --lastname  | string | The administrator's last name      | No       |
-| -e, --email     | string | The administrator's email          | Yes      |
-| -p, --password  | string | New password for the administrator | No       |
-| -h, --help      |        | display help for command           |          |
+| -f, --firstname | string | 管理者の名前                        | はい      |
+| -l, --lastname  | string | 管理者の姓                          | いいえ       |
+| -e, --email     | string | 管理者のメール                      | はい      |
+| -p, --password  | string | 管理者の新しいパスワード              | いいえ       |
+| -h, --help      |        | コマンドのヘルプを表示                 |          |
 
 ## strapi admin:reset-user-password
 
-**Alias** `admin:reset-password`
+**エイリアス** `admin:reset-password`
 
-Reset an admin user's password.
-You can pass the email and new password as options or set them interactively if you call the command without passing the options.
+管理者ユーザーのパスワードをリセットします。
+メールと新しいパスワードをオプションとして渡すか、オプションを渡さずにコマンドを呼び出すと対話的に設定できます。
 
-**Example**
+**例**
 
 ```bash
-
 strapi admin:reset-user-password --email=chef@strapi.io --password=Gourmet1234
 ```
 
-**Options**
+**オプション**
 
-| Option         | Type   | Description               |
+| オプション       | タイプ   | 説明                     |
 | -------------- | ------ | ------------------------- |
-| -e, --email    | string | The user email            |
-| -p, --password | string | New password for the user |
-| -h, --help     |        | display help for command  |
+| -e, --email    | string | ユーザーのメールアドレス   |
+| -p, --password | string | ユーザーの新しいパスワード |
+| -h, --help     |        | コマンドのヘルプを表示する |
 
 ## strapi generate
 
-Run a fully interactive CLI to generate APIs, [controllers](/dev-docs/backend-customization/controllers.md), [content-types](/dev-docs/backend-customization/models.md), [plugins](/dev-docs/plugins/developing-plugins.md#create-a-plugin), [policies](/dev-docs/backend-customization/policies.md), [middlewares](/dev-docs/backend-customization/middlewares.md) and [services](/dev-docs/backend-customization/services.md), and [migrations](/dev-docs/database-migrations).
+API、[コントローラー](/dev-docs/backend-customization/controllers.md)、[コンテンツタイプ](/dev-docs/backend-customization/models.md)、[プラグイン](/dev-docs/plugins/developing-plugins.md#create-a-plugin)、[ポリシー](/dev-docs/backend-customization/policies.md)、[ミドルウェア](/dev-docs/backend-customization/middlewares.md)、[サービス](/dev-docs/backend-customization/services.md)、[マイグレーション](/dev-docs/database-migrations)を生成するための完全に対話的なCLIを実行します。
 
 ```bash
 strapi generate
@@ -342,39 +341,39 @@ strapi generate
 
 ## strapi templates:generate
 
-Create a template from the current Strapi project.
+現在のStrapiプロジェクトからテンプレートを作成します。
 
 ```bash
 strapi templates:generate <path>
 ```
 
 - **strapi templates:generate &#60;path&#62;**<br/>
-  Generates a Strapi template at `<path>`
+  `<path>`にStrapiテンプレートを生成します。
 
-  Example: `strapi templates:generate ../strapi-template-name` will copy the required files and folders to a `template` directory inside `../strapi-template-name`
+  例：`strapi templates:generate ../strapi-template-name`は必要なファイルとフォルダを`../strapi-template-name`内の`template`ディレクトリにコピーします。
 
 ## strapi ts:generate-types
 
-Generate [TypeScript](/dev-docs/typescript.md) typings for the project schemas.
+プロジェクトのスキーマのための[TypeScript](/dev-docs/typescript.md)の型を生成します。
 
 ```bash
 strapi ts:generate-types
 ```
 
 - **strapi ts:generate-types --debug**<br />
-  Generate typings with the debug mode enabled, displaying a detailed table of the generated schemas.
-- **strapi ts:generate-types --silent** or **strapi ts:generate-types -s**<br/>
-  Generate typings with the silent mode enabled, completely removing all the logs in the terminal. Cannot be combined with `debug`
-- **strapi ts:generate-types --out-dir &#60;path&#62;** or **strapi ts:generate-types -o &#60;path&#62;**<br/>
-  Generate typings specifying the output directory in which the file will be created.
+  デバッグモードを有効にして型を生成し、生成されたスキーマの詳細なテーブルを表示します。
+- **strapi ts:generate-types --silent**または**strapi ts:generate-types -s**<br/>
+  サイレントモードを有効にして型を生成し、ターミナルのすべてのログを完全に削除します。`debug`と組み合わせて使用することはできません。
+- **strapi ts:generate-types --out-dir &#60;path&#62;**または**strapi ts:generate-types -o &#60;path&#62;**<br/>
+  ファイルが作成される出力ディレクトリを指定して型を生成します。
 
 :::caution
-Strapi requires the project types to be generated in the `types` directory for them to work. The `--out-dir` option should not be used for most cases. However, it can be useful for cases such as generating a second copy to compare the difference between your existing and updated types after changing your content structure.
+Strapiでは、プロジェクトの型を`types`ディレクトリに生成する必要があります。`--out-dir`オプションはほとんどのケースで使用しないでください。ただし、コンテンツ構造を変更した後に、既存の型と更新された型の差分を比較するための2つ目のコピーを生成するなどのケースでは便利です。
 :::
 
 ## strapi routes:list
 
-Display a list of all the available [routes](/dev-docs/backend-customization/routes.md).
+利用可能なすべての[routes](/dev-docs/backend-customization/routes.md)のリストを表示します。
 
 ```bash
 strapi routes:list
@@ -382,7 +381,7 @@ strapi routes:list
 
 ## strapi policies:list
 
-Display a list of all the registered [policies](/dev-docs/backend-customization/policies.md).
+登録されているすべての[policies](/dev-docs/backend-customization/policies.md)のリストを表示します。
 
 ```bash
 strapi policies:list
@@ -390,7 +389,7 @@ strapi policies:list
 
 ## strapi middlewares:list
 
-Display a list of all the registered [middlewares](/dev-docs/backend-customization/middlewares.md).
+登録されているすべての[middlewares](/dev-docs/backend-customization/middlewares.md)のリストを表示します。
 
 ```bash
 strapi middlewares:list
@@ -398,7 +397,7 @@ strapi middlewares:list
 
 ## strapi content-types:list
 
-Display a list of all the existing [content-types](/dev-docs/backend-customization/models.md).
+すべての既存の[コンテンツタイプ](/dev-docs/backend-customization/models.md)のリストを表示します。
 
 ```bash
 strapi content-types:list
@@ -406,7 +405,7 @@ strapi content-types:list
 
 ## strapi hooks:list
 
-Display a list of all the available hooks.
+利用可能なすべてのフックのリストを表示します。
 
 ```bash
 strapi hooks:list
@@ -414,7 +413,7 @@ strapi hooks:list
 
 ## strapi controllers:list
 
-Display a list of all the registered [controllers](/dev-docs/backend-customization/controllers.md).
+登録されたすべての[コントローラー](/dev-docs/backend-customization/controllers.md)のリストを表示します。
 
 ```bash
 strapi controllers:list
@@ -422,7 +421,7 @@ strapi controllers:list
 
 ## strapi services:list
 
-Display a list of all the registered [services](/dev-docs/backend-customization/services.md).
+登録されたすべての[サービス](/dev-docs/backend-customization/services.md)のリストを表示します。
 
 ```bash
 strapi services:list
@@ -430,7 +429,7 @@ strapi services:list
 
 ## strapi telemetry:disable
 
-Disable data collection for the project (see [Usage Information](/dev-docs/usage-information.md)).
+プロジェクトのデータ収集を無効にします（[使用情報](/dev-docs/usage-information.md)を参照）。
 
 ```bash
 strapi telemetry:disable
@@ -438,7 +437,7 @@ strapi telemetry:disable
 
 ## strapi telemetry:enable
 
-Re-enable data collection for the project after it was disabled (see [Usage Information](/dev-docs/usage-information.md)).
+無効になった後のプロジェクトのデータ収集を再度有効にします（[使用情報](/dev-docs/usage-information.md)を参照）。
 
 ```bash
 strapi telemetry:enable
@@ -446,7 +445,7 @@ strapi telemetry:enable
 
 ## strapi console
 
-Start the server and eval commands in your application in real time.
+サーバーを起動し、リアルタイムでアプリケーション内のコマンドを評価します。
 
 ```bash
 strapi console
@@ -454,8 +453,8 @@ strapi console
 
 ## strapi version
 
-Print the currently installed Strapi version.
-It will output the current globally installed version if this command is strapi is installed globally, or the current version of Strapi within a Strapi project if the command is run from a given folder containing a Strapi project.
+現在インストールされているStrapiのバージョンを表示します。
+このコマンドがグローバルにインストールされている場合、現在グローバルにインストールされているバージョンを出力します。また、Strapiプロジェクトを含む特定のフォルダからコマンドが実行される場合、そのフォルダ内のStrapiの現在のバージョンを出力します。
 
 ```bash
 strapi version
@@ -463,7 +462,7 @@ strapi version
 
 ## strapi help
 
-List CLI commands.
+CLIコマンドのリストを表示します。
 
 ```bash
 strapi help

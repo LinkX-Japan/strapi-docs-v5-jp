@@ -1,6 +1,6 @@
 ---
-title: Using Sort & Pagination with the Document Service API
-description: Use Strapi's Document Service API to sort and paginate query results
+title: Document Service APIを利用したソートとページネーション
+description: StrapiのDocument Service APIを使用してクエリ結果をソートし、ページネートする
 displayed_sidebar: devDocsSidebar
 tags:
 - API 
@@ -10,20 +10,20 @@ tags:
 - pagination
 ---
 
-# Document Service API: Sorting and paginating results
+# Document Service API: 結果のソートとページネーション
 
-The [Document Service API](/dev-docs/api/document-service) offers the ability to sort and paginate query results.
+[Document Service API](/dev-docs/api/document-service)は、クエリ結果のソートとページネーションを行う機能を提供します。
 
-## Sort
+## ソート
 
-To sort results returned by the Document Service API, include the `sort` parameter with queries.
+Document Service APIによって返される結果をソートするには、クエリに`sort`パラメーターを含めてください。
 
-### Sort on a single field
+### 単一フィールドでのソート
 
-To sort results based on a single field:
+単一のフィールドに基づいて結果をソートするには：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエスト例">
 
 ```js
 const documents = await strapi.documents("api::article.article").findMany({
@@ -33,7 +33,7 @@ const documents = await strapi.documents("api::article.article").findMany({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンス例">
 
 ```json
 [
@@ -58,12 +58,12 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-### Sort on multiple fields
+### 複数フィールドでのソート
 
-To sort on multiple fields, pass them all in an array:
+複数のフィールドでソートするには、それらすべてを配列で渡します：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエスト例">
 
 ```js
 const documents = await strapi.documents("api::article.article").findMany({
@@ -73,7 +73,7 @@ const documents = await strapi.documents("api::article.article").findMany({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンス例">
 
 ```json
 [
@@ -98,12 +98,12 @@ const documents = await strapi.documents("api::article.article").findMany({
 </Response>
 </ApiCall>
 
-## Pagination
+## ページネーション
 
-To paginate results, pass the `limit` and `start` parameters:
+結果をページネーションするには、`limit`と`start`パラメーターを渡します：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエスト例">
 
 ```js
 const documents = await strapi.documents("api::article.article").findMany({
@@ -114,7 +114,7 @@ const documents = await strapi.documents("api::article.article").findMany({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンス例">
 
 ```json
 [

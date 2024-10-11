@@ -1,29 +1,29 @@
 ---
-title: Customization
-description: Learn more about Strapi 5 customization possibilities
+title: カスタマイズ
+description: Strapi 5のカスタマイズ可能性について詳しく学びましょう
 displayed_sidebar: devDocsSidebar
 pagination_prev: dev-docs/advanced-features
 pagination_next: dev-docs/plugins
 tags:
-- admin panel
-- admin panel customization
-- backend customization
-- backend server
-- concepts
+- 管理パネル
+- 管理パネルのカスタマイズ
+- バックエンドのカスタマイズ
+- バックエンドサーバー
+- コンセプト
 - Content-type Builder 
 - Content Manager
-- introduction
+- イントロダクション
 ---
 
-# Customization
+# カスタマイズ
 
-Strapi includes 2 main components:
+Strapiには2つの主要なコンポーネントが含まれています:
 
-- The back-end part of Strapi is a **server** that receives requests and handles them to return responses that can surface the data you built and saved through the Content-Type Builder and Content Manager. The backend server is described in more details in the [Backend Customization introduction](/dev-docs/backend-customization). Most of the parts of the backend server can be customized.
+- Strapiのバックエンド部分は、リクエストを受け取り、Content-Type BuilderとContent Managerを通じて構築および保存したデータを表面化するレスポンスを返す**サーバー**です。バックエンドサーバーについては、[バックエンドカスタマイズの紹介](/dev-docs/backend-customization)で詳しく説明しています。バックエンドサーバーのほとんどの部分はカスタマイズできます。
 
-- The front-end, user-facing part of Strapi is called the **admin panel**. The admin panel is the graphical user interface (GUI) that you use to build a data structure, create and manage content, and perform various other actions that can be managed by built-in or 3rd-party plugins.  Some parts of the admin panel can be customized.
+- Strapiのフロントエンド、ユーザー向け部分は**管理パネル**と呼ばれます。管理パネルは、データ構造を構築し、コンテンツを作成・管理し、組み込みまたはサードパーティのプラグインによって管理できるさまざまな他のアクションを実行するために使用するグラフィカルユーザーインターフェイス（GUI）です。管理パネルの一部はカスタマイズできます。
 
-From a bigger picture, this is how Strapi integrates in a typical, generic setup: Strapi includes 2 parts, a back-end server and an admin panel, and interact with a database (which stores data) and an external, front-end application that displays your data. Both parts of Strapi can be customized to some extent.
+大きな視点から見ると、これがStrapiが典型的な、一般的なセットアップにどのように統合されるかです：Strapiには2つの部分、バックエンドサーバーと管理パネルが含まれており、データベース（データを保存する）と、データを表示する外部のフロントエンドアプリケーションと対話します。Strapiの両方の部分はある程度カスタマイズできます。
 
 ```mermaid
 
@@ -39,16 +39,16 @@ From a bigger picture, this is how Strapi integrates in a typical, generic setup
 
 <br />
 
-Click on any of the following cards to learn more about customization possibilities:
+以下のカードのいずれかをクリックして、カスタマイズの可能性について詳しく学びましょう:
 
 <CustomDocCardsWrapper>
-<CustomDocCard emoji="" title="Back-end customization" description="Customize the backend server (routes, policies, middlewares, controllers, services, and models)." link="/dev-docs/backend-customization" />
-<CustomDocCard emoji="" title="Admin panel customization" description="Customize the admin panel (logos, themes, menu, translations, and more)." link="/dev-docs/admin-panel-customization" />
+<CustomDocCard emoji="" title="バックエンドのカスタマイズ" description="バックエンドサーバー（ルート、ポリシー、ミドルウェア、コントローラー、サービス、モデル）をカスタマイズします。" link="/dev-docs/backend-customization" />
+<CustomDocCard emoji="" title="管理パネルのカスタマイズ" description="管理パネル（ロゴ、テーマ、メニュー、翻訳、その他）をカスタマイズします。" link="/dev-docs/admin-panel-customization" />
 </CustomDocCardsWrapper>
 
 
 :::info
-Customizing the database or the external, front-end application are outside of the scope of the present documentation section.
-- You can learn more about databases usage with Strapi by reading the installation documentation, which lists [supported databases](/dev-docs/installation/cli#preparing-the-installation), and the configuration documentation, which describes how to [configure a database](/dev-docs/configurations/database) with your project.
-- You can learn more about how external front-end applications can interact with Strapi by reading the Strapi's [integration pages](https://strapi.io/integrations).
+データベースや外部のフロントエンドアプリケーションのカスタマイズは、現在のドキュメンテーションセクションの範囲外です。
+- Strapiでのデータベースの使用については、インストールドキュメンテーションを読むことで詳しく学ぶことができます。これには、[サポートされるデータベース](/dev-docs/installation/cli#preparing-the-installation)がリストされており、設定ドキュメンテーションでは、プロジェクトとともに[データベースを設定する](/dev-docs/configurations/database)方法を説明しています。
+- 外部のフロントエンドアプリケーションがStrapiとどのように対話できるかについては、Strapiの[統合ページ](https://strapi.io/integrations)を読むことで詳しく学ぶことができます。
 :::

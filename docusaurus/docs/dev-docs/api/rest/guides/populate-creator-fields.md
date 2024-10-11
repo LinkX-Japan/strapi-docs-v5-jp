@@ -1,6 +1,6 @@
 ---
-title: How to populate creator fields
-description: Learn how to populate creator fields such as createdBy and updatedBy by creating a custom controller that leverages the populate parameter.
+title: 作成者フィールドの入力方法
+description: populateパラメータを活用したカスタムコントローラを作成することで、createdByやupdatedByなどの作成者フィールドを入力する方法を学びます。
 tags:
 - API
 - Content API
@@ -15,23 +15,23 @@ tags:
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# 🛠️ How to populate creator fields such as `createdBy` and `updatedBy`
+# 🛠️ `createdBy`や`updatedBy`などの作成者フィールドの入力方法
 
 <NotV5/>
 
-The creator fields `createdBy` and `updatedBy` are removed from the [REST API](/dev-docs/api/rest) response by default. These 2 fields can be returned in the REST API by activating the `populateCreatorFields` parameter at the content-type level.
+作成者フィールド`createdBy`および`updatedBy`は、デフォルトでは[REST API](/dev-docs/api/rest)のレスポンスから削除されます。これら2つのフィールドは、コンテンツタイプレベルで`populateCreatorFields`パラメータをアクティブにすることでREST APIに戻すことができます。
 
 :::note
 
-The `populateCreatorFields` property is not available to the GraphQL API.
+`populateCreatorFields`プロパティはGraphQL APIでは利用できません。
 
-Only the following fields will be populated: `id`, `firstname`, `lastname`, `username`, `preferedLanguage`, `createdAt`, and `updatedAt`.
+以下のフィールドのみが入力されます：`id`、`firstname`、`lastname`、`username`、`preferedLanguage`、`createdAt`、および`updatedAt`。
 :::
 
-To add `createdBy` and `updatedBy` to the API response:
+APIレスポンスに`createdBy`と`updatedBy`を追加するには：
 
-1. Open the content-type `schema.json` file.
-2. Add `"populateCreatorFields": true` to the `options` object:
+1. コンテンツタイプの`schema.json`ファイルを開きます。
+2. `options`オブジェクトに`"populateCreatorFields": true`を追加します：
 
   ```json
   "options": {
@@ -40,9 +40,9 @@ To add `createdBy` and `updatedBy` to the API response:
     },
   ```
 
-3. Save the `schema.json`.
-4. Create a new route middleware either using the [generate CLI](/dev-docs/cli.md) or by manually creating a new file in `./src/api/[content-type-name]/middlewares/[your-middleware-name].js`
-5. Add the following piece of code, you can modify this example to suit your needs:
+3. `schema.json`を保存します。
+4. [generate CLI](/dev-docs/cli.md)を使用するか、`./src/api/[content-type-name]/middlewares/[your-middleware-name].js`に新しいファイルを手動で作成することで新しいルートミドルウェアを作成します。
+5. 以下のコードを追加します。この例をあなたのニーズに合わせて変更することができます：
 
   ```js title="./src/api/test/middlewares/defaultTestPopulate.js"
   "use strict";
@@ -58,7 +58,7 @@ To add `createdBy` and `updatedBy` to the API response:
   };
   ```
 
-6. Modify your default route factory to enable this middleware on the specific routes you want this population to apply to and replacing the content-type/middleware name with yours:
+6. この入力を適用する特定のルートでこのミドルウェアを有効にするために、デフォルトのルートファクトリを変更し、コンテンツタイプ/ミドルウェア名をあなたのものに置き換えます：
 
   ```js title="./src/api/test/routes/test.js"
   "use strict";
@@ -77,4 +77,4 @@ To add `createdBy` and `updatedBy` to the API response:
   });
   ```
 
-REST API requests with no `populate` parameter will include the `createdBy` or `updatedBy` fields by default.
+`populate`パラメータがないREST APIリクエストには、デフォルトで`createdBy`または`updatedBy`フィールドが含まれます。

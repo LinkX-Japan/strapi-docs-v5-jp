@@ -1,14 +1,14 @@
 ---
 title: Webhooks
 displayed_sidebar: devDocsSidebar
-description: Strapi webhooks are user-defined HTTP callbacks used by an application to notify other applications that an event occurred.
+description: StrapiのWebhooksは、アプリケーションが他のアプリケーションにイベントが発生したことを通知するために使用するユーザー定義のHTTPコールバックです。
 tags:
-- backend customization
-- backend server
+- バックエンドのカスタマイズ
+- バックエンドサーバー
 - defaultHeaders
-- Headers
-- lifecycle hooks
-- payload
+- ヘッダー
+- ライフサイクルフック
+- ペイロード
 - REST API 
 - webhooks
 ---
@@ -19,23 +19,23 @@ import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
 <NotV5 />
 
-Webhook is a construct used by an application to notify other applications that an event occurred. More precisely, webhook is a user-defined HTTP callback. Using a webhook is a good way to tell third party providers to start some processing (CI, build, deployment ...).
+Webhookは、アプリケーションが他のアプリケーションにイベントが発生したことを通知するための構造です。より正確には、webhookはユーザー定義のHTTPコールバックです。Webhookを使用すると、サードパーティのプロバイダーに何らかの処理（CI、ビルド、デプロイなど）を開始するように通知することができます。
 
-The way a webhook works is by delivering information to a receiving application through HTTP requests (typically POST requests).
+Webhookの動作方法は、HTTPリクエスト（通常はPOSTリクエスト）を通じて情報を受信アプリケーションに配信することによって行われます。
 
-## User content-type webhooks
+## ユーザーコンテンツタイプのWebhooks
 
-To prevent from unintentionally sending any user's information to other applications, Webhooks will not work for the User content-type.
-If you need to notify other applications about changes in the Users collection, you can do so by creating [Lifecycle hooks](/dev-docs/backend-customization/models#lifecycle-hooks) using the `./src/index.js` example.
+誤ってユーザーの情報を他のアプリケーションに送信することを防ぐため、Webhooksはユーザーコンテンツタイプでは動作しません。
+Usersコレクションの変更について他のアプリケーションに通知する必要がある場合は、`./src/index.js`の例を使用して[ライフサイクルフック](/dev-docs/backend-customization/models#lifecycle-hooks)を作成することができます。
 
-## Available configurations
+## 利用可能な設定
 
-You can set webhook configurations inside the file `./config/server`.
+Webhookの設定は、ファイル`./config/server`内で設定することができます。
 
 - `webhooks`
-  - `defaultHeaders`: You can set default headers to use for your webhook requests. This option is overwritten by the headers set in the webhook itself.
+  - `defaultHeaders`: Webhookリクエストに使用するデフォルトのヘッダーを設定できます。このオプションは、Webhook自体で設定されたヘッダーによって上書きされます。
 
-**Example configuration**
+**設定の例**
 
 <Tabs groupId="js-ts">
 
@@ -68,18 +68,18 @@ export default {
 </TabItem>
 </Tabs>
 
-## Securing your webhooks
+## Webhooksのセキュリティ
 
-Most of the time, webhooks make requests to public URLs, therefore it is possible that someone may find that URL and send it wrong information.
+ほとんどの場合、webhooksは公開URLにリクエストを行うため、誰かがそのURLを見つけて間違った情報を送信する可能性があります。
 
-To prevent this from happening you can send a header with an authentication token. Using the Admin panel you would have to do it for every webhook.
-Another way is to define `defaultHeaders` to add to every webhook requests.
+これを防ぐためには、認証トークンを含むヘッダーを送信することができます。管理パネルを使用して、各Webhookに対してこれを行う必要があります。
+別の方法として、すべてのWebhookリクエストに追加するための`defaultHeaders`を定義することもできます。
 
-You can configure these global headers by updating the file at `./config/server`:
+これらのグローバルヘッダーは、`./config/server`のファイルを更新することで設定できます：
 
 <Tabs>
 
-<TabItem value="simple-token" label="Simple token">
+<TabItem value="simple-token" label="シンプルなトークン">
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -113,7 +113,7 @@ export default {
 
 </TabItem>
 
-<TabItem value="environment-variable" label="Environment variable">
+<TabItem value="environment-variable" label="環境変数">
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -149,90 +149,90 @@ export default {
 
 </Tabs>
 
-If you are developing the webhook handler yourself you can now verify the token by reading the headers.
+もし自身でwebhookハンドラを開発しているなら、ヘッダーを読み込むことでトークンを検証できます。
 
-<!--- ### Usage
+<!--- ### 使用法
 
-To access the webhook configuration panel, go to `Settings` > `Webhooks`.
+webhook設定パネルにアクセスするには、`Settings` > `Webhooks`に移動します。
 
 ![Webhooks home](/img/assets/concepts/webhooks/home.png)
 
-#### Create a webhook
+#### webhookを作成する
 
-Click on `Add new webhook` and fill in the form.
+`Add new webhook`をクリックしてフォームに入力します。
 
 ![create](/img/assets/concepts/webhooks/create.png)
 
-#### Trigger a webhook
+#### webhookをトリガーする
 
-You can test out a webhook with a test event: `trigger-test`. Open the webhook you want to trigger.
+テストイベント`trigger-test`でwebhookを試すことができます。トリガーしたいwebhookを開きます。
 
 ![Trigger ](/img/assets/concepts/webhooks/trigger_start.png)
 
-Click on the `Trigger` button.
+`Trigger`ボタンをクリックします。
 
 ![Trigger pending](/img/assets/concepts/webhooks/trigger.png)
 
-You will see the trigger request appear and get the result.
+トリガーリクエストが表示され、結果を取得します。
 
 ![Trigger result](/img/assets/concepts/webhooks/trigger_result.png)
 
-#### Enable or disable a webhook
+#### webhookを有効化または無効化する
 
-You can enable or disable a webhook from the list view directly.
+リストビューから直接webhookを有効化または無効化できます。
 
 ![Disable webhook](/img/assets/concepts/webhooks/disable.png)
 
-#### Update a webhook
+#### webhookを更新する
 
-You can edit any webhook by clicking on the `pen` icon in the webhook list view.
+webhookリストビューの`pen`アイコンをクリックして任意のwebhookを編集できます。
 
 ![Update webhook](/img/assets/concepts/webhooks/list.png)
 
-#### Delete a webhook
+#### webhookを削除する
 
-You can delete a webhook by clicking on the `trash` icon.
+`trash`アイコンをクリックしてwebhookを削除できます。
 
 ![Delete webhook](/img/assets/concepts/webhooks/disable.png) --->
 
-## Available events
+## 利用可能なイベント
 
-By default Strapi webhooks can be triggered by the following events:
+デフォルトでは、Strapiのwebhooksは次のイベントによってトリガーされます：
 
-| Name              | Description                                           |
+| 名前              | 説明                                           |
 | ----------------- | ----------------------------------------------------- |
-| [`entry.create`](#entrycreate)   | Triggered when a Content Type entry is created.       |
-| [`entry.update`](#entryupdate)    | Triggered when a Content Type entry is updated.       |
-| [`entry.delete`](#entrydelete)    | Triggered when a Content Type entry is deleted.       |
-| [`entry.publish`](#entrypublish)   | Triggered when a Content Type entry is published.\*   |
-| [`entry.unpublish`](#entryunpublish) | Triggered when a Content Type entry is unpublished.\* |
-| [`media.create`](#mediacreate)    | Triggered when a media is created.                    |
-| [`media.update`](#mediaupdate)    | Triggered when a media is updated.                    |
-| [`media.delete`](#mediadelete)    | Triggered when a media is deleted.                    |
-| [`review-workflows.updateEntryStage`](#review-workflowsupdateentrystage) | Triggered when content is moved between review stages (see [review workflows](/user-docs/settings/review-workflows)).<br />This event is only available with the <EnterpriseBadge /> edition of Strapi. |
-| [`releases.publish`](#releasespublish-) | Triggered when a Release is published (see [Releases](/user-docs/releases/introduction)).<br />This event is only available with the <EnterpriseBadge /> edition of Strapi and the <CloudTeamBadge /> plan for Strapi Cloud. |
+| [`entry.create`](#entrycreate)   | コンテンツタイプのエントリが作成されたときにトリガーされます。       |
+| [`entry.update`](#entryupdate)    | コンテンツタイプのエントリが更新されたときにトリガーされます。       |
+| [`entry.delete`](#entrydelete)    | コンテンツタイプのエントリが削除されたときにトリガーされます。       |
+| [`entry.publish`](#entrypublish)   | コンテンツタイプのエントリが公開されたときにトリガーされます。\*   |
+| [`entry.unpublish`](#entryunpublish) | コンテンツタイプのエントリが非公開にされたときにトリガーされます。\* |
+| [`media.create`](#mediacreate)    | メディアが作成されたときにトリガーされます。                    |
+| [`media.update`](#mediaupdate)    | メディアが更新されたときにトリガーされます。                    |
+| [`media.delete`](#mediadelete)    | メディアが削除されたときにトリガーされます。                    |
+| [`review-workflows.updateEntryStage`](#review-workflowsupdateentrystage) | コンテンツがレビューステージ間で移動したときにトリガーされます（[レビューワークフロー](/user-docs/settings/review-workflows)を参照）。<br />このイベントは、Strapiの<EnterpriseBadge />エディションでのみ利用可能です。 |
+| [`releases.publish`](#releasespublish-) | リリースが公開されたときにトリガーされます（[リリース](/user-docs/releases/introduction)を参照）。<br />このイベントは、Strapiの<EnterpriseBadge />エディションとStrapi Cloudの<CloudTeamBadge />プランでのみ利用可能です。 |
 
-\*only when `draftAndPublish` is enabled on this Content Type.
+\*このコンテンツタイプで`draftAndPublish`が有効になっている場合のみ。
 
-## Payloads
+## ペイロード
 
-:::tip NOTE
-Private fields and s are not sent in the payload.
+:::tip ノート
+プライベートフィールドとsはペイロードには含まれません。
 :::
 
-### Headers
+### ヘッダー
 
-When a payload is delivered to your webhook's URL, it will contain specific headers:
+ペイロードがあなたのウェブフックのURLに配信されるとき、それは特定のヘッダーを含みます：
 
-| Header           | Description                                |
+| ヘッダー           | 説明                                |
 | ---------------- | ------------------------------------------ |
-| `X-Strapi-Event` | Name of the event type that was triggered. |
+| `X-Strapi-Event` | トリガーされたイベントタイプの名前。 |
 
 ### `entry.create`
 
-This event is triggered when a new entry is created.
+新しいエントリが作成されたときにこのイベントがトリガーされます。
 
-**Example payload**
+**ペイロードの例**
 
 ```json
 {
@@ -256,9 +256,9 @@ This event is triggered when a new entry is created.
 
 ### `entry.update`
 
-This event is triggered when an entry is updated.
+エントリが更新されたときにこのイベントがトリガーされます。
 
-**Example payload**
+**ペイロードの例**
 
 ```json
 {
@@ -282,35 +282,37 @@ This event is triggered when an entry is updated.
 
 ### `entry.delete`
 
-This event is triggered when an entry is deleted.
+エントリが削除されたときにこのイベントがトリガーされます。
 
-**Example payload**
+**ペイロードの例**
 
 ```json
 {
-  "event": "entry.delete",
-  "createdAt": "2020-01-10T08:59:35.796Z",
-  "model": "address",
-  "entry": {
+  "event": "media.delete",
+  "createdAt": "2020-01-10T10:58:41.115Z",
+  "media": {
     "id": 1,
-    "geolocation": {},
-    "city": "Paris",
-    "postal_code": null,
-    "category": null,
-    "full_name": "Paris",
-    "createdAt": "2020-01-10T08:47:36.264Z",
-    "updatedAt": "2020-01-10T08:58:26.210Z",
-    "cover": null,
-    "images": []
+    "name": "image.png",
+    "hash": "353fc98a19e44da9acf61d71b11895f9",
+    "sha256": "huGUaFJhmcZRHLcxeQNKblh53vtSUXYaB16WSOe0Bdc",
+    "ext": ".png",
+    "mime": "image/png",
+    "size": 228.19,
+    "url": "/uploads/353fc98a19e44da9acf61d71b11895f9.png",
+    "provider": "local",
+    "provider_metadata": null,
+    "createdAt": "2020-01-10T10:58:41.095Z",
+    "updatedAt": "2020-01-10T10:58:41.095Z",
+    "related": []
   }
 }
 ```
 
 ### `entry.publish`
 
-This event is triggered when an entry is published.
+このイベントは、エントリーが公開されたときにトリガーされます。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 {
@@ -335,9 +337,9 @@ This event is triggered when an entry is published.
 
 ### `entry.unpublish`
 
-This event is triggered when an entry is unpublished.
+このイベントは、エントリーの公開が取り消されたときにトリガーされます。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 {
@@ -362,9 +364,9 @@ This event is triggered when an entry is unpublished.
 
 ### `media.create`
 
-This event is triggered when you upload a file on entry creation or through the media interface.
+このイベントは、エントリー作成時またはメディアインターフェースを通じてファイルをアップロードするときにトリガーされます。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 {
@@ -390,9 +392,9 @@ This event is triggered when you upload a file on entry creation or through the 
 
 ### `media.update`
 
-This event is triggered when you replace a media or update the metadata of a media through the media interface.
+このイベントは、メディアを置換したり、メディアインターフェースを通じてメディアのメタデータを更新したときにトリガーされます。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 {
@@ -418,9 +420,9 @@ This event is triggered when you replace a media or update the metadata of a med
 
 ### `media.delete`
 
-This event is triggered only when you delete a media through the media interface.
+このイベントは、メディアインターフェースを通じてメディアを削除したときにのみトリガーされます。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 {
@@ -446,9 +448,9 @@ This event is triggered only when you delete a media through the media interface
 
 ### `review-workflows.updateEntryStage` <EnterpriseBadge/>
 
-This event is only available with the <EnterpriseBadge/> edition of Strapi.<br />The event is triggered when content is moved to a new review stage (see [Review Workflows](/user-docs/settings/review-workflows)).
+このイベントはStrapiの<EnterpriseBadge/>エディションでのみ利用可能です。<br />コンテンツが新たなレビューステージに移動したときにトリガーされるイベントです（[レビューワークフロー](/user-docs/settings/review-workflows)を参照）。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 {
@@ -477,9 +479,9 @@ This event is only available with the <EnterpriseBadge/> edition of Strapi.<br /
 
 ### `releases.publish` <EnterpriseBadge/><CloudTeamBadge/>
 
-The event is triggered when a [release](/user-docs/releases/introduction) is published.
+[リリース](/user-docs/releases/introduction)が公開されたときにトリガーされるイベントです。
 
-**Example payload**
+**例のペイロード**
 
 ```json
 

@@ -1,16 +1,16 @@
 ---
-title: Project structure
+title: プロジェクトの構造
 displayed_sidebar: devDocsSidebar
-description: Discover the project structure of any default Strapi application.
+description: デフォルトのStrapiアプリケーションのプロジェクト構造を理解しましょう。
 tags:
-- project structure
+- プロジェクトの構造
 - typescript
 ---
 
 import InteractiveProjectStructure from '@site/src/components/ProjectStructure.js'
 
-# Project structure
+# プロジェクトの構造
 
-The structure of a Strapi project depends on whether the project was created with [TypeScript](/dev-docs/typescript) (which is the default if you used the `--quickstart` option while creating the project) or with vanilla JavaScript, and looks like the following:
+Strapiプロジェクトの構造は、プロジェクトが[TypeScript](/dev-docs/typescript)（プロジェクトの作成時に `--quickstart` オプションを使用した場合、デフォルトになります）またはバニラのJavaScriptで作成されたかどうかによります。そして、以下のようになります：
 
 <InteractiveProjectStructure />

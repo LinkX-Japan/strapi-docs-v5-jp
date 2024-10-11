@@ -1,6 +1,6 @@
 ---
-title: Interactive Query Builder
-description: Use an interactive tool that leverages the querystring library to build your query URL
+title: インタラクティブクエリビルダー
+description: querystringライブラリを活用したインタラクティブツールを使用して、クエリURLを作成します
 displayed_sidebar: restApiSidebar
 tags:
 - Content API
@@ -9,19 +9,19 @@ tags:
 - qs library
 ---
 
-# Build your query URL with Strapi's interactive tool
+# StrapiのインタラクティブツールでクエリURLを作成する
 
-A wide range of parameters can be used and combined to query your content with the [REST API](/dev-docs/api/rest), which can result in long and complex query URLs.
+多くのパラメータを使用して組み合わせることで、[REST API](/dev-docs/api/rest)を使用してコンテンツをクエリすることができます。これにより、長く複雑なクエリURLが生成されることがあります。
 
-Strapi's codebase uses [the `qs` library](https://github.com/ljharb/qs) to parse and stringify nested JavaScript objects. It's recommended to use `qs` directly to generate complex query URLs instead of creating them manually.
+Strapiのコードベースは、ネストされたJavaScriptオブジェクトを解析し、文字列化するために [the `qs` library](https://github.com/ljharb/qs) を使用しています。手動で作成するのではなく、`qs`を直接使用して複雑なクエリURLを生成することをお勧めします。
 
-You can use the following interactive query builder tool to generate query URLs automatically:
+以下のインタラクティブクエリビルダーツールを使用して、クエリURLを自動的に生成することができます：
 
-1. Replace the values in the _Endpoint_ and _Endpoint Query Parameters_ fields with content that fits your needs.
-2. Click the **Copy to clipboard** button to copy the automatically generated _Query String URL_ which is updated as you type.
+1. _エンドポイント_ と _エンドポイントクエリパラメータ_ フィールドの値を、あなたのニーズに合ったコンテンツに置き換えます。
+2. **クリップボードにコピー** ボタンをクリックして、自動的に生成され更新される _クエリ文字列URL_ をコピーします。
 
-:::info Parameters usage
-Please refer to the [REST API parameters table](/dev-docs/api/rest/parameters) and read the corresponding parameters documentation pages to better understand parameters usage.
+:::info パラメータの使用方法
+パラメータの使用方法をよりよく理解するためには、[REST APIパラメータテーブル](/dev-docs/api/rest/parameters)を参照し、対応するパラメータドキュメンテーションページを読んでください。
 :::
 
 <br />
@@ -57,14 +57,14 @@ Please refer to the [REST API parameters table](/dev-docs/api/rest/parameters) a
 <br />
 
 :::note
-The default endpoint path is prefixed with `/api/` and should be kept as-is unless you configured a different API prefix using [the `rest.prefix` API configuration option](/dev-docs/configurations/api).<br/> For instance, to query the `books` collection type using the default API prefix, type `/api/books` in the _Endpoint_ field.
+デフォルトのエンドポイントパスは `/api/` で始まり、[the `rest.prefix` API configuration option](/dev-docs/configurations/api)を使用して異なるAPIプレフィックスを設定しない限り、そのまま保持する必要があります。<br/> 例えば、デフォルトのAPIプレフィックスを使用して `books` コレクションタイプをクエリするには、_エンドポイント_ フィールドに `/api/books` と入力します。
 :::
 
-:::caution Disclaimer
-The `qs` library and the interactive query builder provided on this page:
-- might not detect all syntax errors,
-- are not aware of the parameters and values available in a Strapi project,
-- and do not provide autocomplete features.
+:::caution 免責事項
+このページで提供される `qs` ライブラリとインタラクティブクエリビルダーは：
+- すべての構文エラーを検出できないかもしれません，
+- Strapiプロジェクトで利用可能なパラメータと値を認識していません，
+- オートコンプリート機能を提供していません。
 
-Currently, these tools are only provided to transform the JavaScript object in an inline query string URL. Using the generated query URL does not guarantee that proper results will get returned with your API.
+現在、これらのツールはJavaScriptオブジェクトをインラインクエリ文字列URLに変換するためだけに提供されています。生成されたクエリURLを使用しても、適切な結果がAPIから返されることを保証するものではありません。
 :::

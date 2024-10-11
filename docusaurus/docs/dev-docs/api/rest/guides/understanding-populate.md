@@ -1,6 +1,6 @@
 ---
-title: Understanding populate
-description: Learn what populating means and how you can use the populate parameter in your REST API queries to add additional fields to your responses.
+title: populateの理解
+description: populateとは何か、そしてREST APIのクエリでpopulateパラメータをどのように使用してレスポンスに追加のフィールドを追加できるかを学びます。
 displayed_sidebar: restApiSidebar
 toc_max_heading_level: 6
 tags:
@@ -20,74 +20,74 @@ import QsForQueryBody from '/docs/snippets/qs-for-query-body.md'
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 import ScreenshotNumberReference from '/src/components/ScreenshotNumberReference.jsx';
 
-# 🧠 Understanding the `populate` parameter for the REST API
+# 🧠 REST APIの`populate`パラメータの理解
 
 <NotV5/>
 
-:::note Note: Example responses might differ from your experience
+:::note メモ: 例示されるレスポンスはあなたの経験と異なる場合があります
 
-The content of this page might not be fully up-to-date with Strapi 5 yet:
+このページの内容はStrapi 5と完全には最新状態ではないかもしれません:
 
-- All the conceptual information and explanations are correct and up-to-date.
-- However, in the examples, the response content might be slightly different.
+- すべての概念的な情報と説明は正確で最新のものです。
+- しかし、例示されるレスポンスの内容は若干異なるかもしれません。
 
-Examples will be fully up-to-date _after_ the Strapi 5.0.0 (stable version) release and as soon as the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application is upgraded to Strapi 5.
+例示はStrapi 5.0.0（安定版）のリリース後、および[FoodAdvisor](https://github.com/strapi/foodadvisor)のサンプルアプリケーションがStrapi 5にアップグレードされた後に完全に最新状態になります。
 
-However, having slightly different response examples should not prevent you from grasping the essential concepts taught in this page.
+しかし、レスポンスの例示が若干異なるとしても、このページで教えられる基本的な概念を理解することには影響を及ぼさないはずです。
 :::
 
-When querying content-types with Strapi's [REST API](/dev-docs/api/rest), by default, responses only include top-level fields and do not include any relations, media fields, components, or dynamic zones.
+Strapiの[REST API](/dev-docs/api/rest)でコンテンツタイプを問い合わせると、デフォルトではレスポンスにはトップレベルのフィールドのみが含まれ、関連性、メディアフィールド、コンポーネント、ダイナミックゾーンは含まれません。
 
-Populating in the context of the Strapi REST API means including additional content with your response by returning more fields than the ones returned by default. You use the [`populate` parameter](#population) to achieve this.
+Strapi REST APIのコンテキストでのPopulatingとは、デフォルトで返されるものよりも多くのフィールドを返すことでレスポンスに追加のコンテンツを含めることを指します。これを達成するためには[`populate`パラメータ](#population)を使用します。
 
 :::info
-Throughout this guide, examples are built with real data queried from the server included with the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application. To test examples by yourself, setup FoodAdvisor, start the server in the `/api/` folder, and ensure that proper `find` permissions are given for the queried content-types before sending your queries.
+このガイドでは、[FoodAdvisor](https://github.com/strapi/foodadvisor)のサンプルアプリケーションからサーバーに問い合わせて取得した実際のデータを使用して例を作成しています。自分で例をテストするためには、FoodAdvisorをセットアップし、`/api/`フォルダでサーバーを起動し、クエリを送信する前に問い合わせるコンテンツタイプに適切な`find`権限が与えられていることを確認してください。
 :::
 
-The present guide will cover detailed explanations for the following use cases:
+このガイドでは、以下のユースケースについて詳細な説明を提供します：
 
-- populate [all fields and relations, 1 level deep](#populate-all-relations-and-fields-1-level-deep),
-- populate [some fields and relations, 1 level deep](#populate-1-level-deep-for-specific-relations),
-- populate [some fields and relations, several levels deep](#populate-several-levels-deep-for-specific-relations),
-- populate [components](#populate-components),
-- populate [dynamic zones](#populate-dynamic-zones).
+- [すべてのフィールドと関連性、1レベル深く](#populate-all-relations-and-fields-1-level-deep)をpopulateする。
+- [いくつかのフィールドと関連性、1レベル深く](#populate-1-level-deep-for-specific-relations)をpopulateする。
+- [いくつかのフィールドと関連性、複数レベル深く](#populate-several-levels-deep-for-specific-relations)をpopulateする。
+- [コンポーネント](#populate-components)をpopulateする。
+- [ダイナミックゾーン](#populate-dynamic-zones)をpopulateする。
 
 :::info
-Populating several levels deep is often called "deep populate".
+複数のレベルを深くpopulateすることは、しばしば"deep populate"と呼ばれます。
 :::
 
-:::strapi Advanced use case: Populating creator fields
-In addition to the various ways of using the `populate` parameter in your queries, you can also build a custom controller as a workaround to populate creator fields (e.g., `createdBy` and `updatedBy`). This is explained in the dedicated [How to populate creator fields](/dev-docs/api/rest/guides/populate-creator-fields) guide.
+:::strapi 高度な使用例：作成者フィールドのポピュレート
+クエリで`populate`パラメータを使用するさまざまな方法に加えて、作成者フィールド（例：`createdBy`や`updatedBy`）をポピュレートするための回避策としてカスタムコントローラーを作成することもできます。これについては、専用の[作成者フィールドのポピュレート方法](/dev-docs/api/rest/guides/populate-creator-fields)ガイドで説明しています。
 :::
 
-## Populate all relations and fields, 1 level deep
+## 関係やフィールドをすべてポピュレートし、1レベル深くする
 
-You can return all relations, media fields, components and dynamic zones with a single query. For relations, this will only work 1 level deep, to prevent performance issues and long response times.
+単一のクエリですべての関係、メディアフィールド、コンポーネント、ダイナミックゾーンを返すことができます。関係については、パフォーマンスの問題や長い応答時間を防ぐため、1レベル深くするだけで動作します。
 
-To populate everything 1 level deep, add the `populate=*` parameter to your query.
+1レベル深くすべてをポピュレートするには、クエリに`populate=*`パラメータを追加します。
 
-The following diagram compares data returned by the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application with and without populating everything 1 level deep:
+以下の図は、1レベル深くすべてをポピュレートした場合としなかった場合の[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションで返されるデータを比較しています：
 
-![Diagram with populate use cases with FoodAdvisor data ](/img/assets/rest-api/populate-foodadvisor-diagram1.png)
+![FoodAdvisorデータを用いたポピュレート使用例の図 ](/img/assets/rest-api/populate-foodadvisor-diagram1.png)
 
-Let's compare and explain what happens with and without this query parameter:
+このクエリパラメータがある場合とない場合に何が起こるかを比較して説明しましょう：
 
-### Example: Without `populate`
+### 例：`populate`なし
 
-Without the populate parameter, a `GET` request to `/api/articles` only returns the default attributes and does not return any media fields, relations, components or dynamic zones.
+ポピュレートパラメータがない場合、`/api/articles`への`GET`リクエストはデフォルトの属性のみを返し、メディアフィールド、関係、コンポーネント、ダイナミックゾーンは返しません。
 
-The following example is the full response for all 4 entries from the `articles` content-types.
+次の例は、`articles`コンテンツタイプからのすべての4つのエントリーの完全なレスポンスです。
 
-Notice how the response only includes the `title`, `slug`, `createdAt`, `updatedAt`, `publishedAt`, and `locale` fields, and the field content of the article as handled by the CKEditor plugin (`ckeditor_content`, truncated for brevity):
+レスポンスが`title`、`slug`、`createdAt`、`updatedAt`、`publishedAt`、`locale`フィールドと、CKEditorプラグインによって処理される記事のフィールドコンテンツ（`ckeditor_content`、省略形）のみを含んでいることに注意してください：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエスト例">
 
 `GET /api/articles`
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンス例">
 
 ```json
 {
@@ -95,7 +95,7 @@ Notice how the response only includes the `title`, `slug`, `createdAt`, `updated
     {
       "id": 1,
       "documentId": "t3q2i3v1z2j7o8p6d0o4xxg",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -106,7 +106,7 @@ Notice how the response only includes the `title`, `slug`, `createdAt`, `updated
     {
       "id": 2,
       "documentId": "k2r5l0i9g3u2j3b4p7f0sed",
-      "title": "What are chinese hamburgers and why aren't you eating them?",
+      "title": "中国のハンバーガーとは何か、なぜあなたはそれを食べていないのか？",
       "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
       "createdAt": "2021-11-11T13:33:19.948Z",
       "updatedAt": "2023-06-01T14:32:50.984Z",
@@ -117,7 +117,7 @@ Notice how the response only includes the `title`, `slug`, `createdAt`, `updated
     {
       "id": 3,
       "documentId": "k6m6l9q0n6v9z2m3i0z5jah"
-      "title": "7 Places worth visiting for the food alone",
+      "title": "食事だけで訪れる価値がある7つの場所",
       "slug": "7-places-worth-visiting-for-the-food-alone",
       "createdAt": "2021-11-12T13:33:19.948Z",
       "updatedAt": "2023-06-02T11:30:00.075Z",
@@ -128,7 +128,7 @@ Notice how the response only includes the `title`, `slug`, `createdAt`, `updated
     {
       "id": 4,
       "documentId": "d5m4b6z6g5d9e3v1k9n5gbn",
-      "title": "If you don't finish your plate in these countries, you might offend someone",
+      "title": "これらの国では食事を残すと、誰かを怒らせるかもしれません",
       "slug": "if-you-don-t-finish-your-plate-in-these-countries-you-might-offend-someone",
       "createdAt": "2021-11-15T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:59:35.148Z",
@@ -151,38 +151,50 @@ Notice how the response only includes the `title`, `slug`, `createdAt`, `updated
 </Response>
 </ApiCall>
 
-### Example: With `populate=*`
+### 例：`populate=*`を使用した場合
 
-With the `populate=*` parameter, a `GET` request to `/api/articles` also returns all media fields, first-level relations, components and dynamic zones.
+`populate=*`パラメータを使用すると、`GET`リクエストを`/api/articles`に送信すると、すべてのメディアフィールド、第一階層の関連、コンポーネント、ダイナミックゾーンも返されます。
 
-The following example is the full response for the first of all 4 entries from the `articles` content-types (the data from articles with ids 2, 3, and 4 is truncated for brevity).
+以下の例は、`articles`コンテンツタイプのすべての4エントリーの最初のものに対する完全なレスポンスです（データはID 2、3、4の記事のデータは簡潔さのために省略されています）。
 
-Scroll down to see that the response size is much bigger than without populate. The response now includes additional fields (see highlighted lines) such as:
-* the `image` media field (which stores all information about the article cover, including all its different formats), 
-* the first-level fields of the `blocks` dynamic zone and the `seo` component,
-* the `category` relation and its fields,
-* and even some information about the articles translated in other languages, as shown by the `localizations` object.
+下にスクロールすると、populateがない場合に比べてレスポンスサイズが大幅に大きいことがわかります。レスポンスには、以下のような追加フィールドが含まれています（ハイライトされた行を参照）：
+* `image`メディアフィールド（記事のカバーに関するすべての情報、それぞれの異なる形式を含む）。
+* `blocks`ダイナミックゾーンと`seo`コンポーネントの第一階層フィールド。
+* `category`関連とそのフィールド。
+* 他の言語で翻訳された記事に関する情報も含まれています。これは`localizations`オブジェクトによって示されています。
 
 :::tip
-To populate deeply nested components, see the [populate components](#populate-components) section.
+深くネストされたコンポーネントをpopulateするには、[populate components](#populate-components)セクションを参照してください。
 :::
 
 <br />
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate=*`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
+
+<br />
+<ApiCall noSideBySide>
+<Request title="例のリクエスト">
+
+`GET /api/articles?populate=*`
+
+</Request>
+</ApiCall>
+</Response>
+
+<Response title="例のレスポンス">
 
 ```json {13-122}
 {
   "data": [
     {
       "id": 1,
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -193,9 +205,9 @@ To populate deeply nested components, see the [populate components](#populate-co
         "data": {
             "id": 12,
             "documentId": "o5d4b0l4p8l4o4k5n1l3rxa",
-            "name": "Basque dish",
-            "alternativeText": "Basque dish",
-            "caption": "Basque dish",
+            "name": "バスクの料理",
+            "alternativeText": "バスクの料理",
+            "caption": "バスクの料理",
             "width": 758,
             "height": 506,
             "formats": {
@@ -256,7 +268,7 @@ To populate deeply nested components, see the [populate components](#populate-co
             "documentId": "w8r5k8o8v0t9l9e0d7y6vco",
             "__component": "blocks.cta-command-line",
             "theme": "primary",
-            "title": "Want to give a try to a Strapi starter?",
+            "title": "Strapiスターターを試してみませんか？",
             "text": "❤️",
             "commandLine": "git clone https://github.com/strapi/nextjs-corporate-starter.git"
           }
@@ -264,9 +276,11 @@ To populate deeply nested components, see the [populate components](#populate-co
         "seo": {
           "id": 1,
           "documentId": "h7c8d0u3i3q5v1j3j3r4cxf",
-          "metaTitle": "Articles - FoodAdvisor",
-          "metaDescription": "Discover our articles about food, restaurants, bars and more! - FoodAdvisor",
-          "keywords": "food",
+          "metaTitle": "記事 - FoodAdvisor",
+          "metaDescription": "食べ物、レストラン、バーなどについての記事を探してみてください！
+
+- "FoodAdvisor",
+          "キーワード": "食べ物",
           "metaRobots": null,
           "structuredData": null,
           "metaViewport": null,
@@ -276,7 +290,7 @@ To populate deeply nested components, see the [populate components](#populate-co
           "data": {
             "id": 4,
             "documentId": "t1t3d9k6n1k5a6r8l7f8rox",
-            "name": "European",
+            "name": "ヨーロッパ",
             "slug": "european",
             "createdAt": "2021-11-09T13:33:20.123Z",
             "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -287,13 +301,13 @@ To populate deeply nested components, see the [populate components](#populate-co
             {
               "id": 10,
               "documentId": "h7c8d0u3i3q5v1j3j3r4cxf",
-              "title": "Voici pourquoi il faut essayer la cuisine basque, selon un chef basque",
+              "title": "バスク料理を試すべき理由、バスクのシェフによる",
               "slug": "voici-pourquoi-il-faut-essayer-la-cuisine-basque-selon-un-chef-basque",
               "createdAt": "2021-11-18T13:33:19.948Z",
               "updatedAt": "2023-06-02T10:57:19.606Z",
               "publishedAt": "2022-09-22T13:00:00.069Z",
               "locale": "fr-FR",
-              "ckeditor_content": // truncated content
+              "ckeditor_content": // 内容を省略
             }
           ]
         }
@@ -301,15 +315,15 @@ To populate deeply nested components, see the [populate components](#populate-co
     },
     {
       "id": 2,
-      // truncated content
+      // 内容を省略
     },
     {
       "id": 3,
-      // truncated content
+      // 内容を省略
     },
     {
       "id": 4,
-      // truncated content
+      // 内容を省略
     }
   ],
   "meta": {
@@ -323,40 +337,40 @@ To populate deeply nested components, see the [populate components](#populate-co
 }
 ```
 
-</Response>
+ </Response>
 </ApiCall>
 
-## Populate specific relations and fields
+## 特定のリレーションとフィールドをポピュレートする
 
-You can also populate specific relations and fields, by explicitly defining what to populate. This requires that you know the name of fields and relations to populate.
+特定のリレーションとフィールドを明示的に定義してポピュレートすることもできます。これには、ポピュレートするフィールドとリレーションの名前を知っている必要があります。
 
-Relations and fields populated this way can be 1 or several levels deep. The following diagram compares data returned by the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application when you populate [1 level deep](#populate-1-level-deep-for-specific-relations) vs. [2 levels deep](#populate-several-levels-deep-for-specific-relations):
+この方法でポピュレートされるリレーションとフィールドは、1つまたは複数のレベル深くすることができます。以下の図は、[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションが返すデータを、[1レベル深く](#populate-1-level-deep-for-specific-relations)する場合と、[複数レベル深く](#populate-several-levels-deep-for-specific-relations)する場合を比較しています：
 
-![Diagram with populate use cases with FoodAdvisor data ](/img/assets/rest-api/populate-foodadvisor-diagram2.png)
+![FoodAdvisorのデータを用いたポピュレートの使用例の図](/img/assets/rest-api/populate-foodadvisor-diagram2.png)
 
-<SubtleCallout emoji="🤓" title="Different populating strategies for similar results">
-Depending on your data structure, you might get similar data presented in different ways with different queries. For instance, the FoodAdvisor example application includes the article, category, and restaurant content-types that are all in relation to each other in different ways. This means that if you want to get data about the 3 content-types in a single GET request, you have 2 options:
+<SubtleCallout emoji="🤓" title="同様の結果のための異なるポピュレート戦略">
+データ構造によっては、異なるクエリで同様のデータが異なる形で表示されることがあります。例えば、FoodAdvisorの例のアプリケーションには、記事、カテゴリ、レストランのコンテンツタイプが含まれており、これらはそれぞれ異なる方法で関連付けられています。これは、単一のGETリクエストで3つのコンテンツタイプに関するデータを取得したい場合、2つのオプションがあることを意味します：
 
-- query articles and populate categories, plus populate the nested relation between categories and restaurants ([2 levels deep population](#populate-several-levels-deep-for-specific-relations))
-- query categories and populate both articles and restaurants because categories have a 1st level relation with the 2 other content-types ([1 level deep](#populate-1-level-deep-for-specific-relations))
+- カテゴリとレストラン間のネストされた関係を含む、記事をクエリしてカテゴリを生成します（[2レベル深くまでのポピュレーション](#populate-several-levels-deep-for-specific-relations)）
+- カテゴリをクエリして、記事とレストランの両方を生成します。なぜなら、カテゴリは他の2つのコンテンツタイプと1レベルの関係を持っているからです（[1レベル深く](#populate-1-level-deep-for-specific-relations)）
 
-The 2 different strategies are illustrated in the following diagram:
+2つの異なる戦略は以下の図で示されています：
 
-![Diagram with populate use cases with FoodAdvisor data ](/img/assets/rest-api/populate-foodadvisor-diagram3.png)
+![FoodAdvisorデータを使用したpopulateの使用例のダイアグラム ](/img/assets/rest-api/populate-foodadvisor-diagram3.png)
 
 </SubtleCallout>
 
 <details>
-<summary>Populate as an object vs. populate as an array: Using the interactive query builder</summary>
+<summary>オブジェクトとしてのpopulateと配列としてのpopulate：インタラクティブなクエリビルダーの使用</summary>
 
-The syntax for advanced query parameters can be quite complex to build manually. We recommend you use our [interactive query builder](/dev-docs/api/rest/interactive-query-builder) tool to generate the URL.
+高度なクエリパラメータの構文は手動で作成するのがかなり複雑になることがあります。私たちはあなたがURLを生成するために私たちの[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールを使用することをお勧めします。
 
-Using this tool, you will write clean and readable requests in a familiar (JavaScript) format, which should help you understand the differences between different queries and different ways of populating. For instance, populating 2 levels deep implies using populate as an object, while populating several relations 1 level deep implies using populate as an array:
+このツールを使用すると、あなたは綺麗で読みやすいリクエストを熟知した（JavaScript）形式で書くことができます。これはあなたが異なるクエリや異なるpopulateの方法の違いを理解するのに役立つはずです。例えば、2レベル深くpopulateすることは、オブジェクトとしてのpopulateを使用することを意味し、1レベル深く複数の関係をpopulateすることは、配列としてのpopulateを使用することを意味します：
 
 <Columns>
 <ColumnLeft>
 
-Populate as an object<br/>(to populate 1 relation several levels deep):
+オブジェクトとしてのpopulate<br/>(1つの関係を複数のレベル深くpopulateするために)：
 
 ```json
 {
@@ -371,7 +385,7 @@ Populate as an object<br/>(to populate 1 relation several levels deep):
 </ColumnLeft>
 <ColumnRight>
 
-Populate as an array<br/>(to populate many relations 1 level deep)
+配列としてのpopulate<br/>(多くの関係を1レベル深くpopulateするために)
 
 ```json
 {
@@ -388,37 +402,37 @@ Populate as an array<br/>(to populate many relations 1 level deep)
 
 </details>
 
-### Populate 1 level deep for specific relations
+### 特定の関係に対して1レベル深くpopulateする
 
-You can populate specific relations 1 level deep by using the populate parameter as an array.
+populateパラメータを配列として使用することで、特定の関係を1レベル深くpopulateすることができます。
 
-Since the REST API uses the [LHS bracket notation](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets) (i.e., with square brackets `[]`), the parameter syntaxes to populate 1 level deep would look like the following:
+REST APIは[LHS ブラケット記法](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets)（つまり、四角いブラケット `[]` を使用）を使用しているため、1レベル深くpopulateするためのパラメータ構文は以下のようになります：
 
-| How many relations to populate | Syntax example    |
+| populateする関係の数 | 構文例    |
 |-------------------------------|--------------------|
-| Only 1 relation |  `populate[0]=a-relation-name`   |
-| Several relations | `populate[0]=relation-name&populate[1]=another-relation-name&populate[2]=yet-another-relation-name` |
+| 1つの関係のみ |  `populate[0]=a-relation-name`   |
+| 複数の関係 | `populate[0]=relation-name&populate[1]=another-relation-name&populate[2]=yet-another-relation-name` |
 
-Let's compare and explain what happens with and without populating relations 1 level deep when sending queries to the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application:
+[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションにクエリを送信する際に、1レベル深く関係をpopulateする場合としない場合の違いを比較して説明しましょう：
 
-#### Example: Without `populate`
+#### 例：`populate`なし
 
-Without the populate parameter, a `GET` request to `/api/articles` only returns the default attributes.
+populateパラメータがない場合、`GET`リクエストは`/api/articles`に対してデフォルトの属性のみを返します。
 
-The following example is the full response for all 4 entries from the `articles` content-type.
+以下の例は、`articles`コンテンツタイプからの全4エントリーの完全なレスポンスです。
 
-Notice that the response does not include any media fields, relations, components or dynamic zones:
+レスポンスには、メディアフィールド、関係、コンポーネント、または動的ゾーンは含まれていません：
 
 <br/>
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエスト例">
 
 `GET /api/articles`
 
 </Request>
 
-<Response title="Example response">
+<レスポンスタイトル="例：レスポンス">
 
 ```json
 {
@@ -426,7 +440,7 @@ Notice that the response does not include any media fields, relations, component
     {
       "id": 1,
       "documentId": "x2m0d7d9o4m2z3u2r2l9yes",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスク料理人による解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -437,7 +451,7 @@ Notice that the response does not include any media fields, relations, component
     {
       "id": 2,
       "documentId": "k6m6l9q0n6v9z2m3i0z5jah",
-      "title": "What are chinese hamburgers and why aren't you eating them?",
+      "title": "中国のハンバーガーとは何か、なぜあなたはそれを食べていないのか？",
       "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
       "createdAt": "2021-11-11T13:33:19.948Z",
       "updatedAt": "2023-06-01T14:32:50.984Z",
@@ -448,7 +462,7 @@ Notice that the response does not include any media fields, relations, component
     {
       "id": 3,
       "documentId": "o5d4b0l4p8l4o4k5n1l3rxa",
-      "title": "7 Places worth visiting for the food alone",
+      "title": "食事だけで訪れる価値がある7つの場所",
       "slug": "7-places-worth-visiting-for-the-food-alone",
       "createdAt": "2021-11-12T13:33:19.948Z",
       "updatedAt": "2023-06-02T11:30:00.075Z",
@@ -459,7 +473,88 @@ Notice that the response does not include any media fields, relations, component
     {
       "id": 4,
       "documentId": "t3q2i3v1z2j7o8p6d0o4xxg",
-      "title": "If you don't finish your plate in these countries, you might offend someone",
+      "title": "これらの国では皿を残すと誰かを怒らせるかもしれません",
+      "slug": "if-you-don-t-finish-your-plate-in-these-countries-you-might-offend-someone",
+      "createdAt": "2021-11-15T13:33:19.948Z",
+      "updatedAt": "2023-06-02T10:59:35.148Z",
+      "publishedAt": "2022-09-22T12:35:53.899Z",
+      "locale": "en",
+      "ckeditor_content": "…", // truncated content
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 4
+    }
+  }
+}
+}
+```
+
+</レスポンス>
+</ApiCall>
+
+#### 例： `populate[0]=category`付き
+
+`populate[0]=category`をリクエストに追加することで、`articles`と`categories`のコンテンツタイプをリンクする関係フィールドである`category`についての情報を明示的に含めるように求めています。
+
+次の例は、`articles`コンテンツタイプからの全4エントリーの完全なレスポンスです。
+
+レスポンスには、各記事の`category`フィールドについての追加データが含まれていることに注意してください（強調表示された行を参照）：
+
+<ApiCall noSideBySide>
+<Request title="例：リクエスト">
+
+`GET /api/articles?populate[0]=category`
+
+</Request>
+
+<Response title="例：レスポンス">
+
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "documentId": "x2m0d7d9o4m2z3u2r2l9yes",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
+      "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
+      "createdAt": "2021-11-09T13:33:19.948Z",
+      "updatedAt": "2023-06-02T10:57:19.584Z",
+      "publishedAt": "2022-09-22T09:30:00.208Z",
+      "locale": "en",
+      "ckeditor_content": "…", // truncated content
+    },
+    {
+      "id": 2,
+      "documentId": "k6m6l9q0n6v9z2m3i0z5jah",
+      "title": "中華ハンバーガーとは何か、なぜあなたがそれを食べていないのか？",
+      "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
+      "createdAt": "2021-11-11T13:33:19.948Z",
+      "updatedAt": "2023-06-01T14:32:50.984Z",
+      "publishedAt": "2022-09-22T12:36:48.312Z",
+      "locale": "en",
+      "ckeditor_content": "…", // truncated content
+    },
+    {
+      "id": 3,
+      "documentId": "o5d4b0l4p8l4o4k5n1l3rxa",
+      "title": "食べ物だけで訪れる価値がある7つの場所",
+      "slug": "7-places-worth-visiting-for-the-food-alone",
+      "createdAt": "2021-11-12T13:33:19.948Z",
+      "updatedAt": "2023-06-02T11:30:00.075Z",
+      "publishedAt": "2023-06-02T11:30:00.075Z",
+      "locale": "en",
+      "ckeditor_content": "…", // truncated content
+    },
+    {
+      "id": 4,
+      "documentId": "t3q2i3v1z2j7o8p6d0o4xxg",
+      "title": "これらの国では皿を残すと誰かを怒らせるかもしれません",
       "slug": "if-you-don-t-finish-your-plate-in-these-countries-you-might-offend-someone",
       "createdAt": "2021-11-15T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:59:35.148Z",
@@ -483,22 +578,21 @@ Notice that the response does not include any media fields, relations, component
 </Response>
 </ApiCall>
 
-#### Example: With `populate[0]=category`
+#### 例：`populate[0]=category`を指定した場合
 
-With `populate[0]=category` added to the request, we explicitly ask to include some information about `category`, which is a relation field that links the `articles` and the `categories` content-types.
+`populate[0]=category`をリクエストに追加すると、`articles`と`categories`のコンテンツタイプをリンクするリレーションフィールドである`category`についての情報を明示的に含めるように求めます。
 
-The following example is the full response for all 4 entries from the `articles` content-type.
+以下の例は、`articles`コンテンツタイプからのすべての4つのエントリに対する完全な応答です。
 
-Notice that the response now includes additional data with the `category` field for each article (see highlighted lines):
+応答には、各記事の`category`フィールドに関する追加データが含まれていることに注意してください（ハイライトされた行を参照）：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[0]=category`
 
 </Request>
-
-<Response title="Example response">
+<Response title="例の応答">
 
 ```json {13-23,36-46,59-69,82-92}
 {
@@ -506,7 +600,7 @@ Notice that the response now includes additional data with the `category` field 
     {
       "id": 1,
       "documentId": "w8r5k8o8v0t9l9e0d7y6vco",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -517,7 +611,7 @@ Notice that the response now includes additional data with the `category` field 
         "data": {
           "id": 4,
           "documentId": "u6x8u7o7j5q1l5y3t8j9yxi",
-          "name": "European",
+          "name": "ヨーロッパ",
           "slug": "european",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -527,7 +621,7 @@ Notice that the response now includes additional data with the `category` field 
     {
       "id": 2,
       "documentId": "k6m6l9q0n6v9z2m3i0z5jah",
-      "title": "What are chinese hamburgers and why aren't you eating them?",
+      "title": "中国のハンバーガーとは何か、なぜあなたはそれを食べていないのか？",
       "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
       "createdAt": "2021-11-11T13:33:19.948Z",
       "updatedAt": "2023-06-01T14:32:50.984Z",
@@ -538,7 +632,7 @@ Notice that the response now includes additional data with the `category` field 
         "data": {
           "id": 13,
           "documentId": "x2m0d7d9o4m2z3u2r2l9yes",
-          "name": "Chinese",
+          "name": "中国",
           "slug": "chinese",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -547,7 +641,7 @@ Notice that the response now includes additional data with the `category` field 
     },
     {
       "id": 3,
-      "title": "7 Places worth visiting for the food alone",
+      "title": "食べ物だけで訪れる価値がある7つの場所",
       "slug": "7-places-worth-visiting-for-the-food-alone",
       "createdAt": "2021-11-12T13:33:19.948Z",
       "updatedAt": "2023-06-02T11:30:00.075Z",
@@ -558,7 +652,7 @@ Notice that the response now includes additional data with the `category` field 
         "data": {
           "id": 3,
           "documentId": "h7c8d0u3i3q5v1j3j3r4cxf",
-          "name": "International",
+          "name": "インターナショナル",
           "slug": "international",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -568,7 +662,7 @@ Notice that the response now includes additional data with the `category` field 
     {
       "id": 4,
       "documentId": "t1t3d9k6n1k5a6r8l7f8rox",
-      "title": "If you don't finish your plate in these countries, you might offend someone",
+      "title": "これらの国では皿を空にしないと誰かを怒らせるかもしれません",
       "slug": "if-you-don-t-finish-your-plate-in-these-countries-you-might-offend-someone",
       "createdAt": "2021-11-15T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:59:35.148Z",
@@ -579,7 +673,7 @@ Notice that the response now includes additional data with the `category` field 
         "data": {
           "id": 3,
           "documentId": "u6x8u7o7j5q1l5y3t8j9yxi",
-          "name": "International",
+          "name": "インターナショナル",
           "slug": "international",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -601,20 +695,20 @@ Notice that the response now includes additional data with the `category` field 
 </Response>
 </ApiCall>
 
-### Populate several levels deep for specific relations
+### 特定の関係を何層にもわたって埋め込む
 
-You can also populate specific relations several levels deep. For instance, when you populate a relation which itself populates another relation, you are populating 2 levels deep. Populating 2 levels deep is the example covered in this guide.
+特定の関係を何層にもわたって埋め込むこともできます。例えば、ある関係を埋め込むときにそれ自体が別の関係を埋め込むと、2層深く埋め込むことになります。このガイドでは2層深く埋め込む例を扱っています。
 
 :::caution
-There is no limit on the number of levels that can be populated. However, the deeper the populates, the more the request will take time to be performed.
+埋め込むレベルの数に制限はありません。しかし、埋め込むほど深く、リクエストが完了するまでの時間が長くなります。
 :::
 
-Since the REST API uses the [LHS bracket notation](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets), (i.e., with square brackets `[]`), for instance if you want to populate a relation nested inside another relation, the parameter syntax would look like the following:
+REST APIでは、[LHSブラケット記法](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets)（つまり、角括弧`[]`を使用）を用いています。例えば、別の関係の中にネストされた関係を埋め込む場合、パラメータの構文は次のようになります。
 
 `populate[first-level-relation-to-populate][populate][0]=second-level-relation-to-populate`
 
 :::tip
-The syntax for advanced query parameters can be quite complex to build manually. We recommend you use our [interactive query builder](/dev-docs/api/rest/interactive-query-builder) tool to generate the URL. For instance, the `/api/articles?populate[category][populate][0]=restaurants` URL used in the following examples has been generated by converting the following object using our tool:
+高度なクエリパラメータの構文は手動で作成するのがかなり複雑になることがあります。URLを生成するために、私たちの[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールの使用をお勧めします。例えば、以下の例で使用されている`/api/articles?populate[category][populate][0]=restaurants` URLは、私たちのツールを使用して以下のオブジェクトを変換することで生成されました。
 
 ```json
 {
@@ -628,27 +722,79 @@ The syntax for advanced query parameters can be quite complex to build manually.
 
 :::
 
-The [FoodAdvisor](https://github.com/strapi/foodadvisor) example application includes various levels of relations between content-types. For instance:
+[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションには、コンテンツタイプ間で様々なレベルの関係が含まれています。例えば：
 
-- an `article` content-type includes a relation with the `category` content-type,
-- but a `category` can also be assigned to any `restaurant` content-type.
+- `article` コンテンツタイプには `category` コンテンツタイプとの関係が含まれています。
+- しかし、`category`は任意の`restaurant`コンテンツタイプにも割り当てることができます。
 
-With a single `GET` request to `/api/articles` and the appropriate populate parameters, you can return information about articles, restaurants, and categories simultaneously.
+適切なpopulateパラメータとともに`/api/articles`への単一の`GET`リクエストで、記事、レストラン、カテゴリーに関する情報を同時に返すことができます。
 
-Let's compare and explain the responses returned with `populate[0]=category` (1 level deep) and `populate[category][populate][0]=restaurants` (2 levels deep) when sending queries to FoodAdvisor:
+FoodAdvisorにクエリを送信し、`populate[0]=category`（1レベル深く）と`populate[category][populate][0]=restaurants`（2レベル深く）で返されるレスポンスを比較し、説明しましょう。
 
-#### Example: With 1-level deep population
+#### 例：1レベル深くの埋め込み
 
-When we only populate 1 level deep, asking for the categories associated to articles, we can get the following example response (highlighted lines show the `category` relations field):
+1レベル深くだけ埋め込む場合、記事に関連するカテゴリを求めると、以下の例のようなレスポンスを得ることができます（ハイライトされた行は`category`関係フィールドを示しています）：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[0]=category`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
+
+</Response>
+</ApiCall>
+
+### 特定の関係を複数レベル深くポピュレートする
+
+特定の関係を複数レベル深くポピュレートすることもできます。例えば、ある関係をポピュレートする際に、その中に別の関係をポピュレートする場合、2レベル深くポピュレートしていることになります。このガイドでは2レベル深くポピュレートする例を扱っています。
+
+:::caution
+ポピュレートできるレベルの数には上限はありません。しかし、ポピュレートが深くなるほど、リクエストの実行に時間がかかることになります。
+:::
+
+REST APIでは[LHSブラケット記法](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets)（つまり、角括弧`[]`を使用）を使用しているため、例えばある関係の中にネストされた別の関係をポピュレートしたい場合、パラメータの構文は次のようになります：
+
+`populate[first-level-relation-to-populate][populate][0]=second-level-relation-to-populate`
+
+:::tip
+高度なクエリパラメータの構文は手動で作成するのがかなり複雑になることがあります。URLを生成するために私たちの[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールを使用することをお勧めします。例えば、以下の例で使用されている`/api/articles?populate[category][populate][0]=restaurants` URLは、私たちのツールを使って以下のオブジェクトを変換することで生成されました：
+
+```json
+{
+  populate: {
+    category: {
+      populate: ['restaurants'],
+    },
+  },
+}
+```
+
+:::
+
+[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションは、コンテンツタイプ間のさまざまなレベルの関係を含んでいます。例えば：
+
+- `article` コンテンツタイプは `category` コンテンツタイプとの関係を持っています。
+- しかし、`category`は任意の`restaurant` コンテンツタイプにも割り当てることができます。
+
+適切なポピュレートパラメータとともに`/api/articles`への単一の`GET`リクエストで、記事、レストラン、カテゴリの情報を同時に返すことができます。
+
+FoodAdvisorへのクエリを送信する際に`populate[0]=category`（1レベル深く）と`populate[category][populate][0]=restaurants`（2レベル深く）で返されるレスポンスを比較し、説明しましょう：
+
+#### 例：1レベル深いポピュレートの場合
+
+1レベルだけポピュレートする場合、記事に関連するカテゴリを求めると、以下の例のようなレスポンスを得ることができます（ハイライトされた行は `category` 関係フィールドを示しています）：
+
+<ApiCall noSideBySide>
+<Request title="例のリクエスト">
+
+`GET /api/articles?populate[0]=category`
+
+</Request>
+
+<Response title="例のレスポンス">
 
 ```json {13-23,36-46,59-69,82-92}
 {
@@ -656,7 +802,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
     {
       "id": 1,
       "documentId": "9ih6hy1bnma3q3066kdwt3",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -666,7 +812,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
       "category": {
         "data": {
           "id": 4,
-          "name": "European",
+          "name": "ヨーロッパ",
           "slug": "european",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -676,7 +822,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
     {
       "id": 2,
       "documentId": "sen6qfgxcac13pwchf8xbu",
-      "title": "What are chinese hamburgers and why aren't you eating them?",
+      "title": "中国のハンバーガーって何？なぜあなたはそれを食べていないの？",
       "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
       "createdAt": "2021-11-11T13:33:19.948Z",
       "updatedAt": "2023-06-01T14:32:50.984Z",
@@ -687,7 +833,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
         "data": {
           "id": 13,
           "documentId": "r3rhzcxd7gjx07vkq3pia5",
-          "name": "Chinese",
+          "name": "中国",
           "slug": "chinese",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -697,7 +843,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
     {
       "id": 3,
       "documentId": "s9uu7rkukhfcsmj2e60b67",
-      "title": "7 Places worth visiting for the food alone",
+      "title": "食事だけで訪れる価値がある7つの場所",
       "slug": "7-places-worth-visiting-for-the-food-alone",
       "createdAt": "2021-11-12T13:33:19.948Z",
       "updatedAt": "2023-06-02T11:30:00.075Z",
@@ -708,7 +854,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
         "data": {
           "id": 3,
           "documentId": "4sevz15w6bdol6y4t8kblk",
-          "name": "International",
+          "name": "国際",
           "slug": "international",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -718,7 +864,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
     {
       "id": 4,
       "documentId": "iy5ifm3xj8q0t8vlq6l23h",
-      "title": "If you don't finish your plate in these countries, you might offend someone",
+      "title": "これらの国では皿を残すと誰かを怒らせるかもしれません",
       "slug": "if-you-don-t-finish-your-plate-in-these-countries-you-might-offend-someone",
       "createdAt": "2021-11-15T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:59:35.148Z",
@@ -729,7 +875,7 @@ When we only populate 1 level deep, asking for the categories associated to arti
         "data": {
           "id": 3,
           "documentId": "0eor603u8qej933maphdv3",
-          "name": "International",
+          "name": "国際",
           "slug": "international",
           "createdAt": "2021-11-09T13:33:20.123Z",
           "updatedAt": "2021-11-09T13:33:20.123Z"
@@ -751,20 +897,20 @@ When we only populate 1 level deep, asking for the categories associated to arti
 </Response>
 </ApiCall>
 
-#### Example: With 2-level deep population
+#### 例：2レベル深いポピュレーションの場合
 
-When we populate 2 levels deep, asking for the categories associated to articles, but also for restaurants associated to these categories, we can get the following example response.
+2レベル深くポピュレートするとき、記事に関連するカテゴリーを求めるだけでなく、これらのカテゴリーに関連するレストランも求めることができます。その結果、以下のようなレスポンスが得られます。
 
-Notice that we now have the `restaurants` relation field included with the response inside the `category` relation (see highlighted lines):
+ここで注意すべきは、`category`関係内のレスポンスに`restaurants`関係フィールドが含まれていることです（ハイライトされた行を参照）：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[category][populate][0]=restaurants`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json {13-56}
 {{
@@ -773,17 +919,17 @@ Notice that we now have the `restaurants` relation field included with the respo
       "id": 1,
       "documentId": "iy5ifm3xj8q0t8vlq6l23h",
       "attributes": {
-        "title": "Here's why you have to try basque cuisine, according to a basque chef",
+        "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
         "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
         "createdAt": "2021-11-09T13:33:19.948Z",
         "updatedAt": "2023-06-02T10:57:19.584Z",
         "publishedAt": "2022-09-22T09:30:00.208Z",
         "locale": "en",
-        "ckeditor_content": "…", // truncated content
+        "ckeditor_content": "…", // 内容は省略
         "category": {
           "data": {
             "id": 4,
-            "name": "European",
+            "name": "ヨーロッパ",
             "slug": "european",
             "createdAt": "2021-11-09T13:33:20.123Z",
             "updatedAt": "2021-11-09T13:33:20.123Z",
@@ -792,7 +938,7 @@ Notice that we now have the `restaurants` relation field included with the respo
                 {
                   "id": 1,
                   "documentId": "ozlqrdxpnjb7wtvf6lp74v",
-                  "name": "Mint Lounge",
+                  "name": "ミントラウンジ",
                   "slug": "mint-lounge",
                   "price": "p3",
                   "createdAt": "2021-11-09T14:07:47.125Z",
@@ -802,23 +948,23 @@ Notice that we now have the `restaurants` relation field included with the respo
                 },
                 {
                   "id": 9,
-                  // truncated content
+                  // 内容は省略
                 },
                 {
                   "id": 10,
-                  // truncated content
+                  // 内容は省略
                 },
                 {
                   "id": 12,
-                  // truncated content
+                  // 内容は省略
                 },
                 {
                   "id": 21,
-                  // truncated content
+                  // 内容は省略
                 },
                 {
                   "id": 26,
-                  // truncated content
+                  // 内容は省略
                 }
               ]
             }
@@ -828,15 +974,15 @@ Notice that we now have the `restaurants` relation field included with the respo
     },
     {
       "id": 2,
-      // truncated content
+      // 内容は省略
     },
     {
       "id": 3,
-      // truncated content
+      // 内容は省略
     },
     {
       "id": 4,
-      // truncated content
+      // 内容は省略
     }
   ],
   "meta": {
@@ -853,16 +999,16 @@ Notice that we now have the `restaurants` relation field included with the respo
 </Response>
 </ApiCall>
 
-### Populate components
+### コンポーネントのポピュレート
 
-Components and dynamic zones are not included in responses by default and you need to explicitly populate each dynamic zones, components, and their nested components.
+コンポーネントとダイナミックゾーンはデフォルトではレスポンスに含まれません。それぞれのダイナミックゾーン、コンポーネント、およびそのネストされたコンポーネントを明示的にポピュレートする必要があります。
 
-Since the REST API uses the [LHS bracket notation](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets), (i.e., with square brackets `[]`), you need to pass all elements in a `populate` array. Nested fields can also be passed, and the parameter syntax could look like the following:
+REST APIが[LHSブラケット表記法](https://christiangiacomi.com/posts/rest-design-principles/#lhs-brackets)（つまり、角括弧`[]`を使用）を使用しているため、すべての要素を`populate`配列にパスする必要があります。ネストされたフィールドもパスすることができ、パラメータ構文は次のようになる可能性があります：
 
 `populate[0]=a-first-field&populate[1]=a-second-field&populate[2]=a-third-field&populate[3]=a-third-field.a-nested-field&populate[4]=a-third-field.a-nested-component.a-nested-field-within-the-component`
 
 :::tip
-The syntax for advanced query parameters can be quite complex to build manually. We recommend you use our [interactive query builder](/dev-docs/api/rest/interactive-query-builder) tool to generate the URL. For instance, the `/api/articles?populate[0]=seo&populate[1]=seo.metaSocial&populate[2]=seo.metaSocial.image` URL used in the following examples has been generated by converting the following object using our tool:
+高度なクエリパラメータの構文は、手動で作成するのが非常に複雑になることがあります。URLを生成するために、私たちの[インタラクティブクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールを使用することをお勧めします。例えば、以下の例で使用されている`/api/articles?populate[0]=seo&populate[1]=seo.metaSocial&populate[2]=seo.metaSocial.image` URLは、私たちのツールを使用して以下のオブジェクトを変換することで生成されました：
 
 ```json
 {
@@ -876,32 +1022,32 @@ The syntax for advanced query parameters can be quite complex to build manually.
 
 :::
 
-The [FoodAdvisor](https://github.com/strapi/foodadvisor) example application includes various components and even components nested inside other components. For instance:
+[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションには、さまざまなコンポーネントや他のコンポーネントの中にネストされたコンポーネントが含まれています。例えば：
 
-- an `article` content-type includes a `seo` component <ScreenshotNumberReference number="1" />,
-- the `seo` component includes a nested, repeatable `metaSocial` component <ScreenshotNumberReference number="2" />,
-- and the `metaSocial` component itself has several fields, including an `image` media field <ScreenshotNumberReference number="3" />.
+- `article`コンテンツタイプには`seo`コンポーネントが含まれています<ScreenshotNumberReference number="1" />。
+- `seo`コンポーネントにはネストされた、繰り返し可能な`metaSocial`コンポーネントが含まれています<ScreenshotNumberReference number="2" />。
+- `metaSocial`コンポーネント自体には、`image`メディアフィールドを含むいくつかのフィールドがあります<ScreenshotNumberReference number="3" />。
 
-![FoodAdvisor's SEO component structure in the Content-Type Builder](/img/assets/rest-api/ctb-article-components-structure.png)
+![Content-Type BuilderにおけるFoodAdvisorのSEOコンポーネント構造](/img/assets/rest-api/ctb-article-components-structure.png)
 
-By default, none of these fields or components are included in the response of a `GET` request to `/api/articles`. But with the appropriate populate parameters, you can return all of them in a single request.
+デフォルトでは、これらのフィールドやコンポーネントは`GET`リクエストの`/api/articles`のレスポンスには含まれません。しかし、適切なpopulateパラメータを使用すると、一回のリクエストでこれらすべてを返すことができます。
 
-Let's compare and explain the responses returned with `populate[0]=seo` (1st level component) and `populate[0]=seo&populate[1]=seo.metaSocial` (2nd level component nested within the 1st level component):
+`populate[0]=seo`（1stレベルのコンポーネント）と`populate[0]=seo&populate[1]=seo.metaSocial`（1stレベルのコンポーネント内にネストされた2ndレベルのコンポーネント）で返されるレスポンスを比較し、説明してみましょう：
 
-#### Example: Only 1st level component
+#### 例：1stレベルのコンポーネントのみ
 
-When we only populate the `seo` component, we go only 1 level deep, and we can get the following example response. Highlighted lines show the `seo` component.
+`seo`コンポーネントのみをpopulateすると、1レベルの深さまでしか行かず、以下のような例のレスポンスを得ることができます。強調表示された行は`seo`コンポーネントを示しています。
 
-Notice there's no mention of the `metaSocial` component nested within the `seo` component:
+`seo`コンポーネント内にネストされた`metaSocial`コンポーネントの言及はありません：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[0]=seo`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json {13-22}
 {
@@ -909,7 +1055,7 @@ Notice there's no mention of the `metaSocial` component nested within the `seo` 
     {
       "id": 1,
       "documentId": "md60m5cy3dula5g87x1uar",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -919,8 +1065,8 @@ Notice there's no mention of the `metaSocial` component nested within the `seo` 
       "seo": {
         "id": 1,
         "documentId": "kqcwhq6hes25kt9ebj8x7j",
-        "metaTitle": "Articles - FoodAdvisor",
-        "metaDescription": "Discover our articles about food, restaurants, bars and more! - FoodAdvisor",
+        "metaTitle": "記事 - FoodAdvisor",
+        "metaDescription": "食事、レストラン、バーなどに関する記事を発見しましょう！ - FoodAdvisor",
         "keywords": "food",
         "metaRobots": null,
         "structuredData": null,
@@ -955,20 +1101,20 @@ Notice there's no mention of the `metaSocial` component nested within the `seo` 
 </Response>
 </ApiCall>
 
-#### Example: 1st level and 2nd level component
+#### 例: 1階層目と2階層目のコンポーネント
 
-When we populate 2 levels deep, asking both for the `seo` component and the `metaSocial` component nested inside `seo`, we can get the following example response.
+`seo`コンポーネントと、その中にネストされた`metaSocial`コンポーネントの両方を要求して2階層深く取得すると、以下の例のようなレスポンスを得ることができます。
 
-Notice that we now have the `metaSocial` component-related data included with the response (see highlighted lines):
+今回はレスポンスに`metaSocial`コンポーネント関連のデータが含まれていることに注意してください（ハイライトされた行を参照）：
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[0]=seo&populate[1]=seo.metaSocial`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json {13,22-29}
 {
@@ -976,19 +1122,19 @@ Notice that we now have the `metaSocial` component-related data included with th
     {
       "id": 1,
       "documentId": "c2imt19iywk27hl2ftph7s",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスク料理のシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
       "publishedAt": "2022-09-22T09:30:00.208Z",
       "locale": "en",
-      "ckeditor_content": "…", // truncated content
+      "ckeditor_content": "…", // 内容が省略されています
       "seo": {
         "id": 1,
         "documentId": "e8cnux5ejxyqrejd5addfv",
-        "metaTitle": "Articles - FoodAdvisor",
-        "metaDescription": "Discover our articles about food, restaurants, bars and more! - FoodAdvisor",
-        "keywords": "food",
+        "metaTitle": "記事 - FoodAdvisor",
+        "metaDescription": "食べ物、レストラン、バーなどについての記事を探索しましょう！ - FoodAdvisor",
+        "keywords": "食べ物",
         "metaRobots": null,
         "structuredData": null,
         "metaViewport": null,
@@ -998,23 +1144,23 @@ Notice that we now have the `metaSocial` component-related data included with th
             "id": 1,
             "documentId": "ks7xsp9fewoi0qljcz9qa0",
             "socialNetwork": "Facebook",
-            "title": "Browse our best articles about food and restaurants ",
-            "description": "Discover our articles about food, restaurants, bars and more!"
+            "title": "私たちの最高の食べ物やレストランについての記事をブラウズ",
+            "description": "食べ物、レストラン、バーなどについての記事を探索しましょう！"
           }
         ]
       }
     },
     {
       "id": 2,
-      // truncated content
+      // 内容が省略されています
     },
     {
       "id": 3,
-      // truncated content
+      // 内容が省略されています
     },
     {
       "id": 4,
-      // truncated content
+      // 内容が省略されています
     },
   ],
   "meta": {
@@ -1031,32 +1177,32 @@ Notice that we now have the `metaSocial` component-related data included with th
 </Response>
 </ApiCall>
 
-### Populate dynamic zones
+### 動的ゾーンのデータを補充する
 
-Dynamic zones are highly dynamic content structures by essence. To populate dynamic zones and their content, you need to explicitly define what to populate with the response.
+動的ゾーンは、その本質的に高度に動的なコンテンツ構造です。動的ゾーンとそのコンテンツを補充するためには、レスポンスで具体的に何を補充するかを定義する必要があります。
 
-<!-- ! not working in Strapi 5 -->
-<!-- #### Shared population strategy
+<!-- ! Strapi 5では動作しません -->
+<!-- #### 共有補充戦略
 
-With the shared population strategy, you apply the same population to all the components of a dynamic zone.
+共有補充戦略では、動的ゾーンのすべてのコンポーネントに同じ補充を適用します。
 
-For instance, in the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application:
+例えば、[FoodAdvisor](https://github.com/strapi/foodadvisor)のサンプルアプリケーションでは：
 
-- A `blocks` dynamic zone exists the `article` content-type <ScreenshotNumberReference number="1" />.
-- The dynamic zone includes 3 different components: `relatedArticles` <ScreenshotNumberReference number="2" />, `faq` <ScreenshotNumberReference number="3" />, and `CtaCommandLine` <ScreenshotNumberReference number="4" />. All components have a different data structure containing various fields.
+- `article`コンテンツタイプに`blocks`という動的ゾーンが存在します <ScreenshotNumberReference number="1" />。
+- この動的ゾーンには3つの異なるコンポーネントが含まれています：`relatedArticles` <ScreenshotNumberReference number="2" />、`faq` <ScreenshotNumberReference number="3" />、`CtaCommandLine` <ScreenshotNumberReference number="4" />。すべてのコンポーネントは、さまざまなフィールドを含む異なるデータ構造を持っています。
 
-![FoodAdvisor's 'blocks' dynamic zone structure in the Content-Type Builder](/img/assets/rest-api/ctb-blocks-dynamic-zone-structure.png)
+![Content-Type BuilderにおけるFoodAdvisorの'blocks'動的ゾーン構造](/img/assets/rest-api/ctb-blocks-dynamic-zone-structure.png)
 
-By default, none of these fields or components are included in the response of a `GET` request to `/api/articles`. But with the appropriate populate parameters, you can return all of them in a single request. And instead of explicitly defining all the field names to populate, you can choose to use the shared population strategy  to populate all fields of all components by passing `[populate=*]`.
+デフォルトでは、これらのフィールドやコンポーネントは`/api/articles`への`GET`リクエストのレスポンスには含まれません。しかし、適切な補充パラメータを使用すると、これらすべてを単一のリクエストで返すことができます。そして、補充するフィールド名をすべて明示的に定義する代わりに、`[populate=*]`を渡すことで共有補充戦略を使用してすべてのコンポーネントのすべてのフィールドを補充することができます。
 
 :::tip
-The syntax for advanced query parameters can be quite complex to build manually. We recommend you use our [interactive query builder](/dev-docs/api/rest/interactive-query-builder) tool to generate the URL. For instance, the `/api/articles?populate[blocks][populate]=*` URL used in the following example has been generated by converting the following object using our tool:
+高度なクエリパラメータの構文は手動で作成するのがかなり複雑になることがあります。URLを生成するためには、私たちの[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールの使用をお勧めします。例えば、以下の例で使用されている`/api/articles?populate[blocks][populate]=*` URLは、私たちのツールを使用して以下のオブジェクトを変換することで生成されました。
 
 ```json
 {
   populate: {
-    blocks: { // asking to populate the blocks dynamic zone
-      populate: '*' // populating all first-level fields in all components
+    blocks: { // blocks dynamic zone の populate を指定
+      populate: '*' // すべてのコンポーネントのすべての第一レベルのフィールドをpopulate
     }
   },
 }
@@ -1064,20 +1210,20 @@ The syntax for advanced query parameters can be quite complex to build manually.
 
 :::
 
-Let's compare and explain the responses returned with `populate[0]=blocks` (only populating the dynamic zone) and `populate[blocks][populate]=*` (populating the dynamic zone and applying a shared population strategy to all its components):
+`populate[0]=blocks`（動的ゾーンのみをpopulate）と`populate[blocks][populate]=*`（動的ゾーンをpopulateし、そのすべてのコンポーネントに共有のpopulate戦略を適用）で返されるレスポンスを比較し、説明しましょう。
 
-##### Example: Populating only the dynamic zone
+##### 例：動的ゾーンのみをpopulateする
 
-When we only populate the `blocks` dynamic zone, we go only 1 level deep, and we can get the following example response. Highlighted lines show the `blocks` dynamic zone and the 2 components it includes:
+`blocks`動的ゾーンのみをpopulateすると、1レベルの深さまで行き、以下の例のようなレスポンスを得ることができます。強調表示された行は`blocks`動的ゾーンと、それが含む2つのコンポーネントを示しています。
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[0]=blocks`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json {13-26}
 {
@@ -1136,12 +1282,112 @@ When we only populate the `blocks` dynamic zone, we go only 1 level deep, and we
 </Response>
 </ApiCall>
 
-##### Example: Populating the dynamic zone and applying a shared strategy to its components
+##### 例：動的ゾーンをpopulateし、そのコンポーネントに共有の戦略を適用する
 
-When we populate the `blocks` dynamic zone and apply a shared population strategy to all its components with `[populate]=*`, we not only include components fields but also their 1st-level relations, as shown in the highlighted lines of the following example response:
+`blocks`動的ゾーンをpopulateし、`[populate]=*`を用いてそのすべてのコンポーネントに共有のpopulate戦略を適用すると、コンポーネントのフィールドだけでなく、その1st-levelの関連も含まれます。以下の例のレスポンスで強調表示された行がこれを示しています。
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="例のリクエスト">
+
+`GET /api/articles?populate[blocks][populate]=*`
+
+</Request>
+
+<Response>
+
+:::tip
+高度なクエリパラメータの構文は手動で作成するのが非常に複雑な場合があります。URLを生成するために、私たちの[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールを使用することをお勧めします。例えば、以下の例で使用されている`/api/articles?populate[blocks][populate]=*` URLは、ツールを使用して以下のオブジェクトを変換することで生成されました：
+
+```json
+{
+  populate: {
+    blocks: { // ブロック動的ゾーンをポピュレートする要求
+      populate: '*' // すべてのコンポーネントのすべての第一レベルのフィールドをポピュレート
+    }
+  },
+}
+```
+
+:::
+
+`populate[0]=blocks`（動的ゾーンのみをポピュレート）と`populate[blocks][populate]=*`（動的ゾーンをポピュレートし、そのすべてのコンポーネントに共有ポピュレーション戦略を適用）で返されるレスポンスを比較し、説明してみましょう：
+
+##### 例：動的ゾーンのみをポピュレート
+
+`blocks`動的ゾーンのみをポピュレートすると、1レベルだけ深くなり、以下の例のようなレスポンスを得ることができます。ハイライトされた行は`blocks`動的ゾーンと、それが含む2つのコンポーネントを示しています：
+
+<ApiCall noSideBySide>
+<Request title="例のリクエスト">
+
+`GET /api/articles?populate[0]=blocks`
+
+</Request>
+
+<Response title="例のレスポンス">
+
+```json {13-26}
+{
+  "data": [
+    {
+      "id": 1,
+      "documentId": "e8cnux5ejxyqrejd5addfv",
+      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
+      "createdAt": "2021-11-09T13:33:19.948Z",
+      "updatedAt": "2023-06-02T10:57:19.584Z",
+      "publishedAt": "2022-09-22T09:30:00.208Z",
+      "locale": "en",
+      "ckeditor_content": "…" // 内容は省略
+      "blocks": [
+        {
+          "id": 2,
+          "documentId": "it9bbhcgc6mcfsqas7h1dp",
+          "__component": "blocks.related-articles"
+        },
+        {
+          "id": 2,
+          "documentId": "ugagwkoce7uqb0k2yof4lz",
+          "__component": "blocks.cta-command-line",
+          "theme": "primary",
+          "title": "Want to give a try to a Strapi starter?",
+          "text": "❤️",
+          "commandLine": "git clone https://github.com/strapi/nextjs-corporate-starter.git"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      // …
+    },
+    {
+      "id": 3,
+      // …
+    },
+    {
+      "id": 4,
+      // …
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 4
+    }
+  }
+}
+```
+
+</Response>
+</ApiCall>
+
+##### 例：動的ゾーンをポピュレートし、そのコンポーネントに共有戦略を適用
+
+`blocks`動的ゾーンをポピュレートし、`[populate]=*`を使用してそのすべてのコンポーネントに共有ポピュレーション戦略を適用すると、コンポーネントのフィールドだけでなく、その1stレベルの関係も含めることができます。以下の例のレスポンスのハイライトされた行がこれを示しています：
+
+<ApiCall noSideBySide>
+<Request title="例のリクエスト">
 
 `GET /api/articles?populate[blocks][populate]=*`
 
@@ -1155,7 +1401,7 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
     {
       "id": 1,
       "documentId": "c14dwiff3b4os6gs4yyrag",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスク料理のシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -1171,15 +1417,15 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
             "id": 2,
             "documentId": "c2imt19iywk27hl2ftph7s",
             "theme": "primary",
-            "label": "More, I want more!",
-            "title": "Similar articles"
+            "label": "もっと、もっと欲しい！",
+            "title": "類似の記事"
           },
           "articles": {
             "data": [
               {
                 "id": 2,
                 "documentId": "isn91s2bxk3jib97evvjni",
-                "title": "What are chinese hamburgers and why aren't you eating them?",
+                "title": "中国のハンバーガーとは何か、なぜあなたはそれを食べていないのか？",
                 "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
                 "createdAt": "2021-11-11T13:33:19.948Z",
                 "updatedAt": "2023-06-01T14:32:50.984Z",
@@ -1190,7 +1436,7 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
               {
                 "id": 3,
                 "documentId": "yz6lg7tp5ph8dr79gidoyl",
-                "title": "7 Places worth visiting for the food alone",
+                "title": "食べ物だけで訪れる価値がある7つの場所",
                 "slug": "7-places-worth-visiting-for-the-food-alone",
                 "createdAt": "2021-11-12T13:33:19.948Z",
                 "updatedAt": "2023-06-02T11:30:00.075Z",
@@ -1201,7 +1447,7 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
               {
                 "id": 4,
                 "documentId": "z5jnfvyuj07fogzh1kcbd3",
-                "title": "If you don't finish your plate in these countries, you might offend someone",
+                "title": "これらの国では皿を残すと誰かを侮辱するかもしれません",
                 "slug": "if-you-don-t-finish-your-plate-in-these-countries-you-might-offend-someone",
                 "createdAt": "2021-11-15T13:33:19.948Z",
                 "updatedAt": "2023-06-02T10:59:35.148Z",
@@ -1217,7 +1463,7 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
           "documentId": "vpihrdqj5984k8ynrc39p0",
           "__component": "blocks.cta-command-line",
           "theme": "primary",
-          "title": "Want to give a try to a Strapi starter?",
+          "title": "Strapiスターターを試してみたいですか？",
           "text": "❤️",
           "commandLine": "git clone https://github.com/strapi/nextjs-corporate-starter.git"
         }
@@ -1250,26 +1496,26 @@ When we populate the `blocks` dynamic zone and apply a shared population strateg
 </Response>
 </ApiCall> -->
 
-To do so, you can define per-component populate queries using the `on` property.
+これを実現するためには、`on`プロパティを使用してコンポーネントごとにpopulateクエリを定義できます。
 
-For instance, in the [FoodAdvisor](https://github.com/strapi/foodadvisor) example application:
+例えば、[FoodAdvisor](https://github.com/strapi/foodadvisor)の例のアプリケーションでは：
 
-- A `blocks` dynamic zone exists the `article` content-type <ScreenshotNumberReference number="1" />.
-- The dynamic zone includes 3 different components: `relatedArticles` <ScreenshotNumberReference number="2" />, `faq` <ScreenshotNumberReference number="3" />, and `CtaCommandLine` <ScreenshotNumberReference number="4" />. All components have a different data structure containing various fields.
-- The `relatedArticles` component has an `articles` relation <ScreenshotNumberReference number="5" /> with the article content-type.
+- `blocks`というダイナミックゾーンが`article`コンテンツタイプに存在します<ScreenshotNumberReference number="1" />。
+- このダイナミックゾーンには3つの異なるコンポーネントが含まれています：`relatedArticles`<ScreenshotNumberReference number="2" />、`faq`<ScreenshotNumberReference number="3" />、そして`CtaCommandLine`<ScreenshotNumberReference number="4" />です。すべてのコンポーネントは、さまざまなフィールドを含む異なるデータ構造を持っています。
+- `relatedArticles`コンポーネントは、記事コンテンツタイプとの`articles`関係を持っています<ScreenshotNumberReference number="5" />。
 
-![FoodAdvisor's 'blocks' dynamic zone structure in the Content-Type Builder](/img/assets/rest-api/ctb-blocks-dynamic-zone-structure-2.png)
+![FoodAdvisorの'blocks'ダイナミックゾーン構造 in the Content-Type Builder](/img/assets/rest-api/ctb-blocks-dynamic-zone-structure-2.png)
 
-By default, none of the deeply nested fields or relations are included in the response of a `GET` request to `/api/articles`. With the appropriate populate parameters and by applying a detailed population strategy, you can return precisely the data you need.
+デフォルトでは、深くネストされたフィールドや関係は`GET`リクエストのレスポンスに含まれません。適切なpopulateパラメータを使用し、詳細なpopulate戦略を適用することで、必要なデータを正確に返すことができます。
 
 :::tip
-The syntax for advanced query parameters can be quite complex to build manually. We recommend you use our [interactive query builder](/dev-docs/api/rest/interactive-query-builder) tool to generate the URL. For instance, the `/api/articles?populate[blocks][on][blocks.related-articles][populate][articles][populate][0]=image&populate[blocks][on][blocks.cta-command-line][populate]=*` URL used in the following example has been generated by converting the following object using our tool:
+高度なクエリパラメータの構文は手動で構築するのがかなり複雑になることがあります。私たちは[インタラクティブなクエリビルダー](/dev-docs/api/rest/interactive-query-builder)ツールを使用してURLを生成することをお勧めします。例えば、次の例で使用されている`/api/articles?populate[blocks][on][blocks.related-articles][populate][articles][populate][0]=image&populate[blocks][on][blocks.cta-command-line][populate]=*`というURLは、以下のオブジェクトをツールを使用して変換することで生成されました：
 
 ```json
 {
   populate: {
-    blocks: { // asking to populate the blocks dynamic zone
-      on: { // using a detailed population strategy to explicitly define what you want
+    blocks: { // blocksダイナミックゾーンのpopulateを要求
+      on: { // 何を明示的に定義したいかを詳細に定義するためのpopulate戦略を使用
         'blocks.related-articles': {
           populate: {
            'articles': {
@@ -1288,27 +1534,28 @@ The syntax for advanced query parameters can be quite complex to build manually.
 
 :::
 
-Let's compare and explain the responses returned with some examples of a shared population strategy and a detailed population strategy:
+共有populate戦略と詳細populate戦略の例をいくつか比較し、返されたレスポンスを説明しましょう：
 
-#### Example
+#### 例
 
-When we populate the `blocks` dynamic zone, we explicitly define which data to populate.
+`blocks`ダイナミックゾーンをpopulateするとき、populateするデータを明示的に定義します。
 
-In the following example response, highlighted lines show that:
+以下の例のレスポンスでは、ハイライトされた行が示しています：
 
-- We deeply populate the `articles` relation of the `relatedArticles` component, and even the `image` media field of the related article.
+- `relatedArticles`コンポーネントの`articles`関係を深くpopulateし、関連する記事の`image`メディアフィールドまでpopulateします。
 
-- But because we have only asked to populate everything for the `CtaCommandLine` component and have not defined anything for the `faq` component, no data from the `faq` component is returned.
+- しかし、`CtaCommandLine`コンポーネントについては全てをpopulateするように指定し、`faq`コンポーネントについては何も定義していないため、`faq`コンポーネントからのデータは返されません。
 
 <ApiCall noSideBySide>
 
-<Request title="Example request with a detailed population">
+<Request title="詳細なpopulateを持つ例のリクエスト">
 
 `GET /api/articles?populate[blocks][on][blocks.related-articles][populate][articles][populate][0]=image&populate[blocks][on][blocks.cta-command-line][populate]=*`
 
 </Request>
 
-<Response title="Example response with a detailed population">
+
+<Response title="詳細人口に関する例のレスポンス">
 
 ```json {16-17,29-34}
 {
@@ -1316,7 +1563,7 @@ In the following example response, highlighted lines show that:
     {
       "id": 1,
       "documentId": "it9bbhcgc6mcfsqas7h1dp",
-      "title": "Here's why you have to try basque cuisine, according to a basque chef",
+      "title": "バスク料理を試すべき理由、バスクのシェフによる解説",
       "slug": "here-s-why-you-have-to-try-basque-cuisine-according-to-a-basque-chef",
       "createdAt": "2021-11-09T13:33:19.948Z",
       "updatedAt": "2023-06-02T10:57:19.584Z",
@@ -1333,7 +1580,7 @@ In the following example response, highlighted lines show that:
               {
                 "id": 2,
                 "documentId": "wkgojrcg5bkz8teqx1foz7",
-                "title": "What are chinese hamburgers and why aren't you eating them?",
+                "title": "中国のハンバーガーって何？なぜあなたはそれを食べていないの？",
                 "slug": "what-are-chinese-hamburgers-and-why-aren-t-you-eating-them",
                 "createdAt": "2021-11-11T13:33:19.948Z",
                 "updatedAt": "2023-06-01T14:32:50.984Z",
@@ -1362,7 +1609,7 @@ In the following example response, highlighted lines show that:
           "id": 2,
           "__component": "blocks.cta-command-line",
           "theme": "primary",
-          "title": "Want to give a try to a Strapi starter?",
+          "title": "Strapiスターターを試してみませんか？",
           "text": "❤️",
           "commandLine": "git clone https://github.com/strapi/nextjs-corporate-starter.git"
         }
@@ -1375,7 +1622,7 @@ In the following example response, highlighted lines show that:
     {
       "id": 3,
       "documentId": "z5jnfvyuj07fogzh1kcbd3",
-      "title": "7 Places worth visiting for the food alone",
+      "title": "食事だけで訪れる価値がある7か所",
       "slug": "7-places-worth-visiting-for-the-food-alone",
       "createdAt": "2021-11-12T13:33:19.948Z",
       "updatedAt": "2023-06-02T11:30:00.075Z",
@@ -1396,8 +1643,8 @@ In the following example response, highlighted lines show that:
           "documentId": "c2imt19iywk27hl2ftph7s",
           "__component": "blocks.cta-command-line",
           "theme": "secondary",
-          "title": "Want to give it a try with a brand new project?",
-          "text": "Up & running in seconds 🚀",
+          "title": "新しいプロジェクトで試してみませんか？",
+          "text": "数秒で起動 🚀",
           "commandLine": "npx create-strapi-app my-project --quickstart"
         }
       ]
@@ -1419,5 +1666,4 @@ In the following example response, highlighted lines show that:
 ```
 
 </Response>
-
 </ApiCall>

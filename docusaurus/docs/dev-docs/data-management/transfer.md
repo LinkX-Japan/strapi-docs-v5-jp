@@ -1,58 +1,57 @@
 ---
-title: Data transfer
-description: Transfer data using the Strapi CLI
+title: データ転送
+description: Strapi CLIを使用してデータを転送する方法
 displayed_sidebar: devDocsSidebar
 canonicalUrl: https://docs.strapi.io/dev-docs/data-management/transfer.html
 tags:
-- data management system
-- data transfer
+- データ管理システム
+- データ転送
 - strapi transfer
-- environment 
+- 環境
 ---
-
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Data transfer
+# データ転送
 
 <NotV5 />
 
-The `strapi transfer` command streams your data from one Strapi instance to another Strapi instance. The `transfer` command uses strict schema matching, meaning your two Strapi instances need to be exact copies of each other except for the contained data. The default `transfer` command transfers your content (entities and relations), files (assets), project configuration, and schemas. The command allows you to transfer data:
+`strapi transfer`コマンドは、あるStrapiインスタンスから別のStrapiインスタンスにデータをストリーミングするために使用されます。このコマンドでは、厳密なスキーマの一致が必要です。つまり、データ以外の点で両方のStrapiインスタンスは正確なコピーである必要があります。デフォルトの`transfer`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、およびスキーマを転送します。データ転送は次のいずれかで行われます:
 
-- from a local Strapi instance to a remote Strapi instance
-- from a remote Strapi instance to a local Strapi instance
+- ローカルStrapiインスタンスからリモートStrapiインスタンスへ
+- リモートStrapiインスタンスからローカルStrapiインスタンスへ
 
 :::caution
 
-* If you are using an SQLite database in the destination instance other database connections will be blocked while the `transfer` operation is running.
-* Admin users and API tokens are not transferred.
-* If you use websockets or Socket.io in your projects, the transfer command will fail. You will need to **temporarily disable websockets or Socket.io** or ensure that your websocket server is running on a different port than the Strapi server, or a on a specific route within Strapi to use the transfer command.
+* 送信先インスタンスでSQLiteデータベースを使用している場合、転送が実行されている間、他のデータベース接続がブロックされます。
+* 管理者ユーザーおよびAPIトークンは転送されません。
+* プロジェクトでWebSocketやSocket.ioを使用している場合、転送コマンドは失敗します。転送コマンドを使用するには、WebSocketやSocket.ioを一時的に無効にするか、別ポートで実行する必要があります。
 
 :::
 
-The CLI command consists of the following arguments:
+CLIコマンドには以下のオプションがあります:
 
-| Option         | Description                                                                                                                                  |
-| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--to`         | Full URL of the `/admin` endpoint on the destination Strapi instance<br />(e.g. `--to https://my-beautiful-strapi-website/admin`)            |
-| `‑‑to‑token`   | Transfer token from the Strapi destination instance.                                                                                         |
-| `--from`       | Full URL of the `/admin` endpoint of the remote Strapi instance to pull data from (e.g., `--from https://my-beautiful-strapi-website/admin`) |
-| `‑‑from‑token` | Transfer token from the Strapi source instance.                                                                                              |
-| `--force`      | Automatically answer "yes" to all prompts, including potentially destructive requests, and run non-interactively.                            |
-| `--exclude`    | Exclude data using comma-separated data types. The available types are: `content`, `files`, and `config`.                                    |
-| `--only`       | Include only these data. The available types are: `content`, `files`, and `config`.                                                          |
-| `--throttle` | Time in milliseconds to inject an artificial delay between the "chunks" during a transfer. |
+| オプション          | 説明                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `--to`              | 送信先Strapiインスタンスの`/admin`エンドポイントの完全なURL<br />(例: `--to https://my-beautiful-strapi-website/admin`)               |
+| `‑‑to‑token`        | 送信先Strapiインスタンスの転送トークン                                                                                               |
+| `--from`            | データを取得するリモートStrapiインスタンスの`/admin`エンドポイントの完全なURL<br />(例: `--from https://my-beautiful-strapi-website/admin`) |
+| `‑‑from‑token`      | ソースStrapiインスタンスの転送トークン                                                                                                |
+| `--force`           | すべてのプロンプト（破壊的なリクエストを含む）に自動的に「yes」と答え、対話なしで実行します                                              |
+| `--exclude`         | カンマ区切りで指定されたデータタイプを除外します。利用可能なタイプは`content`、`files`、`config`です                                    |
+| `--only`            | 指定されたデータのみを含めます。利用可能なタイプは`content`、`files`、`config`です                                                    |
+| `--throttle`        | 転送中に「チャンク」間に挿入される人工的な遅延時間をミリ秒単位で設定します                                                               |
 
 :::caution
-Either `--to` or `--from` is required.
+`--to`または`--from`のどちらかが必須です。
 :::
 
 :::tip Tips
-* Data transfers are authorized by transfer tokens, which are [managed from the admin panel](/user-docs/settings/transfer-tokens). From the admin panel, you can manage role-based permissions to tokens including `view`, `create`, `read`, `regenerate` and `delete`.
-* It might be convenient to store your transfer tokens into [environment variables](/dev-docs/configurations/environment) to avoid copying/pasting. Just ensure that these tokens are not pushed to public repositories.
+* データ転送は、管理パネルから[転送トークン](/user-docs/settings/transfer-tokens)を使用して認証されます。管理パネルからは、トークンに対するロールベースの権限（表示、作成、読み取り、再生成、削除）を管理できます。
+* 環境変数に転送トークンを保存して、コピーペーストを避けることが便利です。これらのトークンが公開リポジトリにプッシュされないよう注意してください。
 :::
 
 :::warning
-When using nginx and a server that proxies requests into a localhost, issues might occur. To prevent them, ensure all the headers are forwarded correctly by changing the configuration file in `/etc/nginx/sites-available/yourdomain` as follows:
+nginxとリバースプロキシを使用してlocalhostにリクエストを転送するサーバーを使用する場合、問題が発生する可能性があります。これを防ぐため、すべてのヘッダーが正しく転送されるようにnginxの設定ファイル（`/etc/nginx/sites-available/yourdomain`）を変更します。
 
 ```
 server {
@@ -70,25 +69,25 @@ server {
 
 :::
 
-## Generate a transfer token
+## 転送トークンを生成する
 
 :::prerequisites
-A salt transfer token should be defined in the [admin panel configuration](/dev-docs/configurations/admin-panel) file.
+転送トークンは、[管理パネルの設定](/dev-docs/configurations/admin-panel)ファイルで定義する必要があります。
 :::
 
-The `strapi transfer` command requires a transfer token issued by the destination instance. To generate a transfer token in the admin panel use the instructions in the [User Guide](/user-docs/settings/transfer-tokens).
+`strapi transfer`コマンドを使用するには、送信先インスタンスで発行された転送トークンが必要です。管理パネルで転送トークンを生成するには、[ユーザーガイド](/user-docs/settings/transfer-tokens)の指示に従ってください。
 
-## Setup and run the data transfer
+## データ転送の設定と実行
 
-Initiating a data transfer depends on whether you want to push data to a remote instance or to pull data from the remote:
+データ転送の開始方法は、リモートインスタンスにデータをプッシュするか、リモートインスタンスからデータをプルするかによって異なります。
 
 <Tabs>
 
-<TabItem value="push" label="Push data to remote">
+<TabItem value="push" label="リモートにデータをプッシュ">
 
-  1. Start the Strapi server for the destination instance.
-  2. In a new terminal window, navigate to the root directory of the source instance.
-  3. Run the following minimal command to initiate the transfer, ensuring `destinationURL` is the full URL to the admin panel (i.e., the URL includes the `/admin` part):
+  1. 送信先インスタンスのStrapiサーバーを起動します。
+  2. 新しいターミナルウィンドウで、ソースインスタンスのルートディレクトリに移動します。
+  3. 次の最小限のコマンドを実行して転送を開始します。`destinationURL`は、管理パネルの完全なURLであることを確認してください（つまり、URLには`/admin`部分が含まれます）。
 
     <Tabs groupId="yarn-npm">
 
@@ -110,16 +109,16 @@ Initiating a data transfer depends on whether you want to push data to a remote 
 
     </Tabs>
   
-  4. Add the transfer token when prompted to do so.
-  5. Answer **Yes** or **No** to the CLI prompt: "The transfer will delete all of the remote Strapi assets and its database. Are you sure you want to proceed?"
+  4. 転送トークンを入力するように求められたら追加します。
+  5. CLIプロンプト「この転送はリモートStrapiアセットとデータベースをすべて削除します。本当に続行しますか？」に対して**Yes**または**No**を答えます。
 
 </TabItem>
 
-<TabItem value="pull" label="Pull data from remote">
+<TabItem value="pull" label="リモートからデータをプル">
 
-1. Start the Strapi server for the source instance.
-2. In a new terminal window, navigate to the root directory of the destination instance.
-  3. Run the following minimal command to initiate the transfer, ensuring `remoteURL` is the full URL to the admin panel (i.e., the URL includes the `/admin` part):
+1. ソースインスタンスのStrapiサーバーを起動します。
+2. 新しいターミナルウィンドウで、送信先インスタンスのルートディレクトリに移動します。
+3. 次の最小限のコマンドを実行して転送を開始します。`remoteURL`は、管理パネルの完全なURLであることを確認してください（つまり、URLには`/admin`部分が含まれます）。
 
   <Tabs groupId="yarn-npm">
 
@@ -141,21 +140,23 @@ Initiating a data transfer depends on whether you want to push data to a remote 
 
   </Tabs>
 
-4. Add the transfer token when prompted to do so.
-5. Answer **Yes** or **No** to the CLI prompt: "The transfer will delete all of the local Strapi assets and its database. Are you sure you want to proceed?".
+4. 転送トークンを入力するように求められたら追加します。
+5. CLIプロンプト「この転送はローカルStrapiアセットとデータベースをすべて削除します。本当に続行しますか？」に対して**Yes**または**No**を答えます。
 
 </TabItem>
 </Tabs>
 
-## Bypass all `transfer` command line prompts
+## `transfer`コマンドのすべてのプロンプトをバイパス
 
-When using the `strapi transfer` command, you are required to confirm that the transfer will delete the existing database contents. The `--force` flag allows you to bypass this prompt. This option is useful for implementing `strapi transfer` programmatically. You must pass the `to-token` option with the transfer token if you use the `--force` option.
+`strapi transfer`コマンドを使用する場合、転送が既存のデータベースコンテンツを削除することを確認するプロンプトが表示されます。`--force`フラグを使用すると、このプロンプトをスキップできます。このオプションは、`strapi transfer`をプログラムで実装する場合に便利です。`--force`オプションを使用する場合、転送トークン`--to-token`オプションを渡す必要があります。
 
 :::caution
-The `--force` option bypasses all warnings about content deletion.
+`--force`オプションは、コンテンツ削除に関するすべての警告をバイパスします。
+
+
 :::
 
-### Example: bypass the `transfer` command line prompts with `--force`
+### 例: `--force`オプションを使用して`transfer`コマンドのプロンプトをバイパス
 
 <Tabs groupId="yarn-npm">
 
@@ -177,11 +178,11 @@ npm run strapi transfer -- --to https://example.com/admin --to-token my-transfer
 
 </Tabs>
 
-## Include only specified data types during transfer
+## 指定されたデータタイプのみを転送する
 
-The default `strapi transfer` command transfers your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to transfer only the listed items by passing a comma-separated string with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always transferred, as schema matching is used for `strapi transfer`.
+デフォルトの`strapi transfer`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、およびスキーマを転送します。`--only`オプションを使用すると、指定された項目のみを転送できます。項目はコンマで区切られた文字列で指定します。利用可能な値は`content`、`files`、および`config`です。スキーマは常に転送され、転送の際に一致を確認します。
 
-### Example: only transfer files
+### 例: ファイルのみを転送する
 
 <Tabs groupId="yarn-npm">
 
@@ -203,11 +204,11 @@ npm run strapi transfer -- --to https://example.com/admin --only files
 
 </Tabs>
 
-## Exclude data types during transfer
+## 転送中にデータタイプを除外する
 
-The default `strapi transfer` command transfers your content (entities and relations), files (assets), project configuration, and schemas. The `--exclude` option allows you to exclude content, files, and the project configuration by passing these items in a comma-separated string with no spaces between the types. You can't exclude the schemas, as schema matching is used for `strapi transfer`.
+デフォルトの`strapi transfer`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、およびスキーマを転送します。`--exclude`オプションを使用すると、コンテンツ、ファイル、プロジェクト設定を除外できます。除外する項目はコンマで区切られた文字列で指定します。スキーマは転送の際に一致を確認するため、除外できません。
 
-### Example: exclude files from transfer
+### 例: ファイルを除外して転送する
 
 <Tabs groupId="yarn-npm">
 
@@ -230,38 +231,38 @@ npm run strapi transfer -- --to https://example.com/admin --exclude files
 </Tabs>
 
 :::warning
-Any types excluded from the transfer will be deleted in your destination instance. For example, if you exclude `config` the project configuration in your destination instance will be deleted.
+転送から除外された項目は、送信先インスタンスで削除されます。たとえば、`config`を除外すると、送信先インスタンスのプロジェクト設定が削除されます。
 :::
 
-## Manage data transfer with environment variables
+## 環境変数を使用してデータ転送を管理する
 
-The environment variable `STRAPI_DISABLE_REMOTE_DATA_TRANSFER` is available to disable remote data transfer. In addition to the [RBAC permissions](/user-docs/users-roles-permissions/configuring-administrator-roles#plugins-and-settings) in the admin panel this can help you secure your Strapi application. To use `STRAPI_DISABLE_REMOTE_DATA_TRANSFER` you can add it to your `.env` file or preface the `start` script. See the following example:
+環境変数`STRAPI_DISABLE_REMOTE_DATA_TRANSFER`を使用して、リモートデータ転送を無効にすることができます。管理パネルの[RBAC権限](/user-docs/users-roles-permissions/configuring-administrator-roles#plugins-and-settings)に加えて、これによりStrapiアプリケーションをより安全に保つことができます。`STRAPI_DISABLE_REMOTE_DATA_TRANSFER`を使用するには、`.env`ファイルに追加するか、`start`スクリプトの前に指定します。次の例を参照してください:
 
 ```bash
 STRAPI_DISABLE_REMOTE_DATA_TRANSFER=true yarn start
 ```
 
-Additional details on using environment variables in Strapi are available in the [Environment configurations documentation](/dev-docs/configurations/environment).
+Strapiで環境変数を使用する詳細については、[環境構成ドキュメント](/dev-docs/configurations/environment)を参照してください。
 
-## Test the transfer command locally
+## ローカルで`transfer`コマンドをテストする
 
-The `transfer` command is not intended for transferring data between two local instances. The [`export`](/dev-docs/data-management/export) and [`import`](/dev-docs/data-management/import) commands were designed for this purpose. However, you might want to test `transfer` locally on test instances to better understand the functionality before using it with a remote instance. The following documentation provides a fully-worked example of the `transfer` process.
+`transfer`コマンドは、2つのローカルインスタンス間でデータを転送することを目的としていません。[`export`](/dev-docs/data-management/export)および[`import`](/dev-docs/data-management/import)コマンドは、この目的のために設計されています。ただし、リモートインスタンスで使用する前に、テストインスタンスで`transfer`をローカルでテストすることで、その機能をよりよく理解することができます。以下は、`transfer`プロセスの完全な例を示しています。
 
-### Create and clone a new Strapi project
+### 新しいStrapiプロジェクトの作成とクローン
 
-1. Create a new Strapi project using the installation command:
+1. インストールコマンドを使用して新しいStrapiプロジェクトを作成します:
 
    ```bash
    npx create-strapi-app@latest <project-name> --quickstart
    ```
 
-2. Create at least 1 content type in the project. See the [Quick Start Guide](/dev-docs/quick-start) if you need instructions on creating your first content type.
+2. プロジェクト内で少なくとも1つのコンテンツタイプを作成します。最初のコンテンツタイプの作成については、[クイックスタートガイド](/dev-docs/quick-start)を参照してください。
 
    :::caution
-   Do not add any data to your project at this step.
+   この段階ではプロジェクトにデータを追加しないでください。
    :::
 
-3. Commit the project to a git repository:
+3. プロジェクトをgitリポジトリにコミットします:
 
    ```bash
    git init
@@ -269,21 +270,21 @@ The `transfer` command is not intended for transferring data between two local i
    git commit -m "first commit"
    ```
 
-4. Clone the project repository:
+4. プロジェクトリポジトリをクローンします:
 
    ```bash
-   cd .. # move to the parent directory
-   git clone <path to created git repository>.git/ <new-instance-name>
+   cd .. # 親ディレクトリに移動
+   git clone <作成したgitリポジトリのパス>.git/ <new-instance-name>
    ```
 
-### Add data to the first Strapi instance
+### 最初のStrapiインスタンスにデータを追加する
 
-1. Return to the first Strapi instance and add data to the content type.
-2. Stop the server on the first instance.
+1. 最初のStrapiインスタンスに戻り、コンテンツタイプにデータを追加します。
+2. 最初のインスタンスのサーバーを停止します。
 
-### Create a transfer token
+### 転送トークンの作成
 
-1. Navigate to the second Strapi instance and run the `build` and `start` commands in the root directory:
+1. 2つ目のStrapiインスタンスに移動し、ルートディレクトリで`build`および`start`コマンドを実行します:
 
 <Tabs groupId="yarn-npm">
 
@@ -305,14 +306,14 @@ npm run build && npm run start
 
 </Tabs>
 
-2. Register an admin user.
-3. [Create and copy a transfer token](/user-docs/settings/transfer-tokens).
-4. Leave the server running.
+2. 管理者ユーザーを登録します。
+3. [転送トークンを作成してコピーします](/user-docs/settings/transfer-tokens)。
+4. サーバーを実行したままにします。
 
-### Transfer your data
+### データを転送する
 
-1. Return the the first Strapi instance.
-2. In the terminal run the `strapi transfer` command:
+1. 最初のStrapiインスタンスに戻ります。
+2. ターミナルで`strapi transfer`コマンドを実行します:
 
 <Tabs groupId="yarn-npm">
 
@@ -334,11 +335,11 @@ npm run strapi transfer -- --to http://localhost:1337/admin
 
 </Tabs>
 
-3. When prompted, apply the transfer token.
-4. When the transfer is complete you can return to the second Strapi instance and see that the content is successfully transferred.
+3. プロンプトが表示されたら、転送トークンを適用します。
+4. 転送が完了したら、2つ目のStrapiインスタンスに戻り、コンテンツが正常に転送されていることを確認します。
 
 :::tip
-In some cases you might receive a connection refused error targeting `localhost`. Try changing the address to [http://127.0.0.1:1337/admin](http://127.0.0.1:1337/admin).
+場合によっては、`localhost`に対して接続拒否エラーが発生することがあります。[http://127.0.0.1:1337/admin](http://127.0.0.1:1337/admin)にアドレスを変更してみてください。
 :::
 
 <FeedbackPlaceholder />

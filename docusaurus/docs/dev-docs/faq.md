@@ -1,126 +1,126 @@
 ---
 title: FAQ
-description: Find some answers and solutions to most common issues that you may experience when working with Strapi.
+description: Strapiを使用する際に最もよく遭遇する問題の答えと解決策を見つけてください。
 tags:
-- content-type
-- admin panel
-- deployment
-- migration
-- Content Manager 
-- serverless environment
+- コンテンツタイプ
+- 管理パネル
+- デプロイメント
+- 移行
+- コンテンツマネージャー
+- サーバーレス環境
 - PaaS
-- plugins
-- dynamic zones
+- プラグイン
+- ダイナミックゾーン
 - UUID
-- default ID type
-- default ID name
+- デフォルトのIDタイプ
+- デフォルトのID名
 - SSL
-- typescript
+- TypeScript
 
 ---
 
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Frequently Asked Questions
+# よくある質問
 
 <NotV5 />
 
-Below are answers and solutions to most common issues that you may experience when working with Strapi.
+以下は、Strapiを使用する際に最もよく遭遇する問題の答えと解決策です。
 
-## Why can't I create or update content-types in production/staging?
+## なぜ本番環境/ステージング環境でコンテンツタイプを作成または更新できないのですか？
 
-Strapi stores model configuration files (what defines the model schema) in files such as `./src/api/restaurant/content-types/restaurant/schema.json`. Due to how Node.js works, in order for changes to take effect, that would require Node to restart the server. This could potentially cause downtime of your production service and likewise these changes should be tracked in some kind of source control.
+Strapiはモデルの設定ファイル（モデルスキーマを定義するもの）を`./src/api/restaurant/content-types/restaurant/schema.json`のようなファイルに保存します。Node.jsの動作方法により、変更が有効になるためにはNodeがサーバーを再起動する必要があります。これはあなたの本番サービスのダウンタイムを引き起こす可能性があり、同様にこれらの変更は何らかのソースコントロールで追跡するべきです。
 
-Generally your "flow" of development would follow the following path:
+一般的にあなたの開発の"フロー"は以下のパスに従います：
 
-- Development - Develop your Strapi application locally on your host machine, then push changes into source control
-- Staging - Deploy changes from source control to a "production-like" environment for testing
-- Production - If no other changes are needed, deploy into production
-- Repeat as needed, it is recommended that you properly version and test your application as you go
+- 開発 - ホストマシン上でローカルにStrapiアプリケーションを開発し、ソースコントロールに変更をプッシュします
+- ステージング - ソースコントロールから"本番環境に近い"環境に変更をデプロイします
+- 本番環境 - 他に必要な変更がなければ、本番環境にデプロイします
+- 必要に応じて繰り返します。進行中に適切にバージョン管理し、アプリケーションをテストすることを推奨します
 
-At this time and in the future there is no plan to allow model creating or updating while in a production environment, and there is currently no plans to move model settings into the database. There are no known nor recommended workarounds for this.
+現時点および将来において、本番環境でのモデルの作成や更新を許可する計画はありませんし、モデル設定をデータベースに移行する計画も現在はありません。これに対する既知の、または推奨される回避策はありません。
 
-## Does Strapi handle deploying or migrating of content?
+## Strapiはコンテンツのデプロイや移行を処理しますか？
 
-Strapi does offer a feature known as [Data Transfer](/dev-docs/data-management/transfer) that allows you to export and import content from one Strapi instance to another or exporting and importing from a file archive. This is useful for migrating content from one environment to another.
+Strapiは[Data Transfer](/dev-docs/data-management/transfer)という機能を提供しており、これにより一つのStrapiインスタンスから別のインスタンスへのコンテンツのエクスポートとインポート、またはファイルアーカイブからのエクスポートとインポートが可能になります。これは一つの環境から別の環境へのコンテンツの移行に役立ちます。
 
-## User can't login to the admin panel
+## ユーザーが管理パネルにログインできません
 
-With the release of the Strapi 3.0 beta version a fundamental change occurred in that the end users (REST and GraphQL users) were split from the Administrators (admin panel users) in such a way that normal users can not be given access to the admin panel. If you would like to read more on why this change was done, you can read the Strapi [blog post](https://strapi.io/blog/why-we-split-the-management-of-the-admin-users-and-end-users) about it.
+Strapi 3.0ベータ版のリリースにより、エンドユーザー（RESTおよびGraphQLユーザー）と管理者（管理パネルのユーザー）が分割され、通常のユーザーは管理パネルにアクセスできないようになりました。この変更がなぜ行われたのかについて詳しく読みたい場合は、Strapiの[ブログ投稿](https://strapi.io/blog/why-we-split-the-management-of-the-admin-users-and-end-users)をご覧ください。
 
-Strapi has released the Admin & Permissions (RBAC - Role-Based Access Control) that does allow for some degree of control over what users can access within the admin panel and includes some field level permissions. You can also give roles specific permissions for things like content-types, single types, plugins, and settings.
+StrapiはAdmin & Permissions（RBAC - Role-Based Access Control）をリリースしました。これにより、管理パネル内でユーザーがアクセスできる範囲をある程度制御できるようになり、一部のフィールドレベルの権限も含まれています。また、コンテンツタイプ、シングルタイプ、プラグイン、設定などに対する特定の権限をロールに付与することもできます。
 
-## Why are my application's database and uploads resetting on PaaS-type services?
+## なぜPaaS型サービスでアプリケーションのデータベースとアップロードがリセットされるのですか？
 
-If you used `--quickstart` to create your Strapi project, by default this uses the SQLite database. PaaS systems (Heroku, DigitalOcean Apps, Google App Engine, etc.) file systems are typically [ephemeral](https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem) or read-only meaning that each time a dyno (container) is reset all filesystem changes are lost. And since both SQLite and local uploads are stored on the filesystem, any changes made to these since the last dyno reset will be deleted. Typically dynos are reset at least once a day, and in most cases multiple times per day or when new code is pushed to these services.
+あなたが`--quickstart`を使ってStrapiプロジェクトを作成した場合、デフォルトではSQLiteデータベースが使用されます。PaaSシステム（Heroku、DigitalOcean Apps、Google App Engineなど）のファイルシステムは通常、[ephemeral](https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem)（一時的）または読み取り専用で、dyno（コンテナ）がリセットされるたびにすべてのファイルシステムの変更が失われます。そして、SQLiteとローカルのアップロードは両方ともファイルシステムに保存されるため、最後のdynoリセット以降にこれらに対して行われた変更はすべて削除されます。通常、dynoは少なくとも1日に1回リセットされ、ほとんどの場合は1日に複数回または新しいコードがこれらのサービスにプッシュされたときにリセットされます。
 
-It is recommended you use a database add-on like Heroku's PostgreSQL. For file uploads, you will need to use one of the 3rd party providers such as Cloudinary or AWS S3.
+HerokuのPostgreSQLのようなデータベースアドオンの使用をお勧めします。ファイルのアップロードには、CloudinaryやAWS S3のような第三者プロバイダを使用する必要があります。
 
-## How can I upgrade my free Strapi Cloud trial to a paid plan?
+## 無料のStrapi Cloud試用版を有料プランにアップグレードするにはどうすればいいですか？
 
-Strapi Cloud provides a free, 14-day trial for up to 5 projects. Whenever you're ready to upgrade to one of the [paid plans](https://strapi.io/pricing-cloud), please use the _Plans_ section of your Strapi Cloud project's settings (see [Cloud documentation](/cloud/projects/settings#upgrading-to-another-plan) for more details).
+Strapi Cloudは、最大5つのプロジェクトに対する無料の14日間の試用期間を提供しています。いつでも[有料プラン](https://strapi.io/pricing-cloud)にアップグレードする準備ができたら、Strapi Cloudプロジェクトの設定の_Plans_セクションを使用してください（詳細は[Cloud documentation](/cloud/projects/settings#upgrading-to-another-plan)を参照してください）。
 
-## Can Strapi be run in serverless environments?
+## Strapiはサーバーレス環境で実行できますか？
 
-Strapi is not well suited for serverless environments due to how the application is structured. Several actions happen while Strapi is booting that can take several seconds. Serverless deployment usually requires an application to cold boot very quickly. Strapi is designed to run as an always-on service, and we don't plan to decrease the cold boot time for the foreseeable future. Therefore, running Strapi in serverless environments is not a great experience, as every request will take seconds to respond to instead of milliseconds. Choosing between a cold boot or a warm boot is an architectural decision that many software developers need to take from a very early stage, so please consider this when choosing to use Strapi.
+Strapiはアプリケーションの構造のため、サーバーレス環境にはあまり適していません。Strapiが起動する際には、数秒かかるいくつかのアクションが発生します。サーバーレスのデプロイメントでは、アプリケーションが非常に迅速にコールドブートすることが通常必要です。Strapiは常時稼働するサービスとして設計されており、当面の間、コールドブート時間を短縮する計画はありません。したがって、Strapiをサーバーレス環境で実行すると、すべてのリクエストがミリ秒単位ではなく秒単位で応答するため、あまり良い経験にはなりません。コールドブートとウォームブートの選択は、多くのソフトウェア開発者が非常に早い段階から行う必要がある建築上の決定ですので、Strapiを使用する際にはこれを考慮してください。
 
-## Can I store my Content Manager layout configurations in the model settings?
+## Content Managerのレイアウト設定をモデル設定に保存できますか？
 
-Currently Strapi does not support this, a `config:dump` and `config:restore` command has been added to make migration of these settings easier when moving between different deployments and environments.
+現在、Strapiはこれをサポートしていませんが、`config:dump`と`config:restore`コマンドが追加されており、これにより異なるデプロイメントや環境間でこれらの設定を移行する際に作業が容易になります。
 
-We don't offer the ability to store these configurations in the model settings for several reasons:
+これらの設定をモデル設定に保存する機能を提供しない理由はいくつかあります：
 
-- It will create conflicts in case of content internationalization and translations in the admin interface.
-- The layout might be different according to the roles and permissions.
-- While the model is the same whatever the content created, the contribution interface can be different. For instance, we have an idea to create a mobile application for contributors only. The labels and layout configurations could be different according the device & interface.
+- コンテンツの国際化と管理インターフェースでの翻訳の場合に競合が発生します。
+- レイアウトはロールと権限によって異なる可能性があります。
+- モデルは作成されたコンテンツに関係なく同じですが、投稿インターフェースは異なる可能性があります。例えば、投稿者専用のモバイルアプリケーションを作成するアイデアがあります。ラベルとレイアウト設定はデバイスやインターフェースによって異なる可能性があります。
 
-For all these reasons, and others, we think it'll be a mistake and might confuse users if we store the configuration in the model settings file. The final solution is to make the migration and deployment across environment easier.
+これら全ての理由、およびその他の理由から、モデル設定ファイルに設定を保存すると、ユーザーが混乱する可能性があると考えています。最終的な解決策は、環境間でのマイグレーションとデプロイを容易にすることです。
 
-## How do I customize a plugin?
+## プラグインをカスタマイズするにはどうすればいいですか？
 
-Strapi uses a system called [extension](/dev-docs/plugins-extension) as plugins are stored in the `node_modules` folder. Due to this extensions work by Strapi utilizing programmatic hooks to override certain parts of the plugin.
+Strapiは、プラグインが`node_modules`フォルダに保存されているため、[extension](/dev-docs/plugins-extension)というシステムを使用しています。このため、Strapiはプログラム的なフックを利用してプラグインの一部を上書きすることで、拡張機能が動作します。
 
-## Can I add my own 3rd party auth provider?
+## 自分のサードパーティ認証プロバイダーを追加できますか？
 
-Yes, you can either follow the following [documentation](/dev-docs/plugins/users-permissions#providers) or you can take a look at the [users-permissions](https://github.com/strapi/strapi/tree/master/packages/plugins/users-permissions) code and submit a pull request to include the provider for everyone. Eventually Strapi does plan to move from the current grant/purest provider to a split natured system similar to the upload providers.
+はい、次の[ドキュメンテーション](/dev-docs/plugins/users-permissions#providers)に従うか、または[users-permissions](https://github.com/strapi/strapi/tree/master/packages/plugins/users-permissions)のコードを見て、プロバイダーを全員に含めるためのプルリクエストを提出することができます。最終的にStrapiは、現在のgrant/purestプロバイダーから、アップロードプロバイダーと同様の分割されたシステムに移行する予定です。
 
-There is currently no ETA on this migration however.
+ただし、このマイグレーションについて現在のところETAはありません。
 
-## Does Strapi allow me to change the default ID type or name?
+## StrapiはデフォルトのIDタイプや名前を変更することを許可していますか？
 
-No, currently does not have the ability to allow for changing the default id name nor does it allow you to switch the data type (such as UUID in PostgreSQL), support for this is being looked at in future.
+いいえ、現在はデフォルトのid名を変更したり、データタイプ（PostgreSQLのUUIDなど）を切り替えることを許可する機能はありません。このサポートについては将来的に検討されています。
 
-## Can you filter and/or deep filter on dynamic zones and polymorphic relations?
+## ダイナミックゾーンや多態性関係でフィルタリングやディープフィルタリングは可能ですか？
 
-At this time we do not plan to allow for filtering on dynamic zones or polymorphic relations due to various complexity and performance issues that come from doing so.
+現時点では、ダイナミックゾーンや多態性関係でのフィルタリングを許可する予定はありません。これは、そのような操作から生じる様々な複雑さとパフォーマンス問題が原因です。
 
-## How do I setup SSL with Strapi?
+## StrapiでSSLを設定するにはどうすればいいですか？
 
-Strapi implements no SSL solution natively, this is due to the fact that it is extremely insecure to directly offer a Node.js application to the public web on a low port.
+StrapiはネイティブにSSLソリューションを実装していません。これは、Node.jsアプリケーションを直接公開ウェブに提供することは非常に不安全であるためです。
 
-On Linux based operating systems you need root permissions to bind to any port below 1024 and with typical SSL being port 443 you would need to run your application as root.
+Linuxベースのオペレーティングシステムでは、1024以下の任意のポートにバインドするためにはroot権限が必要で、典型的なSSLはポート443なので、アプリケーションをrootとして実行する必要があります。
 
-Likewise since Strapi is Node.js based, in order for changes with the SSL certificate to take place (say when it expires) you would need to restart your application for that change to take effect.
+同様に、StrapiはNode.jsベースなので、SSL証明書の変更（例えば、それが有効期限切れになった場合）が反映されるためには、アプリケーションを再起動する必要があります。
 
-Due to these two issues, it is recommended you use a proxy application such as [Nginx](https://forum.strapi.io/t/nginx-proxing-with-strapi/), [Caddy](https://forum.strapi.io/t/caddy-proxying-with-strapi/40616), [HAProxy](https://forum.strapi.io/t/haproxy-proxying-with-strapi/), Apache, Traefik, or many others to handle your edge routing to Strapi. There are settings in the environment [server.json](/dev-docs/configurations/server) to handle upstream proxies. The proxy block requires all settings to be filled out and will modify any backend plugins such as authentication providers and the upload plugin to replace your standard `localhost:1337` with the proxy URL.
+これら2つの問題から、[Nginx](https://forum.strapi.io/t/nginx-proxing-with-strapi/)、[Caddy](https://forum.strapi.io/t/caddy-proxying-with-strapi/40616)、[HAProxy](https://forum.strapi.io/t/haproxy-proxying-with-strapi/)、Apache、Traefikなどのプロキシアプリケーションを使用して、Strapiへのエッジルーティングを処理することを推奨します。環境の[server.json](/dev-docs/configurations/server)には、上流のプロキシを処理する設定があります。プロキシブロックでは全ての設定を記入する必要があり、認証プロバイダーやアップロードプラグインなどのバックエンドプラグインを変更して、標準の`localhost:1337`をプロキシURLに置き換えます。
 
-## Can I use TypeScript in a Strapi project?
+## StrapiプロジェクトでTypeScriptを使用できますか？
 
-TypeScript is supported in Strapi projects from v4.2.0-beta.1 TypeScript code examples are available throughout the core Developer Documentation and a [dedicated TypeScript support page](/dev-docs/typescript).
+TypeScriptは、v4.2.0-beta.1からStrapiプロジェクトでサポートされています。TypeScriptのコード例は、コア開発者ドキュメンテーション全体で利用可能で、[専用のTypeScriptサポートページ](/dev-docs/typescript)もあります。
 
-## How to fix the build error `Error: Cannot find module @strapi/XXX`
+## ビルドエラー`Error: Cannot find module @strapi/XXX`の修正方法
 
 :::caution
-Before trying the fix below, ensure you've executed your package manager's install command in your project.
+以下の修正を試す前に、プロジェクトでパッケージマネージャのインストールコマンドが実行されていることを確認してください。
 :::
 
-Strapi in its current version requires dependency hoisting.
+現在のバージョンのStrapiでは、依存関係の巻き上げが必要です。
 
-By default, most package managers enable hoisting, however, if it's not functioning as expected, you can try enforcing it via your package manager's configuration.
+デフォルトでは、ほとんどのパッケージマネージャが巻き上げを有効にしていますが、期待通りに機能していない場合は、パッケージマネージャの設定を通じて強制的に巻き上げを試みることができます。
 
-- If you are using npm or pnpm: Add `hoist=true` to your project's `.npmrc` file. Learn more about this from the [official pnpm documentation](https://pnpm.io/npmrc#hoist)
-- If you are using Yarn: Set `nmHoistingLimits` in your `.yarnrc` file. More details can be found in the [Yarn official documentation](https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits)
+- npmまたはpnpmを使用している場合：プロジェクトの`.npmrc`ファイルに`hoist=true`を追加します。これについての詳細は、[公式pnpmドキュメンテーション](https://pnpm.io/npmrc#hoist)をご覧ください。
+- Yarnを使用している場合：`.yarnrc`ファイルで`nmHoistingLimits`を設定します。詳細は、[Yarn公式ドキュメンテーション](https://yarnpkg.com/configuration/yarnrc#nmHoistingLimits)をご覧ください。
 
-## Is X feature available yet?
+## Xの機能はまだ利用可能ですか？
 
-You can see the [public roadmap](https://feedback.strapi.io/) to see which feature requests are currently being worked on and which have not been started yet, and to add new feature requests.
+現在作業中の機能リクエストやまだ開始されていないもの、新しい機能リクエストを追加するために、[公開ロードマップ](https://feedback.strapi.io/)をご覧いただけます。

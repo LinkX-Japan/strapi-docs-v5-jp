@@ -1,13 +1,13 @@
 ---
-title: Using fields with the Document Service API
-description: Use Strapi's Document Service API to select the fields to return with your queries.
+title: ドキュメントサービスAPIを使用したフィールドの選択
+description: StrapiのドキュメントサービスAPIを使用して、クエリの結果に返されるフィールドを選択する方法を説明します。
 displayed_sidebar: devDocsSidebar
 tags:
 - API
-- Content API
+- コンテンツAPI
 - create()
-- deleting content
-- Document Service API
+- コンテンツの削除
+- ドキュメントサービスAPI
 - discardDraft()
 - findOne()
 - findMany()
@@ -15,27 +15,27 @@ tags:
 - publish()
 - fields
 - update()
-- unpublishing content
+- コンテンツの非公開化
 ---
- 
+
 import IdsInResponse from '/docs/snippets/id-in-responses.md'
 
-# Document Service API: Selecting fields
+# ドキュメントサービスAPI: フィールドの選択
 
-By default the [Document Service API](/dev-docs/api/document-service) returns all the fields of a document but does not populate any fields. This page describes how to use the `fields` parameter to return only specific fields with the query results.
+デフォルトでは、[ドキュメントサービスAPI](/dev-docs/api/document-service) はドキュメントのすべてのフィールドを返しますが、フィールドのポピュレートは行いません。このページでは、`fields` パラメーターを使用してクエリ結果に特定のフィールドのみを返す方法について説明します。
 
 :::tip
-You can also use the `populate` parameter to populate relations, media fields, components, or dynamic zones (see the [`populate` parameter](/dev-docs/api/document-service/populate) documentation).
+`populate` パラメーターを使用して、関連データやメディアフィールド、コンポーネント、ダイナミックゾーンをポピュレートすることもできます（[`populate` パラメーター](/dev-docs/api/document-service/populate)のドキュメントを参照してください）。
 :::
 
 <IdsInResponse />
 
-## Select fields with `findOne()` queries
+## `findOne()` クエリでフィールドを選択
 
-To select fields to return while [finding a specific document](/dev-docs/api/document-service#findone) with the Document Service API:
+[特定のドキュメントを取得](/dev-docs/api/document-service#findone)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").findOne({
@@ -46,25 +46,25 @@ const document = await strapi.documents("api::restaurant.restaurant").findOne({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 {
   documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-  name: "Biscotte Restaurant",
-  description: "Welcome to Biscotte restaurant! …"
+  name: "ビスコッテレストラン",
+  description: "ビスコッテレストランへようこそ！…"
 }
 ```
 
 </Response>
 </ApiCall>
 
-## Select fields with `findFirst()` queries
+## `findFirst()` クエリでフィールドを選択
 
-To select fields to return while [finding the first document](/dev-docs/api/document-service#findfirst) matching the parameters with the Document Service API:
+[条件に一致する最初のドキュメントを取得](/dev-docs/api/document-service#findfirst)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").findFirst({
@@ -74,25 +74,25 @@ const document = await strapi.documents("api::restaurant.restaurant").findFirst(
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 {
   documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-  name: "Biscotte Restaurant",
-  description: "Welcome to Biscotte restaurant! …"
+  name: "ビスコッテレストラン",
+  description: "ビスコッテレストランへようこそ！…"
 }
 ```
 
 </Response>
 </ApiCall>
 
-## Select fields with `findMany()` queries
+## `findMany()` クエリでフィールドを選択
 
-To select fields to return while [finding documents](/dev-docs/api/document-service#findmany) with the Document Service API:
+[複数のドキュメントを取得](/dev-docs/api/document-service#findmany)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const documents = await strapi.documents("api::restaurant.restaurant").findMany({
@@ -102,34 +102,34 @@ const documents = await strapi.documents("api::restaurant.restaurant").findMany(
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 [
   {
     documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-    name: "Biscotte Restaurant",
-    description: "Welcome to Biscotte restaurant! …"
+    name: "ビスコッテレストラン",
+    description: "ビスコッテレストランへようこそ！…"
   }
-  // ...
+  // …
 ]
 ```
 
 </Response>
 </ApiCall>
 
-## Select fields with `create()` queries
+## `create()` クエリでフィールドを選択
 
-To select fields to return while [creating documents](/dev-docs/api/document-service#create) with the Document Service API:
+[ドキュメントを作成](/dev-docs/api/document-service#create)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").create({
   data: {
-    name: "Restaurant B",
-    description: "Description for the restaurant",
+    name: "レストランB",
+    description: "レストランの説明",
   },
   fields: ["name", "description"],
 });
@@ -137,32 +137,32 @@ const document = await strapi.documents("api::restaurant.restaurant").create({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 {
   id: 4,
   documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-  name: 'Restaurant B',
-  description: 'Description for the restaurant'
+  name: 'レストランB',
+  description: 'レストランの説明'
 }
 ```
 
 </Response>
 </ApiCall>
 
-## Select fields with `update()` queries
+## `update()` クエリでフィールドを選択
 
-To select fields to return while [updating documents](/dev-docs/api/document-service#update) with the Document Service API:
+[ドキュメントを更新](/dev-docs/api/document-service#update)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").update({
   documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
   data: {
-    name: "Restaurant C",
+    name: "レストランC",
   },
   fields: ["name"],
 });
@@ -170,24 +170,24 @@ const document = await strapi.documents("api::restaurant.restaurant").update({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 { 
   documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-  name: 'Restaurant C'
+  name: 'レストランC'
 }
 ```
 
 </Response>
 </ApiCall>
 
-## Select fields with `delete()` queries
+## `delete()` クエリでフィールドを選択
 
-To select fields to return while [deleting documents](/dev-docs/api/document-service#delete) with the Document Service API:
+[ドキュメントを削除](/dev-docs/api/document-service#delete)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").delete({
@@ -198,16 +198,16 @@ const document = await strapi.documents("api::restaurant.restaurant").delete({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
   documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-  // All of the deleted document's versions are returned
+  // 削除されたドキュメントの全バージョンが返されます
   entries: [
     {
       id: 4,
       documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-      name: 'Restaurant C',
+      name: 'レストランC',
       // …
     }
   ]
@@ -217,12 +217,12 @@ const document = await strapi.documents("api::restaurant.restaurant").delete({
 </Response>
 </ApiCall>
 
-## Select fields with `publish()` queries
+## `publish()` クエリでフィールドを選択
 
-To select fields to return while [publishing documents](/dev-docs/api/document-service#publish) with the Document Service API:
+[ドキュメントを公開](/dev-docs/api/document-service#publish)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").publish({
@@ -233,16 +233,16 @@ const document = await strapi.documents("api::restaurant.restaurant").publish({
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 {
   documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-  // All of the published locale entries are returned
+  // 公開されたロケールエントリーがすべて返されます
   entries: [
     {
       documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-      name: 'Restaurant B'
+      name: 'レストランB'
     }
   ]
 }
@@ -251,12 +251,12 @@ const document = await strapi.documents("api::restaurant.restaurant").publish({
 </Response>
 </ApiCall>
 
-## Select fields with `unpublish()` queries
+## `unpublish()` クエリでフィールドを選択
 
-To select fields to return while [unpublishing documents](/dev-docs/api/document-service#unpublish) with the Document Service API:
+[ドキュメントの公開を取り消す](/dev-docs/api/document-service#unpublish)際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").unpublish({
@@ -267,16 +267,16 @@ const document = await strapi.documents("api::restaurant.restaurant").unpublish(
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```js
 {
   documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-  // All of the published locale entries are returned
+  // 公開されたロケールエントリーがすべて返されます
   entries: [
     {
       documentId: 'fmtr6d7ktzpgrijqaqgr6vxs',
-      name: 'Restaurant B'
+      name: 'レストランB'
     }
   ]
 }
@@ -285,12 +285,14 @@ const document = await strapi.documents("api::restaurant.restaurant").unpublish(
 </Response>
 </ApiCall>
 
-## Select fields with `discardDraft()` queries
+## `discardDraft()` クエリでフィールドを選択
 
-To select fields to return while [discarding draft versions of documents](/dev-docs/api/document-service#discarddraft) with the Document Service API:
+[ドキュメントの
+
+ドラフトバージョンを破棄](/dev-docs/api/document-service#discarddraft)する際に、ドキュメントサービスAPIで返されるフィールドを選択するには:
 
 <ApiCall noSideBySide>
-<Request title="Example request">
+<Request title="リクエストの例">
 
 ```js
 const document = await strapi.documents("api::restaurant.restaurant").discardDraft({
@@ -301,15 +303,15 @@ const document = await strapi.documents("api::restaurant.restaurant").discardDra
 
 </Request>
 
-<Response title="Example response">
+<Response title="レスポンスの例">
 
 ```json
 {
   documentId: "fmtr6d7ktzpgrijqaqgr6vxs",
-  // All of the discarded draft entries are returned
+  // 破棄されたドラフトエントリーがすべて返されます
   entries: [
     {
-      "name": "Restaurant B"
+      "name": "レストランB"
     }
   ]
 }

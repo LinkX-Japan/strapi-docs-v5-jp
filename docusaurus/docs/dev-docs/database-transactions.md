@@ -1,90 +1,90 @@
 ---
-title: Database transactions
-description: Conceptual guide to transactions in Strapi
+title: データベーストランザクション
+description: Strapiでのトランザクションの概念ガイド
 tags:
-  - database
-  - experimental
+  - データベース
+  - 実験的
 ---
 
-# Database transactions
+# データベーストランザクション
 
 :::caution
-This is an experimental feature and is subject to change in future versions.
+これは実験的な機能であり、将来のバージョンで変更される可能性があります。
 :::
 
-Strapi 5 provide an API to wrap a set of operations in a transaction that ensures the integrity of data.
+Strapi 5は、データの整合性を保証する一連の操作をトランザクションで包むAPIを提供します。
 
-Transactions are a set of operations that are executed together as a single unit. If any of the operations fail, the entire transaction fails and the data is rolled back to its previous state. If all operations succeed, the transaction is committed and the data is permanently saved to the database.
+トランザクションは、一緒に実行される一連の操作です。操作のいずれかが失敗すると、トランザクション全体が失敗し、データは以前の状態にロールバックされます。すべての操作が成功すると、トランザクションはコミットされ、データはデータベースに永続的に保存されます。
 
-## Usage
+## 使用法
 
-Transactions are handled by passing a handler function into `strapi.db.transaction`:
+トランザクションは、ハンドラ関数を`strapi.db.transaction`に渡すことで処理されます：
 
 ```js
 await strapi.db.transaction(async ({ trx, rollback, commit, onCommit, onRollback }) => {
-  // It will implicitly use the transaction
+  // それは暗黙的にトランザクションを使用します
   await strapi.entityService.create();
   await strapi.entityService.create();
 });
 ```
 
-After the transaction handler is executed, the transaction is committed if all operations succeed. If any of the operations throws, the transaction is rolled back and the data is restored to its previous state.
+トランザクションハンドラが実行された後、すべての操作が成功するとトランザクションはコミットされます。操作のいずれかがスローすると、トランザクションはロールバックされ、データは以前の状態に復元されます。
 
 :::note
-Every `strapi.entityService` or `strapi.db.query` operation performed in a transaction block will implicitly use the transaction.
+トランザクションブロック内で行われるすべての `strapi.entityService` または `strapi.db.query` 操作は、暗黙的にトランザクションを使用します。
 :::
 
-### Transaction handler properties
+### トランザクションハンドラのプロパティ
 
-The handler function receives an object with the following properties:
+ハンドラ関数は、以下のプロパティを持つオブジェクトを受け取ります：
 
-| Property     | Description                                                                                 |
+| プロパティ     | 説明                                                                                 |
 | ------------ | ------------------------------------------------------------------------------------------- |
-| `trx`        | The transaction object. It can be used to perform knex queries within the transaction.      |
-| `commit`     | Function to commit the transaction.                                                         |
-| `rollback`   | Function to rollback the transaction.                                                       |
-| `onCommit`   | Function to register a callback that will be executed after the transaction is committed.   |
-| `onRollback` | Function to register a callback that will be executed after the transaction is rolled back. |
+| `trx`        | トランザクションオブジェクト。これを使用してトランザクション内でknexクエリを実行できます。      |
+| `commit`     | トランザクションをコミットする関数。                                                         |
+| `rollback`   | トランザクションをロールバックする関数。                                                       |
+| `onCommit`   | トランザクションがコミットされた後に実行されるコールバックを登録する関数。   |
+| `onRollback` | トランザクションがロールバックされた後に実行されるコールバックを登録する関数。 |
 
-### Nested transactions
+### ネストされたトランザクション
 
-Transactions can be nested. When a transaction is nested, the inner transaction is committed or rolled back when the outer transaction is committed or rolled back.
+トランザクションはネストすることができます。トランザクションがネストされると、内部のトランザクションは、外部のトランザクションがコミットされたりロールバックされたりしたときにコミットされたりロールバックされたりします。
 
 ```js
 await strapi.db.transaction(async () => {
-  // It will implicitly use the transaction
+  // それは暗黙的にトランザクションを使用します
   await strapi.entityService.create();
 
-  // Nested transactions will implicitly use the outer transaction
+  // ネストされたトランザクションは、暗黙的に外部のトランザクションを使用します
   await strapi.db.transaction(async ({}) => {
     await strapi.entityService.create();
   });
 });
 ```
 
-### onCommit and onRollback
+### onCommitとonRollback
 
-The `onCommit` and `onRollback` hooks can be used to execute code after the transaction is committed or rolled back.
+`onCommit`と`onRollback`のフックは、トランザクションがコミットされたりロールバックされたりした後にコードを実行するために使用できます。
 
 ```js
 await strapi.db.transaction(async ({ onCommit, onRollback }) => {
-  // It will implicitly use the transaction
+  // これは暗黙的にトランザクションを使用します
   await strapi.entityService.create();
   await strapi.entityService.create();
 
   onCommit(() => {
-    // This will be executed after the transaction is committed
+    // これはトランザクションがコミットされた後に実行されます
   });
 
   onRollback(() => {
-    // This will be executed after the transaction is rolled back
+    // これはトランザクションがロールバックされた後に実行されます
   });
 });
 ```
 
-### Using knex queries
+### knexクエリを使用する
 
-Transactions can also be used with knex queries, but in those cases `.transacting(trx)` must be explicitly called.
+トランザクションはknexクエリでも使用できますが、その場合は`.transacting(trx)`を明示的に呼び出す必要があります。
 
 ```js
 await strapi.db.transaction(async ({ trx, rollback, commit }) => {
@@ -92,18 +92,18 @@ await strapi.db.transaction(async ({ trx, rollback, commit }) => {
 });
 ```
 
-## When to use transactions
+## トランザクションを使用するタイミング
 
-Transactions should be used in cases where multiple operations should be executed together and their execution is dependent on each other. For example, when creating a new user, the user should be created in the database and a welcome email should be sent to the user. If the email fails to send, the user should not be created in the database.
+複数の操作が一緒に実行され、その実行が互いに依存している場合にトランザクションを使用すべきです。例えば、新しいユーザーを作成するとき、ユーザーはデータベースに作成され、ウェルカムメールがユーザーに送信されるべきです。メールの送信に失敗した場合、ユーザーはデータベースに作成されるべきではありません。
 
-## When not to use transactions
+## トランザクションを使用しないタイミング
 
-Transactions should not be used for operations that are not dependent on each other since it can result in performance penalties.
+操作が互いに依存していない場合、トランザクションを使用すべきではありません。なぜなら、それはパフォーマンスのペナルティを引き起こす可能性があるからです。
 
-## Potential problems of transactions
+## トランザクションの潜在的な問題
 
-Performing multiple operations within a transaction can lead to locking, which can block the execution of transactions from other processes until the original transaction is complete.
+トランザクション内で複数の操作を行うと、ロックが発生する可能性があり、元のトランザクションが完了するまで他のプロセスからのトランザクションの実行をブロックすることができます。
 
-Furthermore, transactions can stall if they are not committed or rolled back appropriately.
+さらに、トランザクションは適切にコミットまたはロールバックされない場合、停滞する可能性があります。
 
-For example, if a transaction is opened but there is a path in your code that does not close it, the transaction will be left open indefinitely and could cause instability until your server is restarted and the connection is forced to close. These issues can be difficult to debug, so use transactions with care in the cases they are necessary.
+例えば、トランザクションが開始されたが、コード内でそれを閉じないパスがある場合、トランザクションは無期限に開かれたままになり、サーバーが再起動されて接続が強制的に閉じられるまで不安定さを引き起こす可能性があります。これらの問題はデバッグが難しいため、必要な場合には注意してトランザクションを使用してください。

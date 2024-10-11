@@ -1,48 +1,45 @@
 ---
-title: Data import 
-description: Import data using the Strapi CLI
+title: データのインポート
+description: Strapi CLIを使用してデータをインポートする方法
 displayed_sidebar: devDocsSidebar
 canonicalUrl: https://docs.strapi.io/dev-docs/data-management/import.html
 tags:
-- data management system
-- data import
-- exclude option
-- force option
-- metadata.json file
+- データ管理システム
+- データのインポート
+- 除外オプション
+- forceオプション
+- metadata.jsonファイル
 - strapi import
-- tar.gz.enc file 
+- tar.gz.encファイル
 ---
-
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# Data import
+# データのインポート
 
 <NotV5 />
 
-The `strapi import` command is used to import data from a file. By default, the `strapi import` command imports data from an encrypted and compressed `tar.gz.enc` file which includes:
+`strapi import`コマンドは、ファイルからデータをインポートするために使用されます。デフォルトでは、`strapi import`コマンドは、暗号化および圧縮された`tar.gz.enc`ファイルからデータをインポートし、以下を含みます:
 
-- the project configuration,
-- entities: all of your content,
-- links: relations between your entities,
-- assets: files stored in the uploads folder,
-- schemas,
-- the `metadata.json` file.
+- プロジェクト設定
+- エンティティ: すべてのコンテンツ
+- リンク: エンティティ間のリレーション
+- アセット: アップロードフォルダに保存されたファイル
+- スキーマ
+- `metadata.json`ファイル
 
-The following documentation details the available options to customize your data import. The import command and all of the available options are run using the [Strapi CLI](/dev-docs/cli#strapi-import).
+以下のドキュメントでは、データインポートをカスタマイズするためのオプションを説明します。インポートコマンドと利用可能なすべてのオプションは、[Strapi CLI](/dev-docs/cli#strapi-import)を使用して実行されます。
 
 :::warning
-
-- `strapi import` deletes all existing data, including the database and uploads directory, before importing the backup file.
-- The source and target schemas must match to successfully use `strapi import`, meaning all content types must be identical.
-- Restored data does not include the `Admin users` table, which means that `createdBy` and `updatedBy` are empty in a restored instance.  
-
+- `strapi import`は、インポートする前にすべての既存データ（データベースとアップロードディレクトリを含む）を削除します。
+- `strapi import`を使用するには、ソースとターゲットのスキーマが一致している必要があります。すべてのコンテンツタイプが同一でなければなりません。
+- 復元されたデータには`Admin users`テーブルは含まれないため、復元後のインスタンスでは`createdBy`や`updatedBy`フィールドが空になります。
 :::
 
-## Specify the import file
+## インポートファイルの指定
 
-To import data into a Strapi instance use the `strapi import` command in the destination project root directory. Specify the file to be imported using the `-f` or `--file` option. The filename, extension, and path are required. If the file is encrypted, you are prompted for the encryption key before the import starts.
+Strapiインスタンスにデータをインポートするには、対象プロジェクトのルートディレクトリで`strapi import`コマンドを使用します。インポートするファイルは、`-f`または`--file`オプションを使用して指定します。ファイル名、拡張子、およびパスが必要です。ファイルが暗号化されている場合、インポートが開始される前に暗号化キーの入力を求められます。
 
-### Example: Minimum command to import data from a file in the Strapi project root
+### 例: Strapiプロジェクトルートにあるファイルから最小限のコマンドでデータをインポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -64,11 +61,11 @@ npm run strapi import -- -f /path/to/my/file/export_20221213105643.tar.gz.enc
 
 </Tabs>
 
-## Provide an encryption key
+## 暗号化キーの提供
 
-If you are importing data from an encrypted file the encryption key can be passed with the `strapi import` command by using the `-k` or `--key` option.
+暗号化されたファイルからデータをインポートする場合、暗号化キーは`-k`または`--key`オプションで渡すことができます。
 
-### Example: Pass the encryption key with the `strapi import` command
+### 例: `strapi import`コマンドで暗号化キーを指定する
 
 <Tabs groupId="yarn-npm">
 
@@ -90,11 +87,11 @@ npm run strapi import -- -f /path/to/my/file/export_20221213105643.tar.gz.enc --
 
 </Tabs>
 
-## Bypass all command line prompts
+## コマンドラインプロンプトのバイパス
 
-When using the `strapi import` command, you are required to confirm that the import will delete the existing database contents. The `--force` flag allows you to bypass this prompt. This option is useful for implementing `strapi import` programmatically. For programmatic use, you must also pass the `--key` option for encrypted files.
+`strapi import`コマンドを使用する際には、インポートが既存のデータベースコンテンツを削除することを確認するプロンプトが表示されます。`--force`フラグを使用すると、このプロンプトをスキップできます。このオプションは、`strapi import`をプログラムで使用する場合に便利です。暗号化されたファイルをプログラムで使用する場合は、`--key`オプションも渡す必要があります。
 
-### Example of the `--force` option
+### `--force`オプションの例
 
 <Tabs groupId="yarn-npm">
 
@@ -116,19 +113,19 @@ npm run strapi import -- -f /path/to/my/file/export_20221213105643.tar.gz.enc --
 
 </Tabs>
 
-## Exclude data types during import
+## インポート時にデータタイプを除外する
 
-The default `strapi import` command imports your content (entities and relations), files (assets), project configuration, and schemas. The `--exclude` option allows you to exclude content, files, and the project configuration by passing these items in a comma-separated string with no spaces between the types. You can't exclude the schemas, as schema matching is used for `strapi import`.
+デフォルトの`strapi import`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、スキーマをインポートします。`--exclude`オプションを使用すると、コンテンツ、ファイル、プロジェクト設定を除外することができます。除外する項目はコンマで区切られた文字列で指定します（スペースなし）。スキーマはインポートする際に一致を確認するため、除外できません。
 
 :::warning
-Any types excluded from the import will be deleted in your target instance. For example, if you exclude `config` the project configuration in your target instance will be deleted.
+インポートから除外された項目は、ターゲットインスタンスで削除されます。たとえば、`config`を除外すると、ターゲットインスタンスのプロジェクト設定が削除されます。
 :::
 
 :::note
-Media such as images consist of the file (asset) and the entity in the database. If you use the `--exclude` flag to remove assets, the database records are still included, and could render as broken links.
+画像などのメディアは、ファイル（アセット）とデータベースのエンティティで構成されています。`--exclude`フラグを使用してアセットを除外すると、データベースレコードは残りますが、リンク切れが発生する可能性があります。
 :::
 
-### Example: exclude assets from an import
+### 例: アセットを除外してインポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -150,15 +147,15 @@ npm strapi import -- -f /path/to/my/file/export_20221213105643.tar.gz.enc --excl
 
 </Tabs>
 
-## Include only specified data types during import
+## インポート時に指定されたデータタイプのみを含める
 
-The default `strapi import` command imports your content (entities and relations), files (assets), project configuration, and schemas. The `--only` option allows you to export only the listed items by passing a comma-separated string  with no spaces between the types. The available values are `content`, `files`, and `config`. Schemas are always imported, as schema matching is used for `strapi import`.
+デフォルトの`strapi import`コマンドは、コンテンツ（エンティティとリレーション）、ファイル（アセット）、プロジェクト設定、スキーマをインポートします。`--only`オプションを使用すると、指定された項目のみをインポートできます。項目はコンマで区切られた文字列で指定します。利用可能な値は`content`、`files`、および`config`です。スキーマは常にインポートされ、インポートの際に一致を確認します。
 
 :::note
-Media such as images consist of the file (asset) and the entity in the database. If you use the `--only` flag to import `content` the asset database records are still included, and could render as broken links.
+画像などのメディアは、ファイル（アセット）とデータベースのエンティティで構成されています。`--only`フラグを使用して`content`をインポートする場合、アセットのデータベースレコードは含まれますが、リンク切れが発生する可能性があります。
 :::
 
-### Example: import only the project configuration
+### 例: プロジェクト設定のみをインポートする
 
 <Tabs groupId="yarn-npm">
 
@@ -181,3 +178,4 @@ npm strapi import -- -f /path/to/my/file/export_20221213105643.tar.gz.enc --only
 </Tabs>
 
 <FeedbackPlaceholder />
+

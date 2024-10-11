@@ -1,52 +1,52 @@
 ---
-title: Documents
-description: Learn what a Document is in Strapi v5
+title: ドキュメント
+description: Strapi v5におけるドキュメントとは何かを学びましょう
 displayed_sidebar: devDocsSidebar
 pagination_prev: dev-docs/api/content-api
 tags:
 - API
-- concepts
+- 概念
 - Content API
 - Document Service API
-- Draft & Publish
-- Internationalization (i18n)
-- introduction
+- 下書き & 公開
+- 国際化（i18n）
+- はじめに
 ---
 
 <div className="document-concept-page custom-mermaid-layout">
 
-A **document** in Strapi 5 is an API-only concept. A document represents all the different variations of content for a given entry of a content-type.
+Strapi 5における**ドキュメント**はAPIのみの概念です。ドキュメントは、コンテンツタイプの特定のエントリーに対するコンテンツのさまざまなバリエーションを表します。
 
-A single type contains a unique document, and a collection type can contain several documents.
+単一のタイプは一意のドキュメントを含み、コレクションタイプは複数のドキュメントを含むことができます。
 
-When you use the admin panel, the concept of a document is never mentioned and not necessary for the end user. Users create and edit **entries** in the [Content Manager](/user-docs/content-manager). For instance, as a user, you either list the entries for a given locale, or edit the draft version of a specific entry in a given locale.
+管理パネルを使用するとき、ドキュメントの概念は決して言及されず、エンドユーザーにとっては必要ありません。ユーザーは[Content Manager](/user-docs/content-manager)で**エントリー**を作成および編集します。例えば、ユーザーとしては、特定のロケールのエントリーをリストしたり、特定のロケールの特定のエントリーの下書きバージョンを編集します。
 
-However, at the API level, the value of the fields of an entry can actually have:
+しかし、APIレベルでは、エントリーのフィールドの値は実際には以下を持つことができます。
 
-- different content for the English and the French locale,
-- and even different content for the draft and published version in each locale.
+- 英語とフランス語のロケールで異なるコンテンツ、
+- そして、それぞれのロケールで下書きと公開バージョンの異なるコンテンツ。
 
-The bucket that includes the content of all the draft and published versions for all the locales is a document.
+すべての下書きと公開バージョンのコンテンツを含むバケットはドキュメントです。
 
-Manipulating documents with the [Document Service API](/dev-docs/api/document-service) will help you create, retrieve, update, and delete documents or a specific subset of the data they contain.
+[Document Service API](/dev-docs/api/document-service)を使ってドキュメントを操作すると、ドキュメントを作成、取得、更新、削除したり、その中の特定のデータのサブセットを操作したりするのに役立ちます。
 
-The following diagrams represent all the possible variations of content depending on which features, such as [Internationalization (i18n)](/user-docs/content-manager/translating-content) and [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content), are enabled for a content-type:
+次の図は、コンテンツタイプに対してどの機能が有効化されているかによって、コンテンツの可能なバリエーションを全て表しています。例えば、[国際化（i18n）](/user-docs/content-manager/translating-content)や[下書き＆公開](/user-docs/content-manager/saving-and-publishing-content)などの機能が有効になっている場合：
 
 <Tabs>
-<TabItem value="document-only" label="Neither i18n nor Draft & Publish enabled">
+<TabItem value="document-only" label="i18nもDraft & Publishも無効">
 
 ```mermaid
 flowchart LR
-stX("Single type X <br>(e.g., homepage)")
-docX("Document X<br/>(e.g., the homepage)")
+stX("Single type X <br>(例：ホームページ)")
+docX("Document X<br>(例：ホームページ)")
 docA(Document A)
 docB(Document B)
-docC("Document C<br>(e.g., a restaurant,<br/>'Biscotte Restaurant')")
+docC("Document C<br>(例：レストラン、<br/>'Biscotte Restaurant')")
 ctA(Collection type A)
-ctB("Collection type B<br>(e.g., restaurants)")
+ctB("Collection type B<br>(例：レストラン)")
 fieldA(Field A)
 fieldB(Field B)
-fieldC("Field C<br>(e.g., 'name')")
+fieldC("Field C<br>(例：'name')")
 
 content --- stX --- docX
 content --- ctA
@@ -69,22 +69,22 @@ class docC highlighted
 
 </TabItem>
 
-<TabItem value="dandp-only" label="Only Draft & Publish enabled">
+<TabItem value="dandp-only" label="Draft & Publishのみ有効">
 
 ```mermaid
 flowchart LR
-stX("Single type X <br>(e.g., homepage)")
-docX("Document X<br/>(e.g., the homepage)")
+stX("Single type X <br>(例：ホームページ)")
+docX("Document X<br>(例：ホームページ)")
 docA(Document A)
 docB(Document B)
-docC("Document C<br>(e.g., a restaurant,<br/>'Biscotte Restaurant')")
+docC("Document C<br>(例：レストラン、<br/>'Biscotte Restaurant')")
 draftC(Draft Version)
 pubC(Published Version)
 ctA(Collection type A)
-ctB("Collection type B<br>(e.g., restaurants)")
+ctB("Collection type B<br>(例：レストラン)")
 fieldA(Field A)
 fieldB(Field B)
-fieldC("Field C<br>(e.g., 'name')")
+fieldC("Field C<br>(例：'name')")
 
 content --- stX --- docX
 content --- ctA
@@ -110,23 +110,23 @@ class docC highlighted
 
 </TabItem>
 
-<TabItem value="i18n-only" label="Only i18n enabled">
+<TabItem value="i18n-only" label="i18nのみ有効">
 
 ```mermaid
 flowchart LR
-stX("Single type X <br>(e.g., homepage)")
-docX("Document X<br/>(e.g., the homepage)")
-docA(Document A)
-docB(Document B)
-docC("Document C<br>(e.g., a restaurant,<br/>'Biscotte Restaurant')")
-docLocA("Document Locale A<br>(e.g., 'en')")
-docLocB("Document Locale B<br><br>")
-docLocC(Document Locale C)
-ctA(Collection type A)
-ctB("Collection type B<br>(e.g., restaurants)")
-fieldA(Field A)
-fieldB(Field B)
-fieldC("Field C<br>(e.g., 'name')")
+stX("シングルタイプX <br>(例：ホームページ)")
+docX("ドキュメントX<br>(例：ホームページ)")
+docA(ドキュメントA)
+docB(ドキュメントB)
+docC("ドキュメントC<br>(例：レストラン,<br/>'ビスコットレストラン')")
+docLocA("ドキュメントロケールA<br>(例：'en')")
+docLocB("ドキュメントロケールB<br><br>")
+docLocC(ドキュメントロケールC)
+ctA(コレクションタイプA)
+ctB("コレクションタイプB<br>(例：レストラン)")
+fieldA(フィールドA)
+fieldB(フィールドB)
+fieldC("フィールドC<br>(例：'名前')")
 
 content --- stX --- docX
 content --- ctA
@@ -153,28 +153,28 @@ class docC highlighted
 
 </TabItem>
 
-<TabItem value="i18n-and-dandp" label="i18n + Draft & Publish enabled" default>
+<TabItem value="i18n-and-dandp" label="i18n + 下書き＆公開が有効" default>
 
 ```mermaid
 flowchart LR
-stX("Single type X <br>(e.g., homepage)")
-docX("Document X<br/>(e.g., the homepage)")
-docA(Document A)
-docB(Document B)
-docC("Document C<br>(e.g., a restaurant,<br/>'Biscotte Restaurant')")
-docLocA("Document Locale A<br>(e.g., 'en')")
-docLocB(Document Locale B)
-docLocC(Document Locale C)
-draftA(Draft Version)
-draftB(Draft Version)
-draftC(Draft Version)
-pubA(Published Version)
-pubC(Published Version)
-ctA(Collection type A)
-ctB("Collection type B<br>(e.g., restaurants)")
-fieldA(Field A)
-fieldB(Field B)
-fieldC("Field C<br>(e.g., 'name')")
+stX("シングルタイプX <br>(例：ホームページ)")
+docX("ドキュメントX<br>(例：ホームページ)")
+docA(ドキュメントA)
+docB(ドキュメントB)
+docC("ドキュメントC<br>(例：レストラン,<br/>'ビスコットレストラン')")
+docLocA("ドキュメントロケールA<br>(例：'en')")
+docLocB(ドキュメントロケールB)
+docLocC(ドキュメントロケールC)
+draftA(ドラフトバージョン)
+draftB(ドラフトバージョン)
+draftC(ドラフトバージョン)
+pubA(公開バージョン)
+pubC(公開バージョン)
+ctA(コレクションタイプA)
+ctB("コレクションタイプB<br>(例：レストラン)")
+fieldA(フィールドA)
+fieldB(フィールドB)
+fieldC("フィールドC<br>(例：'名前')")
 
 content --- stX --- docX
 content --- ctA
@@ -208,22 +208,23 @@ class docC highlighted
 </TabItem>
 </Tabs>
 
-- If the Internationalization (i18n) feature is enabled on the content-type, a document can have multiple **document locales**.
-- If the Draft & Publish feature is enabled on the content-type, a document can have a **published** and a **draft** version.
+- 国際化（i18n）機能が有効化されている場合
+コンテンツタイプで有効化されている場合、ドキュメントは複数の**ドキュメントロケール**を持つことができます。
+- 下書き＆公開機能がコンテンツタイプで有効化されている場合、ドキュメントは**公開版**と**下書き版**を持つことができます。
 
-:::strapi APIs to query documents data
-To interact with documents or the data they represent:
+:::strapi ドキュメントデータを問い合わせるAPI
+ドキュメントやそれらが表現するデータとやり取りするには：
 
-  - From the back-end server (for instance, from controllers, services, and the back-end part of plugins), use the [Document Service API](/dev-docs/api/document-service).
-  - From the front-end part of your application, query your data using the [REST API](/dev-docs/api/rest) or the [GraphQL API](/dev-docs/api/graphql).
+  - バックエンドサーバーから（例えば、コントローラー、サービス、プラグインのバックエンド部分から）[Document Service API](/dev-docs/api/document-service)を使用します。
+  - アプリケーションのフロントエンド部分から、データを[REST API](/dev-docs/api/rest)または[GraphQL API](/dev-docs/api/graphql)を使用して問い合わせます。
 
-For additional information about the APIs, please refer to the [Content API introduction](/dev-docs/api/content-api).
+APIに関する追加情報については、[Content API introduction](/dev-docs/api/content-api)を参照してください。
 :::
 
-:::info Default version in returned results
-An important difference between the back-end and front-end APIs is about the default version returned when no parameter is passed:
-- The Document Service API returns the draft version by default,
-- while REST and GraphQL APIs return the published version by default.
+:::info 返される結果のデフォルトバージョン
+バックエンドAPIとフロントエンドAPIの重要な違いは、パラメータが渡されない場合に返されるデフォルトのバージョンに関するものです：
+- Document Service APIはデフォルトで下書きバージョンを返します,
+- 一方、RESTとGraphQLのAPIはデフォルトで公開バージョンを返します。
 :::
 
 </div>

@@ -1,19 +1,19 @@
 ---
-title: Filters, Locale, and Publication State
-description: Use Strapi's REST API to filter the results of your requests.
+title: フィルター、ロケール、公開状態
+description: StrapiのREST APIを使用して、リクエストの結果をフィルタリングします。
 sidebarDepth: 3
 displayed_sidebar: restApiSidebar
 tags:
 - API
-- complex filtering
+- 複雑なフィルタリング
 - Content API
-- deep filtering
-- filters
+- 深層フィルタリング
+- フィルター
 - find
-- interactive query builder
-- locale
+- インタラクティブなクエリビルダー
+- ロケール
 - REST API
-- qs library
+- qsライブラリ
 ---
 
 import QsIntroFull from '/docs/snippets/qs-intro-full.md'
@@ -21,63 +21,63 @@ import QsForQueryBody from '/docs/snippets/qs-for-query-body.md'
 import QsForQueryTitle from '/docs/snippets/qs-for-query-title.md'
 import NotV5 from '/docs/snippets/_not-updated-to-v5.md'
 
-# REST API: Filtering, Locale, and Publication State
+# REST API: フィルタリング、ロケール、公開状態
 
-The [REST API](/dev-docs/api/rest) offers the ability to filter results found with its ["Get entries"](/dev-docs/api/rest#get-entries) method.<br/>
-Using optional Strapi features can provide some more filters:
+[REST API](/dev-docs/api/rest) は、["エントリの取得"](/dev-docs/api/rest#get-entries)メソッドで見つけた結果をフィルタリングする機能を提供します。<br/>
+オプショナルなStrapiの機能を使用すると、さらに多くのフィルターが提供されます：
 
-- If the [Internationalization (i18n) plugin](/dev-docs/i18n) is enabled on a content-type, it's possible to filter by locale.
-- If the [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) is enabled, it's possible to filter based on a `published` (default) or `draft` status.
+- コンテンツタイプで[国際化（i18n）プラグイン](/dev-docs/i18n)が有効になっている場合、ロケールでフィルタリングすることが可能です。
+- [下書き＆公開](/user-docs/content-manager/saving-and-publishing-content)が有効になっている場合、`published`（デフォルト）または`draft`のステータスに基づいてフィルタリングすることが可能です。
 
 :::tip
 <QsIntroFull />
 :::
 
-## Filtering
+## フィルタリング
 
-Queries can accept a `filters` parameter with the following syntax:
+クエリは以下の構文で`filters`パラメータを受け入れることができます：
 
 `GET /api/:pluralApiId?filters[field][operator]=value`
 
-The following operators are available:
+以下のオペレーターが利用可能です：
 
-| Operator        | Description                              |
+| オペレーター        | 説明                              |
 | --------------- | ---------------------------------------- |
-| `$eq`           | Equal                                    |
-| `$eqi`          | Equal (case-insensitive)                 |
-| `$ne`           | Not equal                                |
-| `$nei`          | Not equal (case-insensitive)             |
-| `$lt`           | Less than                                |
-| `$lte`          | Less than or equal to                    |
-| `$gt`           | Greater than                             |
-| `$gte`          | Greater than or equal to                 |
-| `$in`           | Included in an array                     |
-| `$notIn`        | Not included in an array                 |
-| `$contains`     | Contains                                 |
-| `$notContains`  | Does not contain                         |
-| `$containsi`    | Contains (case-insensitive)              |
-| `$notContainsi` | Does not contain (case-insensitive)      |
-| `$null`         | Is null                                  |
-| `$notNull`      | Is not null                              |
-| `$between`      | Is between                               |
-| `$startsWith`   | Starts with                              |
-| `$startsWithi`  | Starts with (case-insensitive)           |
-| `$endsWith`     | Ends with                                |
-| `$endsWithi`    | Ends with (case-insensitive)             |
-| `$or`           | Joins the filters in an "or" expression  |
-| `$and`          | Joins the filters in an "and" expression |
-| `$not`          | Joins the filters in an "not" expression |
+| `$eq`           | 等しい                                    |
+| `$eqi`          | 等しい（大文字小文字を区別しない）                 |
+| `$ne`           | 等しくない                                |
+| `$nei`          | 等しくない（大文字小文字を区別しない）             |
+| `$lt`           | より小さい                                |
+| `$lte`          | 以下                    |
+| `$gt`           | より大きい                             |
+| `$gte`          | 以上                 |
+| `$in`           | 配列に含まれる                     |
+| `$notIn`        | 配列に含まれない                 |
+| `$contains`     | 含む                                 |
+| `$notContains`  | 含まない                         |
+| `$containsi`    | 含む（大文字小文字を区別しない）              |
+| `$notContainsi` | 含まない（大文字小文字を区別しない）      |
+| `$null`         | nullである                                  |
+| `$notNull`      | nullでない                              |
+| `$between`      | ～の間                               |
+| `$startsWith`   | ～で始まる                              |
+| `$startsWithi`  | ～で始まる（大文字小文字を区別しない）           |
+| `$endsWith`     | ～で終わる                                |
+| `$endsWithi`    | ～で終わる（大文字小文字を区別しない）             |
+| `$or`           | フィルターを"or"式で結合する  |
+| `$and`          | フィルターを"and"式で結合する |
+| `$not`          | フィルターを"not"式で結合する |
 
 :::caution
-By default, the filters can only be used from `find` endpoints generated by the Content-type Builder and the CLI.
+デフォルトでは、フィルタはContent-type BuilderやCLIによって生成された`find`エンドポイントからのみ使用できます。
 :::
 
 <SideBySideContainer>
 <SideBySideColumn>
 
-### Example: Find users having 'John' as a first name
+### 例：名前が'John'のユーザーを探す
 
-You can use the `$eq` filter operator to find an exact match.
+`$eq`フィルタ演算子を使用して、正確な一致を見つけることができます。
 
 </SideBySideColumn>
 
@@ -86,13 +86,13 @@ You can use the `$eq` filter operator to find an exact match.
 <br />
 
 <ApiCall>
-<Request title="Find users having 'John' as first name">
+<Request title="名前が'John'のユーザーを探す">
 
 `GET /api/users?filters[username][$eq]=John`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -136,7 +136,7 @@ const query = qs.stringify({
     },
   },
 }, {
-  encodeValuesOnly: true, // prettify URL
+  encodeValuesOnly: true, // URLを整形
 });
 
 await request(`/api/users?${query}`);
@@ -150,9 +150,9 @@ await request(`/api/users?${query}`);
 <SideBySideContainer>
 <SideBySideColumn>
 
-### Example: Find multiple restaurants with ids 3, 6,8
+### 例：IDが3、6、8の複数のレストランを探す
 
-You can use the `$in` filter operator with an array of values to find multiple exact values.
+`$in`フィルタ演算子を値の配列と共に使用して、複数の正確な値を見つけることができます。
 
 </SideBySideColumn>
 
@@ -161,13 +161,13 @@ You can use the `$in` filter operator with an array of values to find multiple e
 <br />
 
 <ApiCall>
-<Request title="Find multiple restaurants with ids 3, 6, 8">
+<Request title="IDが3、6、8の複数のレストランを探す">
 
 `GET /api/restaurants?filters[id][$in][0]=6&filters[id][$in][1]=8`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -208,7 +208,7 @@ const query = qs.stringify({
     },
   },
 }, {
-  encodeValuesOnly: true, // prettify URL
+  encodeValuesOnly: true, // URLを整形
 });
 
 await request(`/api/restaurants?${query}`);
@@ -222,9 +222,9 @@ await request(`/api/restaurants?${query}`);
 <SideBySideContainer>
 <SideBySideColumn>
 
-### Complex filtering
+### 複雑なフィルタリング
 
-Complex filtering is combining multiple filters using advanced methods such as combining `$and` & `$or`. This allows for more flexibility to request exactly the data needed.
+複雑なフィルタリングとは、`$and`や`$or`などの高度な方法を使用して複数のフィルタを組み合わせることです。これにより、必要なデータを正確にリクエストするための柔軟性が増します。
 
 </SideBySideColumn>
 
@@ -232,13 +232,13 @@ Complex filtering is combining multiple filters using advanced methods such as c
 
 <br />
 <ApiCall>
-<Request title="Find books with 2 possible dates and a specific author">
+<Request title="2つの可能な日付と特定の著者を持つ本を探す">
 
 `GET /api/books?filters[$or][0][date][$eq]=2020-01-01&filters[$or][1][date][$eq]=2020-01-02&filters[author][name][$eq]=Kai%20doe`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -309,23 +309,23 @@ await request(`/api/books?${query}`);
 <SideBySideContainer>
 <SideBySideColumn>
 
-### Deep filtering
+### ディープフィルタリング
 
-Deep filtering is filtering on a relation's fields.
+ディープフィルタリングとは、関連フィールドのフィルタリングを指します。
 
 <br />
 
 :::caution
 
-- Querying your API with deep filters may cause performance issues.  If one of your deep filtering queries is too slow, we recommend building a custom route with an optimized version of the query.
-- Deep filtering isn't available for some polymorphic relations such as media fields, but it works on dynamic zones.
+- ディープフィルタを使用してAPIをクエリすると、パフォーマンスに問題が発生する可能性があります。 ディープフィルタリングのクエリが遅すぎる場合は、クエリの最適化版を持つカスタムルートを作成することをお勧めします。
+- ディープフィルタリングは、メディアフィールドなどの一部の多態的な関係では利用できませんが、ダイナミックゾーンでは機能します。
 
 :::
 
 :::note
 
-- Relations, media fields, components, and dynamic zones are not populated by default. Use the `populate` parameter to populate these data structures (see [`populate` documentation](/dev-docs/api/rest/populate-select#population))
-- It is not possible to filter on dynamic zones or media fields.
+- 関係、メディアフィールド、コンポーネント、ダイナミックゾーンはデフォルトではポピュレートされません。これらのデータ構造をポピュレートするには、`populate`パラメータを使用してください（[`populate`ドキュメンテーション](/dev-docs/api/rest/populate-select#population)を参照）
+- ダイナミックゾーンやメディアフィールドにフィルタをかけることはできません。
 
 :::
 
@@ -336,13 +336,13 @@ Deep filtering is filtering on a relation's fields.
 <br />
 
 <ApiCall>
-<Request title="Find restaurants owned by a chef who belongs to a 5-star restaurant">
+<Request title="5つ星のレストランに所属しているシェフが所有するレストランを探す">
 
 `GET /api/restaurants?filters[chef][restaurants][stars][$eq]=5`
 
 </Request>
 
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json
 {
@@ -400,36 +400,36 @@ await request(`/api/restaurants?${query}`);
 </SideBySideColumn>
 </SideBySideContainer>
 
-## Locale
+## ロケール
 
 :::prerequisites
 
-- The [Internationalization (i18n) feature](/dev-docs/i18n) should be installed.
-- [Localization should be enabled for the content-type](/user-docs/content-type-builder/creating-new-content-type.md#creating-a-new-content-type).
+- [国際化（i18n）機能](/dev-docs/i18n)がインストールされていること。
+- [コンテンツタイプに対してローカライゼーションが有効になっていること](/user-docs/content-type-builder/creating-new-content-type.md#creating-a-new-content-type)。
 :::
 
-The `locale` API parameter can be used to work with entries from a specific locale (see [Internationalization documentation](/dev-docs/i18n#rest)).
+`locale` APIパラメータは、特定のロケールからのエントリーを操作するために使用できます（[国際化ドキュメンテーション](/dev-docs/i18n#rest)を参照）。
 
 <SideBySideContainer>
 <SideBySideColumn>
 
-## Status
+## ステータス
 
 :::prerequisites
-The [Draft & Publish](/user-docs/content-manager/saving-and-publishing-content) feature should be enabled.
+[下書き＆公開](/user-docs/content-manager/saving-and-publishing-content)機能が有効になっているべきです。
 :::
 
-Queries can accept a `status` parameter to fetch documents based on their status:
+クエリは`status`パラメータを受け入れて、そのステータスに基づいてドキュメントを取得できます：
 
-- `published`: returns only the published version of documents (default)
-- `draft`: returns only the draft version of documents
+- `published`：公開されたバージョンのドキュメントのみを返します（デフォルト）
+- `draft`：ドラフトバージョンのドキュメントのみを返します
 
 :::tip
-In the response data, the `publishedAt` field is `null` for drafts.
+レスポンスデータでは、ドラフトの`publishedAt`フィールドは`null`です。
 :::
 
 :::note
-Since published versions are returned by default, passing no status parameter is equivalent to passing `status=published`.
+公開されたバージョンがデフォルトで返されるため、ステータスパラメータを渡さないことは`status=published`を渡すことと同等です。
 :::
 
 </SideBySideColumn>
@@ -439,12 +439,12 @@ Since published versions are returned by default, passing no status parameter is
 <br /><br />
 
 <ApiCall>
-<Request title="Get draft versions of restaurants">
+<Request title="レストランのドラフトバージョンを取得する">
 
 `GET /api/articles?status=draft`
 
 </Request>
-<Response title="Example response">
+<Response title="例のレスポンス">
 
 ```json {21}
 {
@@ -496,7 +496,7 @@ const qs = require('qs');
 const query = qs.stringify({
   status: 'draft',
 }, {
-  encodeValuesOnly: true, // prettify URL
+  encodeValuesOnly: true, // URLをきれいにする
 });
 
 await request(`/api/articles?${query}`);

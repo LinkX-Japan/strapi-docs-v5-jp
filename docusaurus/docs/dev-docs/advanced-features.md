@@ -1,44 +1,44 @@
 ---
-title: Advanced features
-description: Learn more about Strapi 5 advanced features
+title: 高度な機能
+description: Strapi 5の高度な機能について詳しく学びましょう
 displayed_sidebar: devDocsSidebar
 pagination_prev: dev-docs/api/content-api
 pagination_next: dev-docs/customization
 tags:
-- backend server
-- database
-- plugins
-- typescript
+- バックエンドサーバー
+- データベース
+- プラグイン
+- TypeScript
 ---
 
-# Advanced features
+# 高度な機能
 
-Strapi provides advanced built-in features for developers who'd like to get the best of the backend server, plugins, and database. Click on any of the following cards to read more about a specific feature:
+Strapiは、バックエンドサーバー、プラグイン、データベースを最大限に活用したい開発者のために、高度な組み込み機能を提供しています。以下のカードのいずれかをクリックして、特定の機能について詳しく読むことができます：
 
 <CustomDocCardsWrapper>
 
-<CustomDocCard emoji="🌍" title="Internationalization (i18n)" description="The i18n feature allows creating, managing and distributing localized content in different languages." link="/dev-docs/i18n"/>
+<CustomDocCard emoji="🌍" title="国際化（i18n）" description="i18n機能を使用して、異なる言語でローカライズされたコンテンツを作成、管理、配布することができます。" link="/dev-docs/i18n"/>
 
-<CustomDocCard title="CLI reference" description="Control Strapi through the Command Line Interface (CLI)." link="/dev-docs/cli" />
+<CustomDocCard title="CLIリファレンス" description="コマンドラインインターフェース（CLI）を通じてStrapiを操作します。" link="/dev-docs/cli" />
 
-<CustomDocCard title="TypeScript" description="Use TypeScript to develop your Strapi project." link="/dev-docs/typescript" />
+<CustomDocCard title="TypeScript" description="TypeScriptを使用して、Strapiプロジェクトを開発します。" link="/dev-docs/typescript" />
 
-<CustomDocCard title="Providers" description="Install, configure, and create providers to extend core capabilities of some plugins." link="/dev-docs/providers" />
+<CustomDocCard title="プロバイダー" description="プロバイダーをインストール、設定、作成して、一部のプラグインのコア機能を拡張します。" link="/dev-docs/providers" />
 
-<CustomDocCard title="Templates" description="Use and create pre-made Strapi applications designed for a specific purpose." link="/dev-docs/templates" />
+<CustomDocCard title="テンプレート" description="特定の目的のために設計された事前作成されたStrapiアプリケーションを使用および作成します。" link="/dev-docs/templates" />
 
-<CustomDocCard title="Data management" description="Use Strapi's built-in data management system to import, export, or transfer data." link="/dev-docs/data-management" />
+<CustomDocCard title="データ管理" description="Strapiの組み込みデータ管理システムを使用して、データをインポート、エクスポート、または転送します。" link="/dev-docs/data-management" />
 
-<CustomDocCard title="Database migrations" description="Manage database migrations operations." link="/dev-docs/database-migrations" />
+<CustomDocCard title="データベースマイグレーション" description="データベースマイグレーション操作を管理します。" link="/dev-docs/database-migrations" />
 
-<CustomDocCard title="Database transactions" description="Use an API to wrap a set of operations in a transaction that ensures the integrity of data." link="/dev-docs/database-transactions" />
+<CustomDocCard title="データベーストランザクション" description="APIを使用して、データの整合性を保証するトランザクション内で一連の操作をラップします。" link="/dev-docs/database-transactions" />
 
-<CustomDocCard title="Unit testing" description="Run basic unit tests for a Strapi project." link="/dev-docs/testing" />
+<CustomDocCard title="単体テスト" description="Strapiプロジェクトの基本的な単体テストを実行します。" link="/dev-docs/testing" />
 
-<CustomDocCard title="Error handling" description="Handle errors received through REST and GraphQL requests, or throw errors through the backend server." link="/dev-docs/error-handling" />
+<CustomDocCard title="エラーハンドリング" description="RESTおよびGraphQLリクエストを通じて受信したエラーを処理するか、バックエンドサーバーを通じてエラーをスローします。" link="/dev-docs/error-handling" />
 
 :::tip
-If the built-in advanced features of Strapi do not cover your use case, you might want to turn next to [plugins](/dev-docs/plugins) or [customization](/dev-docs/customization) possibilities.
+Strapiの組み込み高度な機能があなたのユースケースをカバーしない場合、次に[プラグイン](/dev-docs/plugins)や[カスタマイズ](/dev-docs/customization)の可能性を探ることをお勧めします。
 :::
 
 </CustomDocCardsWrapper>

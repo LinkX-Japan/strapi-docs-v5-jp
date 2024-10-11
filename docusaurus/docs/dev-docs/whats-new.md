@@ -1,36 +1,36 @@
 ---
 tags:
-- Draft & Publish
-- documents
+- 下書き＆公開
+- ドキュメント
 - Document Service API
 - REST API
 - GraphQL API 
-- upgrade tool
-- content history
-- breaking changes
+- アップグレードツール
+- コンテンツ履歴
+- 破壊的変更
 ---
-# What's new in Strapi 5 docs?
+# Strapi 5のドキュメントに何が新しくなったのか？
 
-Strapi 5 brings many new features and improvements, and this page quickly highlights the most important documentation changes.
+Strapi 5は多くの新機能と改善をもたらし、このページでは最も重要なドキュメントの変更点を簡単にハイライトしています。
 
-🧑‍🎨 The **[Draft & Publish](/user-docs/content-manager/saving-and-publishing-content)** feature has been fully reworked. When Draft & Publish is enabled, the Content Manager edit view shows 2 different tabs, one for the draft version and one for the published version, and both can handle different content.
+🧑‍🎨 **[下書き＆公開](/user-docs/content-manager/saving-and-publishing-content)**機能が完全に見直されました。下書き＆公開が有効化されている場合、コンテンツマネージャーの編集ビューには下書き版と公開版の2つの異なるタブが表示され、それぞれが異なるコンテンツを扱うことができます。
 
-🧙‍♀️ The new **[Content History](/user-docs/content-manager/working-with-content-history)** feature allows you to view and restore previous versions of your content from the Content Manager.
+🧙‍♀️ 新たに追加された**[コンテンツ履歴](/user-docs/content-manager/working-with-content-history)**機能を使用すると、コンテンツマネージャーから過去のコンテンツのバージョンを表示し、復元することができます。
 
-🧑‍🏫 Strapi 5 now use **[documents](/dev-docs/api/document)** and introduces a new **[Document Service API](/dev-docs/api/document-service)** to replace the Entity Service API from v4, leveraging the new Draft & Publish system and paving the way for more upcoming features.
+🧑‍🏫 Strapi 5では、**[ドキュメント](/dev-docs/api/document)**を使用し、新たな**[Document Service API](/dev-docs/api/document-service)**を導入してv4のEntity Service APIを置き換えています。これにより、新しい下書き＆公開システムを活用し、今後の新機能の道を開きます。
 
-🕵️ The **[REST API](/dev-docs/api/rest)** and **[GraphQL API](/dev-docs/api/graphql)** have been updated, with a simplified response data format for both and partial support for Relay-style queries for GraphQL.
+🕵️ **[REST API](/dev-docs/api/rest)**と**[GraphQL API](/dev-docs/api/graphql)**が更新され、両者ともにシンプル化されたレスポンスデータ形式と、GraphQLのRelayスタイルクエリの部分的なサポートが提供されています。
 
-👩‍🚀 The **[Plugin SDK](/dev-docs/plugins/development/plugin-sdk)** is a new CLI tool that helps you develop and publish Strapi plugins.
+👩‍🚀 **[Plugin SDK](/dev-docs/plugins/development/plugin-sdk)**は、Strapiプラグインの開発と公開を支援する新しいCLIツールです。
 
-🦾 Another whole new CLI **[upgrade tool](/dev-docs/upgrade-tool)** will help you migrate to any patch, minor, and major version of Strapi, automating most of the common tasks through codemods.
+🦾 もう一つの新しいCLI **[アップグレードツール](/dev-docs/upgrade-tool)**は、Strapiの任意のパッチ、マイナーバージョン、メジャーバージョンへの移行を支援し、共通のタスクの大部分をcodemodsを通じて自動化します。
 
-👷 Also, we have some resources ready to help you **[upgrade to Strapi 5](/dev-docs/migration/v4-to-v5/introduction-and-faq)**, including a [step-by-step guide](/dev-docs/migration/v4-to-v5/step-by-step), a list of [breaking changes](/dev-docs/migration/v4-to-v5/breaking-changes) and [specific resources](/dev-docs/migration/v4-to-v5/additional-resources/introduction) to read for when you will consider upgrading to Strapi 5.
+👷 また、**[Strapi 5へのアップグレード](/dev-docs/migration/v4-to-v5/introduction-and-faq)**を支援するためのリソースが用意されています。これには、[ステップバイステップガイド](/dev-docs/migration/v4-to-v5/step-by-step)、[破壊的変更](/dev-docs/migration/v4-to-v5/breaking-changes)のリスト、Strapi 5へのアップグレードを検討する際に読むべき[特別なリソース](/dev-docs/migration/v4-to-v5/additional-resources/introduction)が含まれています。
 
-👀 There are much more content updates: new or updated pages are identified in the table of contents with <ThemedImage alt="new badge" sources={{light:'/img/assets/new-badge.png', dark:'/img/assets/new-badge_DARK.png'}} /> or <ThemedImage alt="updated badge" sources={{light:'/img/assets/updated-badge.png', dark:'/img/assets/updated-badge_DARK.png'}} /> badges.
+👀 さらに多くのコンテンツ更新があります：新規または更新されたページは、目次で<ThemedImage alt="new badge" sources={{light:'/img/assets/new-badge.png', dark:'/img/assets/new-badge_DARK.png'}} />または<ThemedImage alt="updated badge" sources={{light:'/img/assets/updated-badge.png', dark:'/img/assets/updated-badge_DARK.png'}} />のバッジで識別されます。
 
-🏷️ We introduced a new **tagging system** to provide another layer of information architecture. Tags can be found at the bottom of each page. Clicking on a tag will point you to an index page listing all pages with the same tag. The list of all available tags is visible by visiting the [/tags](/tags) page.
+🏷️ 新たな**タグシステム**を導入し、情報アーキテクチャの別の層を提供します。タグは各ページの下部に表示されます。タグをクリックすると、同じタグが付けられたすべてのページをリストアップしたインデックスページに移動します。すべての利用可能なタグのリストは、[/tags](/tags)ページを訪れることで表示されます。
 
-➕ You will also soon find more **official guides** and more references to **external resources** (contributor documentation, design system documentation, and blog articles) throughout the docs pages.
+➕ また、近々**公式ガイド**や**外部リソース**（コントリビューターのドキュメント、デザインシステムのドキュメント、ブログ記事）への参照がドキュメントページ全体に増える予定です。
 
-🤖 Also, last but not least, you might have noticed that the search bar in the top navigation bar now combines 2 buttons: the left button, **🔎 Search**, triggers a regular search, while the right part is our new AI-based chatbot! Click **Ask AI** to ask your questions. The chatbot keeps the context of previous answers, so you can ask follow-up questions as long as you don't close the chatbot window.
+🤖 また、最後になりますが、お気づきかもしれませんが、上部ナビゲーションバーの検索バーは現在2つのボタンを組み合わせています：左のボタン、**🔎 検索**は通常の検索をトリガーし、右部分は新しいAIベースのチャットボットです！**AIに尋ねる**をクリックして質問してください。チャットボットは以前の回答の文脈を保持しているため、チャットボットのウィンドウを閉じない限り、フォローアップの質問をすることができます。

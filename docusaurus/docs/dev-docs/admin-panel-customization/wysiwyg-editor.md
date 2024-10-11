@@ -1,33 +1,34 @@
 ---
-title: Customizing the WYSIWYG editor
-description: Learn more about the various strategies available to customize the WYSIWYG editor in Strapi's admin panel.
-sidebar_label: WYSIWYG editor
+title: WYSIWYGエディタのカスタマイズ
+description: Strapiの管理パネルでWYSIWYGエディタをカスタマイズするためのさまざまな戦略について学びましょう。
+sidebar_label: WYSIWYGエディタ
 tags:
-- admin panel 
-- admin panel customization
-- WYSIWYG editor
+- 管理パネル
+- 管理パネルのカスタマイズ
+- WYSIWYGエディタ
+
 ---
 
-# Change the default WYSIWYG editor
+# デフォルトのWYSIWYGエディタを変更する
 
-To change the default WYSIWYG editor provided with Strapi's admin panel, several options are at your disposal:
+Strapiの管理パネルで提供されているデフォルトのWYSIWYGエディタを変更するには、いくつかのオプションがあります。
 
-- You can install a third-party plugin, such as one for CKEditor, by visiting [Strapi's Marketplace](https://market.strapi.io/).
-- You can create your own plugin to create and register a fully custom WYSIWYG field (see [custom fields documentation](/dev-docs/custom-fields)).
-- You can take advantage of Strapi's admin panel [extensions](/dev-docs/admin-panel-customization/extension) system and leverage the [bootstrap lifecycle function](/dev-docs/plugins/admin-panel-api#bootstrap) of the admin panel.
+- [Strapiマーケットプレイス](https://market.strapi.io/)でCKEditorなどのサードパーティプラグインをインストールできます。
+- [カスタムフィールドのドキュメント](/dev-docs/custom-fields)を参照し、完全にカスタムなWYSIWYGフィールドを作成して登録するプラグインを作成できます。
+- Strapiの管理パネル[拡張](/dev-docs/admin-panel-customization/extension)システムと管理パネルの[bootstrapライフサイクル関数](/dev-docs/plugins/admin-panel-api#bootstrap)を活用することができます。
 
-If you choose to use the extensions system, create your WYSIWYG component in the `/src/admin/extensions` folder and import it in the admin panel's `/src/admin/app.[tsx|js]` entry point file, then declare the new field with the `app.addFields()` function as follows:
+拡張システムを使用する場合は、`/src/admin/extensions`フォルダにWYSIWYGコンポーネントを作成し、管理パネルの`/src/admin/app.[tsx|js]`エントリーポイントファイルにインポートしてから、`app.addFields()`関数で新しいフィールドを宣言します。以下のように設定します。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
 
 ```js title="/src/admin/app.js"
-// The following file contains the logic for your new WYSIWYG editor👇
-import MyNewWYSIGWYG from "./extensions/components/MyNewWYSIGWYG";
+// 次のファイルには新しいWYSIWYGエディタのロジックが含まれています👇
+import MyNewWYSIWYG from "./extensions/components/MyNewWYSIGWYG";
 
 export default {
   bootstrap(app) {
-    app.addFields({ type: "wysiwyg", Component: MyNewWYSIGWYG });
+    app.addFields({ type: "wysiwyg", Component: MyNewWYSIWYG });
   },
 };
 ```
@@ -37,12 +38,12 @@ export default {
 <TabItem value="ts" label="TypeScript">
 
 ```js title="/src/admin/app.tsx"
-// The following file contains the logic for your new WYSIWYG editor👇
-import MyNewWYSIGWYG from "./extensions/components/MyNewWYSIGWYG";
+// 次のファイルには新しいWYSIWYGエディタのロジックが含まれています👇
+import MyNewWYSIWYG from "./extensions/components/MyNewWYSIGWYG";
 
 export default {
   bootstrap(app) {
-    app.addFields({ type: "wysiwyg", Component: MyNewWYSIGWYG });
+    app.addFields({ type: "wysiwyg", Component: MyNewWYSIWYG });
   },
 };
 ```

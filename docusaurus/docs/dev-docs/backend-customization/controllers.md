@@ -1,41 +1,41 @@
 ---
 tags: 
-- backend customization
-- backend server
-- controllers
+- バックエンドのカスタマイズ
+- バックエンドサーバー
+- コントローラー
 - createCoreController
-- core controllers
+- コアコントローラー
 - ctx
 - REST API 
-- routes
-- sanitizeQuery function
+- ルート
+- sanitizeQuery関数
 - strapi-utils
-- validateQuery function
+- validateQuery関数
 ---
 
-# Controllers
+# コントローラー
 
-Controllers are JavaScript files that contain a set of methods, called actions, reached by the client according to the requested [route](/dev-docs/backend-customization/routes). Whenever a client requests the route, the action performs the business logic code and sends back the [response](/dev-docs/backend-customization/requests-responses). Controllers represent the C in the model-view-controller (MVC) pattern.
+コントローラーは、クライアントが要求した[ルート](/dev-docs/backend-customization/routes)に応じてクライアントに到達する一連のメソッド、つまりアクションを含むJavaScriptファイルです。クライアントがルートを要求するたびに、アクションはビジネスロジックコードを実行し、[レスポンス](/dev-docs/backend-customization/requests-responses)を返送します。コントローラーは、モデル-ビュー-コントローラー(MVC)パターンのCを表します。
 
-In most cases, the controllers will contain the bulk of a project's business logic. But as a controller's logic becomes more and more complicated, it's a good practice to use [services](/dev-docs/backend-customization/services) to organize the code into re-usable parts.
+ほとんどの場合、コントローラーはプロジェクトのビジネスロジックの大部分を含むでしょう。しかし、コントローラーのロジックがますます複雑になると、[サービス](/dev-docs/backend-customization/services)を使用してコードを再利用可能な部分に整理するのが良い実践です。
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-controllers-services.png" alt="Simplified Strapi backend diagram with controllers highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with controllers highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-controllers-services.png" alt="コントローラーが強調表示された簡略化されたStrapiバックエンドのダイアグラム" />
+  <em><figcaption style={{fontSize: '12px'}}>このダイアグラムは、リクエストがStrapiバックエンドを通過する方法の簡略化されたバージョンを表しており、コントローラーが強調表示されています。バックエンドカスタマイズの導入ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブなダイアグラム</a>が含まれています。</figcaption></em>
 </figure>
 
-## Implementation
+## 実装
 
-Controllers can be [generated or added manually](#adding-a-new-controller). Strapi provides a `createCoreController` factory function that automatically generates core controllers and allows building custom ones or [extend or replace the generated controllers](#extending-core-controllers).
+コントローラーは[生成または手動で追加](#新しいコントローラーの追加)することができます。Strapiは`createCoreController`ファクトリ関数を提供しており、これにより自動的にコアコントローラーが生成され、カスタムのものを作成したり[生成されたコントローラーを拡張または置換](#コアコントローラーの拡張)することができます。
 
-### Adding a new controller
+### 新しいコントローラーの追加
 
-A new controller can be implemented:
+新しいコントローラーは以下の方法で実装できます：
 
-- with the [interactive CLI command `strapi generate`](/dev-docs/cli)
-- or manually by creating a JavaScript file:
-  - in `./src/api/[api-name]/controllers/` for API controllers (this location matters as controllers are auto-loaded by Strapi from there)
-  - or in a folder like `./src/plugins/[plugin-name]/server/controllers/` for plugin controllers, though they can be created elsewhere as long as the plugin interface is properly exported in the `strapi-server.js` file (see [Server API for Plugins documentation](/dev-docs/plugins/server-api))
+- [対話型CLIコマンド`strapi generate`](/dev-docs/cli)を使用する。
+- または、JavaScriptファイルを手動で作成する：
+  - APIコントローラーの場合は`./src/api/[api-name]/controllers/`（この場所は重要で、Strapiはここからコントローラーを自動的にロードします）
+  - プラグインコントローラーの場合は、`./src/plugins/[plugin-name]/server/controllers/`のようなフォルダに作成しますが、`strapi-server.js`ファイルでプラグインインターフェースが適切にエクスポートされていれば、他の場所にも作成できます（[プラグインのサーバーAPIドキュメンテーション](/dev-docs/plugins/server-api)を参照）。
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -54,28 +54,28 @@ module.exports = createCoreController('api::restaurant.restaurant', ({ strapi })
     }
   },
 
-  // Method 2: Wrapping a core action (leaves core logic in place)
+// メソッド2: コアアクションのラッピング（コアロジックはそのまま）
   async find(ctx) {
-    // some custom logic here
+    // ここにカスタムロジックを記述
     ctx.query = { ...ctx.query, local: 'en' }
 
-    // Calling the default core action
+    // デフォルトのコアアクションを呼び出す
     const { data, meta } = await super.find(ctx);
 
-    // some more custom logic
+    // さらにカスタムロジックを追加
     meta.date = Date.now()
 
     return { data, meta };
   },
 
-  // Method 3: Replacing a core action with proper sanitization
+  // メソッド3: 適切なサニタイズとともにコアアクションを置き換える
   async find(ctx) {
-    // validateQuery (optional)
-    // to throw an error on query params that are invalid or the user does not have access to
+    // validateQuery (オプション)
+    // 不正なクエリパラメータまたはユーザーがアクセス権を持っていないクエリパラメータに対してエラーをスローする
     await this.validateQuery(ctx);
 
-    // sanitizeQuery to remove any query params that are invalid or the user does not have access to
-    // It is strongly recommended to use sanitizeQuery even if validateQuery is used
+    // sanitizeQuery は、不正なクエリパラメータやユーザーがアクセス権を持っていないクエリパラメータを削除します
+    // validateQuery を使用する場合でも、sanitizeQuery の使用を強く推奨します
     const sanitizedQueryParams = await this.sanitizeQuery(ctx);
     const { results, pagination } = await strapi.service('api::restaurant.restaurant').find(sanitizedQueryParams);
     const sanitizedResults = await this.sanitizeOutput(results, ctx);
@@ -94,7 +94,7 @@ module.exports = createCoreController('api::restaurant.restaurant', ({ strapi })
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::restaurant.restaurant', ({ strapi }) =>  ({
-  // Method 1: Creating an entirely custom action
+  // メソッド1: 完全にカスタムアクションを作成する
   async exampleAction(ctx) {
     try {
       ctx.body = 'ok';
@@ -103,32 +103,32 @@ export default factories.createCoreController('api::restaurant.restaurant', ({ s
     }
   },
 
-  // Method 2: Wrapping a core action (leaves core logic in place)
+  // メソッド2: コアアクションのラッピング（コアロジックはそのまま）
   async find(ctx) {
-    // some custom logic here
+    // ここにカスタムロジックを記述
     ctx.query = { ...ctx.query, local: 'en' }
 
-    // Calling the default core action
+    // デフォルトのコアアクションを呼び出す
     const { data, meta } = await super.find(ctx);
 
-    // some more custom logic
+    // さらにカスタムロジックを追加
     meta.date = Date.now()
 
     return { data, meta };
   },
 
-  // Method 3: Replacing a core action with proper sanitization
+  // メソッド3: 適切なサニタイズとともにコアアクションを置き換える
   async find(ctx) {
-    // validateQuery (optional)
-    // to throw an error on query params that are invalid or the user does not have access to
+    // validateQuery (オプション)
+    // 不正なクエリパラメータまたはユーザーがアクセス権を持っていないクエリパラメータに対してエラーをスローする
     await this.validateQuery(ctx); 
 
-    // sanitizeQuery to remove any query params that are invalid or the user does not have access to
-    // It is strongly recommended to use sanitizeQuery even if validateQuery is used
+    // sanitizeQuery は、不正なクエリパラメータやユーザーがアクセス権を持っていないクエリパラメータを削除します
+    // validateQuery を使用する場合でも、sanitizeQuery の使用を強く推奨します
     const sanitizedQueryParams = await this.sanitizeQuery(ctx);
     const { results, pagination } = await strapi.service('api::restaurant.restaurant').find(sanitizedQueryParams);
 
-    // sanitizeOutput to ensure the user does not receive any data they do not have access to
+    // sanitizeOutput は、ユーザーがアクセス権を持っていないデータを受け取らないようにするためのものです
     const sanitizedResults = await this.sanitizeOutput(results, ctx);
 
     return this.transformResponse(sanitizedResults, { pagination });
@@ -139,13 +139,13 @@ export default factories.createCoreController('api::restaurant.restaurant', ({ s
 </TabItem>
 </Tabs>
 
-Each controller action can be an `async` or `sync` function.
-Every action receives a context object (`ctx`) as a parameter. `ctx` contains the [request context](/dev-docs/backend-customization/requests-responses#requests) and the [response context](/dev-docs/backend-customization/requests-responses#responses).
+各コントローラーのアクションは、`async` または `sync` 関数にすることができます。
+すべてのアクションは、パラメータとしてコンテキストオブジェクト（`ctx`）を受け取ります。`ctx` には、[リクエストコンテキスト](/dev-docs/backend-customization/requests-responses#requests)と[レスポンスコンテキスト](/dev-docs/backend-customization/requests-responses#responses)が含まれています。
 
 <details>
-<summary>Example: GET /hello route calling a basic controller</summary>
+<summary>例：基本的なコントローラを呼び出す GET /hello ルート</summary>
 
-A specific `GET /hello` [route](/dev-docs/backend-customization/routes) is defined, the name of the router file (i.e. `index`) is used to call the controller handler (i.e. `index`). Every time a `GET /hello` request is sent to the server, Strapi calls the `index` action in the `hello.js` controller, which returns `Hello World!`:
+特定の `GET /hello` [ルート](/dev-docs/backend-customization/routes)が定義され、ルーターファイルの名前（つまり `index`）がコントローラーハンドラ（つまり `index`）を呼び出すために使用されます。`GET /hello` リクエストがサーバーに送信されるたびに、Strapi は `hello.js` コントローラーの `index` アクションを呼び出し、`Hello World!` を返します：
 
 <Tabs groupId="js-ts">
 
@@ -206,46 +206,46 @@ export default {
 </details>
 
 :::note
-When a new [content-type](/dev-docs/backend-customization/models#content-types) is created, Strapi builds a generic controller with placeholder code, ready to be customized.
+新しい[コンテンツタイプ](/dev-docs/backend-customization/models#content-types)が作成されると、Strapi はプレースホルダーコードを含む一般的なコントローラを構築し、カスタマイズする準備ができます。
 :::
 
 :::tip
-To see a possible advanced usage for custom controllers, read the [services and controllers](/dev-docs/backend-customization/examples/services-and-controllers) page of the backend customization examples cookbook.
+カスタムコントローラの高度な使用法については、バックエンドカスタマイズ例のレシピブックにある[services and controllers](/dev-docs/backend-customization/examples/services-and-controllers)のページをご覧ください。
 :::
 
-### Sanitization and Validation in controllers
+### コントローラーでのサニタイゼーションとバリデーション
 
 :::warning
-It's strongly recommended you sanitize (v4.8.0+) and/or validate (v4.13.0+) your incoming request query utilizing the new `sanitizeQuery` and `validateQuery` functions to prevent the leaking of private data.
+新しい `sanitizeQuery` および `validateQuery` 関数を使用して、送信されるリクエストクエリをサニタイズ（v4.8.0+）および/またはバリデート（v4.13.0+）することを強く推奨します。これにより、プライベートデータの漏洩を防ぐことができます。
 :::
 
-Sanitization means that the object is “cleaned” and returned.
+サニタイゼーションとは、オブジェクトが「クリーニング」されて返されることを意味します。
 
-Validation means an assertion is made that the data is already clean and throws an error if something is found that shouldn't be there.
+バリデーションとは、データが既にクリーンであるという主張がなされ、そこに存在してはならない何かが見つかった場合にエラーがスローされることを意味します。
 
-In Strapi 5, both query parameters and input data (i.e., create and update body data) are validated. Any create and update data requests with the following invalid input will throw a `400 Bad Request` error:
+Strapi 5では、クエリパラメータと入力データ（つまり、作成と更新のボディデータ）がバリデートされます。以下の無効な入力を含む作成および更新データリクエストは、`400 Bad Request` エラーをスローします：
 
-- relations the user do not have permission to create
-- unrecognized values that are not present on a schema
-- non-writable fields and internal timestamps like `createdAt` and `createdBy` fields
-- setting or updating an `id` field (except for connecting relations)
+- ユーザーが作成する権限を持っていない関係
+- スキーマに存在しない認識されない値
+- `createdAt` や `createdBy` などの書き込み不可フィールドや内部タイムスタンプ
+- 関係を接続する場合を除き、`id` フィールドの設定や更新
 
-#### Sanitization when utilizing controller factories
+#### コントローラーファクトリーを利用する際のサニタイズ
 
-Within the Strapi factories the following functions are exposed that can be used for sanitization and validation:
+Strapiのファクトリー内では、サニタイズとバリデーションに使用できる以下の関数が公開されています：
 
-| Function Name    | Parameters                 | Description                                                                          |
+| 関数名             | パラメータ                 | 説明                                                                          |
 |------------------|----------------------------|--------------------------------------------------------------------------------------|
-| `sanitizeQuery`  | `ctx`                      | Sanitizes the request query                                                          |
-| `sanitizeOutput` | `entity`/`entities`, `ctx` | Sanitizes the output data where entity/entities should be an object or array of data |
-| `sanitizeInput`  | `data`, `ctx`              | Sanitizes the input data                                                             |
-| `validateQuery`  | `ctx`                      | Validates the request query (throws an error on invalid params)                      |
-| `validateInput`  | `data`, `ctx`              | (EXPERIMENTAL) Validates the input data (throws an error on invalid data)                           |
+| `sanitizeQuery`  | `ctx`                      | リクエストクエリをサニタイズします                                                          |
+| `sanitizeOutput` | `entity`/`entities`, `ctx` | エンティティ/エンティティはオブジェクトまたはデータの配列であるべきで、出力データをサニタイズします |
+| `sanitizeInput`  | `data`, `ctx`              | 入力データをサニタイズします                                                             |
+| `validateQuery`  | `ctx`                      | リクエストクエリを検証します（無効なパラメータがあるとエラーが発生します）                      |
+| `validateInput`  | `data`, `ctx`              | (実験的) 入力データを検証します（無効なデータがあるとエラーが発生します）                           |
 
-These functions automatically inherit the sanitization settings from the model and sanitize the data accordingly based on the content-type schema and any of the content API authentication strategies, such as the Users & Permissions plugin or API tokens.
+これらの関数は、モデルからサニタイズ設定を自動的に継承し、コンテンツタイプスキーマとコンテンツAPI認証戦略（ユーザー＆パーミッションプラグインやAPIトークンなど）に基づいてデータをサニタイズします。
 
 :::warning
-Because these methods use the model associated with the current controller, if you query data that is from another model (i.e., doing a find for "menus" within a "restaurant" controller method), you must instead use the `@strapi/utils` tools, such as `sanitize.contentAPI.query` described in [Sanitizing Custom Controllers](#sanitize-validate-custom-controllers), or else the result of your query will be sanitized against the wrong model.
+これらのメソッドは現在のコントローラーに関連付けられたモデルを使用するため、別のモデルからのデータをクエリする場合（つまり、「レストラン」コントローラーメソッド内で「メニュー」を検索するなど）、代わりに`@strapi/utils`ツールを使用する必要があります。たとえば、[カスタムコントローラーのサニタイズ](#sanitize-validate-custom-controllers)で説明されている`sanitize.contentAPI.query`などを使用するか、そうでなければ、クエリの結果が間違ったモデルに対してサニタイズされます。
 :::
 
 <Tabs groupId="js-ts">
@@ -275,6 +275,10 @@ module.exports = createCoreController('api::restaurant.restaurant', ({ strapi })
 
 import { factories } from '@strapi/strapi';
 
+```ts title="./src/api/restaurant/controllers/restaurant.ts"
+
+import { sanitize, validate } from '@strapi/utils';
+
 export default factories.createCoreController('api::restaurant.restaurant', ({ strapi }) =>  ({
   async find(ctx) {
     const sanitizedQueryParams = await this.sanitizeQuery(ctx);
@@ -289,20 +293,20 @@ export default factories.createCoreController('api::restaurant.restaurant', ({ s
 </TabItem>
 </Tabs>
 
-#### Sanitization and validation when building custom controllers  {#sanitize-validate-custom-controllers}
+#### カスタムコントローラーの作成時のサニタイズとバリデーション  {#sanitize-validate-custom-controllers}
 
-Within custom controllers, there are 5 primary functions exposed via the `@strapi/utils` package that can be used for sanitization and validation:
+カスタムコントローラー内では、`@strapi/utils`パッケージを通じて公開される5つの主要な関数がサニタイズとバリデーションに使用できます:
 
-| Function Name                | Parameters         | Description                                             |
+| 関数名                | パラメータ         | 説明                                             |
 |------------------------------|--------------------|---------------------------------------------------------|
-| `sanitize.contentAPI.input`  | `data`, `schema`, `auth`      | Sanitizes the request input including non-writable fields, removing restricted relations, and other nested "visitors" added by plugins |
-| `sanitize.contentAPI.output` | `data`, `schema`, `auth`      | Sanitizes the response output including restricted relations, private fields, passwords, and other nested "visitors" added by plugins  |
-| `sanitize.contentAPI.query`  | `ctx.query`, `schema`, `auth` | Sanitizes the request query including filters, sort, fields, and populate  |
-| `validate.contentAPI.query`  | `ctx.query`, `schema`, `auth` | Validates the request query including filters, sort, fields (currently not populate) |
-| `validate.contentAPI.input`  | `data`, `schema`, `auth` | (EXPERIMENTAL) Validates the request input including non-writable fields, removing restricted relations, and other nested "visitors" added by plugins |
+| `sanitize.contentAPI.input`  | `data`, `schema`, `auth`      | 書き込み不可フィールド、制限された関係、プラグインによって追加された他のネストされた "visitors" を含むリクエスト入力をサニタイズします |
+| `sanitize.contentAPI.output` | `data`, `schema`, `auth`      | 制限された関係、プライベートフィールド、パスワード、プラグインによって追加された他のネストされた "visitors" を含むレスポンス出力をサニタイズします  |
+| `sanitize.contentAPI.query`  | `ctx.query`, `schema`, `auth` | フィルタ、ソート、フィールド、populateを含むリクエストクエリをサニタイズします  |
+| `validate.contentAPI.query`  | `ctx.query`, `schema`, `auth` | フィルタ、ソート、フィールド（現在はpopulateを含まない）を含むリクエストクエリをバリデートします |
+| `validate.contentAPI.input`  | `data`, `schema`, `auth` | (実験的) 書き込み不可フィールド、制限された関係、プラグインによって追加された他のネストされた "visitors" を含むリクエスト入力をバリデートします |
 
 :::note
-Depending on the complexity of your custom controllers, you may need additional sanitization that Strapi cannot currently account for, especially when combining the data from multiple sources.
+カスタムコントローラーの複雑さによっては、特に複数のソースからのデータを組み合わせる場合、Strapiが現在対応できない追加のサニタイズが必要になることがあります。
 :::
 
 <Tabs groupId="js-ts">
@@ -329,10 +333,11 @@ module.exports = {
 
 <TabItem value="ts" label="TypeScript">
 
-```js title="./src/api/restaurant/controllers/restaurant.ts"
+```ts title="./src/api/restaurant/controllers/restaurant.ts"
 
 import { sanitize, validate } from '@strapi/utils';
 
+```js
 export default {
   async findCustom(ctx) {
     const contentType = strapi.contentType('api::test.test');
@@ -350,23 +355,23 @@ export default {
 </TabItem>
 </Tabs>
 
-### Extending core controllers
+### コアコントローラーの拡張
 
-Default controllers and actions are created for each content-type. These default controllers are used to return responses to API requests (e.g. when `GET /api/articles/3` is accessed, the `findOne` action of the default controller for the "Article" content-type is called). Default controllers can be customized to implement your own logic. The following code examples should help you get started.
+各コンテンツタイプに対してデフォルトのコントローラーとアクションが作成されます。これらのデフォルトのコントローラーは、APIリクエストへのレスポンスを返すために使用されます（例：`GET /api/articles/3`にアクセスすると、"Article"コンテンツタイプのデフォルトコントローラーの`findOne`アクションが呼び出されます）。デフォルトのコントローラーは、独自のロジックを実装するためにカスタマイズすることができます。以下のコード例は、あなたが始めるのに役立つはずです。
 
 :::tip
-An action from a core controller can be replaced entirely by [creating a custom action](#adding-a-new-controller) and naming the action the same as the original action (e.g. `find`, `findOne`, `create`, `update`, or `delete`).
+コアコントローラーのアクションは、[カスタムアクションを作成する](#adding-a-new-controller)ことで完全に置き換えることができます。アクションの名前を元のアクション（例：`find`、`findOne`、`create`、`update`、`delete`）と同じにします。
 :::
 
 :::tip
-When extending a core controller, you do not need to re-implement any sanitization as it will already be handled by the core controller you are extending. Where possible it's strongly recommended to extend the core controller instead of creating a custom controller.
+コアコントローラーを拡張するとき、既にコアコントローラーによって処理されるので、再度サニタイズを実装する必要はありません。可能な限り、カスタムコントローラーを作成するのではなく、コアコントローラーを拡張することを強く推奨します。
 :::
 
 <details>
-<summary>Collection type examples</summary>
+<summary>コレクションタイプの例</summary>
 
 :::tip
-The [backend customization examples cookbook](/dev-docs/backend-customization/examples) shows how you can overwrite a default controller action, for instance for the [`create` action](/dev-docs/backend-customization/examples/services-and-controllers#custom-controller).
+[バックエンドのカスタマイズ例のクックブック](/dev-docs/backend-customization/examples)では、デフォルトのコントローラーアクション（例：[`create`アクション](/dev-docs/backend-customization/examples/services-and-controllers#custom-controller)）を上書きする方法を示しています。
 :::
 
 <Tabs>
@@ -443,16 +448,16 @@ async delete(ctx) {
 </details>
 
 <details>
-<summary>Single type examples</summary>
+<summary>シングルタイプの例</summary>
 <Tabs>
 
 <TabItem value="find" label="find()">
 
 ```js
 async find(ctx) {
-  // some logic here
+  // ここにロジックを記述
   const response = await super.find(ctx);
-  // some more logic
+  // さらにロジックを記述
 
   return response;
 }
@@ -464,9 +469,9 @@ async find(ctx) {
 
 ```js
 async update(ctx) {
-  // some logic here
+  // ここにロジックを記述
   const response = await super.update(ctx);
-  // some more logic
+  // さらにロジックを記述
 
   return response;
 }
@@ -478,9 +483,9 @@ async update(ctx) {
 
 ```js
 async delete(ctx) {
-  // some logic here
+  // ここにロジックを記述
   const response = await super.delete(ctx);
-  // some more logic
+  // さらにロジックを記述
 
   return response;
 }
@@ -490,17 +495,17 @@ async delete(ctx) {
 </Tabs>
 </details>
 
-## Usage
+## 使用法
 
-Controllers are declared and attached to a route. Controllers are automatically called when the route is called, so controllers usually do not need to be called explicitly. However, [services](/dev-docs/backend-customization/services) can call controllers, and in this case the following syntax should be used:
+コントローラーは宣言され、ルートにアタッチされます。ルートが呼び出されると自動的にコントローラーが呼び出されるため、通常、コントローラーを明示的に呼び出す必要はありません。ただし、[サービス](/dev-docs/backend-customization/services)はコントローラーを呼び出すことができ、その場合は次の構文を使用する必要があります：
 
 ```js
-// access an API controller
+// APIコントローラーにアクセス
 strapi.controller('api::api-name.controller-name');
-// access a plugin controller
+// プラグインコントローラーにアクセス
 strapi.controller('plugin::plugin-name.controller-name');
 ```
 
 :::tip
-To list all the available controllers, run `yarn strapi controllers:list`.
+利用可能なすべてのコントローラーを一覧表示するには、`yarn strapi controllers:list`を実行します。
 :::
