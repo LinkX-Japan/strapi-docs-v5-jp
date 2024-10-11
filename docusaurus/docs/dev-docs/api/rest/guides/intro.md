@@ -1,42 +1,40 @@
 ---
-title: REST API Guides
-description: Deep dive into some specific REST API topics using guides that extensively explain some use cases or give step-by-step instructions.
+title: REST APIガイド
+description: 具体的なREST APIトピックについて深く掘り下げたガイドを用いて、いくつかのユースケースを詳しく説明したり、手順を追った指導を行います。
 displayed_sidebar: restApiSidebar
-sidebar_label: Guides
+sidebar_label: ガイド
 pagination_prev: dev-docs/api/rest
 pagination_next: dev-docs/api/rest/guides/understanding-populate
 tags:
 - API
 - Content API
-- guides
+- ガイド
 - REST API
-- REST API guides
+- REST APIガイド
 
 ---
 
-# REST API Guides
+# REST APIガイド
 
-The [REST API reference](/dev-docs/api/rest) documentation is meant to provide a quick reference for all the endpoints and parameters available.
+[REST APIリファレンス](/dev-docs/api/rest)ドキュメンテーションは、利用可能なすべてのエンドポイントとパラメーターについての素早い参照を提供することを目指しています。
 
-## Guides
+## ガイド
 
-The following guides, officially maintained by the Strapi Documentation team, cover dedicated topics and provide detailed explanations (guides indicated with 🧠) or step-by-step instructions (guides indicated with 🛠️) for some use cases:
+以下のガイドは、Strapiドキュメンテーションチームが公式にメンテナンスしており、専門的なトピックをカバーし、詳細な説明（🧠で示されるガイド）や一部のユースケースの手順に従った指導（🛠️で示されるガイド）を提供します：
 
-<CustomDocCard emoji="🧠" title="Understanding populate" description="Learn what populating means and how you can use the populate parameter in your REST API queries to add additional fields to your responses." link="/dev-docs/api/rest/guides/understanding-populate" />
-<CustomDocCard emoji="🛠️" title="How to populate creator fields" description="Read step-by-step instructions on how to build a custom controller that leverages the populate parameter to add 'createdBy' and 'updatedBy' data to queries responses" link="/dev-docs/api/rest/guides/populate-creator-fields" />
+<CustomDocCard emoji="🧠" title="populateの理解" description="populateが何を意味し、REST APIクエリにpopulateパラメータを使用してレスポンスに追加フィールドを追加する方法を学びます。" link="/dev-docs/api/rest/guides/understanding-populate" />
+<CustomDocCard emoji="🛠️" title="作成者フィールドのpopulate方法" description="populateパラメータを利用して'createdBy'と'updatedBy'のデータをクエリレスポンスに追加するカスタムコントローラを構築する方法についての手順を読みます。" link="/dev-docs/api/rest/guides/populate-creator-fields" />
 
-## Additional resources
+## 追加のリソース
 
-:::strapi Want to help other users?
-Some of the additional resources listed in this section have been created for Strapi v4 and might not fully work with Strapi 5. If you want to update one of the following articles for Strapi 5, feel free to [propose an article](https://strapi.io/write-for-the-community) for the Write for the Community program.
+:::strapi 他のユーザーを助けたいですか？
+このセクションに記載されている追加リソースの一部はStrapi v4向けに作成されており、Strapi 5では完全には動作しないかもしれません。Strapi 5向けに以下の記事のいずれかを更新したい場合は、ぜひ[記事の提案](https://strapi.io/write-for-the-community)をCommunity programにお願いします。
 :::
 
-Additional tutorials and guides can be found in the following blog posts:
+以下のブログ投稿に追加のチュートリアルとガイドがあります：
 
-<CustomDocCard emoji="➕" title="Authenticating requests with the REST API" description="Learn how to authenticate your REST API queries with JSON Web Tokens and API tokens." link="https://strapi.io/blog/guide-on-authenticating-requests-with-the-rest-api" />
+<CustomDocCard emoji="➕" title="REST APIでのリクエスト認証" description="JSON Web TokensとAPIトークンを用いてREST APIクエリを認証する方法を学びます。" link="https://strapi.io/blog/guide-on-authenticating-requests-with-the-rest-api" />
 
-<CustomDocCard emoji="➕" title="Using Fetch with Strapi's Content API" description="Explore how to use the fetch() method of the Fetch API to interact with Strapi's Content API." link="https://strapi.io/blog/mastering-api-requests-using-fetch-with-strapi-content-api" />
+<CustomDocCard emoji="➕" title="StrapiのContent APIでFetchを使用する" description="Fetch APIのfetch()メソッドを使用してStrapiのContent APIとやり取りする方法を探ります。" link="https://strapi.io/blog/mastering-api-requests-using-fetch-with-strapi-content-api" />
 
-<CustomDocCard emoji="➕" title="Requesting Strapi's REST API behind a Content Delivery Network (CDN)" description="Learn how to overcome network latency issues when requesting large numbers of media assets by leveraging the usage of a CDN with Strapi's REST API." link="https://strapi.io/blog/request-strapi-s-rest-api-behind-a-content-delivery-network-cdn" />
-
-
+<CustomDocCard emoji="➕" title="Content Delivery Network (CDN)経由でStrapiのREST APIをリクエストする" description="大量のメディアアセットをリクエストする際のネットワーク遅延問題を解決するために、StrapiのREST APIとCDNの使用を活用する方法を学びます。" link="https://strapi.io/blog/request-strapi-s-rest-api-behind-a-content-delivery-network-cdn" />
