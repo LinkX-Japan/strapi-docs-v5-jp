@@ -1,90 +1,90 @@
 ---
-title: Plugin SDK
-description: Reference documentation for Strapi's Plugin SDK commands
+title: Plugin SDKリファレンス
+description: StrapiのPlugin SDKコマンドに関するリファレンスドキュメント
 displayed_sidebar: devDocsSidebar
 tags:
-  - backend server
+  - バックエンドサーバー
   - Plugin SDK
-  - plugins
-  - plugins development
+  - プラグイン
+  - プラグイン開発
 ---
 
-# Plugin SDK reference
+# Plugin SDKリファレンス
 
-The Plugin SDK is set of commands provided by the package [@strapi/sdk-plugin](https://github.com/strapi/sdk-plugin) orientated around developing plugins to use them as local plugins or to publish them on NPM and/or submit them to the Marketplace.
+Plugin SDKは、プラグインをローカルプラグインとして使用したり、NPMに公開したり、Strapi Marketplaceに提出するために開発するためのコマンドセットです。パッケージ[@strapi/sdk-plugin](https://github.com/strapi/sdk-plugin)として提供されます。
 
-The present documentation lists the available Plugin SDK commands. The [associated guide](/dev-docs/plugins/development/create-a-plugin) illustrates how to use these commands to create a plugin from scratch, link it to an existing project, and publish it.
+このドキュメントでは、利用可能なPlugin SDKコマンドを一覧にまとめています。[関連ガイド](/dev-docs/plugins/development/create-a-plugin)では、これらのコマンドを使用してゼロからプラグインを作成し、既存のプロジェクトにリンクして公開する方法を説明しています。
 
-## npx @strapi/sdk-plugin init
+## `npx @strapi/sdk-plugin init`
 
-Create a new plugin at a given path.
+指定されたパスに新しいプラグインを作成します。
 
 ```bash
 npx @strapi/sdk-plugin init
 ```
 
-| Arguments |  Type  | Description        | Default                   |
-| --------- | :----: | ------------------ | ------------------------- |
-| `path`    | string | Path to the plugin | `./src/plugins/my-plugin` |
+| 引数       |  型    | 説明                    | デフォルト                      |
+| ---------- | :----: | ----------------------- | ------------------------------- |
+| `path`     | string | プラグインの作成パス     | `./src/plugins/my-plugin`        |
 
-| Option        | Type | Description                             | Default |
-| ------------- | :--: | --------------------------------------- | ------- |
-| `-d, --debug` |  -   | Enable debugging mode with verbose logs | false   |
-| `--silent`    |  -   | Do not log anything                     | false   |
+| オプション      |  型   | 説明                                   | デフォルト |
+| --------------- | :--: | -------------------------------------- | ---------- |
+| `-d, --debug`   |  -   | 詳細なログを表示するデバッグモードを有効にする  | false      |
+| `--silent`      |  -   | ログを表示しない                        | false      |
 
-## strapi-plugin build
+## `strapi-plugin build`
 
-Bundle the Strapi plugin for publishing.
+Strapiプラグインをパブリッシング用にバンドルします。
 
 ```bash
 strapi-plugin build
 ```
 
-| Option         |  Type  | Description                                                                                                       | Default |
-| -------------- | :----: | ----------------------------------------------------------------------------------------------------------------- | ------- |
-| `--force`      | string | Automatically answer "yes" to all prompts, including potentially destructive requests, and run non-interactively. | -       |
-| `-d, --debug`  |   -    | Enable debugging mode with verbose logs                                                                           | false   |
-| `--silent`     |   -    | Do not log anything                                                                                               | false   |
-| `--minify`     |   -    | Minify the output                                                                                                 | true    |
-| `--sourcemaps` |   -    | Produce sourcemaps                                                                                                | false   |
+| オプション       |  型    | 説明                                                                                              | デフォルト |
+| ---------------- | :----: | ------------------------------------------------------------------------------------------------- | ---------- |
+| `--force`        | string | すべてのプロンプトに自動的に「はい」と答え、対話なしで実行します。                                | -          |
+| `-d, --debug`    |   -    | 詳細なログを表示するデバッグモードを有効にする                                                    | false      |
+| `--silent`       |   -    | ログを表示しない                                                                                  | false      |
+| `--minify`       |   -    | 出力をミニファイする                                                                               | true       |
+| `--sourcemaps`   |   -    | ソースマップを生成する                                                                             | false      |
 
-## strapi-plugin watch:link
+## `strapi-plugin watch:link`
 
-Recompiles the plugin automatically on changes and runs `yalc push --publish`.
+プラグインを自動的に再コンパイルし、`yalc push --publish`を実行します。
 
-For testing purposes, it is very convenient to link your plugin to an existing application to experiment with it in real condition. This command is made to help you streamline this process.
+プラグインを既存のアプリケーションにリンクしてテストするのに便利です。このコマンドはそのプロセスを効率化するために作られています。
 
 ```bash
 strapi-plugin watch:link
 ```
 
-| Option        | Type | Description                             | Default |
-| ------------- | :--: | --------------------------------------- | ------- |
-| `-d, --debug` |  -   | Enable debugging mode with verbose logs | false   |
-| `--silent`    |  -   | Do not log anything                     | false   |
+| オプション      |  型   | 説明                                   | デフォルト |
+| --------------- | :--: | -------------------------------------- | ---------- |
+| `-d, --debug`   |  -   | 詳細なログを表示するデバッグモードを有効にする  | false      |
+| `--silent`      |  -   | ログを表示しない                        | false      |
 
-## strapi-plugin watch
+## `strapi-plugin watch`
 
-Watch the plugin source code for any change and rebuild it everytime. Useful when implementing your plugin and testing it in an application.
+プラグインのソースコードを監視し、変更があるたびに再ビルドします。プラグインの実装とアプリケーション内でのテストに便利です。
 
 ```bash
 strapi-plugin watch
 ```
 
-| Option        | Type | Description                             | Default |
-| ------------- | :--: | --------------------------------------- | ------- |
-| `-d, --debug` |  -   | Enable debugging mode with verbose logs | false   |
-| `--silent`    |  -   | Do not log anything                     | false   |
+| オプション      |  型   | 説明                                   | デフォルト |
+| --------------- | :--: | -------------------------------------- | ---------- |
+| `-d, --debug`   |  -   | 詳細なログを表示するデバッグモードを有効にする  | false      |
+| `--silent`      |  -   | ログを表示しない                        | false      |
 
-## strapi-plugin verify
+## `strapi-plugin verify`
 
-Verify the output of the plugin before publishing it.
+プラグインを公開する前に、その出力を検証します。
 
 ```bash
 strapi-plugin verify
 ```
 
-| Option        | Type | Description                             | Default |
-| ------------- | :--: | --------------------------------------- | ------- |
-| `-d, --debug` |  -   | Enable debugging mode with verbose logs | false   |
-| `--silent`    |  -   | Do not log anything                     | false   |
+| オプション      |  型   | 説明                                   | デフォルト |
+| --------------- | :--: | -------------------------------------- | ---------- |
+| `-d, --debug`   |  -   | 詳細なログを表示するデバッグモードを有効にする  | false      |
+| `--silent`      |  -   | ログを表示しない                        | false      |

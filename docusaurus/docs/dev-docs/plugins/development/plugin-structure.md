@@ -1,47 +1,45 @@
 ---
-title: Plugin structure
-description: Learn more about the structure of a Strapi plugin
+title: プラグインの構造
+description: Strapiプラグインの構造について学びます
 displayed_sidebar: devDocsSidebar
 tags:
-- admin panel
-- Command Line Interface (CLI)
-- backend server
-- plugins
-- plugins development
-- plugins structure
-- server-only plugin
+- 管理パネル
+- コマンドラインインターフェース (CLI)
+- バックエンドサーバー
+- プラグイン
+- プラグイン開発
+- プラグイン構造
+- サーバー専用プラグイン
 ---
 
-import InteractivePluginStructure from '@site/src/components/PluginStructure.js'
+# プラグインの構造
 
-# Plugin structure
-
-When [creating a plugin with Plugin SDK](/dev-docs/plugins/development/create-a-plugin), Strapi generates the following boilerplate structure for you in the `/src/plugins/my-plugin` folder:
+[Plugin SDKを使用してプラグインを作成すると](/dev-docs/plugins/development/create-a-plugin)、Strapiは`/src/plugins/my-plugin`フォルダに以下のようなボイラープレート構造を生成します。
 
 <InteractivePluginStructure />
 
-A Strapi plugin is divided into 2 parts, each living in a different folder and offering a different API:
+Strapiのプラグインは2つの部分に分かれており、それぞれ異なるフォルダに配置され、異なるAPIを提供します。
 
-| Plugin part | Description | Folder       | API |
-|-------------|-------------|--------------|-----|
-| Admin panel | Includes what will be visible in the [admin panel](/user-docs/intro) (components, navigation, settings, etc.) | `admin/` |[Admin Panel API](/dev-docs/plugins/admin-panel-api)|
-| Backend server | Includes what relates to the [backend server](/dev-docs/backend-customization) (content-types, controllers, middlewares, etc.) |`server/` |[Server API](/dev-docs/plugins/server-api)|
+| プラグインの部分 | 説明 | フォルダ       | API |
+|----------------|------|--------------|-----|
+| 管理パネル      | [管理パネル](/user-docs/intro)に表示される要素（コンポーネント、ナビゲーション、設定など）を含みます | `admin/` | [管理パネルAPI](/dev-docs/plugins/admin-panel-api) |
+| バックエンドサーバー | [バックエンドサーバー](/dev-docs/backend-customization)に関連するもの（コンテンツタイプ、コントローラー、ミドルウェアなど）を含みます | `server/` | [サーバーAPI](/dev-docs/plugins/server-api) |
 
 <br />
 
-:::note Notes about the usefulness of the different parts for your specific use case
-- **Server-only plugin**: You can create a plugin that will just use the server part to enhance the API of your application. For instance, this plugin could have its own visible or invisible content-types, controller actions, and routes that are useful for a specific use case. In such a scenario, you don't need your plugin to have an interface in the admin panel.
+:::note 特定のユースケースにおける各部分の有用性について
+- **サーバー専用プラグイン**: APIを拡張するためにサーバー部分だけを使用するプラグインを作成できます。このようなプラグインには、表示または非表示のコンテンツタイプ、コントローラーアクション、および特定のユースケースに役立つルートが含まれている場合があります。この場合、プラグインに管理パネル用のインターフェースが必要ありません。
 
-- **Admin panel plugin vs. application-specific customization**: You can create a plugin to inject some components into the admin panel. However, you can also achieve this by creating a `/src/admin/index.js` file and invoking the `bootstrap` lifecycle function to inject your components. In this case, deciding whether to create a plugin depends on whether you plan to reuse and distribute the code or if it's only useful for a unique Strapi application.
+- **管理パネルプラグイン vs. アプリケーション固有のカスタマイズ**: 管理パネルにコンポーネントを注入するプラグインを作成できますが、`/src/admin/index.js` ファイルを作成して `bootstrap` ライフサイクル関数を呼び出すことでコンポーネントを注入することも可能です。この場合、プラグインを作成するかどうかは、そのコードを再利用して配布する予定があるか、または特定のStrapiアプリケーションにのみ役立つかによって決定されます。
 :::
 
 <br/>
 
-:::strapi What to read next?
-The next steps of your Strapi plugin development journey will require you to use any of the Strapi plugins APIs.
+:::strapi 次に読むべきものは？
+Strapiプラグイン開発の次のステップでは、StrapiのプラグインAPIのいずれかを使用する必要があります。
 
-2 different types of resources help you understand how to use the plugin APIs:
+プラグインAPIの使用方法を理解するための2つのリソースタイプがあります：
 
-- The reference documentation for the [Admin Panel API](/dev-docs/plugins/admin-panel-api) and [Server API](/dev-docs/plugins/server-api) give an overview of what is possible to do with a Strapi plugin.
-- [Guides](/dev-docs/plugins/developing-plugins#guides) cover some specific, use-case based examples.
+- [管理パネルAPI](/dev-docs/plugins/admin-panel-api)および[サーバーAPI](/dev-docs/plugins/server-api)のリファレンスドキュメントでは、Strapiプラグインでできることの概要を説明しています。
+- [ガイド](/dev-docs/plugins/developing-plugins#guides)では、特定のユースケースに基づく例をいくつか紹介しています。
 :::
