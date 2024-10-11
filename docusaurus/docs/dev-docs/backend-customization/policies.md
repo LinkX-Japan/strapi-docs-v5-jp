@@ -1,45 +1,45 @@
 ---
-title: Policies
-description: Strapi policies are functions that execute specific logic on each request before it reaches the controller. Policies can be customized according to your needs.
+title: ポリシー
+description: Strapiのポリシーは、コントローラーに到達する前に各リクエストで特定のロジックを実行する機能です。ポリシーはあなたのニーズに合わせてカスタマイズすることができます。
 displayed_sidebar: devDocsSidebar
 tags:
-- backend customization
-- backend server
-- controllers
-- global policies
-- plugin policies
-- middlewares
-- policies
+- バックエンドのカスタマイズ
+- バックエンドサーバー
+- コントローラー
+- グローバルポリシー
+- プラグインポリシー
+- ミドルウェア
+- ポリシー
 - REST API 
-- routes
+- ルート
 ---
 
-# Policies
+# ポリシー
 
-Policies are functions that execute specific logic on each request before it reaches the [controller](/dev-docs/backend-customization/controllers). They are mostly used for securing business logic.
+ポリシーは、[コントローラー](/dev-docs/backend-customization/controllers)に到達する前に各リクエストで特定のロジックを実行する機能です。主にビジネスロジックのセキュリティを確保するために使用されます。
 
-Each [route](/dev-docs/backend-customization/routes) of a Strapi project can be associated to an array of policies. For example, a policy named `is-admin` could check that the request is sent by an admin user, and restrict access to critical routes.
+Strapiプロジェクトの各[ルート](/dev-docs/backend-customization/routes)は、ポリシーの配列に関連付けることができます。例えば、`is-admin`という名前のポリシーは、リクエストが管理ユーザーから送信されたことを確認し、重要なルートへのアクセスを制限することができます。
 
-Policies can be global or scoped. [Global policies](#global-policies) can be associated to any route in the project. Scoped policies only apply to a specific [API](#api-policies) or [plugin](#plugin-policies).
+ポリシーはグローバルまたはスコープ指定のどちらかになります。[グローバルポリシー](#global-policies)はプロジェクト内の任意のルートに関連付けることができます。スコープ指定のポリシーは特定の[API](#api-policies)や[プラグイン](#plugin-policies)にのみ適用されます。
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-routes.png" alt="Simplified Strapi backend diagram with routes and policies highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with policies and routes highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-routes.png" alt="ルートとポリシーが強調表示されたStrapiバックエンドの簡略化されたダイアグラム" />
+  <em><figcaption style={{fontSize: '12px'}}>この図は、ポリシーとルートが強調表示されたStrapiバックエンドをどのようにリクエストが通過するかの簡略化されたバージョンを示しています。バックエンドカスタマイズの紹介ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブなダイアグラム</a>が含まれています。</figcaption></em>
 </figure>
 
-## Implementation
+## 実装
 
-A new policy can be implemented:
+新しいポリシーは以下の方法で実装できます：
 
-- with the [interactive CLI command `strapi generate`](/dev-docs/cli#strapi-generate) 
-- or manually by creating a JavaScript file in the appropriate folder (see [project structure](/dev-docs/project-structure)):
-  - `./src/policies/` for global policies
-  - `./src/api/[api-name]/policies/` for API policies
-  - `./src/plugins/[plugin-name]/policies/` for plugin policies
+- [対話型CLIコマンド `strapi generate`](/dev-docs/cli#strapi-generate) を使う
+- または、適切なフォルダにJavaScriptファイルを手動で作成する（[プロジェクト構造](/dev-docs/project-structure)を参照）：
+  - `./src/policies/` はグローバルポリシー用
+  - `./src/api/[api-name]/policies/` はAPIポリシー用
+  - `./src/plugins/[plugin-name]/policies/` はプラグインポリシー用
 
 <br/>
 
-Global policy implementation example:
+グローバルポリシーの実装例：
 
 <Tabs groupId="js-ts">
 
@@ -76,11 +76,11 @@ export default (policyContext, config, { strapi }) => {
 </TabItem>
 </Tabs>
 
-`policyContext` is a wrapper around the [controller](/dev-docs/backend-customization/controllers) context. It adds some logic that can be useful to implement a policy for both REST and GraphQL.
+`policyContext`は、[コントローラー](/dev-docs/backend-customization/controllers)のコンテキストをラップするものです。これにより、RESTとGraphQLの両方にポリシーを実装するためのロジックが追加されます。
 
 <br/>
 
-Policies can be configured using a `config` object:
+ポリシーは`config`オブジェクトを使用して設定することができます：
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -88,11 +88,11 @@ Policies can be configured using a `config` object:
 ```js title=".src/api/[api-name]/policies/my-policy.js"
 
 module.exports = (policyContext, config, { strapi }) => {
-    if (policyContext.state.user.role.code === config.role) { // if user's role is the same as the one described in configuration
+    if (policyContext.state.user.role.code === config.role) { // ユーザーの役割が設定で説明されているものと同じである場合
       return true;
     }
 
-    return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
+    return false; // 何も返さない場合、Strapiはリクエストをブロックしたくないと考え、通過させます
 };
 ```
 
@@ -103,34 +103,34 @@ module.exports = (policyContext, config, { strapi }) => {
 ```ts title="./src/api/[api-name]/policies/my-policy.ts"
 
 export default (policyContext, config, { strapi }) => {
-    if (policyContext.state.user.role.code === config.role) { // if user's role is the same as the one described in configuration
+    if (policyContext.state.user.role.code === config.role) { // ユーザーの役割が設定で説明されているものと同じである場合
       return true;
     }
 
-    return false; // If you return nothing, Strapi considers you didn't want to block the request and will let it pass
+    return false; // 何も返さない場合、Strapiはリクエストをブロックしたくないと考え、通過させます
   };
 ```
 
 </TabItem>
 </Tabs>
 
-## Usage
+## 使用方法
 
-To apply policies to a route, add them to its configuration object (see [routes documentation](/dev-docs/backend-customization/routes#policies)).
+ポリシーをルートに適用するには、それらをその設定オブジェクトに追加します（[ルートのドキュメンテーション](/dev-docs/backend-customization/routes#policies)を参照）。
 
-Policies are called different ways depending on their scope:
+ポリシーは、その範囲によって異なる方法で呼び出されます：
 
-- use `global::policy-name` for [global policies](#global-policies)
-- use `api::api-name.policy-name` for [API policies](#api-policies)
-- use `plugin::plugin-name.policy-name` for [plugin policies](#plugin-policies)
+- [グローバルポリシー](#global-policies)の場合は `global::policy-name` を使用します
+- [APIポリシー](#api-policies)の場合は `api::api-name.policy-name` を使用します
+- [プラグインポリシー](#plugin-policies)の場合は `plugin::plugin-name.policy-name` を使用します
 
 :::tip
-To list all the available policies, run `yarn strapi policies:list`.
+利用可能なすべてのポリシーをリストアップするには、`yarn strapi policies:list`を実行します。
 :::
 
-### Global policies
+### グローバルポリシー
 
-Global policies can be associated to any route in a project.
+グローバルポリシーは、プロジェクト内の任意のルートに関連付けることができます。
 
 <Tabs groupId="js-ts">
 
@@ -146,9 +146,9 @@ module.exports = {
       handler: 'Restaurant.find',
       config: {
         /**
-          Before executing the find action in the Restaurant.js controller,
-          we call the global 'is-authenticated' policy,
-          found at ./src/policies/is-authenticated.js.
+          Restaurant.jsコントローラー内のfindアクションを実行する前に、
+          グローバルの'is-authenticated'ポリシーを呼び出します。
+          これは./src/policies/is-authenticated.jsで見つけることができます。
          */
         policies: ['global::is-authenticated']
       }
@@ -171,9 +171,9 @@ export default {
       handler: 'Restaurant.find',
       config: {
         /**
-          Before executing the find action in the Restaurant.js controller,
-          we call the global 'is-authenticated' policy,
-          found at ./src/policies/is-authenticated.js.
+          Restaurant.jsコントローラー内のfindアクションを実行する前に、
+          グローバルの'is-authenticated'ポリシーを呼び出します。
+          これは./src/policies/is-authenticated.jsで見つけることができます。
          */
         policies: ['global::is-authenticated']
       }
@@ -185,9 +185,9 @@ export default {
 </TabItem>
 </Tabs>
 
-### Plugin policies
+### プラグインポリシー
 
-[Plugins](/dev-docs/plugins) can add and expose policies to an application. For example, the [Users & Permissions plugin](/user-docs/users-roles-permissions) comes with policies to ensure that the user is authenticated or has the rights to perform an action:
+[プラグイン](/dev-docs/plugins)は、アプリケーションにポリシーを追加し、公開することができます。例えば、[ユーザー＆パーミッションプラグイン](/user-docs/users-roles-permissions)は、ユーザーが認証されているか、またはアクションを実行する権限があるかどうかを確認するポリシーを提供します：
 
 <Tabs groupId="js-ts">
 
@@ -203,8 +203,8 @@ module.exports = {
       handler: 'Restaurant.find',
       config: {
         /**
-          The `isAuthenticated` policy prodived with the `users-permissions` plugin 
-          is executed before the `find` action in the `Restaurant.js` controller.
+          `users-permissions`プラグインで提供される`isAuthenticated`ポリシーは、
+          `Restaurant.js`コントローラーの`find`アクションの前に実行されます。
         */
         policies: ['plugin::users-permissions.isAuthenticated']
       }
@@ -227,8 +227,8 @@ export default {
       handler: 'Restaurant.find',
       config: {
         /**
-          The `isAuthenticated` policy prodived with the `users-permissions` plugin 
-          is executed before the `find` action in the `Restaurant.js` controller.
+          `users-permissions`プラグインで提供される`isAuthenticated`ポリシーは、
+          `Restaurant.js`コントローラーの`find`アクションの前に実行されます。
         */
         policies: ['plugin::users-permissions.isAuthenticated']
       }
@@ -240,9 +240,9 @@ export default {
 </TabItem>
 </Tabs>
 
-### API policies
+### APIポリシー
 
-API policies are associated to the routes defined in the API where they have been declared.
+APIポリシーは、それらが宣言されたAPIで定義されたルートに関連付けられています。
 
 <Tabs groupId="js-ts">
 
@@ -252,7 +252,7 @@ API policies are associated to the routes defined in the API where they have bee
 
 module.exports = async (policyContext, config, { strapi }) => {
   if (policyContext.state.user.role.name === 'Administrator') {
-    // Go to next policy or will reach the controller's action.
+    // 次のポリシーに進むか、コントローラーのアクションに到達します。
     return true;
   }
 
@@ -270,8 +270,8 @@ module.exports = {
       handler: 'Restaurant.find',
       config: {
         /**
-          The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.js`
-          is executed before the `find` action in the `Restaurant.js` controller.
+          `./src/api/restaurant/policies/is-admin.js`で見つかった`is-admin`ポリシーは、
+          `Restaurant.js`コントローラーの`find`アクションの前に実行されます。
          */
         policies: ['is-admin']
       }
@@ -290,7 +290,7 @@ module.exports = {
 
 export default (policyContext, config, { strapi }) => {
   if (policyContext.state.user.role.name === 'Administrator') {
-    // Go to next policy or will reach the controller's action.
+    // 次のポリシーに進むか、コントローラーのアクションに到達します。
     return true;
   }
 
@@ -309,8 +309,8 @@ export default {
       handler: 'Restaurant.find',
       config: {
         /**
-          The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.js`
-          is executed before the `find` action in the `Restaurant.ts` controller.
+          `./src/api/restaurant/policies/is-admin.js`に見つけられる`is-admin`ポリシーは、
+          `Restaurant.ts`コントローラーの`find`アクションの前に実行されます。
          */
         policies: ['is-admin']
       }
@@ -323,7 +323,7 @@ export default {
 </TabItem>
 </Tabs>
 
-To use a policy in another API, reference it with the following syntax: `api::[apiName].[policyName]`:
+別のAPIでポリシーを使用するには、次の構文で参照します：`api::[apiName].[policyName]`：
 
 <Tabs groupId="js-ts">
 
@@ -339,8 +339,8 @@ module.exports = {
       handler: 'Category.find',
       config: {
         /**
-          The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.js`
-          is executed before the `find` action in the `Restaurant.js` controller.
+          `./src/api/restaurant/policies/is-admin.js`に見つけられる`is-admin`ポリシーは、
+          `Restaurant.js`コントローラーの`find`アクションの前に実行されます。
         */
         policies: ['api::restaurant.is-admin']
       }
@@ -363,8 +363,8 @@ export default {
       handler: 'Category.find',
       config: {
         /**
-          The `is-admin` policy found at `./src/api/restaurant/policies/is-admin.ts`
-          is executed before the `find` action in the `Restaurant.js` controller.
+          `./src/api/restaurant/policies/is-admin.ts`に見つけられる`is-admin`ポリシーは、
+          `Restaurant.js`コントローラーの`find`アクションの前に実行されます。
         */
         policies: ['api::restaurant.is-admin']
       }

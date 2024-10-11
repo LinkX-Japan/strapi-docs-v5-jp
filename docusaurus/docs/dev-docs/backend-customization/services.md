@@ -1,39 +1,39 @@
 ---
-title: Services
-description: Strapi services are a set of reusable functions, useful to simplify controllers logic.
+title: サービス
+description: Strapiのサービスは、再利用可能な関数のセットで、コントローラのロジックを簡略化するのに便利です。
 displayed_sidebar: devDocsSidebar
 tags:
-- backend customization
-- backend server
-- controllers
+- バックエンドのカスタマイズ
+- バックエンドサーバー
+- コントローラ
 - createCoreService 
-- services
+- サービス
 - REST API 
 ---
 
-# Services
+# サービス
 
-Services are a set of reusable functions. They are particularly useful to respect the "don’t repeat yourself" (DRY) programming concept and to simplify [controllers](/dev-docs/backend-customization/controllers.md) logic.
+サービスは再利用可能な関数のセットです。これらは特に "don’t repeat yourself" (DRY) プログラミングコンセプトを尊重し、[コントローラ](/dev-docs/backend-customization/controllers.md)のロジックを簡略化するのに役立ちます。
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-controllers-services.png" alt="Simplified Strapi backend diagram with services highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with services highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-controllers-services.png" alt="サービスが強調表示されたStrapiバックエンドの簡略化されたダイアグラム" />
+  <em><figcaption style={{fontSize: '12px'}}>このダイアグラムは、リクエストがStrapiバックエンドを通過する簡略化されたバージョンを表しており、サービスが強調表示されています。バックエンドカスタマイズの導入ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブなダイアグラム</a>が含まれています。</figcaption></em>
 </figure>
 
-## Implementation
+## 実装
 
-Services can be [generated or added manually](#adding-a-new-service). Strapi provides a `createCoreService` factory function that automatically generates core services and allows building custom ones or [extend or replace the generated services](#extending-core-services).
+サービスは[生成または手動で追加](#adding-a-new-service)することができます。Strapiは、コアサービスを自動的に生成し、カスタムのものを構築したり、[生成されたサービスを拡張または置き換える](#extending-core-services)ことを可能にする`createCoreService`ファクトリ関数を提供します。
 
-### Adding a new service
+### 新しいサービスの追加
 
-A new service can be implemented:
+新しいサービスは次の方法で実装できます:
 
-- with the [interactive CLI command `strapi generate`](/dev-docs/cli#strapi-generate)
-- or manually by creating a JavaScript file in the appropriate folder (see [project structure](/dev-docs/project-structure.md)):
-  - `./src/api/[api-name]/services/` for API services
-  - or `./src/plugins/[plugin-name]/services/` for [plugin services](/dev-docs/plugins/server-api#services).
+- [インタラクティブなCLIコマンド `strapi generate`](/dev-docs/cli#strapi-generate)を使用する
+- または適切なフォルダにJavaScriptファイルを手動で作成する([プロジェクト構造](/dev-docs/project-structure.md)を参照):
+  - APIサービスの場合は `./src/api/[api-name]/services/`
+  - [プラグインサービス](/dev-docs/plugins/server-api#services)の場合は `./src/plugins/[plugin-name]/services/`。
 
-To manually create a service, export a factory function that returns the service implementation (i.e. an object with methods). This factory function receives the `strapi` instance:
+サービスを手動で作成するには、サービス実装（つまり、メソッドを持つオブジェクト）を返すファクトリ関数をエクスポートします。このファクトリ関数は `strapi` インスタンスを受け取ります:
 
 <Tabs groupId="js-ts">
 
@@ -68,7 +68,7 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
     return { results, pagination };
   },
 
-  // Method 3: Replacing a core service
+// Method 3: コアサービスの置換
   async findOne(documentId, params = {}) {
     return strapi.documents('api::restaurant.restaurant').findOne(documentId, this.getFetchParams(params));
   }
@@ -84,7 +84,7 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
 import { factories } from '@strapi/strapi'; 
 
 export default factories.createCoreService('api::restaurant.restaurant', ({ strapi }) =>  ({
-  // Method 1: Creating an entirely custom service
+  // Method 1: 完全にカスタムサービスを作成
   async exampleService(...args) {
     let response = { okay: true }
 
@@ -95,12 +95,12 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
     return response
   },
 
-  // Method 2: Wrapping a core service (leaves core logic in place)
+  // Method 2: コアサービスをラップ（コアロジックをそのままにする）
   async find(...args) {  
-    // Calling the default core controller
+    // デフォルトのコアコントローラーを呼び出す
     const { results, pagination } = await super.find(...args);
 
-    // some custom logic
+    // 一部のカスタムロジック
     results.forEach(result => {
       result.counter = 1;
     });
@@ -108,7 +108,7 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
     return { results, pagination };
   },
 
-  // Method 3: Replacing a core service
+  // Method 3: コアサービスの置換
   async findOne(documentId, params = {}) {
      return strapi.documents('api::restaurant.restaurant').findOne(documentId, this.getFetchParams(params));
   }
@@ -118,15 +118,15 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
 </TabItem>
 </Tabs>
 
-:::strapi Document Service API
-To get started creating your own services, see Strapi's built-in functions in the [Document Service API](/dev-docs/api/document-service) documentation.
+:::strapi ドキュメントサービスAPI
+独自のサービスを作成するためのスタートポイントとして、[ドキュメントサービスAPI](/dev-docs/api/document-service)のドキュメンテーションにあるStrapiの組み込み関数を参照してください。
 :::
 
 <details>
 
-<summary>Example of a custom email service (using Nodemailer)</summary>
+<summary>カスタムメールサービスの例（Nodemailerを使用）</summary>
 
-The goal of a service is to store reusable functions. A `sendNewsletter` service could be useful to send emails from different functions in our codebase that have a specific purpose:
+サービスの目的は、再利用可能な関数を保存することです。特定の目的を持つコードベースのさまざまな関数からメールを送信するための`sendNewsletter`サービスは有用でしょう。
 
 <Tabs groupId="js-ts">
 
@@ -136,9 +136,9 @@ The goal of a service is to store reusable functions. A `sendNewsletter` service
 
 
 const { createCoreService } = require('@strapi/strapi').factories;
-const nodemailer = require('nodemailer'); // Requires nodemailer to be installed (npm install nodemailer)
+const nodemailer = require('nodemailer'); // Nodemailerのインストールが必要（npm install nodemailer）
 
-// Create reusable transporter object using SMTP transport.
+// SMTPトランスポートを使用して再利用可能なトランスポーターオブジェクトを作成します。
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -149,7 +149,7 @@ const transporter = nodemailer.createTransport({
 
 module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) => ({
   sendNewsletter(from, to, subject, text) {
-    // Setup e-mail data.
+    // Eメールデータの設定
     const options = {
       from,
       to,
@@ -157,7 +157,7 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
       text,
     };
 
-    // Return a promise of the function that sends the email.
+    // メールを送信する関数のプロミスを返す。
     return transporter.sendMail(options);
   },
 }));
@@ -171,9 +171,9 @@ module.exports = createCoreService('api::restaurant.restaurant', ({ strapi }) =>
 
 
 import { factories } from '@strapi/strapi'; 
-const nodemailer = require('nodemailer'); // Requires nodemailer to be installed (npm install nodemailer)
+const nodemailer = require('nodemailer'); // Nodemailerのインストールが必要（npm install nodemailer)
 
-// Create reusable transporter object using SMTP transport.
+// SMTPトランスポートを使用して再利用可能なトランスポーターオブジェクトを作成します。
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -184,7 +184,7 @@ const transporter = nodemailer.createTransport({
 
 export default factories.createCoreService('api::restaurant.restaurant', ({ strapi }) => ({
   sendNewsletter(from, to, subject, text) {
-    // Setup e-mail data. 
+    // Eメールデータの設定。
     const options = {
       from,
       to,
@@ -192,7 +192,7 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
       text,
     };
 
-    // Return a promise of the function that sends the email.
+    // メールを送信する関数のプロミスを返します。
     return transporter.sendMail(options);
   },
 }));
@@ -202,7 +202,7 @@ export default factories.createCoreService('api::restaurant.restaurant', ({ stra
 
 </Tabs>
 
-The service is now available through the `strapi.service('api::restaurant.restaurant').sendNewsletter(...args)` global variable. It can be used in another part of the codebase, like in the following controller:
+サービスは、`strapi.service('api::restaurant.restaurant').sendNewsletter(...args)`グローバル変数を通じて利用可能になりました。以下のコントローラーのように、コードベースの別の部分で使用できます。
 
 <Tabs groupId="js-ts">
 
@@ -215,13 +215,13 @@ module.exports = createCoreController('api::restaurant.restaurant', ({ strapi })
   async signup(ctx) {
     const { userData } = ctx.body;
 
-    // Store the new user in database.
+    // 新規ユーザーをデータベースに保存します。
     const user = await strapi.service('plugin::users-permissions.user').add(userData);
 
-    // Send an email to validate his subscriptions.
+    // サブスクリプションを確認するためのメールを送信します。
     strapi.service('api::restaurant.restaurant').sendNewsletter('welcome@mysite.com', user.email, 'Welcome', '...');
 
-    // Send response to the server.
+    // サーバーにレスポンスを送信します。
     ctx.send({
       ok: true,
     });
@@ -240,13 +240,13 @@ export default factories.createCoreController('api::restaurant.restaurant', ({ s
   async signup(ctx) {
     const { userData } = ctx.body;
 
-    // Store the new user in database.
+    // 新規ユーザーをデータベースに保存します。
     const user = await strapi.service('plugin::users-permissions.user').add(userData);
 
-    // Send an email to validate his subscriptions.
+    // サブスクリプションを確認するためのメールを送信します。
     strapi.service('api::restaurant.restaurant').sendNewsletter('welcome@mysite.com', user.email, 'Welcome', '...');
 
-    // Send response to the server.
+    // サーバーにレスポンスを送信します。
     ctx.send({
       ok: true,
     });
@@ -261,19 +261,19 @@ export default factories.createCoreController('api::restaurant.restaurant', ({ s
 </details>
 
 :::note
-When a new [content-type](/dev-docs/backend-customization/models.md#content-types) is created, Strapi builds a generic service with placeholder code, ready to be customized.
+新しい[コンテンツタイプ](/dev-docs/backend-customization/models.md#content-types)が作成されると、Strapiはプレースホルダーコード付きの一般的なサービスを作成し、カスタマイズする準備ができています。
 :::
 
-### Extending core services
+### コアサービスの拡張
 
-Core services are created for each content-type and could be used by [controllers](/dev-docs/backend-customization/controllers.md) to execute reusable logic through a Strapi project. Core services can be customized to implement your own logic. The following code examples should help you get started.
+コアサービスは各コンテンツタイプごとに作成され、[コントローラー](/dev-docs/backend-customization/controllers.md)によってStrapiプロジェクト全体で再利用可能なロジックを実行するために使用できます。コアサービスは、独自のロジックを実装するためにカスタマイズできます。以下のコード例は、始めるのに役立つはずです。
 
 :::tip
-A core service can be replaced entirely by [creating a custom service](#adding-a-new-service) and naming it the same as the core service (e.g. `find`, `findOne`, `create`, `update`, or `delete`).
+コアサービスは、[新しいサービスを作成](#adding-a-new-service)し、それをコアサービスと同じ名前（例えば、`find`、`findOne`、`create`、`update`、または`delete`）に命名することで、完全に置き換えることができます。
 :::
 
 <details>
-<summary>Collection type examples</summary>
+<summary>コレクションタイプの例</summary>
 
 <Tabs groupdId="crud-methods">
 
@@ -281,9 +281,9 @@ A core service can be replaced entirely by [creating a custom service](#adding-a
 
 ```js
 async find(params) {
-  // some logic here
+  // ここにロジックを書く
   const { results, pagination } = await super.find(params);
-  // some more logic
+  // さらにロジックを書く
 
   return { results, pagination };
 }
@@ -295,9 +295,9 @@ async find(params) {
 
 ```js
 async findOne(documentId, params) {
-  // some logic here
+  // ここにロジックを書く
   const result = await super.findOne(documentId, params);
-  // some more logic
+  // さらにロジックを書く
 
   return result;
 }
@@ -309,9 +309,9 @@ async findOne(documentId, params) {
 
 ```js
 async create(params) {
-  // some logic here
+  // ここにロジックを書く
   const result = await super.create(params);
-  // some more logic
+  // さらにロジックを書く
 
   return result;
 }
@@ -323,9 +323,9 @@ async create(params) {
 
 ```js
 async update(documentId, params) {
-  // some logic here
+  // ここにロジックを書く
   const result = await super.update(documentId, params);
-  // some more logic
+  // さらにロジックを書く
 
   return result;
 }
@@ -337,9 +337,9 @@ async update(documentId, params) {
 
 ```js
 async delete(documentId, params) {
-  // some logic here
+  // ここにロジックを書く
   const result = await super.delete(documentId, params);
-  // some more logic
+  // さらにロジックを書く
 
   return result;
 }
@@ -352,7 +352,7 @@ async delete(documentId, params) {
 
 <details>
 
-<summary>Single type examples</summary>
+<summary>単一タイプの例</summary>
 
 <Tabs groupdId="crud-methods">
 
@@ -360,9 +360,9 @@ async delete(documentId, params) {
 
 ```js
 async find(params) {
-  // some logic here
+  // ここにロジックを書く
   const document = await super.find(params);
-  // some more logic
+  // さらにロジックを書く
 
   return document;
 }
@@ -374,9 +374,9 @@ async find(params) {
 
 ```js
 async createOrUpdate({ data, ...params }) {
-  // some logic here
+  // ここにロジックを書く
   const document = await super.createOrUpdate({ data, ...params });
-  // some more logic
+  // さらにロジックを書く
 
   return document;
 }
@@ -388,9 +388,9 @@ async createOrUpdate({ data, ...params }) {
 
 ```js
 async delete(params) {
-  // some logic here
+  // ここにロジックを書く
   const document = await super.delete(params);
-  // some more logic
+  // さらにロジックを書く
 
   return document;
 }
@@ -401,19 +401,19 @@ async delete(params) {
 
 </details>
 
-## Usage
+## 使用法
 
-Once a service is created, it's accessible from [controllers](/dev-docs/backend-customization/controllers.md) or from other services:
+サービスが作成されると、[コントローラー](/dev-docs/backend-customization/controllers.md)や他のサービスからアクセスできます。
 
 ```js
-// access an API service
+// APIサービスにアクセス
 strapi.service('api::apiName.serviceName').FunctionName();
-// access a plugin service
+// プラグインサービスにアクセス
 strapi.service('plugin::pluginName.serviceName').FunctionName();
 ```
 
-In the syntax examples above, `serviceName` is the name of the service file for API services or the name used to export the service file to `services/index.js` for plugin services.
+上記の構文例では、`serviceName`はAPIサービスのサービスファイル名、またはプラグインサービスの`services/index.js`にサービスファイルをエクスポートするために使用される名前です。
 
 :::tip
-To list all the available services, run `yarn strapi services:list`.
+利用可能なすべてのサービスをリストするには、`yarn strapi services:list`を実行します。
 :::

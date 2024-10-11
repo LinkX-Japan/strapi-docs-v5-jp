@@ -1,41 +1,41 @@
 ---
-title: Middlewares
+title: ミドルウェア
 tags:
-- backend customization
-- backend server
-- controllers
+- バックエンドのカスタマイズ
+- バックエンドサーバー
+- コントローラー
 - ctx
-- global middlewares
-- is-owner policy
-- middlewares
-- middlewares customization
+- グローバルミドルウェア
+- is-ownerポリシー
+- ミドルウェア
+- ミドルウェアのカスタマイズ
 - REST API 
-- route middlewares
-- routes
+- ルートミドルウェア
+- ルート
 ---
 
 import MiddlewareTypes from '/docs/snippets/middleware-types.md'
 
-# Middlewares customization
+# ミドルウェアのカスタマイズ
 
 <MiddlewareTypes />
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-global-middlewares.png" alt="Simplified Strapi backend diagram with global middlewares highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with global middlewares highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-global-middlewares.png" alt="グローバルミドルウェアを強調したシンプル化されたStrapiバックエンドの図" />
+  <em><figcaption style={{fontSize: '12px'}}>この図は、グローバルミドルウェアを強調したStrapiバックエンドを通るリクエストのシンプル化されたバージョンを示しています。バックエンドカスタマイズの紹介ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブな図</a>が含まれています。</figcaption></em>
 </figure>
 
-## Implementation
+## 実装
 
-A new application-level or API-level middleware can be implemented:
+新しいアプリケーションレベルまたはAPIレベルのミドルウェアは以下の方法で実装できます：
 
-- with the [interactive CLI command `strapi generate`](/dev-docs/cli#strapi-generate)
-- or manually by creating a JavaScript file in the appropriate folder (see [project structure](/dev-docs/project-structure)):
-  - `./src/middlewares/` for application-level middlewares
-  - `./src/api/[api-name]/middlewares/` for API-level middlewares
-  - `./src/plugins/[plugin-name]/middlewares/` for [plugin middlewares](/dev-docs/plugins/server-api#middlewares)
+- [インタラクティブCLIコマンド `strapi generate`](/dev-docs/cli#strapi-generate)を使用して
+- または適切なフォルダにJavaScriptファイルを手動で作成して（[プロジェクト構造](/dev-docs/project-structure)を参照）：
+  - アプリケーションレベルのミドルウェアの場合は`./src/middlewares/`
+  - APIレベルのミドルウェアの場合は`./src/api/[api-name]/middlewares/`
+  - [プラグインミドルウェア](/dev-docs/plugins/server-api#middlewares)の場合は`./src/plugins/[plugin-name]/middlewares/`
 
-Middlewares working with the REST API are functions like the following:
+REST APIと連携するミドルウェアは次のような関数です：
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -61,9 +61,9 @@ export default (config, { strapi })=> {
 </TabItem>
 </Tabs>
 
-Globally scoped custom middlewares should be added to the [middlewares configuration file](/dev-docs/configurations/middlewares#loading-order) or Strapi won't load them.
+グローバルにスコープされたカスタムミドルウェアは、Strapiがそれらをロードしないように[ミドルウェア設定ファイル](/dev-docs/configurations/middlewares#loading-order)に追加する必要があります。
 
-API level and plugin middlewares can be added into the specific router that they are relevant to like the following:
+APIレベルとプラグインミドルウェアは、それらが関連する特定のルーターに次のように追加できます：
 
 ```js title="./src/api/[api-name]/routes/[collection-name].js or ./src/plugins/[plugin-name]/server/routes/index.js"
 module.exports = {
@@ -74,7 +74,7 @@ module.exports = {
       handler: "[controller].find",
       config: {
         middlewares: ["[middleware-name]"],
-        // See the usage section below for middleware naming conventions
+        // ミドルウェアの命名規則については下記の使用方法セクションを参照
       },
     },
   ],
@@ -82,7 +82,7 @@ module.exports = {
 ```
 
 <details>
-<summary>Example of a custom timer middleware</summary>
+<summary>カスタムタイマーミドルウェアの例</summary>
 
 <Tabs groupId="js-ts">
 <TabItem value="js" label="JavaScript">
@@ -94,7 +94,8 @@ module.exports = () => {
 
     await next();
 
-    const delta = Math.ceil(Date.now() - start);
+```js
+const delta = Math.ceil(Date.now() - start);
     ctx.set('X-Response-Time', delta + 'ms');
   };
 };
@@ -123,32 +124,32 @@ export default () => {
 
 </details>
 
-The GraphQL plugin also allows [implementing custom middlewares](/dev-docs/plugins/graphql#middlewares), with a different syntax.
+GraphQLプラグインは、異なる構文で[カスタムミドルウェアの実装](/dev-docs/plugins/graphql#middlewares)も可能です。
 
-## Usage
+## 使用法
 
-Middlewares are called different ways depending on their scope:
+ミドルウェアは、その範囲に応じて異なる方法で呼び出されます：
 
-- use `global::middleware-name` for application-level middlewares
-- use `api::api-name.middleware-name` for API-level middlewares
-- use `plugin::plugin-name.middleware-name` for plugin middlewares
+- アプリケーションレベルのミドルウェアには `global::middleware-name` を使います
+- APIレベルのミドルウェアには `api::api-name.middleware-name` を使います
+- プラグインミドルウェアには `plugin::plugin-name.middleware-name` を使います
 
 :::tip
-To list all the registered middlewares, run `yarn strapi middlewares:list`.
+すべての登録済みミドルウェアをリストするには、 `yarn strapi middlewares:list` を実行します。
 :::
 
-### Restricting content access with an "is-owner policy"
+### "is-owner policy" でコンテンツのアクセスを制限する
 
-It is often required that the author of an entry is the only user allowed to edit or delete the entry. In previous versions of Strapi, this was known as an "is-owner policy". With Strapi v4, the recommended way to achieve this behavior is to use a middleware.
+エントリーの作成者がそのエントリーを編集または削除できる唯一のユーザーであることが必要な場合がよくあります。Strapiの以前のバージョンでは、これは "is-owner policy" として知られていました。Strapi v4では、この挙動を達成するための推奨方法はミドルウェアを使用することです。
 
-Proper implementation largely depends on your project's needs and custom code, but the most basic implementation could be achieved with the following procedure: 
+適切な実装は、プロジェクトのニーズとカスタムコードに大きく依存しますが、最も基本的な実装は以下の手順で達成できるでしょう：
 
-1. From your project's folder, create a middleware with the Strapi CLI generator, by running the `yarn strapi generate` (or `npm run strapi generate`) command in the terminal.
-2. Select `middleware` from the list, using keyboard arrows, and press Enter.
-3. Give the middleware a name, for instance `isOwner`.
-4. Choose `Add middleware to an existing API` from the list.
-5. Select which API you want the middleware to apply.
-6. Replace the code in the `/src/api/[your-api-name]/middlewares/isOwner.js` file with the following, replacing `api::restaurant.restaurant` in line 22 with the identifier corresponding to the API you choose at step 5 (e.g., `api::blog-post.blog-post` if your API name is `blog-post`):
+1. プロジェクトのフォルダから、Strapi CLIジェネレータを使用してミドルウェアを作成します。ターミナルで `yarn strapi generate`（または `npm run strapi generate`）コマンドを実行します。
+2. キーボードの矢印を使用してリストから `middleware` を選択し、Enterキーを押します。
+3. ミドルウェアに名前を付けます。例えば `isOwner` とします。
+4. リストから `Add middleware to an existing API` を選択します。
+5. ミドルウェアを適用するAPIを選択します。
+6. `/src/api/[your-api-name]/middlewares/isOwner.js` ファイルのコードを以下のものに置き換えます。22行目の `api::restaurant.restaurant` を、ステップ5で選択したAPIに対応する識別子（API名が `blog-post` の場合は `api::blog-post.blog-post` など）に置き換えます：
 
   ```js showLineNumbers title="src/api/blog-post/middlewares/isOwner.js"
     "use strict";
@@ -176,13 +177,13 @@ Proper implementation largely depends on your project's needs and custom code, b
           );
         }
 
-        /**
-         * Compares user id and entry author id
-         * to decide whether the request can be fulfilled
-         * by going forward in the Strapi backend server
+/**
+         * ユーザーIDとエントリーの作成者IDを比較し
+         * リクエストがStrapiバックエンドサーバーで
+         * 処理可能かどうかを判断します
          */
         if (user.id !== entry.author.id) {
-          return ctx.unauthorized("This action is unauthorized.");
+          return ctx.unauthorized("この操作は許可されていません。");
         } else {
           return next();
         }
@@ -190,12 +191,12 @@ Proper implementation largely depends on your project's needs and custom code, b
     };
   ```
 
-7. Ensure the middleware is configured to apply on some routes. In the `config` object found in the `src/api/[your-api–name]/routes/[your-content-type-name].js` file, define the methods (`create`, `read`, `update`, `delete`) for which you would like the middleware to apply, and declare the `isOwner` middleware for these routes.<br /><br />For instance, if you wish to allow GET (i.e., `read` method) and POST (i.e., `create` method) requests to any user for the `restaurant` content-type in the `restaurant` API, but would like to restrict PUT (i.e., `update` method) and DELETE requests only to the user who created the entry, you could use the following code in the `src/api/restaurant/routes/restaurant.js` file:
+7. ミドルウェアが一部のルートに適用されるように設定します。`src/api/[あなたのapi–名]/routes/[あなたのコンテンツタイプ名].js` ファイル内の `config` オブジェクトで、ミドルウェアを適用したいメソッド（`create`、`read`、`update`、`delete`）を定義し、これらのルートに対して `isOwner` ミドルウェアを宣言します。<br /><br />例えば、`restaurant` APIの `restaurant` コンテンツタイプに対してGET（つまり、`read` メソッド）とPOST（つまり、`create` メソッド）のリクエストを任意のユーザーに許可し、PUT（つまり、`update` メソッド）とDELETEのリクエストはエントリーを作成したユーザーのみに制限したい場合、`src/api/restaurant/routes/restaurant.js` ファイルで以下のコードを使用できます：
 
     ```js title="src/api/restaurant/routes/restaurant.js"
 
     /**
-     * restaurant router
+     * レストランルーター
      */
       
     const { createCoreRouter } = require("@strapi/strapi").factories;
@@ -213,5 +214,5 @@ Proper implementation largely depends on your project's needs and custom code, b
     ```
 
 :::info
-You can find more information about route middlewares in the [routes documentation](/dev-docs/backend-customization/routes).
+ルートミドルウェアについての詳細情報は[ルートドキュメンテーション](/dev-docs/backend-customization/routes)で見つけることができます。
 :::

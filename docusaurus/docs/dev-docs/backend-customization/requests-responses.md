@@ -1,65 +1,65 @@
 ---
-title: Requests and Responses 
-description: Learn more about requests and responses for Strapi, the most popular headless CMS.
+title: リクエストとレスポンス
+description: 最も人気のあるヘッドレスCMS、Strapiのリクエストとレスポンスについて詳しく学びましょう。
 tags:
-- backend customization
-- backend server
+- バックエンドのカスタマイズ
+- バックエンドサーバー
 - ctx
 - REST API 
 ---
 
-# Requests and Responses
+# リクエストとレスポンス
 
-The Strapi back end server is based on [Koa](https://koajs.com/). When you send requests through the [REST API](/dev-docs/api/rest), a context object (`ctx`) is passed to every element of the Strapi back end (e.g., [policies](/dev-docs/backend-customization/policies), [controllers](/dev-docs/backend-customization/controllers), [services](/dev-docs/backend-customization/services)).
+Strapiのバックエンドサーバーは[Koa](https://koajs.com/)に基づいています。[REST API](/dev-docs/api/rest)を通じてリクエストを送信すると、コンテキストオブジェクト(`ctx`)がStrapiのバックエンドの各要素（例：[ポリシー](/dev-docs/backend-customization/policies)、[コントローラー](/dev-docs/backend-customization/controllers)、[サービス](/dev-docs/backend-customization/services)）に渡されます。
 
-`ctx` includes 3 main objects:
+`ctx`には3つの主要なオブジェクトが含まれています：
 
-- [`ctx.request`](#ctxrequest) for information about the request sent by the client making an API request,
-- [`ctx.state`](#ctxstate) for information about the state of the request within the Strapi back end,
-- and [`ctx.response`](#ctxresponse) for information about the response that the server will return.
+- APIリクエストを行うクライアントによって送信されたリクエストに関する情報のための[`ctx.request`](#ctxrequest)、
+- Strapiのバックエンド内のリクエストの状態に関する情報のための[`ctx.state`](#ctxstate)、
+- サーバーが返すレスポンスに関する情報のための[`ctx.response`](#ctxresponse)。
 
 :::tip
-The request's context can also be accessed from anywhere in the code with the [`strapi.requestContext` function](#accessing-the-request-context-anywhere).
+リクエストのコンテキストは、コードのどこからでも[`strapi.requestContext`関数](#accessing-the-request-context-anywhere)を使ってアクセスすることができます。
 :::
 
 :::info
-In addition to the concepts and parameters described in the following documentation, you might find additional information in the [Koa request documentation](http://koajs.com/#request), [Koa Router documentation](https://github.com/koajs/router/blob/master/API.md) and [Koa response documentation](http://koajs.com/#response).
+以下のドキュメンテーションで説明されている概念とパラメーターに加えて、[Koaリクエストドキュメンテーション](http://koajs.com/#request)、[Koaルータードキュメンテーション](https://github.com/koajs/router/blob/master/API.md)、[Koaレスポンスドキュメンテーション](http://koajs.com/#response)で追加の情報を見つけることができるかもしれません。
 :::
 
 <figure style={{width: '100%', margin: '0'}}>
-  <img src="/img/assets/backend-customization/diagram-requests-responses.png" alt="Simplified Strapi backend diagram with requests and responses highlighted" />
-  <em><figcaption style={{fontSize: '12px'}}>The diagram represents a simplified version of how a request travels through the Strapi back end, with requests and responses highlighted. The backend customization introduction page includes a complete, <a href="/dev-docs/backend-customization#interactive-diagram">interactive diagram</a>.</figcaption></em>
+  <img src="/img/assets/backend-customization/diagram-requests-responses.png" alt="リクエストとレスポンスが強調表示されたシンプルなStrapiバックエンドダイアグラム" />
+  <em><figcaption style={{fontSize: '12px'}}>この図は、リクエストとレスポンスが強調表示されたStrapiバックエンドを通るリクエストのシンプルなバージョンを表しています。バックエンドカスタマイズの導入ページには、完全な<a href="/dev-docs/backend-customization#interactive-diagram">インタラクティブな図</a>が含まれています。</figcaption></em>
 </figure>
 
 ## `ctx.request`
 
-The `ctx.request` object contains the following parameters:
+`ctx.request`オブジェクトには以下のパラメータが含まれています：
 
-| Parameter             | Description                                                                                  | Type     |
+| パラメータ             | 説明                                                                                  | タイプ     |
 | --------------------- | -------------------------------------------------------------------------------------------- | -------- |
-| `ctx.request.body`    | Parsed version of the body. | `Object` |
-| `ctx.request.files`   | Files sent with the request. | `Array` |
-| `ctx.request.headers` | Headers sent with the request. | `Object` |
-| `ctx.request.host`    | Host part of the URL, including the port. | `String` |
-| `ctx.request.hostname`| Host part of the URL, excluding the port. | `String` |
-| `ctx.request.href`    | Complete URL of the requested resource, including the protocol, domain, port (if specified), path, and query parameters. | `String` |
-| `ctx.request.ip`      | IP of the person sending the request.| `String` |
-| `ctx.request.ips`     | When `X-Forwarded-For` is present and `app.proxy` is enabled, an array of IPs is returned, ordered from upstream to downstream. <br /><br />For example if the value were "client, proxy1, proxy2", you would receive the `["client", "proxy1", "proxy2"]` array. | `Array` |
-| `ctx.request.method`  | Request method (e.g., `GET`, `POST`). | `String` |
-| `ctx.request.origin`  | URL part before the first `/`. | `String` |
-| `ctx.request.params`  | Parameters sent in the URL.<br /><br/>For example, if the internal URL is `/restaurants/:id`, whatever you replace `:id` in the real request becomes accessible through `ctx.request.params.id`. | `Object` |
-| `ctx.request.path`    | Path of the requested resource, excluding the query parameters. | `String` |
-| `ctx.request.protocol`| Protocol being used (e.g., `https` or `http`). | `String` |
-| `ctx.request.query`   | Strapi-specific [query parameters](#ctxrequestquery). | `Object` |
-| `ctx.request.subdomains`| Subdomains included in the URL.<br /><br />For example, if the domain is `tobi.ferrets.example.com`, the value is the following array: `["ferrets", "tobi"]`. | `Array` |
-| `ctx.request.url`     | Path and query parameters of the requested resource, excluding the protocol, domain, and port. | `String` |
+| `ctx.request.body`    | 本文の解析されたバージョン。 | `Object` |
+| `ctx.request.files`   | リクエストと共に送信されたファイル。 | `Array` |
+| `ctx.request.headers` | リクエストと共に送信されたヘッダー。 | `Object` |
+| `ctx.request.host`    | ポートを含むURLのホスト部分。 | `String` |
+| `ctx.request.hostname`| ポートを除いたURLのホスト部分。 | `String` |
+| `ctx.request.href`    | プロトコル、ドメイン、ポート（指定されている場合）、パス、クエリパラメータを含む、リクエストされたリソースの完全なURL。 | `String` |
+| `ctx.request.ip`      | リクエストを送信した人のIP。| `String` |
+| `ctx.request.ips`     | `X-Forwarded-For`が存在し、`app.proxy`が有効になっている場合、上流から下流への順番でIPの配列が返されます。<br /><br />例えば、その値が "client, proxy1, proxy2" の場合、`["client", "proxy1", "proxy2"]` の配列を受け取ります。 | `Array` |
+| `ctx.request.method`  | リクエストメソッド（例：`GET`、`POST`）。 | `String` |
+| `ctx.request.origin`  | 最初の `/` の前のURL部分。 | `String` |
+| `ctx.request.params`  | URLに送信されたパラメータ。<br /><br/>例えば、内部URLが `/restaurants/:id` の場合、実際のリクエストで `:id` を置き換えたものが `ctx.request.params.id` を通じてアクセス可能になります。 | `Object` |
+| `ctx.request.path`    | クエリパラメータを除いた、リクエストされたリソースのパス。 | `String` |
+| `ctx.request.protocol`| 使用されているプロトコル（例：`https` または `http`）。 | `String` |
+| `ctx.request.query`   | Strapi固有の[クエリパラメータ](#ctxrequestquery)。 | `Object` |
+| `ctx.request.subdomains`| URLに含まれるサブドメイン。<br /><br />例えば、ドメインが `tobi.ferrets.example.com` の場合、値は次の配列になります: `["ferrets", "tobi"]`。 | `Array` |
+| `ctx.request.url`     | プロトコル、ドメイン、ポートを除いた、リクエストされたリソースのパスとクエリパラメータ。 | `String` |
 
 <details>
-<summary>Differences between protocol, origin, url, href, path, host, and hostname :</summary>
+<summary>プロトコル、オリジン、URL、href、パス、ホスト、ホスト名の間の違い :</summary>
 
-Given an API request sent to the `https://example.com:1337/api/restaurants?id=123` URL, here is what different parameters of the `ctx.request` object return:
+`https://example.com:1337/api/restaurants?id=123` URLに送信されたAPIリクエストを考えてみましょう。以下は `ctx.request` オブジェクトの異なるパラメータが返すものです：
 
-| Parameter  | Returned value                                    |
+| パラメータ  | 返される値                                    |
 | ---------- | ------------------------------------------------- |
 | `ctx.request.href`     | `https://example.com:1337/api/restaurants?id=123` |
 | `ctx.request.protocol` | `https`                                           |
@@ -73,95 +73,94 @@ Given an API request sent to the `https://example.com:1337/api/restaurants?id=12
 
 ### `ctx.request.query`
 
-`ctx.request` provides a `query` object that gives access to Strapi query parameters. The following table lists available parameters with a short description and a link to the relevant REST API documentation section (see [REST API parameters](/dev-docs/api/rest/parameters) for more information):
+`ctx.request`は、Strapiクエリパラメータにアクセスするための`query`オブジェクトを提供します。以下の表は、利用可能なパラメータを短い説明と関連するREST APIドキュメンテーションセクションへのリンクとともにリストしています（詳細は[REST APIパラメータ](/dev-docs/api/rest/parameters)を参照してください）：
 
-| Parameter | Description                                                                                                                                            | Type                 |
+| パラメータ | 説明                                                                                                                                            | タイプ                 |
 | -------------------------------------| --------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `ctx.request.query`<br />`ctx.query` | The whole query object.                                                                                                    | `Object`             |
-| `ctx.request.query.sort`             | Parameters to [sort the response](/dev-docs/api/rest/sort-pagination.md#sorting)                                            | `String` or `Array`  |
-| `ctx.request.query.filters`          | Parameters to [filter the response](/dev-docs/api/rest/filters-locale-publication#filtering)                                | `Object`             |
-| `ctx.request.query.populate`         | Parameters to [populate relations, components, or dynamic zones](/dev-docs/api/rest/populate-select#population)             | `String` or `Object` |
-| `ctx.request.query.fields`           | Parameters to [select only specific fields to return with the response](/dev-docs/api/rest/populate-select#field-selection) | `Array`              |
-| `ctx.request.query.pagination`       | Parameter to [page through entries](/dev-docs/api/rest/sort-pagination.md#pagination)                                       | `Object`             |
-| `ctx.request.query.publicationState` | Parameter to [select the Draft & Publish state](/dev-docs/api/rest/filters-locale-publication#publication-state)            | `String`             |
-| `ctx.request.query.locale`           | Parameter to [select one or multiple locales](/dev-docs/api/rest/filters-locale-publication#locale)                         | `String` or `Array`  |
+| `ctx.request.query`<br />`ctx.query` | クエリオブジェクト全体。                                                                                                    | `Object`             |
+| `ctx.request.query.sort`             | [レスポンスをソートする](/dev-docs/api/rest/sort-pagination.md#sorting)パラメータ                                            | `String` or `Array`  |
+| `ctx.request.query.filters`          | [レスポンスをフィルタリングする](/dev-docs/api/rest/filters-locale-publication#filtering)パラメータ                                | `Object`             |
+| `ctx.request.query.populate`         | [関連性、コンポーネント、またはダイナミックゾーンを埋め込む](/dev-docs/api/rest/populate-select#population)パラメータ             | `String` or `Object` |
+| `ctx.request.query.fields`           | [レスポンスとともに特定のフィールドのみを返す](/dev-docs/api/rest/populate-select#field-selection)ためのパラメータ | `Array`              |
+| `ctx.request.query.pagination`       | [エントリをページングする](/dev-docs/api/rest/sort-pagination.md#pagination)パラメータ                                       | `Object`             |
+| `ctx.request.query.publicationState` | [下書き＆公開状態を選択する](/dev-docs/api/rest/filters-locale-publication#publication-state)パラメータ            | `String`             |
+| `ctx.request.query.locale`           | [1つまたは複数のロケールを選択する](/dev-docs/api/rest/filters-locale-publication#locale)パラメータ                         | `String` or `Array`  |
 
 ## `ctx.state`
 
-The `ctx.state` object gives access to the state of the request within the Strapi back end, including specific values about the [user](#ctxstateuser), [authentication](#ctxstateauth), [route](#ctxstateroute):
+`ctx.state`オブジェクトは、Strapiバックエンド内のリクエストの状態にアクセスを提供し、[user](#ctxstateuser)、[authentication](#ctxstateauth)、[route](#ctxstateroute)についての特定の値を含みます：
 
-| Parameter                  | Description                                                                 | Type     |
-| ---------------------------|---------------------------------------------------------------------------- | -------- |
-| `ctx.state.isAuthenticated`| Returns whether the current user is authenticated in any way.               | `Boolean` |
+| パラメータ                   | 説明                                                                 | 型       |
+| ---------------------------|----------------------------------------------------------------------| -------- |
+| `ctx.state.isAuthenticated`| 現在のユーザーが何らかの方法で認証されているかどうかを返します。               | `Boolean` |
 
 ### `ctx.state.user`
 
-The `ctx.state.user` object gives access to information about the user performing the request and includes the following parameters:
+`ctx.state.user`オブジェクトは、リクエストを行うユーザーに関する情報にアクセスを提供し、以下のパラメータを含みます：
 
-| Parameter | Description                                                                                  | Type     |
-| ----------| -------------------------------------------------------------------------------------------- | -------- |
-| `ctx.state.user`| User's information. Only one relation is populated.                   | `Object` |
-| `ctx.state.user.role`| The user's role | `Object` |
-<!-- which type of "user" are we talking about here? a "U&P"-related user? -->
+| パラメータ | 説明                                                                                  | 型       |
+| ----------| --------------------------------------------------------------------------------------| -------- |
+| `ctx.state.user`| ユーザーの情報。関連性は一つだけが詳細表示されます。                    | `Object` |
+| `ctx.state.user.role`| ユーザーの役割 | `Object` |
+<!-- ここで話している"user"はどの種類の"user"を指していますか？ "U&P"に関連するユーザー？ -->
 
 ### `ctx.state.auth`
 
-The `ctx.state.auth` object gives access to information related to the authentication and includes the following parameters:
+`ctx.state.auth`オブジェクトは、認証に関連する情報にアクセスを提供し、以下のパラメータを含みます：
 
-| Parameter                     | Description                                                                                  | Type     |
-| ------------------------------| -------------------------------------------------------------------------------------------- | -------- |
-| `ctx.state.auth.strategy`     | Information about the currently used authentication strategy ([Users & Permissions plugin](/dev-docs/plugins/users-permissions) or [API tokens](/dev-docs/configurations/api-tokens)) | `Object` |
-| `ctx.state.auth.strategy.name`| Name of the currently used strategy                                                          | `String` |
-| `ctx.state.auth.credentials`  | The user's credentials                                                                      | `String` |
-<!-- ? ctx.state.auth.strategy seems to include the authenticate and verify functions. should we document them somewhere? -->
-<!-- ? not sure what credentials are used for ? -->
+| パラメータ                     | 説明                                                                                  | 型       |
+| ------------------------------| --------------------------------------------------------------------------------------| -------- |
+| `ctx.state.auth.strategy`     | 現在使用されている認証戦略に関する情報 ([Users & Permissions plugin](/dev-docs/plugins/users-permissions) または [API tokens](/dev-docs/configurations/api-tokens)) | `Object` |
+| `ctx.state.auth.strategy.name`| 現在使用されている戦略の名前                                                          | `String` |
+| `ctx.state.auth.credentials`  | ユーザーの資格情報                                                                      | `String` |
+<!-- ? ctx.state.auth.strategyは認証と確認の関数を含んでいるようです。これらをどこかで文書化すべきですか？ -->
+<!-- ? どの資格情報が何に使われているのかは確認していません -->
 
 ### `ctx.state.route`
 
-The `ctx.state.route` object gives access to information related to the current route and includes the following parameters:
+`ctx.state.route`オブジェクトは、現在のルートに関連する情報にアクセスを提供し、以下のパラメータを含みます：
 
-| Parameter | Description                                                                                  | Type     |
+| パラメータ | 説明                                                                                  | タイプ     |
 | ----------| -------------------------------------------------------------------------------------------- | -------- |
-| `ctx.state.route.method`| Method used to access the current route. | `String` |
-| `ctx.state.route.path`| Path of the current route. | `String` |
-| `ctx.state.route.config`| Configuration information about the current route. | `Object` |
-| `ctx.state.route.handler`| Handler (controller) of the current route. | `Object` |
-| `ctx.state.route.info`| Additional information about the current route, such as the apiName and the API request type. | `Object` |
-| `ctx.state.route.info.apiName`| Name of the used API.  | `String` |
-| `ctx.state.route.info.type`| Type of the used API. | `String` |
+| `ctx.state.route.method`| 現在のルートにアクセスするために使用されるメソッド。 | `String` |
+| `ctx.state.route.path`| 現在のルートのパス。 | `String` |
+| `ctx.state.route.config`| 現在のルートに関する設定情報。 | `Object` |
+| `ctx.state.route.handler`| 現在のルートのハンドラー（コントローラー）。 | `Object` |
+| `ctx.state.route.info`| apiNameやAPIリクエストタイプなど、現在のルートに関する追加情報。 | `Object` |
+| `ctx.state.route.info.apiName`| 使用されるAPIの名前。  | `String` |
+| `ctx.state.route.info.type`| 使用されるAPIのタイプ。 | `String` |
 
 ## `ctx.response`
 
-The `ctx.response` object gives access to information related to the response that the server will return and includes the following parameters:
+`ctx.response`オブジェクトは、サーバーが返すレスポンスに関連する情報にアクセスするためのもので、以下のパラメータを含みます：
 
-| Parameter | Description                                                                                  | Type     |
+| パラメータ | 説明                                                                                  | タイプ     |
 | ----------| -------------------------------------------------------------------------------------------- | -------- |
-| `ctx.response.body`| Body of the response. | `Any` |
-| `ctx.response.status` | Status code of the response. | `Integer` |
-| `ctx.response.message`| Status message of the response.<br/><br />By default, `response.message` is associated with `response.status`. | `String` |
-| `ctx.response.header`<br />`ctx.response.headers`| Header(s) sent with the response. | `Object` |
-| `ctx.response.length`| [`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length) header value as a number when present, or deduces it from `ctx.body` when possible; otherwise, returns `undefined`. | `Integer` |
-| `ctx.response.redirect`<br />`ctx.response.redirect(url, [alt])` | Performs a `302` redirect to the URL. The string "back" is special-cased to provide Referrer support; when Referrer is not present, alt or "/" is used.<br /><br />Example: `ctx.response.redirect('back', '/index.html');` | `Function` |
-| `ctx.response.attachment`<br /><br />`ctx.response.attachment([filename], [options])` | Sets [`Content-Disposition`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) header to "attachment" to signal the client to prompt for download. Optionally specify the filename of the download and some [options](https://github.com/jshttp/content-disposition#options). | `Function` |
-| `ctx.response.type`| [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) header, void of parameters such as "charset". | `String` |
-| `ctx.response.lastModified`| [`Last-Modified`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified) header as a Date, if it exists. | `DateTime` |
-| `ctx.response.etag`| Sets the [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) of a response including the wrapped "s.<br/>There is no corresponding `response.etag` getter. | `String` |
-<!-- I don't understand what these 5 last lines above mean, just copied and pasted them from the user's PR 🤷 — piwi -->
+| `ctx.response.body`| レスポンスの本文。 | `Any` |
+| `ctx.response.status` | レスポンスのステータスコード。 | `Integer` |
+| `ctx.response.message`| レスポンスのステータスメッセージ。<br/><br />デフォルトでは、`response.message`は`response.status`と関連付けられています。 | `String` |
+| `ctx.response.header`<br />`ctx.response.headers`| レスポンスと共に送信されるヘッダー。 | `Object` |
+| `ctx.response.length`| [`Content-Length`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Length) ヘッダーの値を数値化したもの、または可能な場合は `ctx.body`から推測したもの；それ以外の場合は `undefined`を返します。 | `Integer` |
+| `ctx.response.redirect`<br />`ctx.response.redirect(url, [alt])` | URLへの`302`リダイレクトを実行します。文字列の "back" は特別に処理されて、リファラーのサポートを提供します。リファラーが存在しない場合は、altまたは "/" が使用されます。<br /><br />例: `ctx.response.redirect('back', '/index.html');` | `Function` |
+| `ctx.response.attachment`<br /><br />`ctx.response.attachment([filename], [options])` | [`Content-Disposition`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition) ヘッダーを "attachment" に設定して、クライアントにダウンロードを促すように信号を送ります。ダウンロードのファイル名と一部の[オプション](https://github.com/jshttp/content-disposition#options)をオプションで指定できます。 | `Function` |
+| `ctx.response.type`| ["charset"のようなパラメータを除いた [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) ヘッダー。 | `String` |
+| `ctx.response.lastModified`| 存在する場合、[`Last-Modified`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Last-Modified) ヘッダーをDateとして。 | `DateTime` |
+| `ctx.response.etag`| レスポンスの [`ETag`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) を設定します。これには "s" が包含されます。<br/>対応する `response.etag` getterはありません。 | `String` |
 
-## Accessing the request context anywhere
+## どこからでもリクエストコンテキストにアクセスする
 
-Strapi exposes a way to access the current request context from anywhere in the code (e.g. lifecycle functions).
+Strapiは、コードのどこからでも現在のリクエストコンテキストにアクセスする方法を提供しています（例：ライフサイクル関数）。
 
-You can access the request as follows:
+以下のようにリクエストにアクセスできます：
 
 ```js
 const ctx = strapi.requestContext.get();
 ```
 
-You should only use this inside of functions that will be called in the context of an HTTP request.
+これはHTTPリクエストのコンテキストで呼び出される関数内でのみ使用するべきです。
 
 ```js
-// correct
+// 正しい
 
 const service = {
   myFunction() {
@@ -170,7 +169,7 @@ const service = {
   },
 };
 
-// incorrect
+// 不正確
 const ctx = strapi.requestContext.get();
 
 const service = {
@@ -180,7 +179,7 @@ const service = {
 };
 ```
 
-**Example:**
+**例：**
 
 ```js title="./api/test/content-types/article/lifecycles.js"
 
@@ -191,8 +190,7 @@ module.exports = {
     console.log('User info in service: ', ctx.state.user);
   },
 };
-```
 
 :::note
-Strapi uses a Node.js feature called [AsyncLocalStorage](https://nodejs.org/docs/latest-v16.x/api/async_context.html#class-asynclocalstorage) to make the context available anywhere.
+Strapiは、コンテキストをどこからでも利用できるようにするために、[AsyncLocalStorage](https://nodejs.org/docs/latest-v16.x/api/async_context.html#class-asynclocalstorage)というNode.jsの機能を使用しています。
 :::
